@@ -13,6 +13,8 @@ import 'package:inker_studio/features/login/ui/login/widgets/login_layout.dart'
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:inker_studio/ui/shared/widgets/secret_menu_widget.dart';
+import 'package:inker_studio/ui/shared/widgets/environment_indicator.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -86,10 +88,28 @@ class LoginPage extends StatelessWidget {
                 context.read<LoginBloc>().add(const LoginClearMessages());
               }
             },
-            child: const Stack(
+            child: Stack(
               children: [
-                LoginBackground(),
-                LoginLayout(),
+                const LoginBackground(),
+                const LoginLayout(),
+                // Secret menu trigger - top right corner
+                Positioned(
+                  top: 50,
+                  right: 20,
+                  child: SecretMenuWidget(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.transparent,
+                    ),
+                  ),
+                ),
+                // Environment indicator - top left corner
+                const Positioned(
+                  top: 50,
+                  left: 20,
+                  child: EnvironmentIndicator(),
+                ),
               ],
             ),
           ),

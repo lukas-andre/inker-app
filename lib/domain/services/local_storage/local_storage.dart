@@ -11,4 +11,7 @@ abstract class LocalStorage {
 
   Future<bool> setUserIsCreated(bool isCreated);
   Future<bool> getUserIsCreated();
+  
+  Future<bool> setString(String key, String value);
+  Future<String?> getString(String key);
 }

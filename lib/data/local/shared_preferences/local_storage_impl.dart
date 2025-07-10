@@ -48,4 +48,16 @@ class SharedPreferencesStorage extends LocalStorage {
     final sp = await SharedPreferences.getInstance();
     return sp.setBool(userIsCreated, isCreated);
   }
+
+  @override
+  Future<bool> setString(String key, String value) async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.setString(key, value);
+  }
+
+  @override
+  Future<String?> getString(String key) async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.getString(key);
+  }
 }

@@ -21,6 +21,8 @@ import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/layout/modal_bottom_sheet.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:inker_studio/ui/shared/widgets/secret_menu_widget.dart';
+import 'package:inker_studio/ui/shared/widgets/environment_indicator.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -56,11 +58,37 @@ class OnBoardingPage extends StatelessWidget {
         }
         context.read<OnBoardingBloc>().add(const OnBoardingClearRedirect());
       },
-      child: isWeb || isTabletOrDesktop
-          ? const OnBoardingWebView()
-          : platformService.isIOS
-              ? const CupertinoScaffold(body: OnBoardingMobileView())
-              : const OnBoardingMobileView(),
+      child: Stack(
+        children: [
+          // Main content
+          if (isWeb || isTabletOrDesktop)
+            const OnBoardingWebView()
+          else if (platformService.isIOS)
+            const CupertinoScaffold(body: OnBoardingMobileView())
+          else
+            const OnBoardingMobileView(),
+          
+          // Secret menu trigger - top right corner
+          Positioned(
+            top: 50,
+            right: 20,
+            child: SecretMenuWidget(
+              child: Container(
+                width: 50,
+                height: 50,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          
+          // Environment indicator - top left corner
+          const Positioned(
+            top: 50,
+            left: 20,
+            child: EnvironmentIndicator(),
+          ),
+        ],
+      ),
     );
   }
 }

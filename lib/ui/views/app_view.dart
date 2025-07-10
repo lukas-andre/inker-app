@@ -61,6 +61,7 @@ import 'package:inker_studio/domain/blocs/analytics/analytics_bloc.dart';
 import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
 import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/ui/theme/app_theme.dart';
+import 'package:inker_studio/domain/blocs/environment/environment_bloc.dart';
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
@@ -90,6 +91,12 @@ class _AppViewState extends State<AppView> {
         BlocProvider(create: (context) => CustomerAppBloc()),
         BlocProvider(create: (context) => ArtistAppBloc()),
         BlocProvider(create: (context) => ArtistsListBloc()),
+        // Environment bloc for managing environments
+        BlocProvider(
+          create: (context) => EnvironmentBloc(
+            environmentService: context.read(),
+          )..add(const EnvironmentEvent.loadEnvironments()),
+        ),
         BlocProvider(create: (context) => DeleteAccountBloc(
           userService: context.read(),
           localSessionService: context.read(),

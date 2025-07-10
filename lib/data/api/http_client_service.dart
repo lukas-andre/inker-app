@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
+import 'package:inker_studio/domain/services/environment/environment_service.dart';
 import 'package:inker_studio/utils/api/http_logger.dart';
 
 class CustomHttpException implements Exception {
@@ -18,6 +19,7 @@ class CustomHttpException implements Exception {
 class HttpClientService {
   static HttpClientService? _instance;
   final RemoteConfigService _remoteConfig;
+  EnvironmentService? _environmentService;
 
   final Map<String, String> _defaultHeaders = {
     HttpHeaders.contentTypeHeader: 'application/json',
@@ -33,11 +35,15 @@ class HttpClientService {
     }
     return _instance!;
   }
+  
+  void setEnvironmentService(EnvironmentService environmentService) {
+    _environmentService = environmentService;
+  }
 
   Future<Uri> _buildUrl(String path,
       {Map<String, dynamic>? queryParams}) async {
-    await _remoteConfig.fetchAndActivate();
-    final baseUrl = _remoteConfig.inkerApiUrl;
+    // Use environment service if available, otherwise fall back to remote config
+    final baseUrl = _environmentService?.getApiUrl() ?? _remoteConfig.inkerApiUrl;
 
     // Clean the baseUrl to extract just the domain
     final cleanBaseUrl = baseUrl
@@ -65,6 +71,10 @@ class HttpClientService {
   }
 
   Future<String> getBaseUrl() async {
+    // Use environment service if available, otherwise fall back to remote config
+    if (_environmentService != null) {
+      return _environmentService!.getApiUrl();
+    }
     await _remoteConfig.fetchAndActivate();
     return _remoteConfig.inkerApiUrl;
   }

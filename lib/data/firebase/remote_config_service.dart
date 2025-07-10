@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:inker_studio/domain/models/environment/environment.dart';
 
 class RemoteConfigService {
   final FirebaseRemoteConfig _remoteConfig;
@@ -28,6 +30,24 @@ class RemoteConfigService {
       'INKER_API_URL': envApiUrl,
       'isConsentV1Enabled': true,
       'isConsentV2Enabled': false,
+      'environments_config': jsonEncode({
+        'environments': {
+          'STAGING': {
+            'id': 'STAGING',
+            'name': 'Staging',
+            'description': 'Ambiente de pruebas',
+            'apiUrl': 'https://staging.inker.studio/api',
+            'additionalConfig': {}
+          },
+          'PRODUCTION': {
+            'id': 'PRODUCTION',
+            'name': 'Production',
+            'description': 'Ambiente productivo',
+            'apiUrl': 'https://www.inker.studio/api',
+            'additionalConfig': {}
+          }
+        }
+      }),
     });
 
     await fetchAndActivate();
@@ -72,5 +92,27 @@ class RemoteConfigService {
   bool get _needsUpdate {
     final now = DateTime.now();
     return now.difference(_lastFetchTime) > _cacheExpiration;
+  }
+
+  EnvironmentsConfig? getEnvironmentsConfig() {
+    try {
+      final configString = _remoteConfig.getString('environments_config');
+      if (configString.isEmpty) {
+        return null;
+      }
+      
+      final jsonData = jsonDecode(configString) as Map<String, dynamic>;
+      final environmentsMap = <String, Environment>{};
+      
+      final envData = jsonData['environments'] as Map<String, dynamic>;
+      envData.forEach((key, value) {
+        environmentsMap[key] = Environment.fromJson(value as Map<String, dynamic>);
+      });
+      
+      return EnvironmentsConfig(environments: environmentsMap);
+    } catch (e) {
+      print('Error parsing environments config: $e');
+      return null;
+    }
   }
 }
