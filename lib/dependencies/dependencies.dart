@@ -60,6 +60,8 @@ import 'package:inker_studio/data/api/tokens/api_token_service.dart';
 import 'package:inker_studio/domain/services/tokens/token_service.dart';
 import 'package:inker_studio/domain/services/tokens/token_storage_service.dart';
 import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
+import 'package:inker_studio/domain/services/environment/environment_service.dart';
+import 'package:inker_studio/data/services/environment/environment_service_impl.dart';
 
 Future<List<RepositoryProvider>> buildProviders() async {
   // Initialize services that need to be created asynchronously
@@ -73,9 +75,24 @@ Future<List<RepositoryProvider>> buildProviders() async {
   // Initialize geolocation service
   final geolocationService = GeolocationFactory.createGeolocationService();
   
+  // Initialize environment service and set it in HttpClientService
+  final localStorage = SharedPreferencesStorage();
+  final environmentService = EnvironmentServiceImpl(
+    localStorage: localStorage,
+    remoteConfig: remoteConfig,
+  );
+  await environmentService.initialize();
+  httpClient.setEnvironmentService(environmentService);
+  
   return [
     // Event bus provider - singleton instance for app-wide communication
     RepositoryProvider<AppEventBus>(create: (_) => AppEventBus()),
+    // LocalStorage must be provided before EnvironmentService
+    RepositoryProvider<LocalStorage>(create: (_) => localStorage),
+    // Environment service provider - must be before HttpClientService
+    RepositoryProvider<EnvironmentService>(
+      create: (_) => environmentService,
+    ),
     // Database service provider
     RepositoryProvider<PlatformDatabaseService>(create: (_) => databaseService),
     // Geolocation service provider
@@ -83,7 +100,6 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Platform service provider
     RepositoryProvider<PlatformService>(create: (_) => PlatformServiceImpl()),
     RepositoryProvider<GoogleAuthService>(create: (_) => GoogleAuthService()),
-    RepositoryProvider<LocalStorage>(create: (_) => SharedPreferencesStorage()),
     RepositoryProvider<LocationService>(create: (_) => ApiLocationService()),
     RepositoryProvider<QuotationService>(create: (_) => ApiQuotationService()),
     RepositoryProvider<AccountVerificationService>(

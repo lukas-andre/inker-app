@@ -12,6 +12,8 @@ import 'package:inker_studio/utils/image/image_cache_settings.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
+import 'package:inker_studio/ui/shared/widgets/secret_menu_widget.dart';
+import 'package:inker_studio/ui/shared/widgets/environment_indicator.dart';
 
 class SettingsPage extends StatelessWidget {
   static const String routeName = '/settings';
@@ -33,6 +35,13 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(S.of(context).settings, style: TextStyleTheme.headline1),
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: const [
+          // Environment indicator in app bar
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: Center(child: EnvironmentIndicator()),
+          ),
+        ],
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
@@ -63,13 +72,29 @@ class _SettingsContent extends StatelessWidget {
     final session = context.watch<AuthBloc>().state.session;
     final isArtist = session.user?.userType == 'artist';
 
-    return ListView(
+    return Stack(
       children: [
-        _ApplicationSettings(settings: settings),
-        if (isArtist) _ArtistSettings(settings: settings),
-        _AccountSettings(),
-        _LegalSettings(),
-        _DangerZone(),
+        ListView(
+          children: [
+            _ApplicationSettings(settings: settings),
+            if (isArtist) _ArtistSettings(settings: settings),
+            _AccountSettings(),
+            _LegalSettings(),
+            _DangerZone(),
+          ],
+        ),
+        // Secret menu trigger - hidden in bottom right corner
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: SecretMenuWidget(
+            child: Container(
+              width: 50,
+              height: 50,
+              color: Colors.transparent,
+            ),
+          ),
+        ),
       ],
     );
   }
