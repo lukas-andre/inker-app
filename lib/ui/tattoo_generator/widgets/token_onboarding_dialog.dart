@@ -24,7 +24,10 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        constraints: const BoxConstraints(maxWidth: 400, maxHeight: 500),
+        constraints: BoxConstraints(
+          maxWidth: 400, 
+          maxHeight: MediaQuery.of(context).size.height * 0.8,
+        ),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(20),
@@ -70,7 +73,7 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
-                      'Skip',
+                      'Omitir',
                       style: TextStyleTheme.bodyText2.copyWith(
                         color: Colors.white54,
                       ),
@@ -106,7 +109,7 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
                       }
                     },
                     child: Text(
-                      _currentPage < 3 ? 'Next' : 'Got it!',
+                      _currentPage < 3 ? 'Siguiente' : '¡Entendido!',
                       style: TextStyleTheme.bodyText2.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                         fontWeight: FontWeight.bold,
@@ -123,37 +126,37 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
   }
 
   Widget _buildWelcomePage(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.auto_awesome,
-              size: 64,
+              size: 48,
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           Text(
-            '¡Welcome to AI Tattoo Generator!',
+            '¡Bienvenido al Generador IA!',
             style: TextStyleTheme.headline1.copyWith(
-              fontSize: 24,
+              fontSize: 22,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
-            'Create unique tattoo designs powered by artificial intelligence',
+            'Crea diseños de tatuajes únicos con inteligencia artificial',
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.white70,
-              fontSize: 16,
+              fontSize: 14,
             ),
             textAlign: TextAlign.center,
           ),
@@ -204,11 +207,11 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           Text(
-            'Introducing Tokens',
+            'Conoce los Tokens',
             style: TextStyleTheme.headline1.copyWith(
-              fontSize: 24,
+              fontSize: 22,
             ),
           ),
           const SizedBox(height: 16),
@@ -221,15 +224,15 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
                 height: 1.5,
               ),
               children: [
-                const TextSpan(text: 'Each tattoo design costs '),
+                const TextSpan(text: 'Cada diseño cuesta '),
                 TextSpan(
-                  text: '1 token',
+                  text: '0.5 token',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const TextSpan(text: ' per image.\nTokens help us maintain quality and server costs.'),
+                const TextSpan(text: ' por imagen.\nLos tokens nos ayudan a mantener la calidad.'),
               ],
             ),
           ),
@@ -250,10 +253,10 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(
-                    'Each generation creates 4 images = 4 tokens',
+                    'Cada generación crea 2 imágenes = 1 token',
                     style: TextStyleTheme.bodyText2.copyWith(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 13,
                     ),
                   ),
                 ),
@@ -266,37 +269,37 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
   }
 
   Widget _buildHowToGetTokensPage(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.shopping_cart,
-              size: 64,
+              size: 48,
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 20),
           Text(
-            'How to Get Tokens',
+            'Cómo Obtener Tokens',
             style: TextStyleTheme.headline1.copyWith(
-              fontSize: 24,
+              fontSize: 22,
             ),
           ),
-          const SizedBox(height: 24),
-          _buildStep(context, '1', 'Check your balance', 'Look at the top right corner'),
+          const SizedBox(height: 20),
+          _buildStep(context, '1', 'Revisa tu saldo', 'Mira la esquina superior'),
+          const SizedBox(height: 12),
+          _buildStep(context, '2', 'Haz clic en el saldo', 'Abre la tienda de tokens'),
+          const SizedBox(height: 12),
+          _buildStep(context, '3', 'Elige un paquete', '¡Próximamente!'),
           const SizedBox(height: 16),
-          _buildStep(context, '2', 'Click on balance', 'Opens the token store'),
-          const SizedBox(height: 16),
-          _buildStep(context, '3', 'Choose a package', 'Coming soon!'),
-          const SizedBox(height: 24),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -304,17 +307,18 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.green.withOpacity(0.3)),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+            child: Column(
               children: [
-                const Icon(Icons.celebration, color: Colors.green, size: 20),
-                const SizedBox(width: 8),
+                const Icon(Icons.celebration, color: Colors.green, size: 24),
+                const SizedBox(height: 8),
                 Text(
-                  'Free tokens for new users!',
+                  '¡Tokens gratis para nuevos usuarios!',
                   style: TextStyleTheme.bodyText2.copyWith(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -369,13 +373,13 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
   }
 
   Widget _buildGetStartedPage(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -389,31 +393,31 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
             ),
             child: const Icon(
               Icons.rocket_launch,
-              size: 64,
+              size: 48,
               color: Colors.white,
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 20),
           Text(
-            'Ready to Create!',
+            '¡Listo para Crear!',
             style: TextStyleTheme.headline1.copyWith(
-              fontSize: 24,
+              fontSize: 22,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
-            'Start designing your perfect tattoo',
+            'Comienza a diseñar tu tatuaje perfecto',
             style: TextStyleTheme.bodyText1.copyWith(
               color: Colors.white70,
-              fontSize: 16,
+              fontSize: 14,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
             child: PrimaryButton(
-              text: 'Get Started',
+              text: 'Comenzar',
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -425,7 +429,7 @@ class _TokenOnboardingDialogState extends State<TokenOnboardingDialog> {
               size: 20,
             ),
             label: Text(
-              'Get More Tokens',
+              'Obtener Más Tokens',
               style: TextStyleTheme.bodyText2.copyWith(
                 color: Theme.of(context).colorScheme.secondary,
                 fontWeight: FontWeight.bold,

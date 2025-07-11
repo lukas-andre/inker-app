@@ -238,10 +238,17 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
         title: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.brush, color: Colors.white),
+            const Icon(Icons.brush, color: Colors.white, size: 20),
             const SizedBox(width: 8),
-            Text(s.tattooGenerator, style: TextStyleTheme.headline2),
+            Flexible(
+              child: Text(
+                'Generador IA',
+                style: TextStyleTheme.headline2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -315,7 +322,7 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
           backgroundColor: Theme.of(context).colorScheme.secondary,
           icon: const Icon(Icons.token, color: Colors.white),
           label: const Text(
-            'Get Tokens',
+            'Obtener Tokens',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -947,12 +954,13 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Insufficient Tokens'),
-                content: const Text('You need 4 tokens to generate tattoo designs. Please purchase more tokens to continue.'),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                title: const Text('Tokens Insuficientes'),
+                content: const Text('Necesitas 4 tokens para generar diseños de tatuajes. Por favor compra más tokens para continuar.'),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text(s.cancel),
+                    child: const Text('Cancelar'),
                   ),
                   TextButton(
                     onPressed: () {
@@ -960,7 +968,7 @@ class _TattooGeneratorPageMobileState extends State<_TattooGeneratorPageMobile>
                       // Navigate to token purchase page
                       Navigator.of(context).pushNamed('/token-purchase');
                     },
-                    child: const Text('Buy Tokens'),
+                    child: const Text('Comprar Tokens'),
                   ),
                 ],
               ),
