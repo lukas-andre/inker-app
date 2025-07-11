@@ -32,6 +32,7 @@ import 'package:inker_studio/domain/blocs/quoation/create_open_quotation/create_
 import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/open_quotation_list/open_quotation_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/participating_quotations/participating_quotations_bloc.dart';
 import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart' show RegisterArtistBloc;
 import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart' show RegisterCustomerBloc;
 import 'package:inker_studio/features/register/bloc/register/register_bloc.dart' show RegisterBloc;
@@ -293,6 +294,12 @@ class _AppViewState extends State<AppView> {
 
         BlocProvider(
           create: (context) => OpenQuotationListBloc(
+            quotationService: context.read(),
+            sessionService: context.read(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => ParticipatingQuotationsBloc(
             quotationService: context.read(),
             sessionService: context.read(),
           ),

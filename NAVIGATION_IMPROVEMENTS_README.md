@@ -334,14 +334,14 @@ void _onItemTapped(int index) {
 - Verificar que los deep links sigan funcionando
 - Probar navegación hacia atrás en todos los flujos
 
-## TODOs Pendientes
+## Notas de Implementación
 
-### Bug de Refresh en WorkTabPage del Artista
-- **Problema**: El botón de refresh en la tab de "Trabajos" siempre refresca OpenQuotationListBloc incluso cuando está en la tab "Mis Propuestas"
-- **Solución propuesta**: Implementar un sistema para detectar qué sub-tab está activa dentro de WorkTabPage
-- **Archivos afectados**: 
-  - `lib/ui/artist/artist_home_page.dart`
-  - `lib/ui/artist/work/work_tab_page.dart`
+### Refresh en WorkTabPage
+- La tab de "Trabajos" del artista TIENE botón de refresh en el AppBar
+- Los BLoCs (OpenQuotationListBloc y ParticipatingQuotationsBloc) se movieron a app_view.dart
+- El refresh detecta qué sub-tab está activa usando GlobalKey<WorkTabPageState>
+- Cada sub-tab también mantiene su propio RefreshIndicator con pull-to-refresh
+- El refresh funciona correctamente tanto desde el botón como con pull-to-refresh
 
 ## Mejoras Adicionales Sugeridas
 
