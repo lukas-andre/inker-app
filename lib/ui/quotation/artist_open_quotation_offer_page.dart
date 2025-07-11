@@ -17,6 +17,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:inker_studio/ui/artist/artist_home_page.dart';
 
 // Renamed Page and State
 class ArtistOpenQuotationOfferPage extends StatelessWidget {
@@ -115,22 +116,16 @@ class _ArtistOpenQuotationOfferPageViewState
                   l10n.offerSubmittedTitle,
                   l10n.offerSubmittedMessage,
                   onComplete: () {
-                    // Refresh the quotation list (specifically open tab if possible)
-                    // This might need refinement depending on how list state is managed
-                    context.read<QuotationListBloc>().add(
-                          const QuotationListEvent
-                              .refreshCurrentTab(), // Assuming this exists or add similar
-                        );
-
-                    // Pop back to the previous screen (likely quotation list or details)
-                    Future.delayed(const Duration(milliseconds: 300), () {
-                      if (context.mounted) {
-                        // Pop back twice: once for the success page, once for the offer page itself
-                        Navigator.of(context).pop(); // Pop success page
-                        Navigator.of(context)
-                            .pop(true); // Pop offer page with result=true
-                      }
-                    });
+                    // Navigate directly to ArtistAppPage on "Mis Propuestas" tab
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const ArtistAppPage(
+                          initialTab: 2, // Tab de Trabajos
+                          workTabIndex: 1, // Sub-tab "Mis Propuestas"
+                        ),
+                      ),
+                      (route) => false,
+                    );
                   },
                 );
               },

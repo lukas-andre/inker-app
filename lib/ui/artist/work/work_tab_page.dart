@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/participating_quotations/participating_quotations_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/open_quotation_list/open_quotation_list_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/open_quotations_tab_view.dart';
 import 'package:inker_studio/ui/artist/work/participating_quotations_tab_view.dart';
 
 class WorkTabPage extends StatefulWidget {
-  const WorkTabPage({super.key});
+  final ValueNotifier<int>? currentTabNotifier;
+  final int? initialTabIndex;
+  
+  const WorkTabPage({
+    super.key,
+    this.currentTabNotifier,
+    this.initialTabIndex,
+  });
 
   @override
   State<WorkTabPage> createState() => _WorkTabPageState();
@@ -19,7 +27,30 @@ class _WorkTabPageState extends State<WorkTabPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.initialTabIndex ?? widget.currentTabNotifier?.value ?? 0,
+    );
+    
+    // Update notifier when tab changes
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        widget.currentTabNotifier?.value = _tabController.index;
+        
+        // Refresh the appropriate tab when switching
+        if (_tabController.index == 0) {
+          // Refresh Open Quotations
+          context.read<OpenQuotationListBloc>().add(
+            const OpenQuotationListEvent.refreshOpenQuotations(),
+          );
+        } else if (_tabController.index == 1) {
+          // Refresh Participating Quotations
+          final participatingBloc = context.read<ParticipatingQuotationsBloc>();
+          participatingBloc.add(const ParticipatingQuotationsEvent.refresh());
+        }
+      }
+    });
   }
 
   @override
