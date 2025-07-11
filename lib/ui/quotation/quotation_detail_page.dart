@@ -1737,6 +1737,136 @@ class _OfferListItem extends StatelessWidget {
       );
     }
 
+    // Function to show accept offer confirmation dialog
+    Future<void> _showAcceptOfferConfirmation() async {
+      final bool? confirmed = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            title: Text(
+              'Confirmar aceptación',
+              style: TextStyleTheme.headline3.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '¿Estás seguro que deseas aceptar esta oferta? Una vez aceptada, no podrás cambiar tu decisión.',
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white.withValues(alpha: 0.9),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.person_outline,
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${l10n.artist}: ${offer.artistName ?? ""}',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.attach_money,
+                        color: Color(0xFF4CAF50),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${l10n.estimatedCost}: ${offer.estimatedCost != null && offer.estimatedCost!.amount > 0 ? offer.estimatedCost!.toString() : l10n.notSpecified} ${offer.estimatedCost?.currency ?? ""}',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: Text(
+                  l10n.cancel,
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white.withValues(alpha: 0.7),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4CAF50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Confirmar',
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirmed == true) {
+        context
+            .read<QuotationListBloc>()
+            .add(QuotationListEvent.acceptOffer(
+              quotationId: quotationId,
+              offerId: offer.id,
+            ));
+      }
+    }
+
     // Format cost if available
     String costText =
         offer.estimatedCost != null && offer.estimatedCost!.amount > 0
@@ -1863,14 +1993,7 @@ class _OfferListItem extends StatelessWidget {
               if (!isAccepted) ...[
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
-                  onPressed: () {
-                    context
-                        .read<QuotationListBloc>()
-                        .add(QuotationListEvent.acceptOffer(
-                          quotationId: quotationId,
-                          offerId: offer.id,
-                        ));
-                  },
+                  onPressed: _showAcceptOfferConfirmation,
                   icon: const Icon(Icons.check_circle_outline),
                   label: Text(l10n.acceptOffer),
                   style: ElevatedButton.styleFrom(
