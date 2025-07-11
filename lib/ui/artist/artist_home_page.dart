@@ -39,6 +39,7 @@ class ArtistAppPage extends StatefulWidget {
 class _ArtistAppPageState extends State<ArtistAppPage> {
   late int _selectedIndex;
   final ValueNotifier<int> _workTabIndexNotifier = ValueNotifier<int>(0);
+  final GlobalKey<WorkTabPageState> _workTabKey = GlobalKey<WorkTabPageState>();
   
   @override
   void initState() {
@@ -64,6 +65,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     ),
     const QuotationListPage(hideHeader: true),
     WorkTabPage(
+      key: _workTabKey,
       currentTabNotifier: _workTabIndexNotifier,
       initialTabIndex: widget.workTabIndex,
     ),
@@ -100,8 +102,9 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
         );
         break;
       case 2: // Trabajos
-        // Se maneja individualmente en cada sub-tab
-        if (_workTabIndexNotifier.value == 0) {
+        // Refrescar la tab activa
+        final currentTabIndex = _workTabKey.currentState?.currentTabIndex ?? _workTabIndexNotifier.value;
+        if (currentTabIndex == 0) {
           context.read<OpenQuotationListBloc>().add(
             const OpenQuotationListEvent.refreshOpenQuotations(),
           );
@@ -164,14 +167,13 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
                 );
                 break;
               case 2: // Trabajos
-                // Refresh the current tab in WorkTabPage
-                if (_workTabIndexNotifier.value == 0) {
-                  // Tab 0: Oportunidades
+                // Refrescar la tab activa
+                final currentTabIndex = _workTabKey.currentState?.currentTabIndex ?? _workTabIndexNotifier.value;
+                if (currentTabIndex == 0) {
                   context.read<OpenQuotationListBloc>().add(
                     const OpenQuotationListEvent.refreshOpenQuotations(),
                   );
                 } else {
-                  // Tab 1: Mis Propuestas
                   context.read<ParticipatingQuotationsBloc>().add(
                     const ParticipatingQuotationsEvent.refresh(),
                   );
