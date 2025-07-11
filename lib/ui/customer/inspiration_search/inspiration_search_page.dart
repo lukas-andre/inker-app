@@ -36,11 +36,13 @@ class InspirationSearchPage extends StatefulWidget {
 }
 
 class _InspirationSearchPageState extends State<InspirationSearchPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  late AnimationController _fabAnimationController;
+  late Animation<double> _fabScaleAnimation;
   bool _isSearchExpanded = false;
   final _imageCache = CachedImageManager();
   Timer? _debounce;
@@ -63,6 +65,20 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
         curve: Curves.easeInOut,
       ),
     );
+    
+    // Setup animation for AI FAB
+    _fabAnimationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true);
+    
+    _fabScaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(CurvedAnimation(
+      parent: _fabAnimationController,
+      curve: Curves.easeInOut,
+    ));
 
     // Load popular tags when the page is first shown
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -93,6 +109,7 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
     _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     _animationController.dispose();
+    _fabAnimationController.dispose();
     _debounce?.cancel();
     super.dispose();
   }
@@ -472,27 +489,93 @@ class _InspirationSearchPageState extends State<InspirationSearchPage>
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: _isSearchExpanded
-            ? Colors.white
-            : Theme.of(context).colorScheme.error,
-        onPressed: () {
-          setState(() {
-            _isSearchExpanded = !_isSearchExpanded;
-          });
-          if (_isSearchExpanded) {
-            _animationController.forward();
-          } else {
-            _animationController.reverse();
-            _searchController.clear();
-          }
-        },
-        child: Icon(
-          _isSearchExpanded ? Icons.close : Icons.search,
-          color: _isSearchExpanded
-              ? Theme.of(context).colorScheme.error
-              : Colors.white,
-        ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          // Botón para abrir el generador de tatuajes con IA
+          AnimatedBuilder(
+            animation: _fabScaleAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _fabScaleAnimation.value,
+                child: Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.secondary,
+                        Theme.of(context).colorScheme.error,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.4),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: FloatingActionButton.extended(
+                    heroTag: 'tattooGenerator',
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => TattooGeneratorBloc(
+                              tattooGeneratorService: context.read(),
+                              sessionService: context.read(),
+                              tokenCubit: context.read(),
+                            ),
+                            child: const TattooGeneratorPage(),
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.auto_awesome, color: Colors.white, size: 24),
+                    label: Text(
+                      'Crea con IA',
+                      style: TextStyleTheme.bodyText1.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          // Botón de búsqueda existente
+          FloatingActionButton(
+            heroTag: "search",
+            backgroundColor: _isSearchExpanded
+                ? Colors.white
+                : Theme.of(context).colorScheme.error,
+            onPressed: () {
+              setState(() {
+                _isSearchExpanded = !_isSearchExpanded;
+              });
+              if (_isSearchExpanded) {
+                _animationController.forward();
+              } else {
+                _animationController.reverse();
+                _searchController.clear();
+              }
+            },
+            child: Icon(
+              _isSearchExpanded ? Icons.close : Icons.search,
+              color: _isSearchExpanded
+                  ? Theme.of(context).colorScheme.error
+                  : Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

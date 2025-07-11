@@ -292,10 +292,13 @@ class _AccountSettings extends StatelessWidget {
       context: context,
       builder: (context) => BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          // Si el estado cambia a unauthenticated, cerrar el diálogo y navegar
+          // Si el estado cambia a unauthenticated, solo cerrar el diálogo
+          // AppView se encargará de la navegación al OnBoarding
           if (state.status == AuthStatus.unauthenticated) {
-            Navigator.pop(context); // Cerrar el diálogo
-            Navigator.of(context).pop(); // Salir de la página de settings
+            // Solo cerrar el diálogo si está montado
+            if (Navigator.of(context).canPop()) {
+              Navigator.pop(context); // Cerrar el diálogo
+            }
           }
         },
         child: AlertDialog(
@@ -321,15 +324,11 @@ class _AccountSettings extends StatelessWidget {
                   onPressed: authState.status == AuthStatus.unknown 
                       ? null 
                       : () {
-                          Navigator.pop(context);
-                          try {
-                            context.read<AuthBloc>().add(
-                                AuthLogoutRequested(authState.session));
-                          } catch (e) {
-                            // Si hay un error en el logout, forzar el logout automáticamente
-                            print('Error during logout: $e');
-                            // El AuthBloc manejará el error y cambiará el estado a unauthenticated
-                          }
+                          // Solo disparar el evento de logout
+                          // El BlocListener se encargará de cerrar el diálogo
+                          // y AppView se encargará de la navegación
+                          context.read<AuthBloc>().add(
+                              AuthLogoutRequested(authState.session));
                         },
                   child: authState.status == AuthStatus.unknown
                       ? const SizedBox(
