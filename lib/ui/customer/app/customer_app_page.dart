@@ -6,6 +6,7 @@ import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiratio
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/blocs/tokens/token_cubit.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/open_quotations_tab_view.dart';
@@ -25,20 +26,23 @@ import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
 
 class CustomerAppPage extends StatefulWidget {
-  const CustomerAppPage({super.key});
+  final int? initialTab;
+  
+  const CustomerAppPage({super.key, this.initialTab});
 
   @override
   _CustomerAppPageState createState() => _CustomerAppPageState();
 }
 
 class _CustomerAppPageState extends State<CustomerAppPage> {
-  int _selectedIndex = 2;
+  late int _selectedIndex;
   late final List<Widget> _pageWidgets;
   final HeroController _heroController = HeroController();
 
   @override
   void initState() {
     super.initState();
+    _selectedIndex = widget.initialTab ?? 2; // Default: Inspiración
     _pageWidgets = <Widget>[
       const BuildMapPage(hideHeader: true),
       const CustomerQuotationsTabView(),
@@ -90,6 +94,35 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
     setState(() {
       _selectedIndex = index;
     });
+    
+    // Refresh automático al cambiar de tab
+    switch (index) {
+      case 0: // Explorar
+        final mapState = context.read<MapBloc>().state;
+        final currentLocation = mapState.currentLocation;
+        if (currentLocation != null) {
+          context.read<ExplorerPageBloc>().add(
+            ExplorerPageFetchArtists(location: currentLocation),
+          );
+        }
+        break;
+      case 1: // Cotizaciones
+        context.read<QuotationListBloc>().add(
+          const QuotationListEvent.refreshCurrentTab(),
+        );
+        break;
+      case 2: // Inspiración
+        // Ya se carga automáticamente en initState del InspirationSearchPage
+        break;
+      case 3: // Citas
+        context.read<AppointmentBloc>().add(
+          const AppointmentEvent.loadAppointments(),
+        );
+        break;
+      case 4: // Perfil
+        // El perfil se actualiza en didChangeDependencies
+        break;
+    }
   }
 
   String _getAppBarTitle() {
@@ -110,6 +143,42 @@ class _CustomerAppPageState extends State<CustomerAppPage> {
   // Get the appropriate action buttons based on the selected tab
   List<Widget> _getAppBarActions() {
     final List<Widget> actions = [];
+
+    // Add refresh button for all tabs except profile and appointments (which has pull-to-refresh)
+    if (_selectedIndex != 4 && _selectedIndex != 3) {
+      actions.add(
+        IconButton(
+          icon: const Icon(Icons.refresh, color: Colors.white),
+          onPressed: () {
+            switch (_selectedIndex) {
+              case 0: // Explorar
+                // Refresh map by fetching artists at current location
+                final mapState = context.read<MapBloc>().state;
+                final currentLocation = mapState.currentLocation;
+                if (currentLocation != null) {
+                  context.read<ExplorerPageBloc>().add(
+                    ExplorerPageFetchArtists(location: currentLocation),
+                  );
+                }
+                break;
+              case 1: // Cotizaciones
+                context.read<QuotationListBloc>().add(
+                  const QuotationListEvent.refreshCurrentTab(),
+                );
+                break;
+              case 2: // Inspiración
+                context.read<InspirationSearchBloc>().add(
+                  const InspirationSearchEvent.searchBoth(
+                    query: '',
+                    sortBy: SortType.relevance,
+                  ),
+                );
+                break;
+            }
+          },
+        ),
+      );
+    }
 
     // Add page-specific action buttons based on selected index
     if (_selectedIndex == 0) {

@@ -11,6 +11,8 @@ import 'package:inker_studio/ui/quotation/quotation_offer_message_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:intl/intl.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
+import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
 import 'package:inker_studio/domain/models/stencil/stencil.dart';
@@ -1864,6 +1866,32 @@ class _OfferListItem extends StatelessWidget {
               quotationId: quotationId,
               offerId: offer.id,
             ));
+        
+        // Listen for success and navigate to appointments
+        final navigator = Navigator.of(context);
+        context.read<QuotationListBloc>().stream.firstWhere(
+          (state) => state is QuotationListLoaded,
+        ).then((_) {
+          // Show success animation and navigate to appointments
+          navigator.push(
+            MaterialPageRoute(
+              builder: (context) => SuccessAnimationPage(
+                title: l10n.offerSubmittedTitle,
+                subtitle: l10n.offerSubmittedMessage,
+                state: AnimationState.completed,
+                onAnimationComplete: () {
+                  // Navigate to CustomerAppPage on appointments tab
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const CustomerAppPage(initialTab: 3), // Tab 3 = Citas
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+            ),
+          );
+        });
       }
     }
 

@@ -12,6 +12,7 @@ import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 
 class CreateQuotationPage extends StatefulWidget {
   final String artistId;
@@ -93,7 +94,6 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
             },
             quotationCreated: (id, message, created, referenceImages) {
               if (created) {
-                // The event bus will handle refreshing the quotation list
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SuccessAnimationPage(
@@ -102,8 +102,13 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                           S.of(context).quotationCreatedSuccessfullyDescription,
                       state: AnimationState.completed,
                       onAnimationComplete: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        // Navigate to CustomerAppPage on quotations tab
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const CustomerAppPage(initialTab: 1), // Tab 1 = Cotizaciones
+                          ),
+                          (route) => false,
+                        );
                       },
                     ),
                   ),

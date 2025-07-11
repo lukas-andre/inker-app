@@ -334,6 +334,15 @@ void _onItemTapped(int index) {
 - Verificar que los deep links sigan funcionando
 - Probar navegación hacia atrás en todos los flujos
 
+## TODOs Pendientes
+
+### Bug de Refresh en WorkTabPage del Artista
+- **Problema**: El botón de refresh en la tab de "Trabajos" siempre refresca OpenQuotationListBloc incluso cuando está en la tab "Mis Propuestas"
+- **Solución propuesta**: Implementar un sistema para detectar qué sub-tab está activa dentro de WorkTabPage
+- **Archivos afectados**: 
+  - `lib/ui/artist/artist_home_page.dart`
+  - `lib/ui/artist/work/work_tab_page.dart`
+
 ## Mejoras Adicionales Sugeridas
 
 ### 1. Navegación desde Notificaciones
