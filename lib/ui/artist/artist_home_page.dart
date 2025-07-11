@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/open_quotation_list/open_quotation_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/participating_quotations/participating_quotations_bloc.dart';
+import 'package:inker_studio/domain/blocs/consent/form_template/form_template_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/artist/work/work_tab_page.dart';
 import 'package:inker_studio/ui/artist/agenda/agenda_page.dart';
@@ -17,21 +21,32 @@ import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart
 import 'package:inker_studio/domain/blocs/artist/artist_app/models/artist_page_nav_bar_icons.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/layout/bottom_nav_bar_icons.dart';
-import 'package:inker_studio/data/firebase/remote_config_service.dart';
 
 class ArtistAppPage extends StatefulWidget {
-  const ArtistAppPage({super.key});
+  final int? initialTab;
+  final int? workTabIndex;
+  
+  const ArtistAppPage({
+    super.key,
+    this.initialTab,
+    this.workTabIndex,
+  });
 
   @override
   _ArtistAppPageState createState() => _ArtistAppPageState();
 }
 
 class _ArtistAppPageState extends State<ArtistAppPage> {
-  int _selectedIndex = 2;
+  late int _selectedIndex;
+  final ValueNotifier<int> _workTabIndexNotifier = ValueNotifier<int>(0);
   
   @override
   void initState() {
     super.initState();
+    _selectedIndex = widget.initialTab ?? 2; // Default: Trabajos
+    if (widget.workTabIndex != null) {
+      _workTabIndexNotifier.value = widget.workTabIndex!;
+    }
     
     // Refresh notifications when the page is shown
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -48,7 +63,10 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
       onNavigateToWorks: () => _onItemTapped(2),
     ),
     const QuotationListPage(hideHeader: true),
-    const WorkTabPage(),
+    WorkTabPage(
+      currentTabNotifier: _workTabIndexNotifier,
+      initialTabIndex: widget.workTabIndex,
+    ),
     const ConsentTemplatesPage(),
     const ArtistMyProfilePage(),
   ];
@@ -69,6 +87,45 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
     setState(() {
       _selectedIndex = index;
     });
+    
+    // Refresh automático al cambiar de tab
+    switch (index) {
+      case 0: // Agenda
+        context.read<ArtistAgendaBloc>()
+          .add(const ArtistAgendaEvent.refreshed());
+        break;
+      case 1: // Cotizaciones
+        context.read<QuotationListBloc>().add(
+          const QuotationListEvent.refreshCurrentTab(),
+        );
+        break;
+      case 2: // Trabajos
+        // Se maneja individualmente en cada sub-tab
+        if (_workTabIndexNotifier.value == 0) {
+          context.read<OpenQuotationListBloc>().add(
+            const OpenQuotationListEvent.refreshOpenQuotations(),
+          );
+        } else {
+          context.read<ParticipatingQuotationsBloc>().add(
+            const ParticipatingQuotationsEvent.refresh(),
+          );
+        }
+        break;
+      case 3: // Consentimientos
+        context.read<FormTemplateBloc>().add(
+          const FormTemplateEvent.started(),
+        );
+        break;
+      case 4: // Perfil
+        // El perfil se actualiza por sí solo
+        break;
+    }
+  }
+  
+  @override
+  void dispose() {
+    _workTabIndexNotifier.dispose();
+    super.dispose();
   }
   
   String _getAppBarTitle(BuildContext context) {
@@ -90,9 +147,50 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
   List<Widget> _getAppBarActions() {
     final List<Widget> actions = [];
     
+    // Add refresh button for all tabs except profile
+    if (_selectedIndex != 4) {
+      actions.add(
+        IconButton(
+          icon: const Icon(Icons.refresh, color: Colors.white),
+          onPressed: () {
+            switch (_selectedIndex) {
+              case 0: // Agenda
+                context.read<ArtistAgendaBloc>()
+                  .add(const ArtistAgendaEvent.refreshed());
+                break;
+              case 1: // Cotizaciones
+                context.read<QuotationListBloc>().add(
+                  const QuotationListEvent.refreshCurrentTab(),
+                );
+                break;
+              case 2: // Trabajos
+                // Refresh the current tab in WorkTabPage
+                if (_workTabIndexNotifier.value == 0) {
+                  // Tab 0: Oportunidades
+                  context.read<OpenQuotationListBloc>().add(
+                    const OpenQuotationListEvent.refreshOpenQuotations(),
+                  );
+                } else {
+                  // Tab 1: Mis Propuestas
+                  context.read<ParticipatingQuotationsBloc>().add(
+                    const ParticipatingQuotationsEvent.refresh(),
+                  );
+                }
+                break;
+              case 3: // Consentimientos
+                context.read<FormTemplateBloc>().add(
+                  const FormTemplateEvent.started(),
+                );
+                break;
+            }
+          },
+        ),
+      );
+    }
+    
     // Add page-specific action buttons
     if (_selectedIndex == 0) {  // Agenda page
-      actions.addAll([
+      actions.add(
         IconButton(
           icon: const Icon(
             Icons.settings,
@@ -113,18 +211,7 @@ class _ArtistAppPageState extends State<ArtistAppPage> {
             );
           },
         ),
-        IconButton(
-          icon: const Icon(
-            Icons.refresh,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            context
-                .read<ArtistAgendaBloc>()
-                .add(const ArtistAgendaEvent.refreshed());
-          },
-        ),
-      ]);
+      );
     }
     
     // Add notification badge for all pages except profile
