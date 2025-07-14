@@ -309,16 +309,27 @@ class CreateOpenQuotationBloc
     if (!state.isDescriptionValid) {
       emit(state.copyWith(
         status: CreateOpenQuotationStatus.validationError,
-        errorMessage: 'Mínimo $_minDescriptionLength caracteres requeridos.',
+        errorMessage: 'La descripción debe tener al menos $_minDescriptionLength caracteres.',
       ));
       return;
     }
     
     // Location validation now relies purely on the reactive state
     if (!state.isLocationAvailable || state.currentLocation == null) {
-       // The state should already reflect the error/status correctly.
-       // Just return to prevent submission.
+       emit(state.copyWith(
+        status: CreateOpenQuotationStatus.validationError,
+        errorMessage: 'Por favor, permite el acceso a tu ubicación para continuar.',
+      ));
        return;
+    }
+    
+    // Validate distance is selected (should always have a value now)
+    if (state.selectedDistanceKm <= 0) {
+      emit(state.copyWith(
+        status: CreateOpenQuotationStatus.validationError,
+        errorMessage: 'Por favor, selecciona un rango de distancia.',
+      ));
+      return;
     }
     
     // Stencil/Design validation remains the same
@@ -387,10 +398,23 @@ class CreateOpenQuotationBloc
         createdQuotationId: result['id'],
       ));
     } catch (e, stackTrace) {
-      dev.log('Error creating open quotation: $e\n$stackTrace', 'CreateOpenQuotationBloc'); 
+      dev.log('Error creating open quotation: $e\n$stackTrace', 'CreateOpenQuotationBloc');
+      
+      // Parse error message for better user feedback
+      String userFriendlyMessage = 'Error al crear la solicitud';
+      if (e.toString().contains('customerTravelRadiusKm')) {
+        userFriendlyMessage = 'Por favor, selecciona un rango de distancia válido';
+      } else if (e.toString().contains('must not be greater than 1000')) {
+        userFriendlyMessage = 'El rango de distancia no puede ser mayor a 1000 km';
+      } else if (e.toString().contains('No internet connection')) {
+        userFriendlyMessage = 'Sin conexión a internet. Por favor, verifica tu conexión';
+      } else if (e.toString().contains('description')) {
+        userFriendlyMessage = 'La descripción es requerida';
+      }
+      
       emit(state.copyWith(
         status: CreateOpenQuotationStatus.submissionFailure,
-        errorMessage: 'Error al crear la solicitud: ${e.toString()}',
+        errorMessage: userFriendlyMessage,
       ));
     }
   }
