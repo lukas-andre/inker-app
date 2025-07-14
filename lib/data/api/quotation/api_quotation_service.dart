@@ -79,6 +79,8 @@ class ApiQuotationService implements QuotationService {
           'referenceBudget[currency]': quotation.referenceBudget!.currency,
           'referenceBudget[scale]': quotation.referenceBudget!.scale.toString(),
         },
+        if (quotation.desiredBodyLocation != null)
+          'desiredBodyLocation': quotation.desiredBodyLocation!,
       },
     };
 

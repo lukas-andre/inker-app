@@ -82,6 +82,7 @@ class CreateOpenQuotationBloc
     on<_MinBudgetChanged>(_onMinBudgetChanged);
     on<_MaxBudgetChanged>(_onMaxBudgetChanged);
     on<_ReferenceBudgetChanged>(_onReferenceBudgetChanged);
+    on<_BodyLocationChanged>(_onBodyLocationChanged);
 
     // Start listening to streams
     _listenToStreams();
@@ -296,6 +297,10 @@ class CreateOpenQuotationBloc
     emit(state.copyWith(referenceBudget: event.referenceBudget));
   }
 
+  void _onBodyLocationChanged(_BodyLocationChanged event, Emitter<CreateOpenQuotationState> emit) {
+    emit(state.copyWith(selectedBodyLocation: event.location));
+  }
+
   Future<void> _onSubmitPressed(
     _SubmitPressed event,
     Emitter<CreateOpenQuotationState> emit,
@@ -359,6 +364,7 @@ class CreateOpenQuotationBloc
         tattooDesignCacheId: state.selectedTattooDesign?.id,
         tattooDesignImageUrl: state.selectedTattooDesignImageUrl,
         referenceBudget: state.referenceBudget,
+        desiredBodyLocation: state.selectedBodyLocation,
       );
 
       final result = await _quotationService.createQuotation(
