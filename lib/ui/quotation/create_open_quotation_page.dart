@@ -21,6 +21,8 @@ import 'package:inker_studio/ui/quotation/widgets/select_generated_design_bottom
 import 'package:inker_studio/ui/tattoo_generator/tattoo_generator_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
+import 'package:inker_studio/ui/quotation/widgets/distance_preset_selector.dart';
+import 'package:inker_studio/constants/quotation_constants.dart';
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
@@ -313,8 +315,15 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     _buildSectionHeader(
                         l10n.maxTravelDistanceKm, Icons.location_on_outlined),
                     const SizedBox(height: 16),
-                    // Pass state value to distance selector
-                    _buildDistanceSelector(l10n, state.selectedDistanceKm),
+                    // Use new distance preset selector
+                    DistancePresetSelector(
+                      selectedValue: state.selectedDistanceKm,
+                      onChanged: (value) {
+                        context
+                            .read<CreateOpenQuotationBloc>()
+                            .add(CreateOpenQuotationEvent.distanceChanged(value));
+                      },
+                    ),
                     const SizedBox(height: 28),
 
                     // Stencil/Design Selection Section
@@ -614,39 +623,6 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
     );
   }
 
-  Widget _buildSelectionButton({
-    required IconData icon,
-    required String label,
-    required bool isSelected,
-    required bool isEnabled,
-    required VoidCallback onPressed,
-  }) {
-    // No changes needed, purely presentational, takes state values as args
-    return ElevatedButton.icon(
-      icon: Icon(icon, size: 18),
-      label: Text(label),
-      onPressed: isEnabled ? onPressed : null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: isSelected
-            ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
-            : Theme.of(context).colorScheme.surfaceVariant,
-        foregroundColor: isSelected
-            ? Theme.of(context).colorScheme.secondary
-            : Colors.white70,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(
-            color: isSelected
-                ? Theme.of(context).colorScheme.secondary
-                : Colors.transparent,
-            width: 1.5,
-          ),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      ),
-    );
-  }
 
   Widget _buildSelectionDisplay(
       S l10n,
@@ -873,55 +849,6 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         .add(const CreateOpenQuotationEvent.selectionCleared());
   }
 
-  Widget _buildDistanceSelector(S l10n, int selectedDistanceKm) {
-    const List<int> distanceOptions = [0, 5, 10, 15, 25, 50, 100];
-    // Find the index of the current selection to set the slider's initial value
-    final int selectedIndex = distanceOptions.indexOf(selectedDistanceKm);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              selectedDistanceKm == 0
-                  ? l10n.noDistanceLimit
-                  : l10n.maxDistance(selectedDistanceKm),
-              style: TextStyleTheme.bodyText1.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Slider.adaptive(
-            value: selectedIndex.toDouble(),
-            min: 0,
-            max: (distanceOptions.length - 1).toDouble(),
-            divisions: distanceOptions.length - 1,
-            activeColor: Theme.of(context).colorScheme.secondary,
-            inactiveColor:
-                Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-            label: selectedDistanceKm == 0
-                ? l10n.noDistanceLimit
-                : '$selectedDistanceKm km',
-            onChanged: (value) {
-              final newDistance = distanceOptions[value.round()];
-              context
-                  .read<CreateOpenQuotationBloc>()
-                  .add(CreateOpenQuotationEvent.distanceChanged(newDistance));
-            },
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   void dispose() {
