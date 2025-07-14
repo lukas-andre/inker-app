@@ -33,4 +33,5 @@ class CreateOpenQuotationEvent with _$CreateOpenQuotationEvent {
   const factory CreateOpenQuotationEvent.minBudgetChanged(Money? minBudget) = _MinBudgetChanged;
   const factory CreateOpenQuotationEvent.maxBudgetChanged(Money? maxBudget) = _MaxBudgetChanged;
   const factory CreateOpenQuotationEvent.referenceBudgetChanged(Money? referenceBudget) = _ReferenceBudgetChanged;
+  const factory CreateOpenQuotationEvent.bodyLocationChanged(String? location) = _BodyLocationChanged;
 } 

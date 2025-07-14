@@ -116,6 +116,7 @@ _$QuotationImpl _$$QuotationImplFromJson(Map json) => _$QuotationImpl(
       distanceToArtistKm: (json['distanceToArtistKm'] as num?)?.toDouble(),
       hasOffered: json['hasOffered'] as bool? ?? false,
       generatedImageId: json['generatedImageId'] as String?,
+      desiredBodyLocation: json['desiredBodyLocation'] as String?,
     );
 
 Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
@@ -185,6 +186,7 @@ Map<String, dynamic> _$$QuotationImplToJson(_$QuotationImpl instance) {
   writeNotNull('distanceToArtistKm', instance.distanceToArtistKm);
   val['hasOffered'] = instance.hasOffered;
   writeNotNull('generatedImageId', instance.generatedImageId);
+  writeNotNull('desiredBodyLocation', instance.desiredBodyLocation);
   return val;
 }
 
