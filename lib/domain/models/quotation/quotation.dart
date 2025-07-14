@@ -71,6 +71,7 @@ class Quotation with _$Quotation {
     double? distanceToArtistKm,
     @Default(false) bool hasOffered,
     String? generatedImageId,
+    String? desiredBodyLocation,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>

@@ -34,6 +34,7 @@ class CreateOpenQuotationState with _$CreateOpenQuotationState {
     Money? minBudget,
     Money? maxBudget,
     Money? referenceBudget,
+    String? selectedBodyLocation,
   }) = _CreateOpenQuotationState;
 
   // // Helper getter to determine if submission is allowed

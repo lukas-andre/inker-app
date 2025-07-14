@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart'
+    show AuthBloc;
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/create_open_quotation/create_open_quotation_bloc.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart'; // Still needed for provider
@@ -23,6 +24,7 @@ import 'package:inker_studio/ui/quotation/widgets/estimated_cost_field.dart';
 import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
 import 'package:inker_studio/ui/quotation/widgets/distance_preset_selector.dart';
 import 'package:inker_studio/constants/quotation_constants.dart';
+import 'package:inker_studio/ui/quotation/widgets/body_location_selector.dart';
 
 // Wrapper Widget to Provide the BLoC
 class CreateOpenQuotationProvider extends StatelessWidget {
@@ -158,8 +160,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         customSnackBar(
           context: context,
           content: l10n.couldNotGetLocation, // O "Obteniendo ubicación..."
-          backgroundColor:
-              Colors.blueGrey, // Color neutro
+          backgroundColor: Colors.blueGrey, // Color neutro
         ),
       );
     }
@@ -265,7 +266,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: _descriptionController, // Keep controller
-                      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                      style: TextStyleTheme.bodyText1
+                          .copyWith(color: Colors.white),
                       minLines: 3,
                       maxLines: 5,
                       maxLength: _maxDescriptionLength,
@@ -311,6 +313,28 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     ),
                     const SizedBox(height: 28),
 
+                    // Body Location Section
+                    _buildSectionHeader(
+                        'Ubicación en el cuerpo', Icons.person_outline),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Selecciona dónde te gustaría hacerte el tatuaje (opcional)',
+                      style: TextStyleTheme.bodyText2
+                          .copyWith(color: Colors.white70),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                    const SizedBox(height: 16),
+                    BodyLocationSelector(
+                      selectedValue: state.selectedBodyLocation,
+                      onChanged: (value) {
+                        context.read<CreateOpenQuotationBloc>().add(
+                            CreateOpenQuotationEvent.bodyLocationChanged(
+                                value));
+                      },
+                    ),
+                    const SizedBox(height: 28),
+
                     // Location/Travel Radius Section
                     _buildSectionHeader(
                         l10n.maxTravelDistanceKm, Icons.location_on_outlined),
@@ -319,9 +343,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     DistancePresetSelector(
                       selectedValue: state.selectedDistanceKm,
                       onChanged: (value) {
-                        context
-                            .read<CreateOpenQuotationBloc>()
-                            .add(CreateOpenQuotationEvent.distanceChanged(value));
+                        context.read<CreateOpenQuotationBloc>().add(
+                            CreateOpenQuotationEvent.distanceChanged(value));
                       },
                     ),
                     const SizedBox(height: 28),
@@ -332,8 +355,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     const SizedBox(height: 12),
                     Text(
                       l10n.attachStencilOrGeneratedDesignHint,
-                      style: TextStyleTheme.bodyText2.copyWith(
-                          color: Colors.white70),
+                      style: TextStyleTheme.bodyText2
+                          .copyWith(color: Colors.white70),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
@@ -404,8 +427,10 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.collections_bookmark_outlined,
-                                      color: Colors.white, size: 32),
+                                  const Icon(
+                                      Icons.collections_bookmark_outlined,
+                                      color: Colors.white,
+                                      size: 32),
                                   const SizedBox(width: 16),
                                   Text(
                                     l10n.chooseGeneratedDesign,
@@ -492,7 +517,8 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                     TextFormField(
                       controller: _referenceBudgetController,
                       focusNode: _referenceBudgetFocusNode,
-                      style: TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                      style: TextStyleTheme.bodyText1
+                          .copyWith(color: Colors.white),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         ChileanPesoInputFormatter(),
@@ -616,13 +642,11 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
       prefixIcon: prefixIcon != null
           ? Padding(
               padding: const EdgeInsets.only(left: 12, right: 8),
-              child: Icon(prefixIcon,
-                  color: Colors.white70, size: 20),
+              child: Icon(prefixIcon, color: Colors.white70, size: 20),
             )
           : null,
     );
   }
-
 
   Widget _buildSelectionDisplay(
       S l10n,
@@ -647,8 +671,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                 TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
           '${l10n.id}: $selectedStencilId', // Use state value
-          style: TextStyleTheme.caption
-              .copyWith(color: Colors.white70),
+          style: TextStyleTheme.caption.copyWith(color: Colors.white70),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -673,9 +696,9 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
             errorBuilder: (context, error, stackTrace) => Container(
               width: 56,
               height: 56,
-              color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
-              child: Icon(Icons.broken_image,
-                  color: Colors.white70),
+              color:
+                  Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+              child: Icon(Icons.broken_image, color: Colors.white70),
             ),
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) return child;
@@ -691,8 +714,7 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                 TextStyleTheme.bodyText1.copyWith(fontWeight: FontWeight.w600)),
         subtitle: Text(
           selectedTattooDesign.userQuery, // Use state value
-          style: TextStyleTheme.caption
-              .copyWith(color: Colors.white70),
+          style: TextStyleTheme.caption.copyWith(color: Colors.white70),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -782,26 +804,27 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: kIsWeb
-                            ? Image.network(
-                                file.path,
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    width: 80,
-                                    height: 80,
-                                    color: Colors.grey[800],
-                                    child: const Icon(Icons.broken_image, color: Colors.white),
-                                  );
-                                },
-                              )
-                            : Image.file(
-                                File(file.path),
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                              ),
+                              ? Image.network(
+                                  file.path,
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      width: 80,
+                                      height: 80,
+                                      color: Colors.grey[800],
+                                      child: const Icon(Icons.broken_image,
+                                          color: Colors.white),
+                                    );
+                                  },
+                                )
+                              : Image.file(
+                                  File(file.path),
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       Positioned(
@@ -848,7 +871,6 @@ class _CreateOpenQuotationPageState extends State<CreateOpenQuotationPage> {
         .read<CreateOpenQuotationBloc>()
         .add(const CreateOpenQuotationEvent.selectionCleared());
   }
-
 
   @override
   void dispose() {
