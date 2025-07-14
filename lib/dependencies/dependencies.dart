@@ -7,6 +7,7 @@ import 'package:inker_studio/data/api/artist/api_artist_service.dart';
 import 'package:inker_studio/features/auth_shared/data/api/api_auth_service.dart';
 import 'package:inker_studio/data/api/consent/api_consent_service.dart';
 import 'package:inker_studio/data/api/customer/api_customer_service.dart';
+import 'package:inker_studio/data/api/fcm/api_fcm_service.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
 import 'package:inker_studio/data/api/location/api_location_service.dart';
 import 'package:inker_studio/data/api/notifications/api_notifications_service.dart';
@@ -163,6 +164,10 @@ Future<List<RepositoryProvider>> buildProviders() async {
     // Finally create NotificationsService that depends on ApiNotificationsService
     RepositoryProvider<NotificationsService>(
       create: (context) => NotificationsServiceImpl(context.read<ApiNotificationsService>()),
+    ),
+    // FCM API Service
+    RepositoryProvider<ApiFcmService>(
+      create: (context) => ApiFcmServiceImpl(context.read<HttpClientService>()),
     ),
     RepositoryProvider<StencilService>(
       create: (context) => StencilClientService(context.read<HttpClientService>()),

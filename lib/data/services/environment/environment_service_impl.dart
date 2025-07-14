@@ -101,16 +101,23 @@ class EnvironmentServiceImpl implements EnvironmentService {
   }
   
   EnvironmentsConfig _getDefaultEnvironments() {
-    return EnvironmentsConfig(
+    return const EnvironmentsConfig(
       environments: {
-        'STAGING': const Environment(
+        'LOCAL': Environment(
+          id: 'LOCAL',
+          name: 'Local',
+          description: 'Ambiente local',
+          apiUrl: 'http://localhost:3000',
+          additionalConfig: {},
+        ),
+        'STAGING': Environment(
           id: 'STAGING',
           name: 'Staging',
           description: 'Ambiente de pruebas',
           apiUrl: 'https://staging-api.inkerapp.com',
           additionalConfig: {},
         ),
-        'PRODUCTION': const Environment(
+        'PRODUCTION': Environment(
           id: 'PRODUCTION',
           name: 'Production',
           description: 'Ambiente productivo',

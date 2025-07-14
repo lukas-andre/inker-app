@@ -21,19 +21,19 @@ Future<void> main() async {
   );
 
   // Only configure Firebase Messaging for mobile platforms
-  if (!kIsWeb) {
-    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      badge: true,
-      sound: true,
-      alert: true,
-    );
-    try {
-      final token = await FirebaseMessaging.instance.getToken();
-      dev.log(token ?? '', 'FirebaseMessaging');
-    } catch (e) {
-      dev.log(e.toString(), 'FirebaseMessaging');
-    }
+  // if (!kIsWeb) {
+  FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    badge: true,
+    sound: true,
+    alert: true,
+  );
+  try {
+    final token = await FirebaseMessaging.instance.getToken();
+    dev.log(token ?? '', 'FirebaseMessaging');
+  } catch (e) {
+    dev.log(e.toString(), 'FirebaseMessaging');
   }
+  // }
 
   final remoteConfig = await RemoteConfigService.getInstance();
   dev.log(remoteConfig.inkerApiUrl, 'RemoteConfigService');
