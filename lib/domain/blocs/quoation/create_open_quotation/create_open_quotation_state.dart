@@ -21,7 +21,7 @@ class CreateOpenQuotationState with _$CreateOpenQuotationState {
         CreateOpenQuotationStatus status,
     @Default('') String description,
     @Default([]) List<XFile> referenceImages,
-    @Default(0) int selectedDistanceKm, // 0 for no limit
+    @Default(15) int selectedDistanceKm, // Default to 15km (city range)
     String? selectedStencilId,
     UserTattooDesignDto? selectedTattooDesign,
     String? selectedTattooDesignImageUrl,

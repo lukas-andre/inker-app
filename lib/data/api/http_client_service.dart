@@ -428,8 +428,16 @@ class HttpClientService {
           responseBody: body,
         );
 
+        // Handle message as array or string
+        String errorMessage;
+        if (decodedBody['message'] is List) {
+          errorMessage = (decodedBody['message'] as List).join(', ');
+        } else {
+          errorMessage = decodedBody['message'] ?? 'Request failed with status: $statusCode';
+        }
+        
         throw CustomHttpException(
-          decodedBody['message'] ?? 'Request failed with status: $statusCode',
+          errorMessage,
           statusCode,
           uri: error.request?.url,
         );
