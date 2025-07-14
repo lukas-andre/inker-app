@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/fcm/api_fcm_service.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
@@ -257,11 +258,13 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         final fcmService = context.read<FcmService>();
         final notificationsService = context.read<NotificationsService>();
         final sessionService = context.read<LocalSessionService>();
+        final apiFcmService = context.read<ApiFcmService>();
         final bloc =
             NotificationsBloc(fcmService, notificationsService, sessionService)
               ..add(const NotificationsEvent.initialize());
         fcmService.setBloc(bloc);
         fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
+        fcmService.setApiFcmService(apiFcmService);
         return bloc;
       },
     ),

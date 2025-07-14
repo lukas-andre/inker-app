@@ -39,6 +39,8 @@ class EnvironmentIndicator extends StatelessWidget {
   
   Color _getColorForEnvironment(String environmentId) {
     switch (environmentId) {
+      case 'LOCAL':
+        return Colors.purple;
       case 'STAGING':
         return Colors.orange;
       case 'DEVELOPMENT':

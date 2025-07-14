@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:inker_studio/data/api/fcm/api_fcm_service.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
@@ -320,6 +321,7 @@ class _AppViewState extends State<AppView> {
             final fcmService = context.read<FcmService>();
             final notificationsService = context.read<NotificationsService>();
             final sessionService = context.read<LocalSessionService>();
+            final apiFcmService = context.read<ApiFcmService>();
             
             // Create and initialize the bloc
             final bloc = NotificationsBloc(fcmService, notificationsService, sessionService)
@@ -328,6 +330,7 @@ class _AppViewState extends State<AppView> {
             // Set up circular reference for FCM callbacks
             fcmService.setBloc(bloc);
             fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
+            fcmService.setApiFcmService(apiFcmService);
             return bloc;
           },
         ),
@@ -372,6 +375,16 @@ class _AppViewState extends State<AppView> {
       BuildContext context, AuthState state) async {
     switch (state.status) {
       case AuthStatus.authenticated:
+        // Update FCM service with auth token
+        final fcmService = context.read<FcmService>();
+        fcmService.setAuthToken(state.session.accessToken);
+        
+        // Register FCM token with backend if available
+        final fcmToken = await fcmService.getToken();
+        if (fcmToken != null) {
+          await fcmService.registerTokenWithBackend(fcmToken);
+        }
+        
         final String userType = state.session.user!.userType!;
         if (userType == UserType.customer) {
           NoContextNavigator.pushAndRemoveUntil(
@@ -385,6 +398,10 @@ class _AppViewState extends State<AppView> {
         break;
       case AuthStatus.unknown:
       case AuthStatus.unauthenticated:
+        // Clear FCM token when user logs out
+        final fcmService = context.read<FcmService>();
+        fcmService.setAuthToken(null);
+        
         NoContextNavigator.pushAndRemoveUntil(
             AuthenticationHandler.navigatorKey.currentState!, const OnBoardingPage());
         break;
