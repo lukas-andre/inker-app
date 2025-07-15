@@ -279,15 +279,18 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Calendario',
                           style: TextStyleTheme.headline3
                               .copyWith(color: quaternaryColor),
                         ),
-                        Row(
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 12,
+                          runSpacing: 8,
                           children: [
                             // Legend
                             _buildLegendItem(
@@ -295,13 +298,11 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
                               'Confirmado',
                               Colors.green,
                             ),
-                            const SizedBox(width: 12),
                             _buildLegendItem(
                               context,
                               'Pendiente',
                               Colors.orange,
                             ),
-                            const SizedBox(width: 12),
                             _buildLegendItem(
                               context,
                               'Cotizaciones',
