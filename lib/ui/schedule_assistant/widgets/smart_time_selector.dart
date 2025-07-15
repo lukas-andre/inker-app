@@ -55,19 +55,22 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Header with duration selector
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Seleccionar Horario',
                           style: TextStyleTheme.headline3.copyWith(color: quaternaryColor),
                         ),
+                        const SizedBox(height: 8),
                         // Duration chips
-                        Row(
-                          children: _durationOptions.map((duration) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: ChoiceChip(
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _durationOptions.map((duration) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: ChoiceChip(
                                 label: Text(
                                   '${duration}min',
                                   style: TextStyle(
@@ -98,7 +101,8 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                                 },
                               ),
                             );
-                          }).toList(),
+                            }).toList(),
+                          ),
                         ),
                       ],
                     ),
