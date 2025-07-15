@@ -225,16 +225,37 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                     ),
                     const SizedBox(height: 12),
                     
-                    // Timeline visualization
-                    SizedBox(
-                      height: 400,
-                      child: _buildTimelineView(
-                        daySlots,
-                        events.where((e) => _isSameDay(e.startDate, widget.selectedDate)).toList(),
-                        workingHours,
-                        showAvailabilityDensity,
-                        selectedDuration,
-                      ),
+                    // Timeline visualization - adaptative height
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        // Calculate adaptative height based on available space
+                        final availableHeight = MediaQuery.of(context).size.height;
+                        final isMobile = constraints.maxWidth < 600;
+                        final timelineHeight = isMobile 
+                          ? (availableHeight * 0.4).clamp(200.0, 400.0)  // 40% of screen, min 200, max 400
+                          : 400.0; // Fixed height for desktop
+                        
+                        return Container(
+                          height: timelineHeight,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: tertiaryColor.withOpacity(0.3),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: _buildTimelineView(
+                              daySlots,
+                              events.where((e) => _isSameDay(e.startDate, widget.selectedDate)).toList(),
+                              workingHours,
+                              showAvailabilityDensity,
+                              selectedDuration,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     
                     // Toggle density view
@@ -318,7 +339,7 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                 }
               : null,
           child: Container(
-            height: 60,
+            height: 60, // Increased from 60 to ensure better touch target
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: tertiaryColor.withOpacity(0.2)),
@@ -326,20 +347,20 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
             ),
             child: Row(
               children: [
-                // Time label
-                SizedBox(
+                // Time label with minimum touch target
+                Container(
                   width: 80,
-                  child: Center(
-                    child: Text(
-                      DateFormat('HH:mm').format(time),
-                      style: TextStyleTheme.bodyText2.copyWith(color: quaternaryColor),
-                    ),
+                  height: 60,
+                  alignment: Alignment.center,
+                  child: Text(
+                    DateFormat('HH:mm').format(time),
+                    style: TextStyleTheme.bodyText2.copyWith(color: quaternaryColor),
                   ),
                 ),
-                // Timeline
+                // Timeline - ensure minimum 44px height for touch
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    margin: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: _getSlotColor(slot, hasEvent, isPast, showDensity),
                       borderRadius: BorderRadius.circular(4),
