@@ -84,7 +84,9 @@ class NotificationsWrapper extends StatelessWidget {
       ),
       onTap: (_) {
         _.dismiss();
-        if (data['quotationId'] != null) {
+        // Only navigate if not on web (MVP requirement)
+        final platformService = context.read<PlatformService>();
+        if (!platformService.isWeb && data['quotationId'] != null) {
           // Navigate to the specific quotation
           // The NotificationsBloc will fire events to refresh relevant data automatically
           state.pushNamed(
@@ -182,13 +184,18 @@ class NotificationsWrapper extends StatelessWidget {
             }
 
             if (pendingNavigation != null) {
-              // Navigate to the target screen
-              // The NotificationsBloc has already fired events to refresh relevant data
-              Navigator.of(context).pushNamed(
-                pendingNavigation.route,
-                arguments: pendingNavigation.arguments,
-              );
+              // Only navigate if not on web (MVP requirement)
+              final platformService = context.read<PlatformService>();
+              if (!platformService.isWeb) {
+                // Navigate to the target screen
+                // The NotificationsBloc has already fired events to refresh relevant data
+                Navigator.of(context).pushNamed(
+                  pendingNavigation.route,
+                  arguments: pendingNavigation.arguments,
+                );
+              }
 
+              // Always clear the pending navigation
               context.read<NotificationsBloc>().add(
                     const NotificationsEvent.notificationHandled(),
                   );
