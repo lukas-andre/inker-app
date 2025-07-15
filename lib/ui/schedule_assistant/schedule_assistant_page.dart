@@ -12,6 +12,7 @@ import 'package:inker_studio/ui/schedule_assistant/widgets/quotation_context_pan
 import 'package:inker_studio/ui/schedule_assistant/widgets/schedule_events_list.dart';
 import 'package:inker_studio/data/api/agenda/dtos/schedule_response.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ScheduleAssistantPage extends StatefulWidget {
   final String artistId;
@@ -34,11 +35,22 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
   DateTime? _selectedDate;
   ScheduleQuotation? _selectedQuotation;
   bool _initialDateSet = false;
+  int _currentStep = 0;
+  bool _isLoadingStep = false;
+  bool _manualNavigation = false;
+
+  int _calculateCurrentStep() {
+    if (_manualNavigation) return _currentStep;
+    if (_selectedStartTime != null && _selectedEndTime != null) return 2;
+    if (_selectedDate != null) return 1;
+    return 0;
+  }
 
   void _handleTimeRangeSelected(DateTime startTime, DateTime endTime) {
     setState(() {
       _selectedStartTime = startTime;
       _selectedEndTime = endTime;
+      _manualNavigation = false; // Reset navigation flag when time is selected
     });
   }
 
@@ -115,7 +127,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
             
             return Scaffold(
               key: K.scheduleAssistantView,
-              backgroundColor: isMobile ? Colors.white : Theme.of(context).colorScheme.primary,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               appBar: AppBar(
                 title: Text(
                   l10n.scheduleAssistant, 
@@ -137,6 +149,9 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
                 child: BlocBuilder<ScheduleAssistantBloc, ScheduleAssistantState>(
                   builder: (context, state) {
                     return state.maybeWhen(
+                      loading: () => const Center(
+                        child: InkerProgressIndicator(),
+                      ),
                       loaded: (events, quotations, availability, suggestedSlots,
                           workingHours, summary, rangeStart, rangeEnd, selectedQuotation,
                           selectedTimeSlot, showAvailabilityDensity, isCreatingEvent, selectedDuration) {
@@ -192,70 +207,157 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
     ScheduleSummary? summary,
     ScheduleQuotation? selectedQuotation,
   ) {
-    // Get pending quotations count
-    final pendingQuotations = quotations.where((q) => q.actionRequired && q.proposedDate == null).length;
+    // Update current step based on selection state
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_manualNavigation) {
+        final newStep = _calculateCurrentStep();
+        if (newStep != _currentStep) {
+          setState(() {
+            _currentStep = newStep;
+          });
+        }
+      }
+    });
     
-    return DefaultTabController(
-      length: 3 + (pendingQuotations > 0 ? 1 : 0),
-      child: Column(
-        children: [
-          Material(
+    return Column(
+      children: [
+        // Progress indicator
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
-            elevation: 2,
-            child: TabBar(
-              isScrollable: pendingQuotations > 0,
-              labelColor: Theme.of(context).colorScheme.primary,
-              unselectedLabelColor: Colors.grey[600],
-              indicatorColor: Theme.of(context).colorScheme.primary,
-              tabs: [
-                if (pendingQuotations > 0)
-                  Tab(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.notification_important, size: 20),
-                        const SizedBox(width: 4),
-                        Text('Pendientes'),
-                        const SizedBox(width: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            '$pendingQuotations',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  _buildStepIndicator(context, 1, 'Fecha', _currentStep >= 0),
+                  Expanded(child: _buildStepConnector(_currentStep >= 1)),
+                  _buildStepIndicator(context, 2, 'Hora', _currentStep >= 1),
+                  Expanded(child: _buildStepConnector(_currentStep >= 2)),
+                  _buildStepIndicator(context, 3, 'Confirmar', _currentStep >= 2),
+                ],
+              ),
+              if (_currentStep < 2) ...[
+                const SizedBox(height: 8),
+                Text(
+                  _currentStep == 0 
+                    ? 'Selecciona una fecha disponible'
+                    : 'Elige un horario conveniente',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        
+        // Main content based on step
+        Expanded(
+          child: _isLoadingStep 
+            ? Center(
+                child: InkerProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              )
+            : IndexedStack(
+                index: _currentStep,
+            children: [
+              // Step 1: Date selection
+              _buildDateSelectionStep(context, availability, workingHours, events, quotations),
+              // Step 2: Time selection
+              _buildTimeSelectionStep(context, suggestedSlots),
+              // Step 3: Confirmation
+              _buildConfirmationStep(context, l10n),
+            ],
+          ),
+        ),
+        
+        // Bottom navigation
+        if (_currentStep <= 2)
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, -2),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                if (_currentStep > 0)
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        setState(() {
+                          _manualNavigation = true;
+                          if (_currentStep == 2) {
+                            _currentStep = 1;
+                          } else if (_currentStep == 1) {
+                            _selectedStartTime = null;
+                            _selectedEndTime = null;
+                            _currentStep = 0;
+                          }
+                        });
+                      },
+                      child: const Text('Atrás'),
                     ),
                   ),
-                const Tab(text: 'Calendario'),
-                const Tab(text: 'Horarios'),
-                const Tab(text: 'Eventos'),
+                if (_currentStep > 0) const SizedBox(width: 16),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton(
+                    onPressed: (_currentStep == 2) ||
+                             (_selectedDate != null && _currentStep == 0) ||
+                             (_selectedStartTime != null && _currentStep == 1)
+                        ? () async {
+                            if (_currentStep == 2) {
+                              // En el paso de confirmación, completar la selección
+                              _returnResult();
+                            } else {
+                              setState(() {
+                                _isLoadingStep = true;
+                                _manualNavigation = true;
+                              });
+                              
+                              // Simulate loading for smooth transition
+                              await Future.delayed(const Duration(milliseconds: 300));
+                              
+                              setState(() {
+                                _currentStep = _currentStep + 1;
+                                _isLoadingStep = false;
+                              });
+                            }
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                    child: Text(
+                      _currentStep == 2 ? 'Confirmar' : (_currentStep == 0 ? 'Continuar' : 'Siguiente'),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                if (pendingQuotations > 0)
-                  _buildPendingQuotationsTab(context, quotations),
-                _buildCalendarTab(context, availability, workingHours),
-                _buildTimeSlotsTab(context, suggestedSlots),
-                _buildEventsTab(context, events, quotations),
-              ],
-            ),
-          ),
-          if (_selectedStartTime != null && _selectedEndTime != null)
-            _buildMobileConfirmSection(context, l10n),
-        ],
-      ),
+      ],
     );
   }
 
@@ -777,24 +879,20 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
     BuildContext context,
     List<SuggestedSlot> suggestedSlots,
   ) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          child: SmartTimeSelector(
-            selectedDate: _selectedDate ?? DateTime.now(),
-            onTimeSelected: _handleTimeRangeSelected,
-            onDurationChanged: (duration) {
-              // If we already have a selected start time, update the end time
-              if (_selectedStartTime != null) {
-                setState(() {
-                  _selectedEndTime = _selectedStartTime!.add(Duration(minutes: duration));
-                });
-              }
-            },
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: SmartTimeSelector(
+        selectedDate: _selectedDate ?? DateTime.now(),
+        onTimeSelected: _handleTimeRangeSelected,
+        onDurationChanged: (duration) {
+          // If we already have a selected start time, update the end time
+          if (_selectedStartTime != null) {
+            setState(() {
+              _selectedEndTime = _selectedStartTime!.add(Duration(minutes: duration));
+            });
+          }
+        },
+      ),
     );
   }
 
@@ -943,5 +1041,329 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
       decimalDigits: 0,
     );
     return formatter.format(cost.amount);
+  }
+
+  Widget _buildStepIndicator(BuildContext context, int step, String label, bool isActive) {
+    return Column(
+      children: [
+        Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isActive 
+              ? Theme.of(context).colorScheme.secondary 
+              : Theme.of(context).colorScheme.surface,
+            border: Border.all(
+              color: isActive 
+                ? Theme.of(context).colorScheme.secondary 
+                : Colors.grey[400]!,
+              width: 2,
+            ),
+          ),
+          child: Center(
+            child: Text(
+              '$step',
+              style: TextStyle(
+                color: isActive ? Colors.white : Colors.grey[600],
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: isActive 
+              ? Theme.of(context).colorScheme.secondary 
+              : Colors.grey[600],
+            fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStepConnector(bool isActive) {
+    return Container(
+      height: 2,
+      margin: const EdgeInsets.only(bottom: 20),
+      color: isActive 
+        ? Theme.of(context).colorScheme.secondary 
+        : Colors.grey[300],
+    );
+  }
+
+  Widget _buildDateSelectionStep(
+    BuildContext context,
+    Map<String, List<AvailabilitySlot>> availability,
+    WorkingHours workingHours,
+    List<ScheduleEvent> events,
+    List<ScheduleQuotation> quotations,
+  ) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          // Calendar
+          EnhancedCalendarView(
+            artistId: widget.artistId,
+            selectedDate: _selectedDate ?? DateTime.now(),
+            workingDays: workingHours.workingDays,
+            onDateSelected: (date) {
+              setState(() {
+                _selectedDate = date;
+                _manualNavigation = false; // Reset cuando se selecciona fecha
+              });
+            },
+          ),
+          const SizedBox(height: 16),
+          // Events for selected date
+          if (_selectedDate != null)
+            ScheduleEventsList(
+              selectedDate: _selectedDate!,
+              onEventTap: (event) {},
+              onQuotationTap: (quotation) {
+                setState(() {
+                  _selectedQuotation = quotation;
+                });
+              },
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimeSelectionStep(
+    BuildContext context,
+    List<SuggestedSlot> suggestedSlots,
+  ) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: SmartTimeSelector(
+        selectedDate: _selectedDate ?? DateTime.now(),
+        onTimeSelected: _handleTimeRangeSelected,
+        onDurationChanged: (duration) {
+          if (_selectedStartTime != null) {
+            setState(() {
+              _selectedEndTime = _selectedStartTime!.add(Duration(minutes: duration));
+            });
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildConfirmationStep(BuildContext context, S l10n) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          // Summary card
+          Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 32,
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        'Resumen de tu cita',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  _buildSummaryRow(
+                    context,
+                    Icons.calendar_today,
+                    'Fecha',
+                    _selectedDate != null 
+                      ? DateFormat('EEEE, d MMMM yyyy', 'es').format(_selectedDate!)
+                      : '',
+                  ),
+                  const SizedBox(height: 12),
+                  _buildSummaryRow(
+                    context,
+                    Icons.access_time,
+                    'Hora',
+                    _selectedStartTime != null && _selectedEndTime != null
+                      ? '${DateFormat('HH:mm').format(_selectedStartTime!)} - ${DateFormat('HH:mm').format(_selectedEndTime!)}'
+                      : '',
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Icon(Icons.timer, color: Theme.of(context).colorScheme.secondary, size: 20),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Duración',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    _selectedStartTime != null && _selectedEndTime != null
+                                      ? '${_selectedEndTime!.difference(_selectedStartTime!).inMinutes} minutos'
+                                      : '',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Theme.of(context).colorScheme.secondary,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                TextButton(
+                                  onPressed: () {
+                                    // Show duration picker
+                                    _showDurationPicker(context);
+                                  },
+                                  child: const Text('Cambiar'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (_selectedQuotation != null) ...[
+                    const SizedBox(height: 12),
+                    _buildSummaryRow(
+                      context,
+                      Icons.person,
+                      'Cliente',
+                      _selectedQuotation!.customerName,
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(BuildContext context, IconData icon, String label, String value) {
+    return Row(
+      children: [
+        Icon(icon, color: Theme.of(context).colorScheme.secondary, size: 20),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
+  void _showDurationPicker(BuildContext context) {
+    final durationOptions = [30, 60, 90, 120, 180];
+    final currentDuration = _selectedEndTime != null && _selectedStartTime != null
+      ? _selectedEndTime!.difference(_selectedStartTime!).inMinutes
+      : 60;
+      
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Seleccionar duración',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Elige cuánto tiempo necesitas para tu cita',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: durationOptions.map((duration) {
+                  final isSelected = duration == currentDuration;
+                  return ChoiceChip(
+                    label: Text(
+                      '$duration min',
+                      style: TextStyle(
+                        color: isSelected ? Colors.white : Theme.of(context).colorScheme.onSurface,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                    selected: isSelected,
+                    selectedColor: Theme.of(context).colorScheme.secondary,
+                    onSelected: (selected) {
+                      if (selected && _selectedStartTime != null) {
+                        setState(() {
+                          _selectedEndTime = _selectedStartTime!.add(Duration(minutes: duration));
+                        });
+                        Navigator.pop(context);
+                      }
+                    },
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
