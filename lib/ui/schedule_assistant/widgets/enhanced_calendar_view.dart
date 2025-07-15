@@ -124,7 +124,7 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
     // Check if it's a working day (1 = Monday, 7 = Sunday)
     final isWorkingDay = workingDays?.contains(day.weekday.toString()) ?? true;
 
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         setState(() {
           _focusedDay = day;
@@ -142,16 +142,22 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
               ),
             );
       },
+      borderRadius: BorderRadius.circular(22),
       child: Container(
-        margin: const EdgeInsets.all(4),
+        // Minimum 44x44 for touch target
+        constraints: const BoxConstraints(
+          minWidth: 44,
+          minHeight: 44,
+        ),
+        margin: const EdgeInsets.all(2),
         child: Stack(
           alignment: Alignment.center,
           children: [
             // Background circle for today/selected
             if (isToday || isSelected)
               Container(
-                width: 36,
-                height: 36,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: isSelected
                       ? secondaryColor
@@ -190,12 +196,21 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
                 ),
                 if (dayEvents.isNotEmpty) ...[
                   const SizedBox(height: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: dayEvents
-                        .take(3)
-                        .map((e) => _buildEventMarker(context, e))
-                        .toList(),
+                  // Show event count instead of tiny dots for better touch targets
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: _getEventCountColor(dayEvents),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      '${dayEvents.length}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ],
@@ -204,6 +219,26 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
         ),
       ),
     );
+  }
+
+  Color _getEventCountColor(List<dynamic> events) {
+    // Priority: actionable > confirmed > tentative > opportunity
+    for (final event in events) {
+      if (event is ScheduleQuotation && event.category == 'actionable') {
+        return Colors.red;
+      }
+    }
+    for (final event in events) {
+      if (event is ScheduleEvent && event.category == 'confirmed') {
+        return Colors.green;
+      }
+    }
+    for (final event in events) {
+      if (event is ScheduleEvent && event.category == 'tentative') {
+        return Colors.orange;
+      }
+    }
+    return Colors.blue;
   }
 
   @override

@@ -35,20 +35,7 @@ class ExplorerListView extends StatelessWidget {
 }
 
 class ExplorerResultList extends StatelessWidget {
-  ExplorerResultList({super.key});
-  final List<String> defaultImages = [
-    'https://cdn.pixabay.com/photo/2019/03/15/09/49/girl-4056684_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/12/15/16/25/clock-5834193__340.jpg',
-    'https://cdn.pixabay.com/photo/2020/09/18/19/31/laptop-5582775_960_720.jpg',
-    'https://media.istockphoto.com/photos/woman-kayaking-in-fjord-in-norway-picture-id1059380230?b=1&k=6&m=1059380230&s=170667a&w=0&h=kA_A_XrhZJjw2bo5jIJ7089-VktFK0h0I4OWDqaac0c=',
-    'https://cdn.pixabay.com/photo/2019/11/05/00/53/cellular-4602489_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2017/02/12/10/29/christmas-2059698_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/01/29/17/09/snowboard-4803050_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/02/06/20/01/university-library-4825366_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/11/22/17/28/cat-5767334_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/12/13/16/22/snow-5828736_960_720.jpg',
-    'https://cdn.pixabay.com/photo/2020/12/09/09/27/women-5816861_960_720.jpg',
-  ];
+  const ExplorerResultList({super.key});
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -71,7 +58,6 @@ class ExplorerResultList extends StatelessWidget {
               (index) => _ArtistGridItem(
                 key: Key('artistItem$index'),
                 artist: state.artists[index],
-                defaultImage: defaultImages[index % defaultImages.length],
               ),
             ),
           );
@@ -85,11 +71,9 @@ class _ArtistGridItem extends StatelessWidget {
   const _ArtistGridItem({
     super.key,
     required this.artist,
-    required this.defaultImage,
   });
 
   final Artist artist;
-  final String defaultImage;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +90,7 @@ class _ArtistGridItem extends StatelessWidget {
               .primary, // Color más oscuro para la card
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               blurRadius: 10,
               spreadRadius: 1,
               offset: const Offset(0, 3),
@@ -122,7 +106,8 @@ class _ArtistGridItem extends StatelessWidget {
               Expanded(
                 flex: 7, // Mayor proporción de imagen
                 child: _StudioImage(
-                  imageUrl: artist.studioPhoto ?? defaultImage,
+                  imageUrl: artist.studioPhoto,
+                  fallbackUrl: artist.profileThumbnail,
                 ),
               ),
               // Información del artista con diseño mejorado
@@ -133,7 +118,7 @@ class _ArtistGridItem extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Theme.of(context).colorScheme.primary.withOpacity(0.9),
+                      Theme.of(context).colorScheme.primary.withValues(alpha: 0.9),
                       Theme.of(context).colorScheme.primary,
                     ],
                   ),
@@ -178,23 +163,47 @@ class _ArtistGridItem extends StatelessWidget {
 class _StudioImage extends StatelessWidget {
   const _StudioImage({
     required this.imageUrl,
+    required this.fallbackUrl,
   });
 
-  final String imageUrl;
+  final String? imageUrl;
+  final String? fallbackUrl;
 
   @override
   Widget build(BuildContext context) {
+    // Use studio photo first, then profile thumbnail, then show placeholder
+    final finalUrl = imageUrl ?? fallbackUrl;
+    
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        placeholder: (context, url) => const Center(
-          child: InkerProgressIndicator(radius: 10),
-        ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-      ),
+      child: finalUrl != null
+          ? CachedNetworkImage(
+              imageUrl: finalUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              placeholder: (context, url) => Container(
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                child: const Center(
+                  child: InkerProgressIndicator(radius: 10),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+                ),
+              ),
+            )
+          : Container(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+              child: Icon(
+                Icons.person,
+                size: 50,
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
+              ),
+            ),
     );
   }
 }
@@ -227,7 +236,7 @@ class _ArtistInfo extends StatelessWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .secondary
-                        .withOpacity(0.3),
+                        .withValues(alpha: 0.3),
                     blurRadius: 4,
                     spreadRadius: 0,
                   ),
@@ -270,7 +279,7 @@ class _ArtistInfo extends StatelessWidget {
                         DistanceFormatter.formatDistanceCompact(artist.distance, artist.distanceUnit, context),
                         style: TextStyleTheme.copyWith(
                           fontSize: 12,
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                         ),
                       ),
                     ],
