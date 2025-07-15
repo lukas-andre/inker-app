@@ -8,14 +8,115 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/responsive/responsive_breakpoints.dart';
 
-class ExplorerListViewWeb extends StatelessWidget {
+class ExplorerListViewWeb extends StatefulWidget {
   const ExplorerListViewWeb({super.key});
+
+  @override
+  State<ExplorerListViewWeb> createState() => _ExplorerListViewWebState();
+}
+
+class _ExplorerListViewWebState extends State<ExplorerListViewWeb> {
+  bool _isTimedOut = false;
+  bool _hasInitialLoad = false;
+
+  @override
+  void initState() {
+    super.initState();
+    print('[ExplorerListViewWeb] initState - Starting load timeout');
+    // Set a timeout to detect if loading is stuck
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted && !_hasInitialLoad) {
+        print('[ExplorerListViewWeb] Load timeout reached - no initial data received');
+        setState(() {
+          _isTimedOut = true;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ArtistsListBloc, ArtistsListState>(
       builder: (context, state) {
-        if (state.artists.isEmpty) {
+        print('[ExplorerListViewWeb] BlocBuilder - State: ${state.runtimeType}, Artists count: ${state.artists.length}');
+        
+        // Track if we've had an initial load
+        if (!_hasInitialLoad && state.artists.isNotEmpty) {
+          print('[ExplorerListViewWeb] Initial load complete - ${state.artists.length} artists loaded');
+          _hasInitialLoad = true;
+        }
+
+        // Handle loading state
+        if (state is ArtistsListStateInitial && !_isTimedOut) {
+          print('[ExplorerListViewWeb] Showing loading indicator');
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkerProgressIndicator(
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Cargando artistas...',
+                  style: TextStyleTheme.copyWith(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        // Handle timeout
+        if (_isTimedOut && state.artists.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 64,
+                  color: Theme.of(context).colorScheme.error.withValues(alpha: 0.7),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Error al cargar artistas',
+                  style: TextStyleTheme.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Por favor, recarga la página',
+                  style: TextStyleTheme.copyWith(
+                    fontSize: 14,
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    // Reset timeout and trigger refresh
+                    setState(() {
+                      _isTimedOut = false;
+                    });
+                    // Trigger a refresh event if needed
+                    context.read<ArtistsListBloc>().add(const ArtistsListEvent.started());
+                  },
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Reintentar'),
+                ),
+              ],
+            ),
+          );
+        }
+
+        // Handle empty state (after loading)
+        if (state.artists.isEmpty && !_isTimedOut) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
