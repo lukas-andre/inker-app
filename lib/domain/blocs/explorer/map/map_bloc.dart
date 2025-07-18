@@ -16,7 +16,7 @@ import 'package:inker_studio/utils/styles/map_style.dart';
 part 'map_event.dart';
 part 'map_state.dart';
 
-const double kCameraPositionZoom = 14.4746;
+const double kCameraPositionZoom = 13.0; // Better initial zoom - closer view
 
 class MapBloc extends Bloc<MapEvent, MapState> {
   final LocationBloc _locationBloc;
@@ -41,7 +41,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     _locationStateSubscription?.cancel();
     _locationStateSubscription = _locationBloc.stream.listen((locationState) {
-      if (locationState.lastKnownLocation != null) {
+      if (locationState.lastKnownLocation != null && state.searchRadius == null) {
+        // Only add the initial search radius if we don't have one yet
         add(UpdateSearchRadiusEvent(radiusInKm: 5.0, center: locationState.lastKnownLocation!));
       }
     });
@@ -55,8 +56,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       circleId: const CircleId('searchRadius'),
       center: event.center,
       radius: event.radiusInKm * 1000, // convertir a metros
-      fillColor: Colors.blue.withOpacity(0.1),
-      strokeColor: Colors.blue.withOpacity(0.5),
+      fillColor: Colors.blue.withAlpha(25),  // 0.1 * 255
+      strokeColor: Colors.blue.withAlpha(128), // 0.5 * 255
       strokeWidth: 2,
     );
 

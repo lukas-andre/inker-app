@@ -3792,7 +3792,7 @@ mixin _$CreateOpenQuotationState {
   String get description => throw _privateConstructorUsedError;
   List<XFile> get referenceImages => throw _privateConstructorUsedError;
   int get selectedDistanceKm =>
-      throw _privateConstructorUsedError; // 0 for no limit
+      throw _privateConstructorUsedError; // Default to 15km (city range)
   String? get selectedStencilId => throw _privateConstructorUsedError;
   UserTattooDesignDto? get selectedTattooDesign =>
       throw _privateConstructorUsedError;
@@ -4133,7 +4133,7 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
       {this.status = CreateOpenQuotationStatus.initial,
       this.description = '',
       final List<XFile> referenceImages = const [],
-      this.selectedDistanceKm = 0,
+      this.selectedDistanceKm = 15,
       this.selectedStencilId,
       this.selectedTattooDesign,
       this.selectedTattooDesignImageUrl,
@@ -4167,7 +4167,7 @@ class _$CreateOpenQuotationStateImpl implements _CreateOpenQuotationState {
   @override
   @JsonKey()
   final int selectedDistanceKm;
-// 0 for no limit
+// Default to 15km (city range)
   @override
   final String? selectedStencilId;
   @override
@@ -4302,7 +4302,7 @@ abstract class _CreateOpenQuotationState implements CreateOpenQuotationState {
   List<XFile> get referenceImages;
   @override
   int get selectedDistanceKm;
-  @override // 0 for no limit
+  @override // Default to 15km (city range)
   String? get selectedStencilId;
   @override
   UserTattooDesignDto? get selectedTattooDesign;
