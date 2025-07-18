@@ -7,7 +7,7 @@ import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/list/explorer_list_view_web.dart';
-import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view.dart';
+import 'package:inker_studio/ui/customer/explore/views/map/enhanced_explorer_map_view.dart';
 import 'package:inker_studio/ui/customer/explore/views/map/explorer_map_view_web.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_sheet.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
@@ -75,17 +75,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
                 return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
                   buildWhen: (previous, current) =>
                       previous.view != current.view ||
-                      previous.isLoading != current.isLoading,
+                      previous.isLoading != current.isLoading ||
+                      previous.firstLoad != current.firstLoad,
                   builder: (context, state) {
-                    // TODO: THIS IS INIT STATE
-                    if (state.firstLoad && !state.isLoading) {
-                      context.read<ExplorerPageBloc>().add(
-                          ExplorerPageFetchArtists(
-                              location: locationState.lastKnownLocation!));
-                    }
-
-                    // TODO: THIS IS LOADING STATE
-                    if (state.isLoading) {
+                    // THIS IS LOADING STATE
+                    if (state.isLoading && state.firstLoad) {
                       return Center(
                         child: InkerProgressIndicator(
                           color: Theme.of(context).colorScheme.secondary,
@@ -149,7 +143,7 @@ class ExplorerViewByType extends StatelessWidget {
     if (view == ExplorerView.list) {
       return isWeb ? const ExplorerListViewWeb() : const ExplorerListView();
     } else {
-      return isWeb ? const ExplorerMapViewWeb() : const ExplorerMapView();
+      return isWeb ? const ExplorerMapViewWeb() : const EnhancedExplorerMapView();
     }
   }
 }
