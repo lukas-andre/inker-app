@@ -251,21 +251,36 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
           orElse: () => false,
         );
 
-        return state.maybeWhen(
-          loaded: (events,
-              quotations,
-              availability,
-              suggestedSlots,
-              workingHours,
-              summary,
-              rangeStart,
-              rangeEnd,
-              selectedQuotation,
-              selectedTimeSlot,
-              showAvailabilityDensity,
-              isCreatingEvent,
-              selectedDuration) {
-            return Container(
+        // Always show the calendar, even when loading
+        final events = state.maybeMap(
+          loaded: (s) => s.events,
+          orElse: () => <ScheduleEvent>[],
+        );
+        final quotations = state.maybeMap(
+          loaded: (s) => s.quotations,
+          orElse: () => <ScheduleQuotation>[],
+        );
+        final workingHours = state.maybeMap(
+          loaded: (s) => s.workingHours,
+          orElse: () => const WorkingHours(
+            start: '09:00',
+            end: '18:00',
+            workingDays: [],
+          ),
+        );
+        final summary = state.maybeMap(
+          loaded: (s) => s.summary,
+          orElse: () => const ScheduleSummary(
+            totalConfirmedEvents: 0,
+            totalTentativeEvents: 0,
+            totalActionableQuotations: 0,
+            totalOpportunities: 0,
+            upcomingDeadlines: [],
+          ),
+        );
+
+        // Always render the calendar with current data
+        return Container(
               decoration: BoxDecoration(
                 color: explorerSecondaryColor,
                 borderRadius: BorderRadius.circular(12),
@@ -461,24 +476,6 @@ class _EnhancedCalendarViewState extends State<EnhancedCalendarView> {
                 ),
               ),
             );
-          },
-          orElse: () => Container(
-            height: 350,
-            decoration: BoxDecoration(
-              color: explorerSecondaryColor,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: tertiaryColor.withOpacity(0.3),
-                width: 1,
-              ),
-            ),
-            child: const Center(
-              child: CircularProgressIndicator(
-                color: secondaryColor,
-              ),
-            ),
-          ),
-        );
       },
     );
   }
