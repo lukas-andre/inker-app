@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
+import 'package:inker_studio/domain/services/notifications/fcm_token_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart' show Formz, FormzStatus;
@@ -86,7 +85,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _initializeFcmToken() async {
-    _fcmToken = kIsWeb ? '' : await FirebaseMessaging.instance.getToken() ?? '';
+    // Use the FcmTokenService to get token when available
+    _fcmToken = FcmTokenService.instance.token ?? '';
+    
+    // If token not available yet, listen for updates
+    if (_fcmToken.isEmpty) {
+      FcmTokenService.instance.addListener((token) {
+        if (token != null) {
+          _fcmToken = token;
+          dev.log('FCM token updated in LoginBloc: $_fcmToken', className);
+        }
+      });
+      
+      // Try to get token with retry (non-blocking)
+      FcmTokenService.instance.getTokenWithRetry().then((token) {
+        _fcmToken = token;
+        dev.log('FCM token obtained in LoginBloc: $_fcmToken', className);
+      });
+    }
   }
 
   void _mapUsernameChangedToState(

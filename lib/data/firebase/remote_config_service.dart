@@ -20,37 +20,48 @@ class RemoteConfigService {
   RemoteConfigService(this._remoteConfig);
 
   Future<void> _initialize() async {
-    await _remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: const Duration(minutes: 1),
-      minimumFetchInterval: Duration.zero,
-    ));
+    try {
+      await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(minutes: 5),
+      ));
 
-    const envApiUrl = 'https://api.inkerapp.com';
-    await _remoteConfig.setDefaults({
-      'INKER_API_URL': envApiUrl,
-      'isConsentV1Enabled': true,
-      'isConsentV2Enabled': false,
-      'environments_config': jsonEncode({
-        'environments': {
-          'STAGING': {
-            'id': 'STAGING',
-            'name': 'Staging',
-            'description': 'Ambiente de pruebas',
-            'apiUrl': 'https://staging.inker.studio/api',
-            'additionalConfig': {}
-          },
-          'PRODUCTION': {
-            'id': 'PRODUCTION',
-            'name': 'Production',
-            'description': 'Ambiente productivo',
-            'apiUrl': 'https://www.inker.studio/api',
-            'additionalConfig': {}
+      const envApiUrl = 'https://api.inkerapp.com';
+      await _remoteConfig.setDefaults({
+        'INKER_API_URL': envApiUrl,
+        'isConsentV1Enabled': true,
+        'isConsentV2Enabled': false,
+        'environments_config': jsonEncode({
+          'environments': {
+            'STAGING': {
+              'id': 'STAGING',
+              'name': 'Staging',
+              'description': 'Ambiente de pruebas',
+              'apiUrl': 'https://staging.inker.studio/api',
+              'additionalConfig': {}
+            },
+            'PRODUCTION': {
+              'id': 'PRODUCTION',
+              'name': 'Production',
+              'description': 'Ambiente productivo',
+              'apiUrl': 'https://www.inker.studio/api',
+              'additionalConfig': {}
+            }
           }
-        }
-      }),
-    });
+        }),
+      });
 
-    await fetchAndActivate();
+      // Try to fetch with timeout, but don't fail if it doesn't work
+      await fetchAndActivate().timeout(
+        const Duration(seconds: 5),
+        onTimeout: () {
+          print('Remote config fetch timeout - using defaults');
+          return false;
+        },
+      );
+    } catch (e) {
+      print('Error initializing remote config: $e - using defaults');
+    }
   }
 
   Future<bool> fetchAndActivate() async {
