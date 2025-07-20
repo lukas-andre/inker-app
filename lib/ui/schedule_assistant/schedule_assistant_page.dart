@@ -38,6 +38,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
   int _currentStep = 0;
   bool _isLoadingStep = false;
   bool _manualNavigation = false;
+  bool _hasLoadedOnce = false;
 
   int _calculateCurrentStep() {
     if (_manualNavigation) return _currentStep;
@@ -50,6 +51,13 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
     setState(() {
       _selectedStartTime = startTime;
       _selectedEndTime = endTime;
+      // Ensure _selectedDate is updated when time is selected
+      if (_selectedDate == null || 
+          _selectedDate!.day != startTime.day || 
+          _selectedDate!.month != startTime.month || 
+          _selectedDate!.year != startTime.year) {
+        _selectedDate = DateTime(startTime.year, startTime.month, startTime.day);
+      }
       _manualNavigation = false; // Reset navigation flag when time is selected
     });
   }
@@ -61,6 +69,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
       _selectedStartTime = widget.tentativeDate;
       _selectedEndTime = widget.tentativeDate!
           .add(Duration(minutes: widget.tentativeDuration!));
+      _selectedDate = widget.tentativeDate;
     }
   }
 
@@ -148,44 +157,101 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
               body: SafeArea(
                 child: BlocBuilder<ScheduleAssistantBloc, ScheduleAssistantState>(
                   builder: (context, state) {
-                    return state.maybeWhen(
-                      loading: () => const Center(
+                    // Extract data from state regardless of loading status
+                    final isInitialLoad = state.maybeWhen(
+                      loading: () => true,
+                      loaded: (_, __, ___, ____, _____, ______, _______, ________, _________, __________, ___________, ____________, _____________) => false,
+                      orElse: () => false,
+                    ) && !_hasLoadedOnce;
+                    
+                    // Show spinner only on initial load
+                    if (isInitialLoad) {
+                      return const Center(
                         child: InkerProgressIndicator(),
-                      ),
-                      loaded: (events, quotations, availability, suggestedSlots,
-                          workingHours, summary, rangeStart, rangeEnd, selectedQuotation,
-                          selectedTimeSlot, showAvailabilityDensity, isCreatingEvent, selectedDuration) {
-                        
-                        if (isMobile) {
-                          return _buildMobileLayout(
-                            context,
-                            l10n,
-                            events,
-                            quotations,
-                            availability,
-                            suggestedSlots,
-                            workingHours,
-                            summary,
-                            selectedQuotation,
-                          );
-                        } else {
-                          return _buildDesktopLayout(
-                            context,
-                            l10n,
-                            events,
-                            quotations,
-                            availability,
-                            suggestedSlots,
-                            workingHours,
-                            summary,
-                            selectedQuotation,
-                          );
-                        }
-                      },
-                      orElse: () => const Center(
-                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    
+                    // Get data from loaded state or use defaults
+                    final events = state.maybeMap(
+                      loaded: (s) => s.events,
+                      orElse: () => <ScheduleEvent>[],
+                    );
+                    final quotations = state.maybeMap(
+                      loaded: (s) => s.quotations,
+                      orElse: () => <ScheduleQuotation>[],
+                    );
+                    final availability = state.maybeMap(
+                      loaded: (s) => s.availability,
+                      orElse: () => <String, List<AvailabilitySlot>>{},
+                    );
+                    final suggestedSlots = state.maybeMap(
+                      loaded: (s) => s.suggestedSlots,
+                      orElse: () => <SuggestedSlot>[],
+                    );
+                    final workingHours = state.maybeMap(
+                      loaded: (s) => s.workingHours,
+                      orElse: () => const WorkingHours(
+                        start: '09:00',
+                        end: '18:00',
+                        workingDays: [],
                       ),
                     );
+                    final summary = state.maybeMap(
+                      loaded: (s) => s.summary,
+                      orElse: () => const ScheduleSummary(
+                        totalConfirmedEvents: 0,
+                        totalTentativeEvents: 0,
+                        totalActionableQuotations: 0,
+                        totalOpportunities: 0,
+                        upcomingDeadlines: [],
+                      ),
+                    );
+                    final selectedQuotation = state.maybeMap(
+                      loaded: (s) => s.selectedQuotation,
+                      orElse: () => null,
+                    );
+                    
+                    // Mark that we've loaded at least once
+                    state.maybeWhen(
+                      loaded: (_, __, ___, ____, _____, ______, _______, ________, _________, __________, ___________, ____________, _____________) {
+                        if (!_hasLoadedOnce) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            if (mounted) {
+                              setState(() {
+                                _hasLoadedOnce = true;
+                              });
+                            }
+                          });
+                        }
+                      },
+                      orElse: () {},
+                    );
+                    
+                    if (isMobile) {
+                      return _buildMobileLayout(
+                        context,
+                        l10n,
+                        events,
+                        quotations,
+                        availability,
+                        suggestedSlots,
+                        workingHours,
+                        summary,
+                        selectedQuotation,
+                      );
+                    } else {
+                      return _buildDesktopLayout(
+                        context,
+                        l10n,
+                        events,
+                        quotations,
+                        availability,
+                        suggestedSlots,
+                        workingHours,
+                        summary,
+                        selectedQuotation,
+                      );
+                    }
                   },
                 ),
               ),
@@ -207,17 +273,8 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
     ScheduleSummary? summary,
     ScheduleQuotation? selectedQuotation,
   ) {
-    // Update current step based on selection state
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_manualNavigation) {
-        final newStep = _calculateCurrentStep();
-        if (newStep != _currentStep) {
-          setState(() {
-            _currentStep = newStep;
-          });
-        }
-      }
-    });
+    // Don't auto-advance steps based on selections
+    // User must manually confirm to proceed
     
     return Column(
       children: [
@@ -385,7 +442,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
                                 Builder(
                                   builder: (context) {
                                     // Find next available day if not already set
-                                    if (!_initialDateSet && _selectedDate == null) {
+                                    if (!_initialDateSet && _selectedDate == null && widget.tentativeDate == null) {
                                       _initialDateSet = true;
                                       // Find first day with available slots
                                       DateTime? nextAvailableDay;
@@ -565,6 +622,14 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
                                 ),
                               ),
                               const SizedBox(height: 4),
+                              Text(
+                                '${DateFormat('EEEE', 'es').format(_selectedStartTime!)} ${_selectedStartTime!.day} de ${DateFormat('MMMM', 'es').format(_selectedStartTime!)}',
+                                style: TextStyleTheme.bodyText1.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
                               Row(
                                 children: [
                                   Text(
@@ -1116,7 +1181,7 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
             onDateSelected: (date) {
               setState(() {
                 _selectedDate = date;
-                _manualNavigation = false; // Reset cuando se selecciona fecha
+                // Keep manual navigation to prevent auto-advance
               });
             },
           ),
@@ -1190,9 +1255,11 @@ class _ScheduleAssistantPageState extends State<ScheduleAssistantPage> {
                     context,
                     Icons.calendar_today,
                     'Fecha',
-                    _selectedDate != null 
-                      ? DateFormat('EEEE, d MMMM yyyy', 'es').format(_selectedDate!)
-                      : '',
+                    _selectedStartTime != null 
+                      ? DateFormat('EEEE, d MMMM yyyy', 'es').format(_selectedStartTime!)
+                      : _selectedDate != null
+                        ? DateFormat('EEEE, d MMMM yyyy', 'es').format(_selectedDate!)
+                        : '',
                   ),
                   const SizedBox(height: 12),
                   _buildSummaryRow(

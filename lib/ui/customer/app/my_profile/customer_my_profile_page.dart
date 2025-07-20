@@ -209,58 +209,6 @@ class _CustomerMyProfilePageState extends State<CustomerMyProfilePage> {
                 ),
             ],
           ),
-          GestureDetector(
-            onTap: () => _navigateToEditField(
-              context,
-              EditFieldArguments(
-                type: EditFieldType.image,
-                initialValue: customer.profileThumbnail,
-                label: S.of(context).profileImage,
-                labelKey: CustomerMyProfilePage.kProfileImage,
-              ),
-            ),
-            child: Stack(
-              children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Theme.of(context).colorScheme.secondary, width: 3),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
-                        blurRadius: 15,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: _imageCache.buildProfileImage(
-                    imageUrl: customer.profileThumbnail ?? '',
-                    size: 120,
-                    heroTag: 'profile_${customer.id}',
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Theme.of(context).colorScheme.surface, width: 2),
-                    ),
-                    child: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           const SizedBox(height: 16),
           Text(
             '${customer.firstName} ${customer.lastName}',

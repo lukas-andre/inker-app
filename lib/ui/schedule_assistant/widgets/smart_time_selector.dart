@@ -114,6 +114,44 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                         'Horarios Sugeridos',
                         style: TextStyleTheme.subtitle1.copyWith(color: quaternaryColor),
                       ),
+                      // Warning if there are slots from different days
+                      if (suggestedSlots.any((slot) => 
+                          DateFormat('dd-MM').format(slot.startTime) != 
+                          DateFormat('dd-MM').format(widget.selectedDate))) ...[
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Colors.orange.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Colors.orange.withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(
+                                Icons.info_outline,
+                                size: 16,
+                                color: Colors.orange,
+                              ),
+                              SizedBox(width: 6),
+                              Flexible(
+                                child: Text(
+                                  'Algunos horarios sugeridos son de días diferentes al seleccionado',
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 8),
                       SizedBox(
                         height: 100,
@@ -147,12 +185,17 @@ class _SmartTimeSelectorState extends State<SmartTimeSelector> {
                                   decoration: BoxDecoration(
                                     color: isSelected
                                         ? secondaryColor
-                                        : primaryColor,
+                                        : !isSameDay 
+                                            ? Colors.orange.withOpacity(0.1)
+                                            : primaryColor,
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(
                                       color: isSelected
                                           ? secondaryColor
-                                          : tertiaryColor.withOpacity(0.5),
+                                          : !isSameDay
+                                              ? Colors.orange.withOpacity(0.5)
+                                              : tertiaryColor.withOpacity(0.5),
+                                      width: !isSameDay && !isSelected ? 1.5 : 1,
                                     ),
                                   ),
                                   child: Column(
