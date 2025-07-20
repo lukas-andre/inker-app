@@ -79,6 +79,10 @@ class HttpClientService {
     return _remoteConfig.inkerApiUrl;
   }
 
+  Future<Uri> buildUri(String path, {Map<String, dynamic>? queryParams}) async {
+    return _buildUrl(path, queryParams: queryParams);
+  }
+
   Future<T> get<T>({
     required String path,
     required T Function(Map<String, dynamic>) fromJson,

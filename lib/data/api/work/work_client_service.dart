@@ -140,8 +140,7 @@ class WorkClientService implements WorkService {
         return response;
       } else {
         // If image file is provided, use multipart request
-        final baseUrl = await _httpClient.getBaseUrl();
-        final uri = Uri.https(baseUrl, '/works');
+        final uri = await _httpClient.buildUri('/works');
 
         final request = http.MultipartRequest(
           'POST',
@@ -203,8 +202,7 @@ class WorkClientService implements WorkService {
         return response;
       } else {
         // If image file is provided, use multipart request
-        final baseUrl = await _httpClient.getBaseUrl();
-        final uri = Uri.https(baseUrl, '/works/$id');
+        final uri = await _httpClient.buildUri('/works/$id');
 
         final request = http.MultipartRequest(
           'PUT',
