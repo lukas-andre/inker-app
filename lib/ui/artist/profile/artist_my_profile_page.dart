@@ -319,14 +319,24 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
     );
   }
 
-  void _navigateToAddWork(BuildContext context) {
+  void _navigateToAddWork(BuildContext context) async {
     // Navigate to the dedicated work add page
-    Navigator.pushNamed(context, '/works/add');
+    final result = await Navigator.pushNamed(context, '/works/add');
+    
+    // If a work was created (result is true), refresh the profile
+    if (result == true) {
+      _refreshProfile();
+    }
   }
 
-  void _navigateToAddStencil(BuildContext context) {
+  void _navigateToAddStencil(BuildContext context) async {
     // Simply navigate to the route, our updated route handler will handle the bloc
-    Navigator.pushNamed(context, '/stencils/add');
+    final result = await Navigator.pushNamed(context, '/stencils/add');
+    
+    // If a stencil was created, refresh the profile
+    if (result == true) {
+      _refreshProfile();
+    }
   }
 
   Widget _buildArtistStats(BuildContext context, Artist artist) {
@@ -426,8 +436,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       children: [
                         // Botón más compacto para "Add Work"
                         IconButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, '/works/add'),
+                          onPressed: () async {
+                            final result = await Navigator.pushNamed(context, '/works/add');
+                            if (result == true && mounted) {
+                              // Refresh both the profile and the works list
+                              _refreshProfile();
+                              context.read<ArtistWorkBloc>().add(const ArtistWorkEvent.loadWorks());
+                            }
+                          },
                           icon: Icon(Icons.add_circle_outline,
                               color: Theme.of(context).colorScheme.secondary,
                               size: 22),
@@ -635,7 +651,7 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
           context.read<StencilService>(),
           sessionService,
         );
-        stencilBloc.add(const ArtistStencilEvent.loadStencils(true));
+        stencilBloc.add(const ArtistStencilEvent.loadStencils(false));
         return stencilBloc;
       },
       child: BlocBuilder<ArtistStencilBloc, ArtistStencilState>(
@@ -664,8 +680,14 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                       children: [
                         // Botón más compacto para "Add"
                         IconButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, '/stencils/add'),
+                          onPressed: () async {
+                            final result = await Navigator.pushNamed(context, '/stencils/add');
+                            if (result == true && mounted) {
+                              // Refresh both the profile and the stencils list
+                              _refreshProfile();
+                              context.read<ArtistStencilBloc>().add(const ArtistStencilEvent.loadStencils(false));
+                            }
+                          },
                           icon: Icon(Icons.add_circle_outline,
                               color: Theme.of(context).colorScheme.secondary,
                               size: 22),
@@ -697,9 +719,6 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                     loading: () =>
                         const Center(child: InkerProgressIndicator()),
                     loaded: (stencils) {
-                      final featured =
-                          stencils.where((s) => s.isFeatured).take(5).toList();
-
                       if (stencils.isEmpty) {
                         return _buildEmptySection(
                           context,
@@ -711,6 +730,13 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                         );
                       }
 
+                      // Sort stencils: featured first, then non-featured
+                      final sortedStencils = [...stencils]..sort((a, b) {
+                        if (a.isFeatured && !b.isFeatured) return -1;
+                        if (!a.isFeatured && b.isFeatured) return 1;
+                        return 0;
+                      });
+
                       return GridView.builder(
                         scrollDirection: Axis.horizontal,
                         gridDelegate:
@@ -719,13 +745,9 @@ class _ArtistMyProfilePageState extends State<ArtistMyProfilePage>
                           mainAxisSpacing: 10,
                           childAspectRatio: 1.0,
                         ),
-                        itemCount: featured.isEmpty
-                            ? stencils.take(5).length
-                            : featured.length,
+                        itemCount: sortedStencils.length,
                         itemBuilder: (context, index) {
-                          final stencil = featured.isEmpty
-                              ? stencils[index]
-                              : featured[index];
+                          final stencil = sortedStencils[index];
                           return GestureDetector(
                             key: index == 0
                                 ? registerKeys.myProfile.stencilItem

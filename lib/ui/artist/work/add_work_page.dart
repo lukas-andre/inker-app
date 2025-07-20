@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,15 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/data/api/work/dtos/work_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_work/artist_work_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
-import 'package:inker_studio/ui/shared/widgets/drop_zone_widget.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:path_provider/path_provider.dart';
 
 class AddWorkPage extends StatefulWidget {
   const AddWorkPage({super.key});
@@ -78,24 +74,10 @@ class _AddWorkPageState extends State<AddWorkPage> {
         ByteData data = await rootBundle.load('assets/work_${Random().nextInt(5) + 1}.png');
         final bytes = data.buffer.asUint8List();
         
-        if (kIsWeb) {
-          // En web, crear un XFile desde bytes
-          setState(() {
-            _selectedImage = XFile.fromData(bytes, name: 'test_work.png');
-            _imageBytes = bytes;
-          });
-        } else {
-          // En móvil, crear archivo temporal
-          final directory = await getTemporaryDirectory();
-          final imagePath = '${directory.path}/test_work.png';
-          final File imageFile = File(imagePath);
-          await imageFile.writeAsBytes(bytes);
-          
-          setState(() {
-            _selectedImage = XFile(imagePath);
-            _imageBytes = bytes;
-          });
-        }
+        setState(() {
+          _selectedImage = XFile.fromData(bytes, name: 'test_work.png', mimeType: 'image/png');
+          _imageBytes = bytes;
+        });
         
         debugPrint('Image loaded on test mode');
         return;
@@ -223,6 +205,17 @@ class _AddWorkPageState extends State<AddWorkPage> {
                   backgroundColor: Colors.green,
                 ),
               );
+              
+              // Refresh the artist profile to show the new work immediately
+              // Check if ArtistMyProfileBloc is available in the context
+              try {
+                final artistProfileBloc = context.read<ArtistMyProfileBloc>();
+                artistProfileBloc.add(const ArtistProfileEvent.loadProfile());
+              } catch (e) {
+                // ArtistMyProfileBloc is not available, which is fine if we're not coming from the profile page
+                debugPrint('ArtistMyProfileBloc not available in context');
+              }
+              
               Navigator.pop(context, true);
             },
             tagSuggestionsLoaded: (suggestions) {
@@ -304,9 +297,7 @@ class _AddWorkPageState extends State<AddWorkPage> {
     return Center(
       child: _selectedImage != null
           ? _buildSelectedImagePreview()
-          : kIsWeb
-              ? _buildWebDropZone()
-              : _buildMobileImagePicker(),
+          : _buildMobileImagePicker(),
     );
   }
 
@@ -372,18 +363,6 @@ class _AddWorkPageState extends State<AddWorkPage> {
     );
   }
 
-  Widget _buildWebDropZone() {
-    return ImageDropZone(
-      key: registerKeys.workDetail.imagePicker,
-      onImagesDropped: (files) {
-        if (files.isNotEmpty) {
-          _handleSelectedImages(files);
-        }
-      },
-      multiple: false,
-      maxSizeMB: 10,
-    );
-  }
 
   Widget _buildMobileImagePicker() {
     return GestureDetector(
@@ -422,17 +401,6 @@ class _AddWorkPageState extends State<AddWorkPage> {
     );
   }
 
-  Future<void> _handleSelectedImages(List<XFile> files) async {
-    if (files.isEmpty) return;
-    
-    final selectedFile = files.first;
-    final bytes = await selectedFile.readAsBytes();
-    
-    setState(() {
-      _selectedImage = selectedFile;
-      _imageBytes = bytes;
-    });
-  }
 
   Widget _buildTitleField() {
     return TextFormField(
@@ -791,67 +759,43 @@ class _AddWorkPageState extends State<AddWorkPage> {
   }
 
   Widget _buildImageWidget() {
-    if (_selectedImage == null) {
+    if (_selectedImage == null || _imageBytes == null) {
       return const SizedBox.shrink();
     }
 
-    // Use ImageWithSkeleton for better UX with skeleton loading
-    if (_imageBytes != null) {
-      // For memory images, display directly with fade-in animation
-      return AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: Image.memory(
-          _imageBytes!,
-          key: ValueKey(_selectedImage!.path),
-          fit: BoxFit.contain, // Changed from cover to contain to avoid distortion
+    // Always use Image.memory for consistent display across platforms
+    return Image.memory(
+      _imageBytes!,
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
           width: double.infinity,
           height: double.infinity,
-          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-            if (wasSynchronouslyLoaded) {
-              return child;
-            }
-            return AnimatedOpacity(
-              opacity: frame == null ? 0 : 1,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-              child: child,
-            );
-          },
-        ),
-      );
-    } else if (kIsWeb) {
-      // For web, use network image with skeleton
-      return ImageWithSkeleton(
-        imageUrl: _selectedImage!.path,
-        sourceType: ImageSourceType.network,
-        fit: BoxFit.contain, // Changed from cover to contain
-        width: double.infinity,
-        height: double.infinity,
-        borderRadius: BorderRadius.circular(12),
-        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.15)
-            .toColor(),
-        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.25)
-            .toColor(),
-      );
-    } else {
-      // For mobile, use file image with skeleton
-      return ImageWithSkeleton(
-        imageUrl: _selectedImage!.path,
-        sourceType: ImageSourceType.file,
-        fit: BoxFit.contain, // Changed from cover to contain
-        width: double.infinity,
-        height: double.infinity,
-        borderRadius: BorderRadius.circular(12),
-        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.15)
-            .toColor(),
-        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.25)
-            .toColor(),
-      );
-    }
+          color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+              .withLightness(0.15)
+              .toColor(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.broken_image_outlined,
+                size: 48,
+                color: Colors.grey.shade600,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Failed to load image',
+                style: TextStyleTheme.caption.copyWith(
+                  color: Colors.grey.shade400,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

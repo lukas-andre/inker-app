@@ -190,68 +190,74 @@ class _DropZoneWidgetState extends State<DropZoneWidget>
     }
 
     // Use flutter_dropzone for web
-    return Stack(
-      children: [
-        DropzoneView(
-          operation: DragOperation.copy,
-          cursor: CursorType.grab,
-          onCreated: (DropzoneViewController controller) {
-            _dropzoneController = controller;
-          },
-          onLoaded: () {
-            // Dropzone is ready
-          },
-          onError: (String? error) {
-            setState(() {
-              _state = DropZoneState.error;
-              _errorMessage = error ?? 'Dropzone error';
-            });
-            _resetStateAfterDelay();
-          },
-          onHover: () {
-            if (_state != DropZoneState.hovering && _state != DropZoneState.uploading) {
-              setState(() {
-                _state = DropZoneState.hovering;
-              });
-            }
-          },
-          onLeave: () {
-            if (_state == DropZoneState.hovering) {
-              setState(() {
-                _state = DropZoneState.idle;
-              });
-            }
-          },
-          onDropFiles: (List<DropzoneFileInterface>? files) async {
-            if (files != null && files.isNotEmpty) {
-              setState(() {
-                _state = DropZoneState.uploading;
-                _uploadProgress = 0.0;
-              });
-              
-              await _handleDropzoneFiles(files);
-            }
-          },
-        ),
-        // Overlay with visual feedback
-        GestureDetector(
-          onTap: widget.onTap ?? _pickFiles,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: widget.height,
-            decoration: BoxDecoration(
-              color: _backgroundColor,
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
-              border: Border.all(
-                color: _borderColor,
-                width: 2,
-                style: BorderStyle.solid,
+    return SizedBox(
+      height: widget.height,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: DropzoneView(
+              operation: DragOperation.copy,
+              cursor: CursorType.grab,
+              onCreated: (DropzoneViewController controller) {
+                _dropzoneController = controller;
+              },
+              onLoaded: () {
+                // Dropzone is ready
+              },
+              onError: (String? error) {
+                setState(() {
+                  _state = DropZoneState.error;
+                  _errorMessage = error ?? 'Dropzone error';
+                });
+                _resetStateAfterDelay();
+              },
+              onHover: () {
+                if (_state != DropZoneState.hovering && _state != DropZoneState.uploading) {
+                  setState(() {
+                    _state = DropZoneState.hovering;
+                  });
+                }
+              },
+              onLeave: () {
+                if (_state == DropZoneState.hovering) {
+                  setState(() {
+                    _state = DropZoneState.idle;
+                  });
+                }
+              },
+              onDropFiles: (List<DropzoneFileInterface>? files) async {
+                if (files != null && files.isNotEmpty) {
+                  setState(() {
+                    _state = DropZoneState.uploading;
+                    _uploadProgress = 0.0;
+                  });
+                  
+                  await _handleDropzoneFiles(files);
+                }
+              },
+            ),
+          ),
+          // Overlay with visual feedback
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: widget.onTap ?? _pickFiles,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: _backgroundColor,
+                  borderRadius: widget.borderRadius ?? BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _borderColor,
+                    width: 2,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                child: widget.child ?? _buildDefaultContent(),
               ),
             ),
-            child: widget.child ?? _buildDefaultContent(),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

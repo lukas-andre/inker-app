@@ -135,8 +135,7 @@ class StencilClientService implements StencilService {
         return response;
       } else {
         // If image file is provided, use multipart request
-        final baseUrl = await _httpClient.getBaseUrl();
-        final uri = Uri.https(baseUrl, '/stencils');
+        final uri = await _httpClient.buildUri('/stencils');
 
         final request = http.MultipartRequest(
           'POST',
@@ -198,8 +197,7 @@ class StencilClientService implements StencilService {
         return response;
       } else {
         // If image file is provided, use multipart request
-        final baseUrl = await _httpClient.getBaseUrl();
-        final uri = Uri.https(baseUrl, '/stencils/$id');
+        final uri = await _httpClient.buildUri('/stencils/$id');
 
         final request = http.MultipartRequest(
           'PUT',

@@ -90,10 +90,31 @@ class AgendaEventDetailPage extends StatelessWidget {
             return state.maybeWhen(
               loaded: (data) {
                 if (data.actions.canSendMessage && !data.event.done) {
-                  return IconButton(
-                    icon: const Icon(Icons.message),
-                    onPressed: () => _showMessageDialog(context, data),
-                    tooltip: 'Enviar Mensaje',
+                  final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                  final isExpired = data.event.startDateTime.isBefore(threeMonthsAgo);
+                  
+                  return Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.message),
+                        onPressed: () => _showMessageDialog(context, data),
+                        tooltip: isExpired ? 'Chat (Solo lectura)' : 'Enviar Mensaje',
+                      ),
+                      if (isExpired)
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: Colors.orange,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                    ],
                   );
                 }
                 return const SizedBox.shrink();
@@ -944,6 +965,10 @@ class AgendaEventDetailPage extends StatelessWidget {
     final customerName =
         data.artist.username ?? data.artist.username ?? S.of(context).customer;
 
+    // Check if event is more than 3 months old
+    final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+    final isExpired = data.event.startDateTime.isBefore(threeMonthsAgo);
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -953,6 +978,8 @@ class AgendaEventDetailPage extends StatelessWidget {
           eventTitle: data.event.title,
           otherPartyName: customerName,
           isArtist: isArtist,
+          eventDate: data.event.startDateTime,
+          isReadOnly: isExpired || data.event.done,
         ),
       ),
     );

@@ -20,6 +20,8 @@ class EventChatPage extends StatefulWidget {
   final String eventTitle;
   final String otherPartyName;
   final bool isArtist;
+  final DateTime? eventDate;
+  final bool isReadOnly;
 
   const EventChatPage({
     super.key,
@@ -28,6 +30,8 @@ class EventChatPage extends StatefulWidget {
     required this.eventTitle,
     required this.otherPartyName,
     required this.isArtist,
+    this.eventDate,
+    this.isReadOnly = false,
   });
 
   @override
@@ -44,6 +48,7 @@ class _EventChatPageState extends State<EventChatPage> {
   bool _isSending = false;
   bool _isRefreshing = false;
   String? _error;
+  bool _isChatExpired = false;
   
   late final AgendaService _agendaService;
   late final LocalSessionService _sessionService;
@@ -59,11 +64,12 @@ class _EventChatPageState extends State<EventChatPage> {
     super.initState();
     _agendaService = context.read<AgendaService>();
     _sessionService = context.read<LocalSessionService>();
+    _checkChatExpiration();
     _loadInitialData();
     
     // Set up periodic refresh every 10 seconds
     _refreshTimer = Timer.periodic(const Duration(seconds: 10), (_) {
-      if (!_isRefreshing && !_isSending) {
+      if (!_isRefreshing && !_isSending && !isChatDisabled) {
         _refreshMessages(silent: true);
       }
     });
@@ -157,7 +163,20 @@ class _EventChatPageState extends State<EventChatPage> {
     }
   }
 
+  void _checkChatExpiration() {
+    if (widget.eventDate != null) {
+      final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+      setState(() {
+        _isChatExpired = widget.eventDate!.isBefore(threeMonthsAgo);
+      });
+    }
+  }
+
+  bool get isChatDisabled => widget.isReadOnly || _isChatExpired;
+
   Future<void> _sendMessage() async {
+    if (isChatDisabled) return;
+    
     final messageText = _messageController.text.trim();
     final imageFile = _selectedImage;
 
@@ -521,8 +540,56 @@ class _EventChatPageState extends State<EventChatPage> {
 
   Widget _buildMessageInput() {
     final l10n = S.of(context);
-    final canSend = !_isSending && 
+    final canSend = !_isSending && !isChatDisabled &&
       (_messageController.text.trim().isNotEmpty || _selectedImage != null);
+
+    if (isChatDisabled) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, -2),
+            ),
+          ],
+        ),
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.orange.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.orange.withOpacity(0.3),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  color: Colors.orange,
+                  size: 20,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    _isChatExpired
+                        ? 'Chat deshabilitado: Han pasado más de 3 meses desde el evento'
+                        : 'Chat en modo lectura',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Colors.orange,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -543,9 +610,9 @@ class _EventChatPageState extends State<EventChatPage> {
             IconButton(
               icon: Icon(
                 Icons.attach_file,
-                color: _isSending ? Colors.white38 : Colors.white70,
+                color: _isSending || isChatDisabled ? Colors.white38 : Colors.white70,
               ),
-              onPressed: _isSending ? null : _showAttachmentOptions,
+              onPressed: _isSending || isChatDisabled ? null : _showAttachmentOptions,
               tooltip: l10n.photoLibrary,
             ),
             Expanded(
@@ -562,7 +629,7 @@ class _EventChatPageState extends State<EventChatPage> {
                       maxLines: 5,
                       minLines: 1,
                       style: TextStyleTheme.bodyText1,
-                      enabled: !_isSending,
+                      enabled: !_isSending && !isChatDisabled,
                       textInputAction: TextInputAction.newline,
                       keyboardType: TextInputType.multiline,
                       onChanged: (text) => setState(() {}),

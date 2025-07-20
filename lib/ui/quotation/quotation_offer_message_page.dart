@@ -21,6 +21,8 @@ class QuotationOfferMessagePage extends StatelessWidget {
   final String offerId;
   final QuotationOfferListItemDto offer;
   final String customerName;
+  final DateTime? quotationCreatedAt;
+  final bool isReadOnly;
 
   const QuotationOfferMessagePage({
     super.key,
@@ -28,6 +30,8 @@ class QuotationOfferMessagePage extends StatelessWidget {
     required this.offerId,
     required this.offer,
     required this.customerName,
+    this.quotationCreatedAt,
+    this.isReadOnly = false,
   });
 
   @override
@@ -46,6 +50,8 @@ class QuotationOfferMessagePage extends StatelessWidget {
         offerId: offerId,
         offer: offer,
         customerName: customerName,
+        quotationCreatedAt: quotationCreatedAt,
+        isReadOnly: isReadOnly,
       ),
     );
   }
@@ -56,12 +62,16 @@ class _QuotationOfferMessageView extends StatefulWidget {
   final String offerId;
   final QuotationOfferListItemDto offer;
   final String customerName;
+  final DateTime? quotationCreatedAt;
+  final bool isReadOnly;
 
   const _QuotationOfferMessageView({
     required this.quotationId,
     required this.offerId,
     required this.offer,
     required this.customerName,
+    this.quotationCreatedAt,
+    this.isReadOnly = false,
   });
 
   @override
@@ -81,10 +91,12 @@ class _QuotationOfferMessageViewState
 
   // Timer for periodic refreshes
   late Timer? _refreshTimer;
+  bool _isChatExpired = false;
 
   @override
   void initState() {
     super.initState();
+    _checkChatExpiration();
     // Set up periodic refresh
     _refreshTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       // Only poll if the widget is mounted and BLoC is in a loaded state
@@ -121,6 +133,17 @@ class _QuotationOfferMessageViewState
       curve: Curves.easeOut,
     );
   }
+
+  void _checkChatExpiration() {
+    if (widget.quotationCreatedAt != null) {
+      final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+      setState(() {
+        _isChatExpired = widget.quotationCreatedAt!.isBefore(threeMonthsAgo);
+      });
+    }
+  }
+
+  bool get isChatDisabled => widget.isReadOnly || _isChatExpired;
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +269,7 @@ class _QuotationOfferMessageViewState
               );
             },
           ),
-          if (isArtist)
+          if (isArtist && !isChatDisabled)
             IconButton(
               icon: const Icon(Icons.edit, color: Colors.white),
               tooltip: l10n.editOffer,
@@ -534,7 +557,47 @@ class _QuotationOfferMessageViewState
   Widget _buildMessageInput({required bool isSending}) {
     final l10n = S.of(context);
     bool canSend = !isSending &&
+        !isChatDisabled &&
         (_messageController.text.trim().isNotEmpty || _selectedImage != null);
+
+    if (isChatDisabled) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.orange.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.orange.withOpacity(0.3),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  color: Colors.orange,
+                  size: 20,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    _isChatExpired
+                        ? 'Chat deshabilitado: Han pasado más de 3 meses desde la creación de la cotización'
+                        : 'Chat en modo lectura',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Colors.orange,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -545,7 +608,7 @@ class _QuotationOfferMessageViewState
           children: [
             IconButton(
               icon: const Icon(Icons.attach_file, color: Colors.white70),
-              onPressed: isSending ? null : _showAttachmentOptions,
+              onPressed: isSending || isChatDisabled ? null : _showAttachmentOptions,
               tooltip: l10n.photoLibrary,
             ),
             Expanded(
@@ -563,7 +626,7 @@ class _QuotationOfferMessageViewState
                     maxLines: 5,
                     minLines: 1,
                     style: TextStyleTheme.bodyText1,
-                    enabled: !isSending,
+                    enabled: !isSending && !isChatDisabled,
                     textInputAction: TextInputAction.newline,
                     keyboardType: TextInputType.multiline,
                     onChanged: (text) => setState(() {}),

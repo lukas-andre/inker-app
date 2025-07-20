@@ -1,22 +1,18 @@
-import 'dart:io';
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
 import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/test_utils/register_keys.dart';
 import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
-import 'package:inker_studio/ui/shared/widgets/drop_zone_widget.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:path_provider/path_provider.dart';
 
 class AddStencilPage extends StatefulWidget {
   const AddStencilPage({super.key});
@@ -65,16 +61,6 @@ class _AddStencilPageState extends State<AddStencilPage> {
     super.dispose();
   }
 
-  Future<void> _handleDroppedFiles(List<XFile> files) async {
-    if (files.isNotEmpty) {
-      final file = files.first;
-      final bytes = await file.readAsBytes();
-      setState(() {
-        _selectedImage = file;
-        _imageBytes = bytes;
-      });
-    }
-  }
 
   Future<void> _pickImage() async {
     // Si estamos en modo de prueba, usar una imagen predefinida
@@ -84,24 +70,10 @@ class _AddStencilPageState extends State<AddStencilPage> {
         ByteData data = await rootBundle.load('assets/stencil_${Random().nextInt(5) + 1}.png');
         final bytes = data.buffer.asUint8List();
         
-        if (kIsWeb) {
-          // En web, crear un XFile desde bytes
-          setState(() {
-            _selectedImage = XFile.fromData(bytes, name: 'test_stencil.png');
-            _imageBytes = bytes;
-          });
-        } else {
-          // En móvil, crear archivo temporal
-          final directory = await getTemporaryDirectory();
-          final imagePath = '${directory.path}/test_stencil.png';
-          final File imageFile = File(imagePath);
-          await imageFile.writeAsBytes(bytes);
-          
-          setState(() {
-            _selectedImage = XFile(imagePath);
-            _imageBytes = bytes;
-          });
-        }
+        setState(() {
+          _selectedImage = XFile.fromData(bytes, name: 'test_stencil.png', mimeType: 'image/png');
+          _imageBytes = bytes;
+        });
         
         debugPrint('Image loaded on test mode');
         return;
@@ -112,7 +84,12 @@ class _AddStencilPageState extends State<AddStencilPage> {
     
     // Flujo normal para modo no-test
     final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1920,
+      maxHeight: 1920,
+      imageQuality: 85,
+    );
 
     if (image != null) {
       final bytes = await image.readAsBytes();
@@ -222,7 +199,18 @@ class _AddStencilPageState extends State<AddStencilPage> {
                   backgroundColor: Colors.green,
                 ),
               );
-              Navigator.pop(context);
+              
+              // Refresh the artist profile to show the new stencil immediately
+              // Check if ArtistMyProfileBloc is available in the context
+              try {
+                final artistProfileBloc = context.read<ArtistMyProfileBloc>();
+                artistProfileBloc.add(const ArtistProfileEvent.loadProfile());
+              } catch (e) {
+                // ArtistMyProfileBloc is not available, which is fine if we're not coming from the profile page
+                debugPrint('ArtistMyProfileBloc not available in context');
+              }
+              
+              Navigator.pop(context, true);
             },
             tagSuggestionsLoaded: (suggestions) {
               setState(() {
@@ -363,25 +351,9 @@ class _AddStencilPageState extends State<AddStencilPage> {
       );
     }
 
-    // Show drop zone for web, regular picker for mobile
-    if (kIsWeb) {
-      return DropZoneWidget(
-        key: registerKeys.addStencil.imagePicker,
-        onFilesDropped: _handleDroppedFiles,
-        multiple: false,
-        allowedExtensions: const ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-        maxFileSize: 10,
-        height: 200,
-        borderRadius: BorderRadius.circular(12),
-        primaryColor: Theme.of(context).colorScheme.secondary,
-        idleText: S.of(context).tapToSelectImage,
-        hoverText: 'Release to upload image',
-        uploadingText: 'Uploading image...',
-        onTap: _pickImage,
-      );
-    }
+    // Use same UI for both web and mobile
+    // The ImagePicker will handle the platform differences
 
-    // Mobile version - simple tap to select
     return Center(
       child: GestureDetector(
         key: registerKeys.addStencil.imagePicker,
@@ -736,100 +708,16 @@ class _AddStencilPageState extends State<AddStencilPage> {
   }
 
   Widget _buildImageWidget() {
-    if (_selectedImage == null) {
+    if (_selectedImage == null || _imageBytes == null) {
       return const SizedBox.shrink();
     }
 
-    if (_imageBytes != null) {
-      return ImageWithSkeleton(
-        imageUrl: 'data:image/png;base64,${_imageBytes!}',
-        sourceType: ImageSourceType.network,
-        width: double.infinity,
-        height: 200,
-        fit: BoxFit.contain,
-        borderRadius: BorderRadius.circular(12),
-        shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.15)
-            .toColor(),
-        shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-            .withLightness(0.25)
-            .toColor(),
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Container(
-            width: double.infinity,
-            height: 200,
-            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-                .withLightness(0.15)
-                .toColor(),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Loading image...',
-                    style: TextStyleTheme.caption.copyWith(
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-        errorBuilder: (context, error, stackTrace) {
-          return Container(
-            width: double.infinity,
-            height: 200,
-            color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-                .withLightness(0.15)
-                .toColor(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.broken_image_outlined,
-                  size: 48,
-                  color: Colors.grey.shade600,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Failed to load image',
-                  style: TextStyleTheme.caption.copyWith(
-                    color: Colors.grey.shade400,
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    }
-
-    // For file-based images (mobile)
-    return ImageWithSkeleton(
-      imageUrl: _selectedImage!.path,
-      sourceType: kIsWeb ? ImageSourceType.network : ImageSourceType.file,
+    // Always use Image.memory for consistent display across platforms
+    return Image.memory(
+      _imageBytes!,
       width: double.infinity,
       height: 200,
       fit: BoxFit.contain,
-      borderRadius: BorderRadius.circular(12),
-      shimmerBaseColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-          .withLightness(0.15)
-          .toColor(),
-      shimmerHighlightColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
-          .withLightness(0.25)
-          .toColor(),
       errorBuilder: (context, error, stackTrace) {
         return Container(
           width: double.infinity,
