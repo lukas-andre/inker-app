@@ -297,12 +297,19 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        // Add timeout to service worker registration
+        const swRegistrationPromise = navigator.serviceWorker.register('/firebase-messaging-sw.js');
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Service Worker registration timeout')), 5000)
+        );
+        
+        Promise.race([swRegistrationPromise, timeoutPromise])
           .then(function(registration) {
             console.log('Service Worker registered with scope:', registration.scope);
           })
           .catch(function(error) {
-            console.log('Service Worker registration failed:', error);
+            console.warn('Service Worker registration failed or timed out:', error);
+            // Continue loading the app even if SW fails
           });
       });
     }
