@@ -22,10 +22,12 @@ class GpsBloc extends Bloc<GpsEvent, GpsState> {
   }
 
   Future<void> _init() async {
+    print('[GpsBloc] _init: starting GPS initialization');
     final isEnabled = _checkGpsStatus();
     final isGranted = _isPermissionGranted();
     final gpsInitStatus = await Future.wait([isEnabled, isGranted]);
 
+    print('[GpsBloc] _init: GPS enabled=${gpsInitStatus[0]}, permission granted=${gpsInitStatus[1]}');
     add(GpsAndPermissionEvent(
         isGpsEnabled: gpsInitStatus[0],
         isGpsPermissionGranted: gpsInitStatus[1]));

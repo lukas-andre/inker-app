@@ -92,7 +92,10 @@ class _AppViewState extends State<AppView> {
         BlocProvider(create: (context) => ArtistBioCubitCubit()),
         BlocProvider(create: (context) => CustomerAppBloc()),
         BlocProvider(create: (context) => ArtistAppBloc()),
-        BlocProvider(create: (context) => ArtistsListBloc()),
+        BlocProvider(create: (context) {
+          print('[AppView] Creating ArtistsListBloc');
+          return ArtistsListBloc();
+        }),
         // Environment bloc for managing environments
         BlocProvider(
           create: (context) => EnvironmentBloc(
@@ -153,13 +156,16 @@ class _AppViewState extends State<AppView> {
 
         // Providers que dependen de MapBloc
         BlocProvider(
-          create: (context) => ExplorerPageBloc(
-            mapBloc: context.read<MapBloc>(),
-            localSessionService: context.read(),
-            locationService: context.read(),
-            artistsListBloc: context.read<ArtistsListBloc>(),
-            locationBloc: context.read<LocationBloc>(),
-          ),
+          create: (context) {
+            print('[AppView] Creating ExplorerPageBloc');
+            return ExplorerPageBloc(
+              mapBloc: context.read<MapBloc>(),
+              localSessionService: context.read(),
+              locationService: context.read(),
+              artistsListBloc: context.read<ArtistsListBloc>(),
+              locationBloc: context.read<LocationBloc>(),
+            );
+          },
         ),
         BlocProvider(
           create: (context) => DraggableArtistInfoSheetBloc(

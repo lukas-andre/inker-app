@@ -93,18 +93,25 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
 
   Future<FutureOr<void>> _explorerPageFetchArtistsToState(
       ExplorerPageFetchArtists event, Emitter<ExplorerPageState> emit) async {
+    print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: received event with location=${event.location}');
+    print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: current state isLoading=${state.isLoading}, firstLoad=${state.firstLoad}');
+    
     if (state.isLoading) {
+      print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: already loading, returning');
       return null;
     }
     emit(state.copyWith(isLoading: true));
     try {
       final token = await _localSessionService.getActiveSessionToken() ?? '';
+      print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: token obtained, making API call');
       final response = await _locationService.getArtistByLocation(
           token,
           FindArtistByLocationRequest(
               range: state.range,
               lat: event.location.latitude,
               lng: event.location.longitude));
+      print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: API response received, artists count=${response.length}');
+      
       if (state.firstLoad) {
         emit(state.copyWith(firstLoad: false));
       }
@@ -119,6 +126,7 @@ class ExplorerPageBloc extends Bloc<ExplorerPageEvent, ExplorerPageState> {
 
       await drawMarkers(response);
     } catch (e) {
+      print('[ExplorerPageBloc] _explorerPageFetchArtistsToState: ERROR=$e');
       emit(state.copyWith(isLoading: false, firstLoad: false));
     }
   }

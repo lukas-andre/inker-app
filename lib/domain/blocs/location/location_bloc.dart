@@ -14,6 +14,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   LocationBloc() : super(const LocationState()) {
     on<OnNewUserLocationEvent>((event, emit) {
+      print('[LocationBloc] OnNewUserLocationEvent: location=${event.location}');
       emit(state.copyWith(
         lastKnownLocation: event.location,
         myLocationHistory: [event.location, ...state.myLocationHistory],
@@ -34,6 +35,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   void startFollowingUser() {
+    print('[LocationBloc] startFollowingUser: starting');
     add(const OnStartFollowingUserEvent());
     if (_positionStreamSubscription != null) {
       stopFollowingUser();
@@ -41,7 +43,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
     _positionStreamSubscription =
         Geolocator.getPositionStream().listen((event) {
-      add(OnNewUserLocationEvent(LatLng(event.latitude, event.longitude)));
+      final location = LatLng(event.latitude, event.longitude);
+      print('[LocationBloc] startFollowingUser: new location received: $location');
+      add(OnNewUserLocationEvent(location));
     });
   }
 
