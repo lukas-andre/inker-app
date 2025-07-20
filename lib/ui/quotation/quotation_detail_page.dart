@@ -621,16 +621,48 @@ class _MainQuotationInfo extends StatelessWidget {
           Container(
             width: double.infinity,
             margin: const EdgeInsets.only(bottom: 24),
-            child: ElevatedButton.icon(
-              icon: const Icon(Icons.message),
-              label: Text(l10n.messageCustomer),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
-              onPressed: () {
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                ElevatedButton.icon(
+                  icon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.message),
+                      if (() {
+                        final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                        return quotation.createdAt.isBefore(threeMonthsAgo);
+                      }()) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            'Solo lectura',
+                            style: TextStyleTheme.caption.copyWith(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  label: Text(l10n.messageCustomer),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  ),
+                  onPressed: () {
                 // Navigate to message page if we have an offer
                 if (artistOffer != null) {
+                  final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                  final isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+                  
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => QuotationOfferMessagePage(
@@ -639,6 +671,8 @@ class _MainQuotationInfo extends StatelessWidget {
                         offer: artistOffer,
                         customerName:
                             quotation.customer?.firstName ?? l10n.customer,
+                        quotationCreatedAt: quotation.createdAt,
+                        isReadOnly: isExpired,
                       ),
                     ),
                   );
@@ -647,7 +681,9 @@ class _MainQuotationInfo extends StatelessWidget {
                     SnackBar(content: Text(l10n.notAvailable)),
                   );
                 }
-              },
+                  },
+                ),
+              ],
             ),
           ),
           const Divider(height: 24),
@@ -1727,15 +1763,38 @@ class _OfferListItem extends StatelessWidget {
     final l10n = S.of(context);
     // Function to navigate to chat
     void navigateToChat() {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => QuotationOfferMessagePage(
-            quotationId: quotationId,
-            offerId: offer.id,
-            offer: offer,
-            customerName: customerName,
-          ),
-        ),
+      // Get quotation from parent context to check date
+      final quotationDetailBloc = context.read<QuotationDetailBloc>();
+      quotationDetailBloc.state.maybeWhen(
+        loaded: (quotation) {
+          final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+          final isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+          
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => QuotationOfferMessagePage(
+                quotationId: quotationId,
+                offerId: offer.id,
+                offer: offer,
+                customerName: customerName,
+                quotationCreatedAt: quotation.createdAt,
+                isReadOnly: isExpired,
+              ),
+            ),
+          );
+        },
+        orElse: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => QuotationOfferMessagePage(
+                quotationId: quotationId,
+                offerId: offer.id,
+                offer: offer,
+                customerName: customerName,
+              ),
+            ),
+          );
+        },
       );
     }
 
@@ -2002,18 +2061,107 @@ class _OfferListItem extends StatelessWidget {
                   ),
                 ],
               ] else ...[
-                ElevatedButton.icon(
-                  onPressed: navigateToChat,
-                  icon: const Icon(Icons.chat_outlined, size: 16),
-                  label: Text(l10n.startChat),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    textStyle: TextStyleTheme.caption
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
+                Builder(
+                  builder: (context) {
+                    // Check if quotation from parent context to get date
+                    final quotationDetailBloc = context.read<QuotationDetailBloc>();
+                    bool isExpired = false;
+                    bool isNearExpiration = false;
+                    
+                    quotationDetailBloc.state.maybeWhen(
+                      loaded: (quotation) {
+                        final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                        final twoMonthsAgo = DateTime.now().subtract(const Duration(days: 60));
+                        isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+                        isNearExpiration = !isExpired && quotation.createdAt.isBefore(twoMonthsAgo);
+                      },
+                      orElse: () {},
+                    );
+                    
+                    return Column(
+                      children: [
+                        if (isExpired || isNearExpiration) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            margin: const EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: (isExpired ? Colors.orange : Colors.yellow).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: (isExpired ? Colors.orange : Colors.yellow).withValues(alpha: 0.3),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.info_outline,
+                                  size: 16,
+                                  color: isExpired ? Colors.orange : Colors.yellow[700],
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    isExpired 
+                                      ? 'El chat estará en modo lectura (más de 3 meses)'
+                                      : 'El chat se deshabilitará pronto',
+                                    style: TextStyleTheme.caption.copyWith(
+                                      color: isExpired ? Colors.orange : Colors.yellow[700],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: navigateToChat,
+                            icon: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.chat_bubble_outline, size: 20),
+                                if (isExpired) ...[
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: const Text(
+                                      'LECTURA',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                            label: Text(
+                              l10n.startChat,
+                              style: TextStyleTheme.bodyText1.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
 
