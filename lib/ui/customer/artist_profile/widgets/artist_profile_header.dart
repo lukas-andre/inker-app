@@ -5,6 +5,7 @@ import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/utils/formatters/distance_formatter.dart';
 import 'dart:ui';
 
 class ArtistProfileHeader extends StatelessWidget {
@@ -220,17 +221,49 @@ class ArtistProfileHeader extends StatelessWidget {
                     ),
                   ),
 
-                // Followers count
+                // Location and followers row
                 Padding(
-                  padding:
-                      const EdgeInsets.only(top: 8), // Increased from 6 to 8
-                  child: Text(
-                    S.of(context).follower(artist.followers ?? 0),
-                    style: TextStyle(
-                      fontSize: 15, // Increased from 13 to 15
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white.withOpacity(0.8),
-                    ),
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Followers count
+                      Text(
+                        S.of(context).follower(artist.followers ?? 0),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
+                      ),
+                      // Location info if available
+                      if (artist.distance != null) ...[
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 12),
+                          height: 16,
+                          width: 1,
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
+                        Icon(
+                          Icons.location_on,
+                          size: 16,
+                          color: Colors.white.withValues(alpha: 0.8),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          DistanceFormatter.formatDistanceWithSuffix(
+                            artist.distance,
+                            artist.distanceUnit,
+                            context,
+                          ),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.8),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                 ),
 

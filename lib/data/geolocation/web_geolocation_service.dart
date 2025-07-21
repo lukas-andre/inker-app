@@ -10,6 +10,9 @@ class WebGeolocationService implements PlatformGeolocationService {
   static const LatLng _defaultLocation = LatLng(-33.4372, -70.6506);
   static const String _lastLocationKey = 'last_known_location';
   
+  // Cache the loaded location to avoid multiple SharedPreferences calls
+  LatLng? _cachedLocation;
+  
   @override
   Future<bool> isLocationServiceEnabled() async {
     // On web, if geolocation is available, we consider it enabled
@@ -82,24 +85,46 @@ class WebGeolocationService implements PlatformGeolocationService {
   
   Future<LatLng> _getLastKnownLocation() async {
     try {
+      print('[WebGeolocationService] _getLastKnownLocation: attempting to load saved location...');
       final prefs = await SharedPreferences.getInstance();
+      print('[WebGeolocationService] _getLastKnownLocation: SharedPreferences instance obtained');
+      
+      // List all keys for debugging
+      final keys = prefs.getKeys();
+      print('[WebGeolocationService] _getLastKnownLocation: All stored keys: $keys');
+      
       final lat = prefs.getDouble('${_lastLocationKey}_lat');
       final lng = prefs.getDouble('${_lastLocationKey}_lng');
+      print('[WebGeolocationService] _getLastKnownLocation: lat=$lat, lng=$lng');
+      
       if (lat != null && lng != null) {
         print('[WebGeolocationService] Retrieved saved location: $lat, $lng');
         return LatLng(lat, lng);
+      } else {
+        print('[WebGeolocationService] _getLastKnownLocation: No saved location found, using default');
       }
     } catch (e) {
       print('[WebGeolocationService] Error retrieving saved location: $e');
     }
+    print('[WebGeolocationService] _getLastKnownLocation: returning default location: $_defaultLocation');
     return _defaultLocation;
   }
   
   Future<void> _saveLocation(LatLng location) async {
     try {
+      print('[WebGeolocationService] _saveLocation: attempting to save location...');
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setDouble('${_lastLocationKey}_lat', location.latitude);
-      await prefs.setDouble('${_lastLocationKey}_lng', location.longitude);
+      print('[WebGeolocationService] _saveLocation: SharedPreferences instance obtained');
+      
+      final latSuccess = await prefs.setDouble('${_lastLocationKey}_lat', location.latitude);
+      final lngSuccess = await prefs.setDouble('${_lastLocationKey}_lng', location.longitude);
+      print('[WebGeolocationService] _saveLocation: lat saved=$latSuccess, lng saved=$lngSuccess');
+      
+      // Verify the save immediately
+      final verifyLat = prefs.getDouble('${_lastLocationKey}_lat');
+      final verifyLng = prefs.getDouble('${_lastLocationKey}_lng');
+      print('[WebGeolocationService] _saveLocation: verification lat=$verifyLat, lng=$verifyLng');
+      
       print('[WebGeolocationService] Saved location: ${location.latitude}, ${location.longitude}');
     } catch (e) {
       print('[WebGeolocationService] Error saving location: $e');
@@ -113,6 +138,13 @@ class WebGeolocationService implements PlatformGeolocationService {
     // Always return saved location or default immediately
     // Don't try to get real location automatically
     final savedLocation = await _getLastKnownLocation();
+    
+    // If we're returning the default location and haven't saved it yet, save it
+    if (savedLocation == _defaultLocation) {
+      print('[WebGeolocationService] getCurrentPosition: using default location, saving it for persistence');
+      await _saveLocation(savedLocation);
+    }
+    
     print('[WebGeolocationService] getCurrentPosition: returning saved/default location: $savedLocation');
     return savedLocation;
   }
@@ -123,7 +155,12 @@ class WebGeolocationService implements PlatformGeolocationService {
     
     // Emit saved/default location immediately
     print('[WebGeolocationService] getPositionStream: emitting saved/default location');
-    _getLastKnownLocation().then((location) {
+    _getLastKnownLocation().then((location) async {
+      // If we're using the default location and haven't saved it yet, save it
+      if (location == _defaultLocation) {
+        print('[WebGeolocationService] getPositionStream: using default location, saving it for persistence');
+        await _saveLocation(location);
+      }
       controller.add(location);
     });
     

@@ -49,7 +49,7 @@ class _CompactRangeSliderState extends State<CompactRangeSlider>
 
   @override
   Widget build(BuildContext context) {
-    const List<double> quickRanges = [1.0, 3.0, 5.0, 10.0, 20.0];
+    const List<double> quickRanges = [5.0, 10.0, 20.0, 50.0];
     
     return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
       builder: (context, state) {
@@ -131,9 +131,9 @@ class _CompactRangeSliderState extends State<CompactRangeSlider>
                           // Quick decrease
                           IconButton(
                             icon: const Icon(Icons.remove_circle_outline, size: 20),
-                            onPressed: state.range > 0.5 && !state.isLoading
+                            onPressed: state.range > 1.0 && !state.isLoading
                               ? () {
-                                  final newRange = (state.range - 1).clamp(0.5, 20.0);
+                                  final newRange = (state.range - 5).clamp(1.0, 50.0);
                                   context.read<ExplorerPageBloc>().add(
                                     ExplorerPageUpdateRange(range: newRange),
                                   );
@@ -149,9 +149,9 @@ class _CompactRangeSliderState extends State<CompactRangeSlider>
                           // Quick increase
                           IconButton(
                             icon: const Icon(Icons.add_circle_outline, size: 20),
-                            onPressed: state.range < 20.0 && !state.isLoading
+                            onPressed: state.range < 50.0 && !state.isLoading
                               ? () {
-                                  final newRange = (state.range + 1).clamp(0.5, 20.0);
+                                  final newRange = (state.range + 5).clamp(1.0, 50.0);
                                   context.read<ExplorerPageBloc>().add(
                                     ExplorerPageUpdateRange(range: newRange),
                                   );
@@ -244,9 +244,9 @@ class _CompactRangeSliderState extends State<CompactRangeSlider>
                         ),
                         child: Slider(
                           value: state.range,
-                          min: 0.5,
-                          max: 20.0,
-                          divisions: 39,
+                          min: 1.0,
+                          max: 50.0,
+                          divisions: 49,
                           onChanged: state.isLoading 
                             ? null 
                             : (value) {

@@ -4962,12 +4962,12 @@ class S {
     );
   }
 
-  /// `Tradicional Americana`
+  /// `Tradicional Americano`
   String get tattooStyleTraditionalAmerican {
     return Intl.message(
-      'Tradicional Americana',
+      'Tradicional Americano',
       name: 'tattooStyleTraditionalAmerican',
-      desc: 'Estilo de tatuaje: Tradicional Americana',
+      desc: 'Estilo de tatuaje: Tradicional Americano',
       args: [],
     );
   }
