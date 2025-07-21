@@ -1294,7 +1294,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tattooStyleSurrealism":
             MessageLookupByLibrary.simpleMessage("Surrealismo"),
         "tattooStyleTraditionalAmerican":
-            MessageLookupByLibrary.simpleMessage("Tradicional Americana"),
+            MessageLookupByLibrary.simpleMessage("Tradicional Americano"),
         "tattooStyleTribal": MessageLookupByLibrary.simpleMessage("Tribal"),
         "tattooStyleWatercolor":
             MessageLookupByLibrary.simpleMessage("Acuarela"),
