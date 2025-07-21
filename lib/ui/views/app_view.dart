@@ -85,7 +85,11 @@ class _AppViewState extends State<AppView> {
           ), 
           lazy: false
         ),
-        BlocProvider(create: (context) => LocationBloc()),
+        BlocProvider(
+          create: (context) => LocationBloc(
+            geolocationService: context.read<PlatformGeolocationService>(),
+          ),
+        ),
         BlocProvider(create: (context) => OnBoardingBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
         BlocProvider(create: (context) => LocalizationCubit()),

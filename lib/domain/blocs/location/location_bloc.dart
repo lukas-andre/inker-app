@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 
@@ -10,9 +10,10 @@ part 'location_event.dart';
 part 'location_state.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  StreamSubscription<Position>? _positionStreamSubscription;
+  StreamSubscription<LatLng>? _positionStreamSubscription;
+  final PlatformGeolocationService geolocationService;
 
-  LocationBloc() : super(const LocationState()) {
+  LocationBloc({required this.geolocationService}) : super(const LocationState()) {
     on<OnNewUserLocationEvent>((event, emit) {
       print('[LocationBloc] OnNewUserLocationEvent: location=${event.location}');
       emit(state.copyWith(
@@ -29,9 +30,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   Future getCurrentPosition() async {
-    final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+    final position = await geolocationService.getCurrentPosition();
     dev.log('position: $position', 'LocationBloc');
+    if (position != null) {
+      add(OnNewUserLocationEvent(position));
+    }
   }
 
   void startFollowingUser() {
@@ -41,9 +44,17 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       stopFollowingUser();
     }
 
+    // Get initial position first
+    geolocationService.getCurrentPosition().then((position) {
+      if (position != null) {
+        print('[LocationBloc] startFollowingUser: initial location: $position');
+        add(OnNewUserLocationEvent(position));
+      }
+    });
+    
+    // Then subscribe to position stream
     _positionStreamSubscription =
-        Geolocator.getPositionStream().listen((event) {
-      final location = LatLng(event.latitude, event.longitude);
+        geolocationService.getPositionStream().listen((location) {
       print('[LocationBloc] startFollowingUser: new location received: $location');
       add(OnNewUserLocationEvent(location));
     });

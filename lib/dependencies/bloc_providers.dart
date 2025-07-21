@@ -62,7 +62,9 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
               geolocationService: context.read<PlatformGeolocationService>(),
             ),
         lazy: false),
-    BlocProvider(create: (context) => LocationBloc()),
+    BlocProvider(create: (context) => LocationBloc(
+      geolocationService: context.read()
+    )),
     BlocProvider(create: (context) => OnBoardingBloc()),
     BlocProvider(create: (context) => RegisterBloc()),
     BlocProvider(create: (context) => LocalizationCubit()),

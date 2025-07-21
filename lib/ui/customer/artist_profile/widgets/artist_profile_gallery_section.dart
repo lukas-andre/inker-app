@@ -13,6 +13,10 @@ import 'package:inker_studio/domain/models/analytics/view_source.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 
 class ArtistProfileGallerySection extends StatefulWidget {
   final String artistId;
@@ -45,6 +49,8 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
+            _buildLocationSection(),
+            const SizedBox(height: 20),
             _buildSectionHeader(),
             _buildContent(state),
           ],
@@ -54,46 +60,222 @@ class _ArtistProfileGallerySectionState extends State<ArtistProfileGallerySectio
   }
 
   Widget _buildSectionHeader() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            S.of(context).portfolio,
-            style: TextStyleTheme.copyWith(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+    return Column(
+      children: [
+        // Portfolio header with reviews button
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                S.of(context).portfolio,
+                style: TextStyleTheme.copyWith(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              // Botón para ver reseñas
+              OutlinedButton.icon(
+                onPressed: widget.onReviewsPressed,
+                icon: Icon(
+                  Icons.star, 
+                  color: Theme.of(context).colorScheme.secondary, 
+                  size: 18
+                ),
+                label: Text(
+                  S.of(context).reviews,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+  
+  Widget _buildLocationSection() {
+    return BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
+      builder: (context, profileState) {
+        final artist = profileState.artist;
+        if (artist == null || artist.distance == null) return const SizedBox.shrink();
+        
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
             ),
           ),
-          // Botón para ver reseñas
-          OutlinedButton.icon(
-            onPressed: widget.onReviewsPressed,
-            icon: Icon(
-              Icons.star, 
-              color: Theme.of(context).colorScheme.secondary, 
-              size: 18
-            ),
-            label: Text(
-              S.of(context).reviews,
-              style: TextStyle(
-                fontSize: 14,
-                color: Theme.of(context).colorScheme.secondary,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 20,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Ubicación del Estudio',
+                    style: TextStyleTheme.copyWith(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1.5),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 12),
+              Text(
+                'Av. Providencia 1234, Providencia',
+                style: TextStyleTheme.copyWith(
+                  fontSize: 14,
+                  color: Colors.white.withValues(alpha: 0.9),
+                ),
               ),
+              Text(
+                'Santiago, Chile',
+                style: TextStyleTheme.copyWith(
+                  fontSize: 13,
+                  color: Colors.white.withValues(alpha: 0.7),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.near_me,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${artist.distance?.toStringAsFixed(1)} ${artist.distanceUnit ?? 'km'}',
+                        style: TextStyleTheme.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  TextButton.icon(
+                    onPressed: () => _showNavigationOptions(context),
+                    icon: Icon(
+                      Icons.directions,
+                      size: 18,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    label: Text(
+                      'Cómo llegar',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+  
+  void _showNavigationOptions(BuildContext context) async {
+    // Default location for MVP
+    final location = const LatLng(-33.4489, -70.6693);
+    final locationName = 'Estudio de Tatuajes';
+    
+    final availableMaps = await MapLauncher.installedMaps;
+    
+    if (!context.mounted) return;
+    
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Abrir en',
+                  style: TextStyleTheme.copyWith(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                ...availableMaps.map((map) => ListTile(
+                  onTap: () {
+                    map.showDirections(
+                      destination: Coords(location.latitude, location.longitude),
+                      destinationTitle: locationName,
+                    );
+                    Navigator.pop(context);
+                  },
+                  title: Text(
+                    map.mapName,
+                    style: TextStyleTheme.copyWith(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
+                )),
+                const SizedBox(height: 16),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/formatters/distance_formatter.dart';
+import 'package:universal_html/html.dart' as html;
 
 class ArtistProfileSidebarWeb extends StatelessWidget {
   final Artist artist;
@@ -176,22 +177,131 @@ class ArtistProfileSidebarWeb extends StatelessWidget {
         if (artist.distance != null) ...[
           _buildSectionTitle(context, S.of(context).location, Icons.location_on_outlined),
           const SizedBox(height: 12),
-          Row(
-            children: [
-              Icon(
-                Icons.near_me,
-                size: 20,
-                color: Theme.of(context).colorScheme.secondary,
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
               ),
-              const SizedBox(width: 8),
-              Text(
-                DistanceFormatter.formatDistanceWithSuffix(artist.distance, artist.distanceUnit, context),
-                style: TextStyleTheme.copyWith(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Dirección y distancia
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Dirección del estudio
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.location_on,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Dirección del Estudio',
+                                style: TextStyleTheme.copyWith(
+                                  fontSize: 12,
+                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Av. Providencia 1234, Providencia',
+                                style: TextStyleTheme.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                              Text(
+                                'Santiago, Chile',
+                                style: TextStyleTheme.copyWith(
+                                  fontSize: 14,
+                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    // Distancia
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.near_me,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Distancia desde tu ubicación',
+                              style: TextStyleTheme.copyWith(
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              ),
+                            ),
+                            Text(
+                              DistanceFormatter.formatDistanceWithSuffix(artist.distance, artist.distanceUnit, context),
+                              style: TextStyleTheme.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 16),
+                // Botón de abrir en mapas
+                ElevatedButton.icon(
+                  onPressed: () {
+                    _showNavigationOptions(context);
+                  },
+                  icon: const Icon(Icons.directions, size: 20),
+                  label: const Text('Cómo llegar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ],
@@ -273,5 +383,18 @@ class ArtistProfileSidebarWeb extends StatelessWidget {
         duration: const Duration(seconds: 2),
       ),
     );
+  }
+
+  void _showNavigationOptions(BuildContext context) {
+    // For MVP, use a default location
+    const lat = -33.4489;
+    const lng = -70.6693;
+    final locationName = artist.username ?? 'Estudio de Tatuajes';
+    
+    // Create Google Maps URL
+    final googleMapsUrl = 'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng&destination_place_id=${Uri.encodeComponent(locationName)}';
+    
+    // Open in new tab using dart:html
+    html.window.open(googleMapsUrl, '_blank');
   }
 }

@@ -103,23 +103,24 @@ class _EnhancedExplorerMapViewState extends State<EnhancedExplorerMapView>
         ),
         
         // Enhanced Controls Layer
-        FadeTransition(
-          opacity: _fadeAnimation,
-          child: Column(
-            children: [
-              // Top controls
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: _buildTopControls(context),
+        Positioned.fill(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Column(
+              children: [
+                // Top controls
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: _buildTopControls(context),
+                  ),
                 ),
-              ),
-              
-              const Spacer(),
-              
-              // Bottom controls
-              BlocBuilder<MapBloc, MapState>(
-                builder: (context, mapState) {
+                
+                const Spacer(),
+                
+                // Bottom controls
+                BlocBuilder<MapBloc, MapState>(
+                  builder: (context, mapState) {
                   // Adjust bottom padding based on draggable sheet state
                   final bottomPadding = mapState.isDragSheetOpen 
                     ? Responsive.value(context, 
@@ -152,7 +153,8 @@ class _EnhancedExplorerMapViewState extends State<EnhancedExplorerMapView>
                   );
                 },
               ),
-            ],
+              ],
+            ),
           ),
         ),
         

@@ -36,7 +36,6 @@ class _ExplorerPageState extends State<ExplorerPage> {
     super.initState();
     print('[ExplorerPage] initState: starting');
     locationBloc = context.read<LocationBloc>();
-    locationBloc.startFollowingUser();
     explorerPageBloc = context.read<ExplorerPageBloc>();
     mapBloc = context.read<MapBloc>();
     geolocationService = context.read<PlatformGeolocationService>();
@@ -45,6 +44,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
     print('[ExplorerPage] initState: current location: ${locationBloc.state.lastKnownLocation}');
     print('[ExplorerPage] initState: firstLoad: ${explorerPageBloc.state.firstLoad}');
     print('[ExplorerPage] initState: artists count: ${explorerPageBloc.state.artistFounded.length}');
+    
+    // Start following user after initialization
+    print('[ExplorerPage] initState: calling startFollowingUser');
+    locationBloc.startFollowingUser();
     
     // Trigger initial fetch when location is available
     WidgetsBinding.instance.addPostFrameCallback((_) {

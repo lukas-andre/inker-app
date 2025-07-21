@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
+import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/artist_item_web.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/featured_artists_carousel.dart';
@@ -165,6 +167,11 @@ class _ExplorerListViewWebState extends State<ExplorerListViewWeb> {
           },
           child: CustomScrollView(
             slivers: [
+              // Control de rango de búsqueda
+              SliverToBoxAdapter(
+                child: _RangeControl(),
+              ),
+              
               // Sección de artistas destacados
               if (featuredArtists.isNotEmpty) ...[
                 SliverPadding(
@@ -273,6 +280,207 @@ class _ExplorerListViewWebState extends State<ExplorerListViewWeb> {
           ),
         );
       },
+    );
+  }
+}
+
+class _RangeControl extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExplorerPageBloc, ExplorerPageState>(
+      buildWhen: (previous, current) => 
+        previous.range != current.range || 
+        previous.isLoading != current.isLoading ||
+        previous.artistFounded.length != current.artistFounded.length,
+      builder: (context, state) {
+        return Container(
+          margin: const EdgeInsets.fromLTRB(24, 16, 24, 12),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Compact header
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_searching,
+                    size: 18,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Radio: ${state.range.toStringAsFixed(0)} km',
+                    style: TextStyleTheme.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  const Spacer(),
+                  if (state.artistFounded.isNotEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${state.artistFounded.length}',
+                        style: TextStyleTheme.copyWith(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              // Compact slider row
+              Row(
+                children: [
+                  // Quick range buttons
+                  Row(
+                    children: [
+                      _QuickRangeChip(
+                        label: '5',
+                        value: 5,
+                        currentValue: state.range,
+                        onSelected: () => _updateRange(context, 5),
+                      ),
+                      const SizedBox(width: 8),
+                      _QuickRangeChip(
+                        label: '10',
+                        value: 10,
+                        currentValue: state.range,
+                        onSelected: () => _updateRange(context, 10),
+                      ),
+                      const SizedBox(width: 8),
+                      _QuickRangeChip(
+                        label: '20',
+                        value: 20,
+                        currentValue: state.range,
+                        onSelected: () => _updateRange(context, 20),
+                      ),
+                      const SizedBox(width: 8),
+                      _QuickRangeChip(
+                        label: '50',
+                        value: 50,
+                        currentValue: state.range,
+                        onSelected: () => _updateRange(context, 50),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 16),
+                  // Slider
+                  Expanded(
+                    child: SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 4,
+                        activeTrackColor: Theme.of(context).colorScheme.secondary,
+                        inactiveTrackColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+                        thumbColor: Theme.of(context).colorScheme.secondary,
+                        overlayColor: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                        overlayShape: const RoundSliderOverlayShape(overlayRadius: 12),
+                      ),
+                      child: Slider(
+                        value: state.range,
+                        min: 1.0,
+                        max: 50.0,
+                        divisions: 49,
+                        onChanged: state.isLoading 
+                          ? null 
+                          : (value) {
+                              context.read<ExplorerPageBloc>().add(
+                                ExplorerPageUpdateRange(range: value),
+                              );
+                            },
+                        onChangeEnd: state.isLoading 
+                          ? null 
+                          : (value) {
+                              final location = context.read<LocationBloc>().state.lastKnownLocation;
+                              if (location != null) {
+                                context.read<ExplorerPageBloc>().add(
+                                  ExplorerPageFetchArtists(location: location),
+                                );
+                              }
+                            },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _updateRange(BuildContext context, double value) {
+    context.read<ExplorerPageBloc>().add(
+      ExplorerPageUpdateRange(range: value),
+    );
+    final location = context.read<LocationBloc>().state.lastKnownLocation;
+    if (location != null) {
+      context.read<ExplorerPageBloc>().add(
+        ExplorerPageFetchArtists(location: location),
+      );
+    }
+  }
+}
+
+class _QuickRangeChip extends StatelessWidget {
+  final String label;
+  final double value;
+  final double currentValue;
+  final VoidCallback onSelected;
+
+  const _QuickRangeChip({
+    required this.label,
+    required this.value,
+    required this.currentValue,
+    required this.onSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final isSelected = (currentValue - value).abs() < 0.1;
+    
+    return SizedBox(
+      height: 28,
+      child: FilterChip(
+        label: Text(
+          label,
+          style: TextStyleTheme.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: isSelected ? Colors.white : Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+        selected: isSelected,
+        onSelected: (_) => onSelected(),
+        selectedColor: Theme.of(context).colorScheme.secondary,
+        checkmarkColor: Colors.white,
+        showCheckmark: false,
+        backgroundColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+          side: BorderSide(
+            color: Theme.of(context).colorScheme.secondary.withValues(alpha: isSelected ? 1.0 : 0.3),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
     );
   }
 }

@@ -2061,9 +2061,9 @@
   "@quotationStatusArtistOpen": {
     "description": "Status text for open quotations from artist perspective."
   },
-  "tattooStyleTraditionalAmerican": "Tradicional Americana",
+  "tattooStyleTraditionalAmerican": "Tradicional Americano",
   "@tattooStyleTraditionalAmerican": {
-    "description": "Estilo de tatuaje: Tradicional Americana"
+    "description": "Estilo de tatuaje: Tradicional Americano"
   },
   "tattooStyleNeotraditional": "Neotradicional",
   "@tattooStyleNeotraditional": {
