@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class CustomPhoneNumberInput extends StatelessWidget {
@@ -58,6 +58,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
     );
 
     return Expanded(
+      key: key,
       child: Container(
         padding: EdgeInsets.only(
             right: MediaQuery.of(context).size.width * 0.05,
@@ -65,6 +66,7 @@ class CustomPhoneNumberInput extends StatelessWidget {
             top: MediaQuery.of(context).size.height * 0.01,
             bottom: MediaQuery.of(context).size.height * 0.01),
         child: InternationalPhoneNumberInput(
+          key: key,
           formatInput: true,
           initialValue: number ?? PhoneNumber(isoCode: 'CL'),
           countries: countries ?? ['CL'],

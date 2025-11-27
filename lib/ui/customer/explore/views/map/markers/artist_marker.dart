@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'dart:ui' as ui show Image;
-
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistMarkerPainter extends CustomPainter {
   final ui.Image artistProfileImage;

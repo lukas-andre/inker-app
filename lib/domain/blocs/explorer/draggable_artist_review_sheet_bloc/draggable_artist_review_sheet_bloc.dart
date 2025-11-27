@@ -6,7 +6,7 @@ import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/errors/remote/http_not_found.dart';
 import 'package:inker_studio/domain/models/helpers/paginator.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserType;
 import 'package:inker_studio/domain/services/review/review_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/utils/dev.dart';
@@ -23,7 +23,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
   final Paginator _paginator = Paginator(limit: 3);
 
-  int? _currentArtistId;
+  String? _currentArtistId;
 
   DraggableArtistReviewSheetBloc(
       {required MapBloc mapBloc,
@@ -38,7 +38,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
           _currentArtistId != mapBloc.selectedArtist!.id) {
         add(const DraggableArtistReviewSheetEvent.draggableClearReviews());
         add(DraggableArtistReviewSheetEvent.loadReviews(
-            artistId: mapBloc.selectedArtist!.id!));
+            artistId: mapBloc.selectedArtist!.id));
       }
     });
 
@@ -52,11 +52,11 @@ class DraggableArtistReviewSheetBloc extends Bloc<
             _updateReviewReaction(reviewId, customerId, true, false, emit),
         draggableReviewDisliked: (reviewId, customerId) =>
             _updateReviewReaction(reviewId, customerId, false, false, emit),
-        draggableReviewLikeRemoved: (int reviewId, int customerId) =>
+        draggableReviewLikeRemoved: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, true, true, emit),
-        reviewDislikedRemoved: (int reviewId, int customerId) =>
+        reviewDislikedRemoved: (String reviewId, String customerId) =>
             _updateReviewReaction(reviewId, customerId, false, true, emit),
-        draggableSwitchReviewReaction: (int reviewId, int customerId,
+        draggableSwitchReviewReaction: (String reviewId, String customerId,
                 bool liked, bool disliked) =>
             _updateReviewReaction(reviewId, customerId, liked, disliked, emit,
                 switchReaction: true),
@@ -86,7 +86,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
   }
 
   Future<void> _loadReviews(
-    int artistId,
+    String artistId,
     Emitter<DraggableArtistReviewSheetState> emit,
   ) async {
     _currentArtistId = artistId;
@@ -112,7 +112,7 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
   Future<void> _fetchReviews(
     Emitter<DraggableArtistReviewSheetState> emit,
-    int? artistId,
+    String? artistId,
   ) async {
     if (artistId == null) {
       add(const DraggableArtistReviewSheetEvent.draggableRefreshReviewsError(
@@ -170,8 +170,8 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
   void _configureReviews({
     List<ReviewItem>? reviews,
-    required Map<int, Reactions> reviewReactions,
-    required Map<int, Reaction> customerReactions,
+    required Map<String, Reactions> reviewReactions,
+    required Map<String, Reaction> customerReactions,
   }) {
     reviews?.forEach((review) {
       final id = review.id!;
@@ -189,11 +189,11 @@ class DraggableArtistReviewSheetBloc extends Bloc<
     });
   }
 
-  Future<void> _updateReviewReaction(int reviewId, int customerId, bool like,
+  Future<void> _updateReviewReaction(String reviewId, String customerId, bool like,
       bool remove, Emitter<DraggableArtistReviewSheetState> emit,
       {bool switchReaction = false}) async {
-    Map<int, Reactions> reviewReactions = Map.from(state.reviewReactions);
-    Map<int, Reaction> customerReactions = Map.from(state.customerReactions);
+    Map<String, Reactions> reviewReactions = Map.from(state.reviewReactions);
+    Map<String, Reaction> customerReactions = Map.from(state.customerReactions);
 
     _updateReactions(reviewReactions, customerReactions, reviewId, like, remove,
         switchReaction);
@@ -221,9 +221,9 @@ class DraggableArtistReviewSheetBloc extends Bloc<
   }
 
   void _updateReactions(
-    Map<int, Reactions> reviewReactions,
-    Map<int, Reaction> customerReactions,
-    int reviewId,
+    Map<String, Reactions> reviewReactions,
+    Map<String, Reaction> customerReactions,
+    String reviewId,
     bool like,
     bool remove,
     bool switchReaction,
@@ -265,8 +265,8 @@ class DraggableArtistReviewSheetBloc extends Bloc<
   }
 
   void _updateCustomerReaction(
-    Map<int, Reaction> customerReactions,
-    int reviewId,
+    Map<String, Reaction> customerReactions,
+    String reviewId,
     bool like,
     bool remove, {
     bool switchReaction = false,
@@ -319,8 +319,8 @@ class DraggableArtistReviewSheetBloc extends Bloc<
 
   void _emitReactionError(
       Emitter<DraggableArtistReviewSheetState> emit,
-      Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       String errorMessage) {
     emit(ReviewReactionError(
         reviewReactions: reviewReactions,

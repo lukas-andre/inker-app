@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/domain/models/user/user_type.dart';
+import 'package:form_inputs/form_inputs.dart';
+import 'package:inker_studio/features/auth_shared/models/user_type.dart' show UserTypeEnum;
 import 'package:json_annotation/json_annotation.dart';
 
 part 'create_user_request.g.dart';

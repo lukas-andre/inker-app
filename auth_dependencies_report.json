@@ -1,0 +1,168 @@
+{
+  "total_files_with_auth_dependencies": 35,
+  "dependencies_by_feature": {
+    "other": {
+      "lib/routes.dart": [
+        "package:inker_studio/ui/password_recovery/password_recovery_page.dart"
+      ],
+      "lib/dependencies/bloc_providers.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart",
+        "package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart",
+        "package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart",
+        "package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart",
+        "package:inker_studio/domain/blocs/register/register_bloc.dart"
+      ],
+      "lib/dependencies/dependencies.dart": [
+        "package:inker_studio/domain/services/auth/auth_service.dart",
+        "package:inker_studio/domain/usescases/auth/google_singin_usecase.dart",
+        "package:inker_studio/domain/usescases/auth/login_usecase.dart",
+        "package:inker_studio/domain/usescases/auth/logout_usecase.dart",
+        "package:inker_studio/data/api/auth/api_auth_service.dart",
+        "package:inker_studio/data/firebase/google_auth_service.dart"
+      ]
+    },
+    "domain": {
+      "lib/domain/mixins/authentication_handler.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/domain/services/local_storage/local_storage.dart": [
+        "package:inker_studio/domain/models/user/registered_user_info.dart"
+      ],
+      "lib/domain/services/user/local_user_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/domain/services/user/user_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/domain/blocs/settings/settings_bloc.dart": [
+        "package:inker_studio/domain/usescases/auth/logout_usecase.dart"
+      ],
+      "lib/domain/blocs/quoation/create_open_quotation/create_open_quotation_bloc.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart": [
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ],
+      "lib/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart": [
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ],
+      "lib/domain/models/user/registered_user_info.dart": [
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ],
+      "lib/domain/models/session/session.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/domain/usescases/user/create_user_usecase.dart": [
+        "package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart",
+        "package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart",
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ]
+    },
+    "data": {
+      "lib/data/firebase/google_auth_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/data/api/user/api_user_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart",
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ],
+      "lib/data/api/user/dtos/create_user_request.dart": [
+        "package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart",
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ],
+      "lib/data/local/database/platform_session_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/data/local/sqlite/sqlite_session_service.dart": [
+        "package:inker_studio/domain/models/user/user.dart"
+      ],
+      "lib/data/local/shared_preferences/local_storage_impl.dart": [
+        "package:inker_studio/domain/models/user/registered_user_info.dart"
+      ]
+    },
+    "quotation": {
+      "lib/ui/quotation/artist_open_quotation_offer_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/quotation/quotation_list_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/quotation/quotation_detail_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/quotation/create_open_quotation_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/quotation/quotation_offer_message_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/quotation/artist_quotation_response_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ]
+    },
+    "settings": {
+      "lib/ui/settings/settings_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ]
+    },
+    "verification": {
+      "lib/ui/verification/verification_page.dart": [
+        "package:inker_studio/ui/on_boarding/on_boarding_page.dart",
+        "package:inker_studio/ui/login/login_page.dart",
+        "package:inker_studio/ui/login/widgets/login_background.dart",
+        "package:inker_studio/ui/register/widgets/close_register_button.dart",
+        "package:inker_studio/ui/register/widgets/register_action_button.dart",
+        "package:inker_studio/ui/register/widgets/register_back_button.dart",
+        "package:inker_studio/ui/register/widgets/register_custom_subtitle.dart",
+        "package:inker_studio/ui/register/widgets/register_custom_title.dart",
+        "package:inker_studio/domain/models/user/user_type.dart"
+      ]
+    },
+    "views": {
+      "lib/ui/views/app_view.dart": [
+        "package:inker_studio/ui/on_boarding/on_boarding_page.dart",
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart",
+        "package:inker_studio/domain/blocs/auth/auth_status.dart",
+        "package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart",
+        "package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart",
+        "package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart",
+        "package:inker_studio/domain/blocs/register/register_bloc.dart",
+        "package:inker_studio/domain/models/user/user_type.dart",
+        "package:inker_studio/domain/mixins/authentication_handler.dart"
+      ]
+    },
+    "customer": {
+      "lib/ui/customer/app/customer_app_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/customer/profile/profile_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/customer/explore/widgets/draggable_artist_review_sheet/draggable_artist_review_sheet.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/customer/artist_profile/artist_reviews/artist_profile_reviews_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ]
+    },
+    "artist": {
+      "lib/ui/artist/work/open_quotations_tab_view.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ],
+      "lib/ui/artist/agenda/events/event_page.dart": [
+        "package:inker_studio/domain/blocs/auth/auth_bloc.dart"
+      ]
+    }
+  },
+  "summary": {
+    "other": 3,
+    "domain": 11,
+    "data": 6,
+    "quotation": 6,
+    "settings": 1,
+    "verification": 1,
+    "views": 1,
+    "customer": 4,
+    "artist": 2
+  }
+}

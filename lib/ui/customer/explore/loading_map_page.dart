@@ -5,7 +5,9 @@ import 'package:inker_studio/ui/customer/explore/gps_access_page.dart';
 import 'package:inker_studio/ui/customer/explore/explorer_page.dart';
 
 class BuildMapPage extends StatelessWidget {
-  const BuildMapPage({super.key});
+  final bool hideHeader;
+  
+  const BuildMapPage({super.key, this.hideHeader = false});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class BuildMapPage extends StatelessWidget {
           previous.isAllGranted != current.isAllGranted,
       builder: (context, state) {
         return state.isAllGranted
-            ? const ExplorerPage()
+            ? ExplorerPage(hideHeader: hideHeader)
             : const GpsAccessScreen();
       },
     );

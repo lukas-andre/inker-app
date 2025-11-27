@@ -3,29 +3,39 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/blocs/quoation/create_quotation/create_quotation_page_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/quotation/widgets/image_picker.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/ui/shared/navigation/reactive_navigation.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
 
 class CreateQuotationPage extends StatefulWidget {
-  final int artistId;
+  final String artistId;
+  final Stencil? stencil; // Stencil opcional para cotización directa
 
-  const CreateQuotationPage({super.key, required this.artistId});
+  const CreateQuotationPage({
+    super.key, 
+    required this.artistId,
+    this.stencil,
+  });
 
   @override
   _CreateQuotationPageState createState() => _CreateQuotationPageState();
 
   static const String routeName = '/create-quotation';
 
-  static Route<dynamic> route({required int artistId}) {
+  static Route<dynamic> route({required String artistId, Stencil? stencil}) {
     return MaterialPageRoute<dynamic>(
       settings: const RouteSettings(name: routeName),
-      builder: (BuildContext context) =>
-          CreateQuotationPage(artistId: artistId),
+      builder: (BuildContext context) => CreateQuotationPage(
+        artistId: artistId,
+        stencil: stencil,
+      ),
     );
   }
 }
@@ -36,6 +46,29 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
       TextEditingController();
   final ImagePicker _picker = ImagePicker();
   final FocusNode _descriptionFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    // No inicializar aquí porque S.of(context) no está disponible aún
+  }
+
+  bool _didSetDescription = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_didSetDescription && widget.stencil != null) {
+      final stencil = widget.stencil!;
+      final stencilTitle = stencil.title;
+      _descriptionController.text =
+          '${S.of(context).requestQuotationForDesign} "$stencilTitle" '
+          '${stencil.description != null && stencil.description!.isNotEmpty 
+              ? '${S.of(context).withDescription}: ${stencil.description}. ' 
+              : '. '}${S.of(context).moreInfoAboutSizesPricesAvailability}';
+      _didSetDescription = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +84,8 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SuccessAnimationPage(
-                    title: 'Procesando',
-                    subtitle: 'Estamos creando tu cotización...',
+                    title: S.of(context).createQuotation,
+                    subtitle: S.of(context).description,
                     state: AnimationState.loading,
                     onAnimationComplete: () {},
                   ),
@@ -64,13 +97,18 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SuccessAnimationPage(
-                      title: '¡Cotización Enviada!',
+                      title: S.of(context).quotationCreatedSuccessfullyTitle,
                       subtitle:
-                          "Solicitud recibida. El artista responderá pronto. Revisa 'Mis Solicitudes' para ver el estado.",
+                          S.of(context).quotationCreatedSuccessfullyDescription,
                       state: AnimationState.completed,
                       onAnimationComplete: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        // Navigate to CustomerAppPage on quotations tab
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const CustomerAppPage(initialTab: 1), // Tab 1 = Cotizaciones
+                          ),
+                          (route) => false,
+                        );
                       },
                     ),
                   ),
@@ -81,7 +119,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => SuccessAnimationPage(
-                    title: 'Error',
+                    title: S.of(context).error,
                     subtitle: errorMessage,
                     state: AnimationState.error,
                     onAnimationComplete: () {
@@ -101,22 +139,30 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
             child: Scaffold(
               appBar: AppBar(
                 iconTheme: const IconThemeData(color: Colors.white),
-                title: Text(S.of(context).createQuotation,
-                    style: TextStyleTheme.copyWith(color: Colors.white)),
-                backgroundColor: primaryColor,
+                title: Text(widget.stencil != null 
+                    ? S.of(context).createQuotation 
+                    : S.of(context).createQuotation,
+                  style: TextStyleTheme.copyWith(color: Colors.white)),
+                backgroundColor: Theme.of(context).colorScheme.surface,
               ),
-              backgroundColor: primaryColor,
+              backgroundColor: Theme.of(context).colorScheme.surface,
               body: SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // Mostrar vista previa del stencil si está disponible
+                    if (widget.stencil != null) ...[
+                      _buildStencilPreview(widget.stencil!),
+                      const SizedBox(height: 24),
+                    ],
+                    
                     TextField(
                       key: const Key('createQuotationDescriptionField'),
                       controller: _descriptionController,
                       focusNode: _descriptionFocusNode,
                       decoration: InputDecoration(
-                        labelText: 'Descripción del trabajo',
+                        labelText: S.of(context).description,
                         labelStyle:
                             TextStyleTheme.copyWith(color: Colors.white),
                         suffixIcon: IconButton(
@@ -125,7 +171,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         ),
                       ),
                       style: TextStyleTheme.copyWith(color: Colors.white),
-                      maxLines: 3,
+                      maxLines: 5,
                     ),
                     const SizedBox(height: 16),
                     GestureDetector(
@@ -138,7 +184,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         child: TextField(
                           controller: _appointmentDateController,
                           decoration: InputDecoration(
-                            labelText: 'Fecha deseada para la cita',
+                            labelText: S.of(context).appointmentDate,
                             labelStyle:
                                 TextStyleTheme.copyWith(color: Colors.white),
                             suffixIcon: const Icon(Icons.calendar_today,
@@ -149,6 +195,15 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                       ),
                     ),
                     const SizedBox(height: 24),
+                    Text(
+                      S.of(context).referenceImages,
+                      style: TextStyleTheme.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
                     ImagePickerWidget(
                       images: state.referenceImages,
                       onRemove: (image) => context
@@ -161,7 +216,7 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                       },
                       maxImages: CreateQuotationPageBloc.maxReferenceImages,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 32),
                     ElevatedButton(
                       key: const Key('createQuotationSubmitButton'),
                       onPressed: state.maybeWhen(
@@ -169,15 +224,19 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
                         orElse: () => () => _submitQuotation(context),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryColor,
+                        backgroundColor: Theme.of(context).colorScheme.secondary,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: state.maybeWhen(
                         loading: (_) => const CircularProgressIndicator(
                             color: Colors.white),
-                        orElse: () => Text('Enviar Cotización',
-                            style:
-                                TextStyleTheme.copyWith(color: Colors.white)),
+                        orElse: () => Text(
+                          S.of(context).createQuotation,
+                          style: TextStyleTheme.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     )
                   ],
@@ -186,6 +245,101 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
             ),
           );
         },
+      ),
+    );
+  }
+
+  // Widget para mostrar la vista previa del stencil seleccionado
+  Widget _buildStencilPreview(Stencil stencil) {
+    return Container(
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.25).toColor(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(12),
+            ),
+            child: AspectRatio(
+              aspectRatio: 1.5,
+              child: CachedNetworkImage(
+                imageUrl: stencil.imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+                  child: const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+                  child: Icon(Icons.error, color: Theme.of(context).colorScheme.error, size: 32),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).selectedStencil,
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  stencil.title,
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
+                ),
+                if (stencil.description != null && stencil.description!.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    stencil.description!,
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Colors.white.withOpacity(0.8),
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Icon(Icons.info_outline, color: Theme.of(context).colorScheme.secondary, size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        S.of(context).referenceImages,
+                        style: TextStyleTheme.caption.copyWith(
+                          color: Colors.white.withOpacity(0.8),
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -219,20 +373,22 @@ class _CreateQuotationPageState extends State<CreateQuotationPage> {
     if (_descriptionController.text.isEmpty ||
         _appointmentDateController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor, complete todos los campos')),
+        SnackBar(content: Text(S.of(context).pleaseEnterDescription)),
       );
       return;
     }
 
     final quotation = Quotation(
-      id: 0,
+      id: '',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      customerId: 1,
+      customerId: '',
       artistId: widget.artistId,
-      description: _descriptionController.text,
+      description: _descriptionController.text + 
+          (widget.stencil != null ? '\n\n${S.of(context).quotationForStencilId}: ${widget.stencil!.id}' : ''),
       status: QuotationStatus.pending,
       appointmentDate: DateTime.parse(_appointmentDateController.text),
+      stencilId: widget.stencil?.id,
     );
 
     context.read<CreateQuotationPageBloc>().add(

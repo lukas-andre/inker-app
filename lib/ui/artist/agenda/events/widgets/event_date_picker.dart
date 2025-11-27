@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
 
 class TimePickerWithDuration extends StatefulWidget {
@@ -91,7 +90,7 @@ class _TimePickerWithDurationState extends State<TimePickerWithDuration> {
               flex: 5,
               child: DropdownButtonFormField<String>(
                 value: _selectedDuration,
-                dropdownColor: primaryColor,
+                dropdownColor: Theme.of(context).colorScheme.surface,
                 decoration: InputDecoration(
                   labelText: S.of(context).duration,
                   labelStyle: TextStyleTheme.copyWith(color: Colors.white54),

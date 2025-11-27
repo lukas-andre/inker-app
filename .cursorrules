@@ -1,0 +1,210 @@
+{
+  "project": {
+    "name": "Flutter BLoC + Freezed Application",
+    "description": "Aplicación de Flutter que utiliza BLoC para manejo de estados y Freezed para generación de código, con una arquitectura clara y escalable.",
+    "repository": "https://github.com/tu-usuario/tu-proyecto"
+  },
+  
+  "architecture": {
+    "stateManagement": "BLoC/Cubit con flutter_bloc",
+    "immutability": "Implementada con Freezed",
+    "dataModeling": "Modelos inmutables con Freezed y json_serializable",
+    "dependencyInjection": "Provider/BlocProvider",
+    "patterns": [
+      "Repository Pattern para acceso a datos",
+      "Factory Pattern para creación de instancias",
+      "Observer Pattern implementado a través de BLoC"
+    ]
+  },
+  
+  "dependencies": [
+    {
+      "package": "flutter_bloc",
+      "version": "^9.1.0",
+      "usage": "Implementación del patrón BLoC para manejo de estados"
+    },
+    {
+      "package": "freezed_annotation",
+      "version": "^2.4.1",
+      "usage": "Anotaciones para la generación de código con Freezed"
+    },
+    {
+      "package": "json_annotation",
+      "version": "^4.8.0",
+      "usage": "Anotaciones para serialización JSON"
+    },
+    {
+      "package": "build_runner",
+      "version": "^2.4.6",
+      "usage": "Herramienta para generación de código"
+    },
+    {
+      "package": "freezed",
+      "version": "^2.4.3",
+      "usage": "Generación de código para clases inmutables"
+    },
+    {
+      "package": "json_serializable",
+      "version": "^6.7.0",
+      "usage": "Generación de código para serialización JSON"
+    }
+  ],
+  
+  "fileStructure": {
+    "patterns": {
+      "feature": {
+        "description": "Organización por características (features)",
+        "structure": "lib/features/{feature_name}/{data,domain,presentation}/"
+      },
+      "bloc": {
+        "description": "Estructura estándar para BLoC/Cubit",
+        "files": [
+          "{feature_name}_bloc.dart",
+          "{feature_name}_event.dart",
+          "{feature_name}_state.dart"
+        ]
+      },
+      "model": {
+        "description": "Modelos de datos con Freezed",
+        "files": [
+          "{model_name}.dart",
+          "{model_name}.freezed.dart",
+          "{model_name}.g.dart"
+        ]
+      }
+    }
+  },
+  
+  "codeTemplates": {
+    "freezedModel": {
+      "description": "Modelo básico con Freezed",
+      "template": "import 'package:freezed_annotation/freezed_annotation.dart';\n\npart '{file_name}.freezed.dart';\npart '{file_name}.g.dart';\n\n@freezed\nclass {class_name} with _${class_name} {\n  const factory {class_name}({\n    required String id,\n    required String name,\n    @Default(0) int defaultValue,\n  }) = _{class_name};\n\n  factory {class_name}.fromJson(Map<String, dynamic> json) => _${class_name}FromJson(json);\n}"
+    },
+    "blocState": {
+      "description": "Estado de BLoC con Freezed",
+      "template": "import 'package:freezed_annotation/freezed_annotation.dart';\n\npart '{feature_name}_state.freezed.dart';\n\n@freezed\nclass {feature_name}State with _${feature_name}State {\n  const factory {feature_name}State.initial() = _Initial;\n  const factory {feature_name}State.loading() = _Loading;\n  const factory {feature_name}State.loaded({data_type} data) = _Loaded;\n  const factory {feature_name}State.error(String message) = _Error;\n}"
+    },
+    "blocEvent": {
+      "description": "Eventos de BLoC con Freezed",
+      "template": "import 'package:freezed_annotation/freezed_annotation.dart';\n\npart '{feature_name}_event.freezed.dart';\n\n@freezed\nclass {feature_name}Event with _${feature_name}Event {\n  const factory {feature_name}Event.started() = _Started;\n  const factory {feature_name}Event.loaded() = _Loaded;\n  const factory {feature_name}Event.updated({param_type} param) = _Updated;\n}"
+    },
+    "bloc": {
+      "description": "Implementación básica de BLoC",
+      "template": "import 'package:flutter_bloc/flutter_bloc.dart';\nimport '{feature_name}_event.dart';\nimport '{feature_name}_state.dart';\n\nclass {feature_name}Bloc extends Bloc<{feature_name}Event, {feature_name}State> {\n  {feature_name}Bloc() : super(const {feature_name}State.initial()) {\n    on<_Started>(_onStarted);\n    on<_Loaded>(_onLoaded);\n    on<_Updated>(_onUpdated);\n  }\n\n  Future<void> _onStarted(_Started event, Emitter<{feature_name}State> emit) async {\n    emit(const {feature_name}State.loading());\n    // Implementación\n  }\n\n  // Otros manejadores de eventos\n}"
+    },
+    "cubit": {
+      "description": "Implementación básica de Cubit",
+      "template": "import 'package:flutter_bloc/flutter_bloc.dart';\nimport '{feature_name}_state.dart';\n\nclass {feature_name}Cubit extends Cubit<{feature_name}State> {\n  {feature_name}Cubit() : super(const {feature_name}State.initial());\n\n  Future<void> loadData() async {\n    emit(const {feature_name}State.loading());\n    try {\n      // Implementación\n      emit({feature_name}State.loaded(data));\n    } catch (e) {\n      emit({feature_name}State.error(e.toString()));\n    }\n  }\n\n  // Otros métodos\n}"
+    },
+    "repository": {
+      "description": "Patrón repository",
+      "template": "abstract class {feature_name}Repository {\n  Future<{model_name}> get{model_name}(String id);\n  Future<List<{model_name}>> getAll{model_name}s();\n  Future<void> create{model_name}({model_name} model);\n  Future<void> update{model_name}({model_name} model);\n  Future<void> delete{model_name}(String id);\n}"
+    }
+  },
+  
+  "conventions": {
+    "naming": {
+      "files": "snake_case (ejemplo: user_bloc.dart)",
+      "classes": "PascalCase (ejemplo: UserBloc)",
+      "variables": "camelCase (ejemplo: userData)",
+      "constants": "UPPER_SNAKE_CASE (ejemplo: MAX_RETRY_COUNT)"
+    },
+    "imports": {
+      "ordering": [
+        "dart:* imports",
+        "package:flutter imports",
+        "package:other_libraries imports",
+        "relative imports"
+      ]
+    },
+    "blocNaming": {
+      "states": [
+        "initial", 
+        "loading", 
+        "loaded", 
+        "error"
+      ],
+      "events": [
+        "started",
+        "loaded",
+        "updated",
+        "deleted"
+      ]
+    }
+  },
+  
+  "implementations": {
+    "blocObserver": {
+      "description": "Observer para depuración de BLoC",
+      "code": "class AppBlocObserver extends BlocObserver {\n  @override\n  void onChange(BlocBase bloc, Change change) {\n    super.onChange(bloc, change);\n    print('${bloc.runtimeType} $change');\n  }\n\n  @override\n  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {\n    print('${bloc.runtimeType} $error $stackTrace');\n    super.onError(bloc, error, stackTrace);\n  }\n}"
+    },
+    "codegen": {
+      "description": "Comandos para generación de código",
+      "commands": [
+        "flutter pub run build_runner build",
+        "flutter pub run build_runner build --delete-conflicting-outputs",
+        "flutter pub run build_runner watch"
+      ]
+    },
+    "providers": {
+      "description": "Configuración de providers para BLoC",
+      "code": "MultiBlocProvider(\n  providers: [\n    BlocProvider<AuthBloc>(\n      create: (context) => AuthBloc(authRepository),\n    ),\n    BlocProvider<FeatureBloc>(\n      create: (context) => FeatureBloc(featureRepository),\n    ),\n  ],\n  child: AppView(),\n)"
+    }
+  },
+  
+  "patterns": {
+    "freezedPatternMatching": {
+      "description": "Uso de pattern matching con Freezed",
+      "examples": {
+        "when": "state.when(\n  initial: () => Text('Estado Inicial'),\n  loading: () => CircularProgressIndicator(),\n  loaded: (data) => Text(data.toString()),\n  error: (message) => Text('Error: $message'),\n)",
+        "maybeWhen": "state.maybeWhen(\n  loaded: (data) => Text(data.toString()),\n  error: (message) => Text('Error: $message'),\n  orElse: () => CircularProgressIndicator(),\n)",
+        "map": "state.map(\n  initial: (_) => Text('Inicial'),\n  loading: (_) => CircularProgressIndicator(),\n  loaded: (loadedState) => Text('Data: ${loadedState.data}'),\n  error: (errorState) => Text('Error: ${errorState.message}'),\n)"
+      }
+    },
+    "repositoryUsage": {
+      "description": "Patrón para uso de repositories en BLoC",
+      "code": "class UserBloc extends Bloc<UserEvent, UserState> {\n  final UserRepository _userRepository;\n\n  UserBloc(this._userRepository) : super(const UserState.initial()) {\n    on<_FetchUser>(_onFetchUser);\n  }\n\n  Future<void> _onFetchUser(_FetchUser event, Emitter<UserState> emit) async {\n    emit(const UserState.loading());\n    try {\n      final user = await _userRepository.getUser(event.userId);\n      emit(UserState.loaded(user));\n    } catch (e) {\n      emit(UserState.error(e.toString()));\n    }\n  }\n}"
+    }
+  },
+  
+  "projectSpecifics": {
+    "description": "Características específicas de este proyecto",
+    "features": [
+      "Autenticación de usuarios",
+      "Perfiles de artistas y clientes",
+      "Sistema de citas y agenda",
+      "Cotizaciones y trabajos",
+      "Geolocalización y búsqueda por ubicación",
+      "Notificaciones"
+    ],
+    "services": [
+      "Firebase para autenticación",
+      "SQLite para almacenamiento local",
+      "API REST para comunicación con backend"
+    ],
+    "mainEntities": [
+      "User",
+      "Artist",
+      "Customer",
+      "Work",
+      "Stencil",
+      "Quotation",
+      "Appointment"
+    ]
+  },
+  
+  "usefulLinks": [
+    {
+      "title": "Flutter BLoC Documentation",
+      "url": "https://bloclibrary.dev/"
+    },
+    {
+      "title": "Freezed Package",
+      "url": "https://pub.dev/packages/freezed"
+    },
+    {
+      "title": "Flutter BLoC GitHub",
+      "url": "https://github.com/felangel/bloc"
+    }
+  ]
+}

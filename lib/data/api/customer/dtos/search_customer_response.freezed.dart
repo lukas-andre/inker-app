@@ -20,10 +20,10 @@ CustomerDTO _$CustomerDTOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CustomerDTO {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
-  int get userId => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   String get contactEmail => throw _privateConstructorUsedError;
@@ -48,10 +48,10 @@ abstract class $CustomerDTOCopyWith<$Res> {
       _$CustomerDTOCopyWithImpl<$Res, CustomerDTO>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String createdAt,
       String updatedAt,
-      int userId,
+      String userId,
       String firstName,
       String lastName,
       String contactEmail,
@@ -96,7 +96,7 @@ class _$CustomerDTOCopyWithImpl<$Res, $Val extends CustomerDTO>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ class _$CustomerDTOCopyWithImpl<$Res, $Val extends CustomerDTO>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -162,10 +162,10 @@ abstract class _$$CustomerDTOImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String createdAt,
       String updatedAt,
-      int userId,
+      String userId,
       String firstName,
       String lastName,
       String contactEmail,
@@ -208,7 +208,7 @@ class __$$CustomerDTOImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -220,7 +220,7 @@ class __$$CustomerDTOImplCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       firstName: null == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
@@ -288,13 +288,13 @@ class _$CustomerDTOImpl implements _CustomerDTO {
       _$$CustomerDTOImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String createdAt;
   @override
   final String updatedAt;
   @override
-  final int userId;
+  final String userId;
   @override
   final String firstName;
   @override
@@ -386,10 +386,10 @@ class _$CustomerDTOImpl implements _CustomerDTO {
 
 abstract class _CustomerDTO implements CustomerDTO {
   const factory _CustomerDTO(
-      {required final int id,
+      {required final String id,
       required final String createdAt,
       required final String updatedAt,
-      required final int userId,
+      required final String userId,
       required final String firstName,
       required final String lastName,
       required final String contactEmail,
@@ -405,13 +405,13 @@ abstract class _CustomerDTO implements CustomerDTO {
       _$CustomerDTOImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get createdAt;
   @override
   String get updatedAt;
   @override
-  int get userId;
+  String get userId;
   @override
   String get firstName;
   @override

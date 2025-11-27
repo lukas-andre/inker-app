@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'dart:math' as math;
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 enum AnimationState { loading, completed, error }
@@ -87,7 +86,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Stack(
         children: [
           if (widget.state == AnimationState.loading) _buildStars(),
@@ -125,7 +124,7 @@ class _SuccessAnimationPageState extends State<SuccessAnimationPage>
         ),
         const SizedBox(height: 20),
         Text(
-          widget.loadingMessage ?? 'Estamos procesando tu solicitud...',
+          widget.loadingMessage ?? S.of(context).processingRequest,
           style: TextStyleTheme.copyWith(fontSize: 18, color: Colors.white),
           textAlign: TextAlign.center,
         ),

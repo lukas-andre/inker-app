@@ -8,6 +8,10 @@
   "@eventDetails": {
     "description": "Details of the event."
   },
+  "refresh": "Refresh",
+  "@refresh": {
+    "description": "Action to refresh something."
+  },
   "description": "Description",
   "@description": {
     "description": "A short explanation or description."
@@ -186,7 +190,7 @@
   },
   "status": "Status",
   "@status": {
-    "description": "Current state or condition of something."
+    "description": "Label for status"
   },
   "cancelQuotationConfirmationTitle": "Cancel Quotation",
   "@cancelQuotationConfirmationTitle": {
@@ -202,11 +206,11 @@
   },
   "yes": "Yes",
   "@yes": {
-    "description": "Confirmation action for yes."
+    "description": "Affirmative response"
   },
   "no": "No",
   "@no": {
-    "description": "Confirmation action for no."
+    "description": "Negative response"
   },
   "quotes": "Quotes",
   "@quotes": {
@@ -862,57 +866,46 @@
   "@quotationStatusArtistPending": {
     "description": "Status shown to artist when quotation is pending"
   },
-  
   "quotationStatusArtistAppealed": "Appealed by Customer",
   "@quotationStatusArtistAppealed": {
     "description": "Status shown to artist when quotation is appealed"
   },
-  
   "quotationStatusArtistQuoted": "Awaiting Reply",
   "@quotationStatusArtistQuoted": {
     "description": "Status shown to artist when quotation is quoted"
   },
-  
   "quotationStatusArtistAccepted": "Scheduled",
   "@quotationStatusArtistAccepted": {
     "description": "Status shown to artist when quotation is accepted"
   },
-  
   "quotationStatusArtistRejected": "Rejected by Customer",
   "@quotationStatusArtistRejected": {
     "description": "Status shown to artist when quotation is rejected"
   },
-  
   "quotationStatusArtistCanceled": "Cancelled by You",
   "@quotationStatusArtistCanceled": {
     "description": "Status shown to artist when quotation is canceled"
   },
-  
   "quotationStatusCustomerPending": "Awaiting Reply",
   "@quotationStatusCustomerPending": {
     "description": "Status shown to customer when quotation is pending"
   },
-  
   "quotationStatusCustomerAppealed": "Awaiting Artist",
   "@quotationStatusCustomerAppealed": {
     "description": "Status shown to customer when quotation is appealed"
   },
-  
   "quotationStatusCustomerQuoted": "Received Quotation",
   "@quotationStatusCustomerQuoted": {
     "description": "Status shown to customer when quotation is quoted"
   },
-  
   "quotationStatusCustomerAccepted": "Scheduled",
   "@quotationStatusCustomerAccepted": {
     "description": "Status shown to customer when quotation is accepted"
   },
-  
   "quotationStatusCustomerRejected": "Rejected by You",
   "@quotationStatusCustomerRejected": {
     "description": "Status shown to customer when quotation is rejected"
   },
-  
   "quotationStatusCustomerCanceled": "Cancelled",
   "@quotationStatusCustomerCanceled": {
     "description": "Status shown to customer when quotation is canceled"
@@ -999,7 +992,6 @@
       }
     }
   },
-
   "hoursv2": "{hoursv2} hours",
   "@hoursv2": {
     "description": "Text showing duration in hours only",
@@ -1091,7 +1083,7 @@
     "description": "Text shown when a user joined the platform",
     "type": "text",
     "placeholders": {}
-  },  
+  },
   "notAvailable": "Not Available",
   "@notAvailable": {
     "description": "Indicates that something is not accessible or present."
@@ -1151,7 +1143,6 @@
   "@applicationSettings": {
     "description": "Settings for the application."
   },
-
   "notificationsDescription": "Enable or disable notifications.",
   "@notificationsDescription": {
     "description": "Description for notifications settings."
@@ -1227,5 +1218,1889 @@
   "deleteAccountWarning": "Are you sure you want to delete your account? This action is irreversible and will delete all data associated with your account.",
   "@deleteAccountWarning": {
     "description": "Warning message displayed when deleting an account."
+  },
+  "noNotificationsTitle": "No notifications",
+  "@noNotificationsTitle": {
+    "description": "Title displayed when there are no notifications."
+  },
+  "noNotificationsMessage": "You don't have any notifications yet.",
+  "@noNotificationsMessage": {
+    "description": "Message displayed when there are no notifications."
+  },
+  "plsContactArtist": "Please contact the artist for further details.",
+  "@plsContactArtist": {
+    "description": "Message prompting the user to contact the artist."
+  },
+  "contactArtist": "Please contact the artist for further details.",
+  "@contactArtist": {
+    "description": "Message prompting the user to contact the artist."
+  },
+  "changeAppointmentInstruction": "Please provide the details for changing your appointment.",
+  "@changeAppointmentInstruction": {
+    "description": "Instruction for changing an appointment."
+  },
+  "changeAppointment": "Change Appointment",
+  "@changeAppointment": {
+    "description": "Label for the change appointment action."
+  },
+  "pleaseProvideReason": "Please provide a reason for cancellation.",
+  "@pleaseProvideReason": {
+    "description": "Prompt asking the user to provide a reason for cancellation."
+  },
+  "cancelAppointmentConfirmation": "Are you sure you want to cancel the appointment?",
+  "@cancelAppointmentConfirmation": {
+    "description": "Confirmation message displayed when canceling an appointment."
+  },
+  "cancelAppointment": "Cancel Appointment",
+  "@cancelAppointment": {
+    "description": "Label for the cancel appointment action."
+  },
+  "relatedQuotation": "Related Quotation",
+  "@relatedQuotation": {
+    "description": "Label for the related quotation section."
+  },
+  "appointmentDetails": "Appointment Details",
+  "@appointmentDetails": {
+    "description": "Label for the appointment details section."
+  },
+  "actionSuccessful": "Action successful",
+  "@actionSuccessful": {
+    "description": "Message displayed when an action is successful."
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Label for the update action."
+  },
+  "startTime": "Start Time",
+  "@startTime": {
+    "description": "Label for the start time field."
+  },
+  "customRange": "Custom Range",
+  "@customRange": {
+    "description": "Label for the custom date range selection."
+  },
+  "endTime": "End Time",
+  "@endTime": {
+    "description": "Label for the end time field."
+  },
+  "errorMsgEndTimeMustBeAfterStart": "End time must be after start time.",
+  "@errorMsgEndTimeMustBeAfterStart": {
+    "description": "Error message displayed when the end time is not after the start time."
+  },
+  "errorMsgInvalidTimeFormat": "Invalid time format. Please use HH:mm.",
+  "@errorMsgInvalidTimeFormat": {
+    "description": "Error message displayed when the time format is invalid."
+  },
+  "eventUpdatedSuccessfully": "Event updated successfully.",
+  "@eventUpdatedSuccessfully": {
+    "description": "Message displayed when an event is successfully updated."
+  },
+  "eventCreatedSuccessfully": "Event created successfully.",
+  "@eventCreatedSuccessfully": {
+    "description": "Message displayed when a new event is successfully created."
+  },
+  "errorMsgEventCreationFailed": "Event creation failed. Please try again.",
+  "@errorMsgEventCreationFailed": {
+    "description": "Error message displayed when event creation fails."
+  },
+  "manageLocations": "Manage Locations",
+  "@manageLocations": {
+    "description": "Title for the location management page."
+  },
+  "addLocation": "Add Location",
+  "@addLocation": {
+    "description": "Label for the add location action."
+  },
+  "editLocation": "Edit Location",
+  "@editLocation": {
+    "description": "Label for the edit location action."
+  },
+  "deleteLocation": "Delete Location",
+  "@deleteLocation": {
+    "description": "Label for the delete location action."
+  },
+  "areYouSureDelete": "Are you sure you want to delete",
+  "@areYouSureDelete": {
+    "description": "Confirmation message for deletion actions."
+  },
+  "noLocationsAvailable": "No locations available",
+  "@noLocationsAvailable": {
+    "description": "Message displayed when no locations are available."
+  },
+  "locationName": "Location Name",
+  "@locationName": {
+    "description": "Label for the location name field."
+  },
+  "enterLocationName": "Enter location name",
+  "@enterLocationName": {
+    "description": "Placeholder text for the location name input field."
+  },
+  "enterAddress": "Enter address",
+  "@enterAddress": {
+    "description": "Placeholder text for the address input field."
+  },
+  "addressDetails": "Address Details",
+  "@addressDetails": {
+    "description": "Label for the address details section."
+  },
+  "cannotDeleteLastLocation": "Cannot delete the last location. Artists must have at least one location.",
+  "@cannotDeleteLastLocation": {
+    "description": "Error message shown when trying to delete the last location."
+  },
+  "pleaseSelectAnImage": "Please select an image",
+  "@pleaseSelectAnImage": {
+    "description": "Message displayed when no image is selected"
+  },
+  "addStencil": "Add Stencil",
+  "@addStencil": {
+    "description": "Action to add a new stencil"
+  },
+  "stencilCreatedSuccessfully": "Stencil created successfully",
+  "@stencilCreatedSuccessfully": {
+    "description": "Message displayed when a stencil is created successfully"
+  },
+  "tapToSelectImage": "Tap to select an image",
+  "@tapToSelectImage": {
+    "description": "Instruction to tap to select an image"
+  },
+  "title": "Title",
+  "@title": {
+    "description": "Title field label"
+  },
+  "pleaseEnterATitle": "Please enter a title",
+  "@pleaseEnterATitle": {
+    "description": "Validation message when title is empty"
+  },
+  "source": "Source",
+  "@source": {
+    "description": "Source label"
+  },
+  "featuredStencil": "Featured Stencil",
+  "@featuredStencil": {
+    "description": "Label for featured stencil option"
+  },
+  "stencilWillBeHighlightedInProfile": "Stencil will be highlighted in profile",
+  "@stencilWillBeHighlightedInProfile": {
+    "description": "Description for featured stencil option"
+  },
+  "hideStencil": "Hide Stencil",
+  "@hideStencil": {
+    "description": "Label for hiding stencil option"
+  },
+  "stencilWillBeHiddenFromPublicView": "Stencil will be hidden from public view",
+  "@stencilWillBeHiddenFromPublicView": {
+    "description": "Description for hiding stencil option"
+  },
+  "saveStencil": "Save Stencil",
+  "@saveStencil": {
+    "description": "Button to save stencil"
+  },
+  "titleCannotBeEmpty": "Title cannot be empty",
+  "@titleCannotBeEmpty": {
+    "description": "Error message when title is empty"
+  },
+  "deleteStencil": "Delete Stencil",
+  "@deleteStencil": {
+    "description": "Action to delete a stencil"
+  },
+  "areYouSureYouWantToDeleteThisStencil": "Are you sure you want to delete this stencil?",
+  "@areYouSureYouWantToDeleteThisStencil": {
+    "description": "Confirmation message for deleting a stencil"
+  },
+  "editStencil": "Edit Stencil",
+  "@editStencil": {
+    "description": "Action to edit a stencil"
+  },
+  "stencilDetails": "Stencil Details",
+  "@stencilDetails": {
+    "description": "Title for stencil details screen"
+  },
+  "stencilUpdatedSuccessfully": "Stencil updated successfully",
+  "@stencilUpdatedSuccessfully": {
+    "description": "Message displayed when a stencil is updated successfully"
+  },
+  "stencilDeletedSuccessfully": "Stencil deleted successfully",
+  "@stencilDeletedSuccessfully": {
+    "description": "Message displayed when a stencil is deleted successfully"
+  },
+  "tapToChangeImage": "Tap to change image",
+  "@tapToChangeImage": {
+    "description": "Instruction to tap to change an image"
+  },
+  "views": "Views",
+  "@views": {
+    "description": "Label for view count"
+  },
+  "likes": "Likes",
+  "@likes": {
+    "description": "Label for like count"
+  },
+  "created": "Created",
+  "@created": {
+    "description": "Label for creation date"
+  },
+  "lastUpdated": "Last Updated",
+  "@lastUpdated": {
+    "description": "Label for last update date"
+  },
+  "hidden": "Hidden",
+  "@hidden": {
+    "description": "Label for hidden status"
+  },
+  "visible": "Visible",
+  "@visible": {
+    "description": "Label for visible status"
+  },
+  "featured": "Featured",
+  "@featured": {
+    "description": "Label for featured status"
+  },
+  "stencilGallery": "Stencil Gallery",
+  "@stencilGallery": {
+    "description": "Title for stencil gallery screen"
+  },
+  "showingAllStencils": "Showing all stencils",
+  "@showingAllStencils": {
+    "description": "Message when showing all stencils including hidden ones"
+  },
+  "hidingHiddenStencils": "Hiding hidden stencils",
+  "@hidingHiddenStencils": {
+    "description": "Message when not showing hidden stencils"
+  },
+  "featuredStencils": "Featured Stencils",
+  "@featuredStencils": {
+    "description": "Title for featured stencils section"
+  },
+  "allStencils": "All Stencils",
+  "@allStencils": {
+    "description": "Title for all stencils section"
+  },
+  "allOtherStencils": "All Other Stencils",
+  "@allOtherStencils": {
+    "description": "Title for non-featured stencils section"
+  },
+  "unfeature": "Unfeature",
+  "@unfeature": {
+    "description": "Action to remove featured status"
+  },
+  "feature": "Feature",
+  "@feature": {
+    "description": "Action to add featured status"
+  },
+  "show": "Show",
+  "@show": {
+    "description": "Action to make visible"
+  },
+  "hide": "Hide",
+  "@hide": {
+    "description": "Action to hide"
+  },
+  "noStencilsYet": "No Stencils Yet",
+  "@noStencilsYet": {
+    "description": "Message when no stencils exist"
+  },
+  "addYourFirstStencil": "Add your first stencil to get started",
+  "@addYourFirstStencil": {
+    "description": "Instruction to add first stencil"
+  },
+  "errorLoadingStencils": "Error Loading Stencils",
+  "@errorLoadingStencils": {
+    "description": "Error message when stencils fail to load"
+  },
+  "tryAgainLater": "Please try again later",
+  "@tryAgainLater": {
+    "description": "Suggestion to try again later"
+  },
+  "searchOrCreateTags": "Search or create tags",
+  "@searchOrCreateTags": {
+    "description": "Placeholder for tag search field"
+  },
+  "addTagsToMakeYourStencilMoreDiscoverable": "Add tags to make your stencil more discoverable",
+  "@addTagsToMakeYourStencilMoreDiscoverable": {
+    "description": "Helper text for adding tags"
+  },
+  "createNewTag": "Create new tag",
+  "@createNewTag": {
+    "description": "Action to create a new tag"
+  },
+  "suggestions": "Suggestions",
+  "@suggestions": {
+    "description": "Label for tag suggestions"
+  },
+  "popularTags": "Popular Tags",
+  "@popularTags": {
+    "description": "Label for popular tags section"
+  },
+  "noStencilsWithTag": "No stencils with tag '{tagName}'",
+  "@noStencilsWithTag": {
+    "description": "Message when no stencils have a specific tag",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "clearFilter": "Clear Filter",
+  "@clearFilter": {
+    "description": "Action to remove tag filter"
+  },
+  "addWork": "Add Work",
+  "@addWork": {
+    "description": "Action to add a new work"
+  },
+  "workCreatedSuccessfully": "Work created successfully",
+  "@workCreatedSuccessfully": {
+    "description": "Message displayed when a work is created successfully"
+  },
+  "addTagsToMakeYourWorkMoreDiscoverable": "Add tags to make your work more discoverable",
+  "@addTagsToMakeYourWorkMoreDiscoverable": {
+    "description": "Helper text for adding tags to work"
+  },
+  "featuredWork": "Featured Work",
+  "@featuredWork": {
+    "description": "Label for featured work option"
+  },
+  "workWillBeHighlightedInProfile": "Work will be highlighted in profile",
+  "@workWillBeHighlightedInProfile": {
+    "description": "Description for featured work option"
+  },
+  "hideWork": "Hide Work",
+  "@hideWork": {
+    "description": "Label for hiding work option"
+  },
+  "workWillBeHiddenFromPublicView": "Work will be hidden from public view",
+  "@workWillBeHiddenFromPublicView": {
+    "description": "Description for hiding work option"
+  },
+  "saveWork": "Save Work",
+  "@saveWork": {
+    "description": "Button to save work"
+  },
+  "deleteWork": "Delete Work",
+  "@deleteWork": {
+    "description": "Action to delete a work"
+  },
+  "areYouSureYouWantToDeleteThisWork": "Are you sure you want to delete this work?",
+  "@areYouSureYouWantToDeleteThisWork": {
+    "description": "Confirmation message for deleting a work"
+  },
+  "editWork": "Edit Work",
+  "@editWork": {
+    "description": "Title for work editing mode"
+  },
+  "workDetails": "Work Details",
+  "@workDetails": {
+    "description": "Title for work details page"
+  },
+  "workUpdatedSuccessfully": "Work updated successfully",
+  "@workUpdatedSuccessfully": {
+    "description": "Message displayed when a work is updated successfully"
+  },
+  "workDeletedSuccessfully": "Work deleted successfully",
+  "@workDeletedSuccessfully": {
+    "description": "Message displayed when a work is deleted successfully"
+  },
+  "deleteSelectedWorks": "Delete Selected Works",
+  "@deleteSelectedWorks": {
+    "description": "Action to delete multiple selected works"
+  },
+  "areYouSureYouWantToDeleteTheseWorks": "Are you sure you want to delete these works?",
+  "@areYouSureYouWantToDeleteTheseWorks": {
+    "description": "Confirmation message for deleting multiple works"
+  },
+  "showHiddenWorks": "Show Hidden Works",
+  "@showHiddenWorks": {
+    "description": "Option to display hidden works"
+  },
+  "filterBySource": "Filter by Source",
+  "@filterBySource": {
+    "description": "Label for source filtering option"
+  },
+  "allSources": "All Sources",
+  "@allSources": {
+    "description": "Option to show works from all sources"
+  },
+  "selected": "Selected",
+  "@selected": {
+    "description": "Label indicating items are selected"
+  },
+  "works": "Works",
+  "@works": {
+    "description": "Label for works section"
+  },
+  "toggleVisibility": "Toggle Visibility",
+  "@toggleVisibility": {
+    "description": "Action to change visibility status"
+  },
+  "toggleFeatured": "Toggle Featured",
+  "@toggleFeatured": {
+    "description": "Action to change featured status"
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Label for filter action"
+  },
+  "selectMultiple": "Select Multiple",
+  "@selectMultiple": {
+    "description": "Action to enable multiple selection mode"
+  },
+  "noWorksFound": "No Works Found",
+  "@noWorksFound": {
+    "description": "Message when no works are available"
+  },
+  "tryRemovingFilters": "Try removing filters",
+  "@tryRemovingFilters": {
+    "description": "Suggestion to remove filters to see more results"
+  },
+  "addSomeWorksToYourGallery": "Add some works to your gallery",
+  "@addSomeWorksToYourGallery": {
+    "description": "Suggestion to add works when gallery is empty"
+  },
+  "clearFilters": "Clear Filters",
+  "@clearFilters": {
+    "description": "Action to remove all filters"
+  },
+  "filteringByTag": "Filtering by tag: {tagName}",
+  "@filteringByTag": {
+    "description": "Message showing current tag filter",
+    "placeholders": {
+      "tagName": {
+        "type": "String",
+        "example": "blackwork"
+      }
+    }
+  },
+  "filteringBySource": "Filtering by source: {sourceName}",
+  "@filteringBySource": {
+    "description": "Message showing current source filter",
+    "placeholders": {
+      "sourceName": {
+        "type": "String",
+        "example": "APP"
+      }
+    }
+  },
+  "apply": "Apply",
+  "@apply": {
+    "description": "Action to apply filters"
+  },
+  "filters": "Filters",
+  "@filters": {
+    "description": "Label for filters section"
+  },
+  "stencil": "Stencil",
+  "@stencil": {
+    "description": "Label for stencil section"
+  },
+  "stencils": "Stencils",
+  "@stencils": {
+    "description": "Label for stencils section"
+  },
+  "agendaSettings": "Agenda Settings",
+  "@agendaSettings": {
+    "description": "Title for agenda settings page"
+  },
+  "workingHours": "Working Hours",
+  "@workingHours": {
+    "description": "Tab title for working hours section"
+  },
+  "unavailableTimes": "Unavailable Times",
+  "@unavailableTimes": {
+    "description": "Tab title for unavailable times section"
+  },
+  "visibilitySettings": "Visibility Settings",
+  "@visibilitySettings": {
+    "description": "Title for visibility settings section"
+  },
+  "publicAgenda": "Public Agenda",
+  "@publicAgenda": {
+    "description": "Label for public agenda toggle"
+  },
+  "publicAgendaDescription": "Make your agenda visible to clients",
+  "@publicAgendaDescription": {
+    "description": "Description for public agenda setting"
+  },
+  "openForReservations": "Open for Reservations",
+  "@openForReservations": {
+    "description": "Label for open for reservations toggle"
+  },
+  "openForReservationsDescription": "Allow clients to book appointments",
+  "@openForReservationsDescription": {
+    "description": "Description for open for reservations setting"
+  },
+  "saveConfiguration": "Save Configuration",
+  "@saveConfiguration": {
+    "description": "Button text to save agenda settings"
+  },
+  "pleaseSelectADateRange": "Please select a date range",
+  "@pleaseSelectADateRange": {
+    "description": "Error message when no date range is selected"
+  },
+  "unavailableTime": "Unavailable Time",
+  "@unavailableTime": {
+    "description": "Default reason for unavailable time"
+  },
+  "addUnavailableTime": "Add Unavailable Time",
+  "@addUnavailableTime": {
+    "description": "Title for adding unavailable time section"
+  },
+  "selectDates": "Select Dates",
+  "@selectDates": {
+    "description": "Button text to select date range"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Label for reason field"
+  },
+  "optional": "Optional",
+  "@optional": {
+    "description": "Indicator for optional fields"
+  },
+  "addTime": "Add Time",
+  "@addTime": {
+    "description": "Button text to add unavailable time"
+  },
+  "noUnavailableTimesConfigured": "No unavailable times configured",
+  "@noUnavailableTimesConfigured": {
+    "description": "Message when no unavailable times are set"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button text to retry an action"
+  },
+  "noTattooWorksAddedYet": "No tattoo works added yet",
+  "@noTattooWorksAddedYet": {
+    "description": "Message shown when artist has no tattoo works"
+  },
+  "addPhotosOfYourBestTattooWorkToShowcaseYourStyle": "Add photos of your best tattoo work to showcase your style",
+  "@addPhotosOfYourBestTattooWorkToShowcaseYourStyle": {
+    "description": "Suggestion for artists to add tattoo works"
+  },
+  "errorLoadingWorks": "Error loading works",
+  "@errorLoadingWorks": {
+    "description": "Error message when works cannot be loaded"
+  },
+  "tryRefreshingThePage": "Try refreshing the page: {message}",
+  "@tryRefreshingThePage": {
+    "description": "Suggestion to refresh the page when there's an error",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "viewAllStencils": "View All Stencils",
+  "@viewAllStencils": {
+    "description": "Button text to view all stencils"
+  },
+  "noStencilsAddedYet": "No stencils added yet",
+  "@noStencilsAddedYet": {
+    "description": "Message shown when artist has no stencils"
+  },
+  "addYourStencilDesignsToShowcaseYourStyle": "Add your stencil designs to showcase your style",
+  "@addYourStencilDesignsToShowcaseYourStyle": {
+    "description": "Suggestion for artists to add stencil designs"
+  },
+  "reviews": "Reviews",
+  "@reviews": {
+    "description": "Label for reviews section"
+  },
+  "averageRating": "Average Rating",
+  "@averageRating": {
+    "description": "Label for average rating display"
+  },
+  "aboutMe": "About Me",
+  "@aboutMe": {
+    "description": "Section title for artist bio"
+  },
+  "addAShortDescriptionAboutYourselfAndYourTattooStyle": "Add a short description about yourself and your tattoo style",
+  "@addAShortDescriptionAboutYourselfAndYourTattooStyle": {
+    "description": "Placeholder text for empty artist bio"
+  },
+  "tattooWorks": "Tattoo Works",
+  "@tattooWorks": {
+    "description": "Section title for tattoo works gallery"
+  },
+  "manageWorks": "Manage Works",
+  "@manageWorks": {
+    "description": "Button text to manage tattoo works"
+  },
+  "day": "Day",
+  "@day": {
+    "description": "Label for day view in calendar"
+  },
+  "week": "Week",
+  "@week": {
+    "description": "Label for week view in calendar"
+  },
+  "month": "Month",
+  "@month": {
+    "description": "Label for month view in calendar"
+  },
+  "noEventsForThisDay": "No events for this day",
+  "@noEventsForThisDay": {
+    "description": "Message shown when there are no events for the selected day"
+  },
+  "agenda": "Agenda",
+  "@agenda": {
+    "description": "Title for the agenda/calendar page"
+  },
+  "errorLoadingEvents": "Error loading events: {message}",
+  "@errorLoadingEvents": {
+    "description": "Error message when events cannot be loaded",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "tattooGenerator": "Tattoo Generator",
+  "@tattooGenerator": {
+    "description": "Title for the tattoo generator feature."
+  },
+  "describeYourTattoo": "Describe your tattoo",
+  "@describeYourTattoo": {
+    "description": "Label for the tattoo description input field."
+  },
+  "chooseStyle": "Choose a style",
+  "@chooseStyle": {
+    "description": "Label for the tattoo style selection."
+  },
+  "generateTattoo": "Generate Tattoo",
+  "@generateTattoo": {
+    "description": "Button text to generate tattoo designs."
+  },
+  "results": "Results",
+  "@results": {
+    "description": "Label for the results section of generated tattoos."
+  },
+  "tattooDescriptionHint": "E.g. A minimalist wolf silhouette with geometric patterns",
+  "@tattooDescriptionHint": {
+    "description": "Hint text for the tattoo description input field."
+  },
+  "pleaseEnterDescription": "Please enter a description",
+  "@pleaseEnterDescription": {
+    "description": "Error message when no description is provided."
+  },
+  "emptyTattooGeneratorMessage": "Enter a description and choose a style\nto generate tattoo designs",
+  "@emptyTattooGeneratorMessage": {
+    "description": "Message displayed when no tattoos have been generated yet."
+  },
+  "viewTattooDetails": "View Details",
+  "@viewTattooDetails": {
+    "description": "Button text to view tattoo details."
+  },
+  "createQuotationForTattoo": "Create Quotation",
+  "@createQuotationForTattoo": {
+    "description": "Button text to create a quotation for a tattoo design."
+  },
+  "noImagesGenerated": "No images were generated",
+  "@noImagesGenerated": {
+    "description": "Error message when no images were generated."
+  },
+  "noActiveSession": "No active session found",
+  "@noActiveSession": {
+    "description": "Error message when no active user session is found."
+  },
+  "generate": "Generate",
+  "@generate": {
+    "description": "Button text to generate tattoo designs."
+  },
+  "history": "History",
+  "@history": {
+    "description": "Label for the history tab."
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Label for the favorites tab."
+  },
+  "designAddedToFavorites": "Design added to favorites",
+  "@designAddedToFavorites": {
+    "description": "Message shown when a design is added to favorites."
+  },
+  "designRemovedFromFavorites": "Design removed from favorites",
+  "@designRemovedFromFavorites": {
+    "description": "Message shown when a design is removed from favorites."
+  },
+  "noDesignsOnHistory": "No designs in history",
+  "@noDesignsOnHistory": {
+    "description": "Message shown when there are no designs on history."
+  },
+  "noDesignsOnFavorites": "No designs in favorites",
+  "@noDesignsOnFavorites": {
+    "description": "Message shown when there are no designs on favorites."
+  },
+  "enableLocationServicesAndPermissions": "Enable location services and permissions",
+  "@enableLocationServicesAndPermissions": {
+    "description": "Message prompting user to enable location services and permissions."
+  },
+  "couldNotGetLocation": "Could not get location",
+  "@couldNotGetLocation": {
+    "description": "Error message when location could not be retrieved."
+  },
+  "couldNotGetLocationPleaseRetry": "Could not get your location. Please try again.",
+  "@couldNotGetLocationPleaseRetry": {
+    "description": "Error message when location could not be retrieved with retry suggestion."
+  },
+  "notLoggedIn": "Not logged in",
+  "@notLoggedIn": {
+    "description": "Message shown when user is not logged in."
+  },
+  "openQuotationCreatedSuccessfully": "Open quotation created successfully",
+  "@openQuotationCreatedSuccessfully": {
+    "description": "Success message when an open quotation is created."
+  },
+  "errorCreatingQuotation": "Error creating quotation",
+  "@errorCreatingQuotation": {
+    "description": "Error message when quotation creation fails."
+  },
+  "createOpenQuotation": "Create Open Quotation",
+  "@createOpenQuotation": {
+    "description": "Title for the open quotation creation screen."
+  },
+  "describeYourTattooIdea": "Describe your tattoo idea",
+  "@describeYourTattooIdea": {
+    "description": "Prompt for user to describe their tattoo idea."
+  },
+  "maxTravelDistanceKm": "Maximum travel distance (km)",
+  "@maxTravelDistanceKm": {
+    "description": "Label for maximum travel distance input field."
+  },
+  "enterDistanceKm": "Enter distance in km",
+  "@enterDistanceKm": {
+    "description": "Placeholder for distance input field."
+  },
+  "pleaseEnterTravelRadius": "Please enter a travel radius",
+  "@pleaseEnterTravelRadius": {
+    "description": "Validation message when travel radius is empty."
+  },
+  "pleaseEnterValidPositiveNumber": "Please enter a valid positive number",
+  "@pleaseEnterValidPositiveNumber": {
+    "description": "Validation message for positive number inputs."
+  },
+  "optionalAddStencilOrDesign": "Optional: Add stencil or design",
+  "@optionalAddStencilOrDesign": {
+    "description": "Label for optional stencil or design upload."
+  },
+  "addReferenceImages": "Add reference images",
+  "@addReferenceImages": {
+    "description": "Button text to add reference images."
+  },
+  "submitOpenQuotation": "Submit Open Quotation",
+  "@submitOpenQuotation": {
+    "description": "Button text to submit an open quotation."
+  },
+  "cannotSelectStencilAndDesign": "You cannot select both a stencil and a design",
+  "@cannotSelectStencilAndDesign": {
+    "description": "Error message when user tries to select both a stencil and a design."
+  },
+  "optionalAttachDesign": "Optional: Attach a design",
+  "@optionalAttachDesign": {
+    "description": "Label for optional design attachment section."
+  },
+  "attachStencilOrGeneratedDesignHint": "You can attach a stencil or a generated design to your quotation",
+  "@attachStencilOrGeneratedDesignHint": {
+    "description": "Hint text explaining stencil or design attachment options."
+  },
+  "selectStencil": "Select Stencil",
+  "@selectStencil": {
+    "description": "Button text to select a stencil."
+  },
+  "selectGeneratedDesign": "Select Generated Design",
+  "@selectGeneratedDesign": {
+    "description": "Button text to select a generated design."
+  },
+  "selectedGeneratedDesign": "Selected Generated Design",
+  "@selectedGeneratedDesign": {
+    "description": "Label for the selected generated design."
+  },
+  "addReferenceImagesOptional": "Add reference images (optional)",
+  "@addReferenceImagesOptional": {
+    "description": "Label for optional reference images section."
+  },
+  "selectedStencil": "Selected Stencil",
+  "@selectedStencil": {
+    "description": "Label for the selected stencil."
+  },
+  "clearSelection": "Clear Selection",
+  "@clearSelection": {
+    "description": "Tooltip for button to clear a selection."
+  },
+  "addMoreImages": "Add more images",
+  "@addMoreImages": {
+    "description": "Button text to add more images."
+  },
+  "directQuotations": "Direct Quotations",
+  "@directQuotations": {
+    "description": "Label for direct quotations tab in quotation list."
+  },
+  "openQuotations": "Open Quotations",
+  "@openQuotations": {
+    "description": "Label for open quotations tab in quotation list."
+  },
+  "findingArtists": "Finding Artists...",
+  "@findingArtists": {
+    "description": "Status text shown when an open quotation is searching for artists."
+  },
+  "quotationStatusCustomerOpen": "Open",
+  "@quotationStatusCustomerOpen": {
+    "description": "Status text for open quotations from customer perspective."
+  },
+  "quotationStatusArtistOpen": "Open",
+  "@quotationStatusArtistOpen": {
+    "description": "Status text for open quotations from artist perspective."
+  },
+  "tattooStyleTraditionalAmerican": "Traditional American",
+  "@tattooStyleTraditionalAmerican": {"description": "Tattoo style: Traditional American"},
+  "tattooStyleNeotraditional": "Neotraditional",
+  "@tattooStyleNeotraditional": {"description": "Tattoo style: Neotraditional"},
+  "tattooStyleRealism": "Realism",
+  "@tattooStyleRealism": {"description": "Tattoo style: Realism"},
+  "tattooStyleWatercolor": "Watercolor",
+  "@tattooStyleWatercolor": {"description": "Tattoo style: Watercolor"},
+  "tattooStyleGeometric": "Geometric",
+  "@tattooStyleGeometric": {"description": "Tattoo style: Geometric"},
+  "tattooStyleBlackwork": "Blackwork",
+  "@tattooStyleBlackwork": {"description": "Tattoo style: Blackwork"},
+  "tattooStyleDotwork": "Dotwork",
+  "@tattooStyleDotwork": {"description": "Tattoo style: Dotwork"},
+  "tattooStyleJapanese": "Japanese",
+  "@tattooStyleJapanese": {"description": "Tattoo style: Japanese"},
+  "tattooStyleTribal": "Tribal",
+  "@tattooStyleTribal": {"description": "Tattoo style: Tribal"},
+  "tattooStyleNewSchool": "New School",
+  "@tattooStyleNewSchool": {"description": "Tattoo style: New School"},
+  "tattooStyleBiomechanical": "Biomechanical",
+  "@tattooStyleBiomechanical": {"description": "Tattoo style: Biomechanical"},
+  "tattooStyleMinimalist": "Minimalist",
+  "@tattooStyleMinimalist": {"description": "Tattoo style: Minimalist"},
+  "tattooStyleSurrealism": "Surrealism",
+  "@tattooStyleSurrealism": {"description": "Tattoo style: Surrealism"},
+  "tattooStyleOrnamental": "Ornamental",
+  "@tattooStyleOrnamental": {"description": "Tattoo style: Ornamental"},
+  "tattooStyleNeoJapanese": "Neo Japanese",
+  "@tattooStyleNeoJapanese": {"description": "Tattoo style: Neo Japanese"},
+  "tattooStyleCeltic": "Celtic",
+  "@tattooStyleCeltic": {"description": "Tattoo style: Celtic"},
+  "tattooStyleChicano": "Chicano",
+  "@tattooStyleChicano": {"description": "Tattoo style: Chicano"},
+  "tattooStyleAbstract": "Abstract",
+  "@tattooStyleAbstract": {"description": "Tattoo style: Abstract"},
+  "tattooStyleMandala": "Mandala",
+  "@tattooStyleMandala": {"description": "Tattoo style: Mandala"},
+  "tattooStyleFineline": "Fineline",
+  "@tattooStyleFineline": {"description": "Tattoo style: Fineline"},
+  "tattooStyleIgnorantStyle": "Ignorant Style",
+  "@tattooStyleIgnorantStyle": {"description": "Tattoo style: Ignorant Style"},
+  "offered": "Offered",
+  "@offered": {
+    "description": "Text shown when an artist has offered a quotation."
+  },
+  "open": "Open",
+  "@open": {
+    "description": "Text shown for open quotations."
+  },
+  "customerLookingForOffers": "Customer looking for offers",
+  "@customerLookingForOffers": {
+    "description": "Text indicating that a customer is looking for offers."
+  },
+  "reviewDetailsAndSubmitOffer": "Review details and submit your offer",
+  "@reviewDetailsAndSubmitOffer": {
+    "description": "Prompt for artists to review details and submit an offer."
+  },
+  "sendOffer": "Send Offer",
+  "@sendOffer": {
+    "description": "Button text for sending an offer."
+  },
+  "offerSubmitted": "Your offer has been submitted",
+  "@offerSubmitted": {
+    "description": "Confirmation message that an offer has been submitted."
+  },
+  "offerSubmittedWithAmount": "Your offer of {amount} has been submitted",
+  "@offerSubmittedWithAmount": {
+    "description": "Confirmation message that an offer with a specific amount has been submitted.",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "$100"
+      }
+    }
+  },
+  "alreadyOffered": "You've already offered",
+  "@alreadyOffered": {
+    "description": "Text shown when an artist has already submitted an offer."
+  },
+  "statusWithText": "Status: {status}",
+  "@statusWithText": {
+    "description": "Text showing the status with a label.",
+    "placeholders": {
+      "status": {
+        "type": "String",
+        "example": "In Progress"
+      }
+    }
+  },
+  "receivedOffers": "Received Offers",
+  "@receivedOffers": {
+    "description": "Text indicating that offers have been received."
+  },
+  "offersCount": "{count, plural, =0{No offers} =1{1 offer} other{{count} offers}}",
+  "@offersCount": {
+    "description": "Text showing the count of offers received.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "noOffersYet": "No offers yet",
+  "@noOffersYet": {
+    "description": "Text shown when no offers have been received yet."
+  },
+  "viewOffers": "View Offers",
+  "@viewOffers": {
+    "description": "Button text for viewing offers."
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Button text for closing a dialog or screen."
+  },
+  "quotationAcceptedSuccess": "Offer accepted successfully",
+  "@quotationAcceptedSuccess": {"description": "Snackbar message when an offer is accepted."},
+  "retry": "Retry",
+  "@retry": {"description": "Button label for retrying an action."},
+  "referenceBudget": "Reference budget: {amount} {currency}",
+  "@referenceBudget": {"description": "Label for reference budget with amount and currency.", "placeholders": {"amount": {}, "currency": {}}},
+  "offerSubmitted": "Offer submitted",
+  "@offerSubmitted": {"description": "Label when an offer has been submitted."},
+  "alreadySubmittedOffer": "You've already submitted an offer",
+  "@alreadySubmittedOffer": {"description": "Message when the artist has already submitted an offer."},
+  "messageCustomer": "Message Customer",
+  "@messageCustomer": {"description": "Button label to message the customer."},
+  "customerLookingForOffers": "Customer is looking for offers!",
+  "@customerLookingForOffers": {"description": "Banner when customer is looking for offers."},
+  "reviewAndSubmitOffer": "Review the details and submit your offer to win this project.",
+  "@reviewAndSubmitOffer": {"description": "Instruction to review and submit offer."},
+  "sendOffer": "Send Offer",
+  "@sendOffer": {"description": "Button label to send an offer."},
+  "selectedDesign": "Selected design",
+  "@selectedDesign": {"description": "Section header for selected design."},
+  "openQuotationRequest": "Open Quotation Request",
+  "@openQuotationRequest": {"description": "Banner title for open quotation request."},
+  "openQuotationRequestDesc": "This customer is looking for offers. You can send your quotation to win this project.",
+  "@openQuotationRequestDesc": {"description": "Banner description for open quotation request."},
+  "offersReceived": "You have received {count} {offerWord}",
+  "@offersReceived": {"description": "Message showing number of offers received.", "placeholders": {"count": {}, "offerWord": {}}},
+  "noOffersReceived": "You have not received any offers yet",
+  "@noOffersReceived": {"description": "Message when no offers have been received."},
+  "reviewEachOffer": "Review each offer and chat with the artists",
+  "@reviewEachOffer": {"description": "Instruction to review each offer and chat."},
+  "offersAppearHere": "Offers will appear here when you receive them",
+  "@offersAppearHere": {"description": "Message that offers will appear here."},
+  "offersReceivedTitle": "Offers received",
+  "@offersReceivedTitle": {"description": "Section title for offers received."},
+  "artistLabel": "Artist: {name}",
+  "@artistLabel": {"description": "Label for artist name.", "placeholders": {"name": {}}},
+  "notSpecified": "Not specified",
+  "@notSpecified": {"description": "Fallback text for unspecified values."},
+  "messagesCount": "{count} {messageWord}",
+  "@messagesCount": {"description": "Label for number of messages.", "placeholders": {"count": {}, "messageWord": {}}},
+  "messagePreview": "Message: {preview}",
+  "@messagePreview": {"description": "Preview of a message.", "placeholders": {"preview": {}}},
+  "startChat": "Start chat",
+  "@startChat": {"description": "Button label to start a chat."},
+  "acceptOffer": "Accept offer",
+  "@acceptOffer": {"description": "Button label to accept an offer."},
+  "close": "Close",
+  "@close": {"description": "Tooltip for close button."},
+  "editOffer": "Edit offer",
+  "@editOffer": {"description": "Tooltip for editing an offer."},
+  "tryAgain": "Try Again",
+  "@tryAgain": {"description": "Button label to try an action again."},
+  "noMessagesYet": "No messages yet",
+  "@noMessagesYet": {"description": "Empty state when there are no messages."},
+  "startConversation": "Start the conversation by sending a message",
+  "@startConversation": {"description": "Prompt to start a conversation."},
+  "typeAMessage": "Type a message",
+  "@typeAMessage": {"description": "Hint for message input field."},
+  "photoLibrary": "Photo Library",
+  "@photoLibrary": {"description": "Option to pick image from photo library."},
+  "camera": "Camera",
+  "@camera": {"description": "Option to pick image from camera."},
+  "couldNotPickImage": "Could not pick image: {error}",
+  "@couldNotPickImage": {"description": "Error message when image picking fails.", "placeholders": {"error": {}}},
+  "cancel": "Cancel",
+  "@cancel": {"description": "Button label to cancel an action."},
+  "save": "Save",
+  "@save": {"description": "Button label to save changes."},
+  "estimatedCostLabel": "Estimated cost (CLP)",
+  "@estimatedCostLabel": {"description": "Label for estimated cost input."},
+  "exampleAmount": "E.g.: 50000",
+  "@exampleAmount": {"description": "Hint for example amount."},
+  "systemOfferUpdate": "The artist updated the offer cost to {amount} CLP.",
+  "@systemOfferUpdate": {"description": "System message when artist updates offer cost.", "placeholders": {"amount": {}}},
+  "submitOffer": "Submit Offer",
+  "@submitOffer": {"description": "Button label for submitting an offer on the artist open quotation offer page."},
+  "submittingOffer": "Submitting Offer...",
+  "@submittingOffer": {"description": "Title shown when the offer is being submitted."},
+  "submittingOfferMessage": "Please wait while your offer is submitted.",
+  "@submittingOfferMessage": {"description": "Message shown while the offer is being submitted."},
+  "offerSubmittedTitle": "Offer Submitted!",
+  "@offerSubmittedTitle": {"description": "Title shown when the offer has been submitted successfully."},
+  "offerSubmittedMessage": "Your offer has been successfully sent to the customer.",
+  "@offerSubmittedMessage": {"description": "Message shown when the offer has been submitted successfully."},
+  "yourOffer": "Your Offer",
+  "@yourOffer": {"description": "Section title for the artist's offer form."},
+  "proposedAppointment": "Proposed Appointment",
+  "@proposedAppointment": {"description": "Label for the proposed appointment field in the offer form."},
+  "additionalDetailsOptional": "Additional Details (Optional)",
+  "@additionalDetailsOptional": {"description": "Label for the additional details field in the offer form, marked as optional."},
+  "proposedDesignsOptional": "Proposed Designs (Optional)",
+  "@proposedDesignsOptional": {"description": "Label for the proposed designs upload section, marked as optional."},
+  "addReferenceImagesOrSketches": "Add any reference images or sketches for your proposal.",
+  "@addReferenceImagesOrSketches": {"description": "Helper text for uploading reference images or sketches for the offer."},
+  "addDesign": "Add Design",
+  "@addDesign": {"description": "Button label for adding a design image to the offer."},
+  "durationMustBePositive": "Duration must be positive",
+  "@durationMustBePositive": {"description": "Error message when the duration is not positive in the offer form."},
+  "designSavedToYourGeneratedDesigns": "Design saved to your generated designs",
+  "@designSavedToYourGeneratedDesigns": {"description": "Message shown when a design is saved to the user's generated designs."},
+  "quotations": "Quotations",
+  "@quotations": {"description": "Label for the quotations tab."},
+  "currency": "USD",
+  "@currency": {"description": "Label for the currency."},
+  "kmAway": "km away",
+  "@kmAway": {"description": "Label for the distance in kilometers."},
+  "offerCost": "Offer Cost",
+  "@offerCost": {"description": "Label for the offer cost."},
+  "estimatedDuration": "Est. Duration",
+  "@estimatedDuration": {"description": "Label for the estimated duration."},
+  "offerAcceptedSuccessfully": "Offer accepted successfully",
+  "@offerAcceptedSuccessfully": {"description": "Success message shown when an offer has been accepted."},
+  "statusOpen": "Open",
+  "@statusOpen": {"description": "Label for the open status of a quotation."},
+  "messages": "messages",
+  "@messages": {"description": "Label for the count of messages in a conversation."},
+  "message": "Message",
+  "@message": {"description": "Label for a message in a conversation."},
+  "artistUpdatedOfferCost": "The artist updated the offer cost to {amount} {currency}",
+  "@artistUpdatedOfferCost": {"description": "Message shown when the artist updates the offer cost.", "placeholders": {"amount": {}, "currency": {}}},
+  "newQuotation": "New Quotation",
+  "@newQuotation": {"description": "Label for creating a new quotation."},
+  "noRequestsFound": "No requests found",
+  "@noRequestsFound": {"description": "Message shown when no requests are found."},
+  "noOpenQuotationsFoundTitle": "No Open Quotations",
+  "@noOpenQuotationsFoundTitle": {"description": "Title shown when no open quotations are found."},
+  "noOpenQuotationsFoundBody": "You don't have any open quotation requests at the moment.",
+  "@noOpenQuotationsFoundBody": {"description": "Message shown when no open quotations are found."},
+  "noParticipatingQuotationsFoundTitle": "No Participating Quotations",
+  "@noParticipatingQuotationsFoundTitle": {"description": "Title shown when no participating quotations are found."},
+  "noParticipatingQuotationsFoundBody": "You are not participating in any quotation requests at the moment.",
+  "@noParticipatingQuotationsFoundBody": {"description": "Message shown when no participating quotations are found."},
+  "noDirectArtistRequestsFoundTitle": "No Direct Requests",
+  "@noDirectArtistRequestsFoundTitle": {"description": "Title shown when no direct artist requests are found."},
+  "noDirectArtistRequestsFoundBody": "You don't have any direct requests from artists at the moment.",
+  "@noDirectArtistRequestsFoundBody": {"description": "Message shown when no direct artist requests are found."},
+  "noDirectCustomerQuotationsFoundTitle": "No Direct Quotations",
+  "@noDirectCustomerQuotationsFoundTitle": {"description": "Title shown when no direct customer quotations are found."},
+  "noDirectCustomerQuotationsFoundBody": "You don't have any direct quotations from customers at the moment.",
+  "@noDirectCustomerQuotationsFoundBody": {"description": "Message shown when no direct customer quotations are found."},
+  "pleaseEnableGps": "Please enable GPS",
+  "@pleaseEnableGps": {"description": "Message asking the user to enable GPS."},
+  "minDescriptionLengthRequired": "Description must be at least {length} characters",
+  "@minDescriptionLengthRequired": {"description": "Error message when description is too short.", "placeholders": {"length": {}}},
+  "chooseGeneratedDesign": "Choose Generated Design",
+  "@chooseGeneratedDesign": {"description": "Button label for choosing a generated design."},
+  "generateNewDesign": "Generate New Design",
+  "@generateNewDesign": {"description": "Button label for generating a new design."},
+  "estimatedBudgetOptional": "Estimated Budget (Optional)",
+  "@estimatedBudgetOptional": {"description": "Label for the estimated budget field, marked as optional."},
+  "referenceBudgetHint": "Reference budget for the artist",
+  "@referenceBudgetHint": {"description": "Hint text for the reference budget field."},
+  "noDistanceLimit": "No distance limit",
+  "@noDistanceLimit": {"description": "Label indicating no distance limit is set."},
+  "maxDistance": "Max distance: {distance} km",
+  "@maxDistance": {"description": "Label showing the maximum distance set.", "placeholders": {"distance": {}}},
+  "scheduled": "Scheduled",
+  "@scheduled": {"description": "Status label for scheduled appointments."},
+  "inProgress": "In Progress",
+  "@inProgress": {"description": "Status label for appointments in progress."},
+  "completed": "Completed",
+  "@completed": {"description": "Status label for completed appointments."},
+  "rescheduled": "Rescheduled",
+  "@rescheduled": {"description": "Status label for rescheduled appointments."},
+  "waitingForPhotos": "Waiting for Photos",
+  "@waitingForPhotos": {"description": "Status label for appointments waiting for photos."},
+  "waitingForReview": "Waiting for Review",
+  "@waitingForReview": {"description": "Status label for appointments waiting for review."},
+  "reviewed": "Reviewed",
+  "@reviewed": {"description": "Status label for reviewed appointments."},
+  "canceled": "Canceled",
+  "@canceled": {"description": "Status label for canceled appointments."},
+  "requestQuotationForDesign": "Request quotation for design",
+  "@requestQuotationForDesign": {"description": "Label for requesting a quotation for a design."},
+  "moreInfoAboutSizesPricesAvailability": "I would like more information about sizes, prices, and availability",
+  "@moreInfoAboutSizesPricesAvailability": {"description": "Text for requesting more information about a design."},
+  "withDescription": "with description",
+  "@withDescription": {"description": "Text indicating that a description is included."},
+  "quotationForStencilId": "Quotation for stencil ID",
+  "@quotationForStencilId": {"description": "Label for a quotation related to a specific stencil ID."},
+  "searching": "Searching...",
+  "@searching": {"description": "Text shown when a search is in progress."},
+  "enterSearchTermOrSelectTags": "Enter search term or select tags",
+  "@enterSearchTermOrSelectTags": {"description": "Hint text for the search field."},
+  "noResultsFound": "No results found",
+  "@noResultsFound": {"description": "Message shown when no search results are found."},
+  "tryDifferentSearchOrFilters": "Try a different search term or filters",
+  "@tryDifferentSearchOrFilters": {"description": "Suggestion when no search results are found."},
+  "inspiration": "Inspiration",
+  "@inspiration": {"description": "Label for the inspiration section."},
+  "searchTattoosStencilsOrTags": "Search tattoos, stencils, or tags",
+  "@searchTattoosStencilsOrTags": {"description": "Placeholder text for searching tattoos, stencils, or tags."},
+  "clearSearch": "Clear Search",
+  "@clearSearch": {"description": "Button label to clear the search."},
+  "search": "Search",
+  "@search": {"description": "Button label for search action."},
+  "suggestedTags": "Suggested Tags",
+  "@suggestedTags": {"description": "Label for the suggested tags section."},
+  "onlyStencilsFound": "Only stencils found",
+  "@onlyStencilsFound": {"description": "Message shown when only stencils are found in search results."},
+  "onlyWorksFound": "Only works found",
+  "@onlyWorksFound": {"description": "Message shown when only works are found in search results."},
+  "showOnlyAvailableResults": "Show only available results",
+  "@showOnlyAvailableResults": {"description": "Option to show only available search results."},
+  "all": "All",
+  "@all": {"description": "Label for showing all items."},
+  "createYourOwnDesign": "Create Your Own Design",
+  "@createYourOwnDesign": {"description": "Button label for creating a custom design."},
+  "generateTattooDesignsWithAI": "Generate tattoo designs with AI",
+  "@generateTattooDesignsWithAI": {"description": "Description for generating tattoo designs with AI."},
+  "exploreInspiration": "Explore Inspiration",
+  "@exploreInspiration": {"description": "Button label for exploring inspiration."},
+  "findDesignsAndTattoosMadeByArtists": "Find designs and tattoos made by artists",
+  "@findDesignsAndTattoosMadeByArtists": {"description": "Description for finding designs and tattoos by artists."},
+  "searchInspiration": "Search Inspiration",
+  "@searchInspiration": {"description": "Button label for searching inspiration."},
+  "searchInspirationForYourNextTattoo": "Search inspiration for your next tattoo",
+  "@searchInspirationForYourNextTattoo": {"description": "Description for searching tattoo inspiration."},
+  "exploreDesignsAndArtistWorks": "Explore designs and artist works",
+  "@exploreDesignsAndArtistWorks": {"description": "Description for exploring designs and artist works."},
+  "startSearching": "Start Searching",
+  "@startSearching": {"description": "Button label to start searching."},
+  "tattoos": "Tattoos",
+  "@tattoos": {"description": "Label for the tattoos category."},
+  "noTattoosFoundWithCurrentCriteria": "No tattoos found with current criteria",
+  "@noTattoosFoundWithCurrentCriteria": {"description": "Message shown when no tattoos match the search criteria."},
+  "noStencilsFoundWithCurrentCriteria": "No stencils found with current criteria",
+  "@noStencilsFoundWithCurrentCriteria": {"description": "Message shown when no stencils match the search criteria."},
+  "id": "ID",
+  "@id": {"description": "Label for the ID of an item."},
+  "errorLoadingQuotationDetails": "Error loading quotation details",
+  "@errorLoadingQuotationDetails": {"description": "Error message shown when quotation details cannot be loaded."},
+  "noApplicationsFound": "No applications found",
+  "@noApplicationsFound": {"description": "Message shown when no applications are found."},
+  "sentOffer": "Sent offer",
+  "@sentOffer": {"description": "Label for an offer that has been sent."},
+  "noAvailableTimeSlotsFound": "No available time slots found",
+  "@noAvailableTimeSlotsFound": {"description": "Message shown when no available time slots are found."},
+  "weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": "We tried to find slots across multiple days but could not find any available times",
+  "@weTriedToFindSlotsAcrossMultipleDaysButCouldNotFindAnyAvailableTimes": {"description": "Message explaining that no time slots were found across multiple days."},
+  "trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": "Try setting up your working hours in agenda settings or try a shorter appointment duration",
+  "@trySettingUpYourWorkingHoursInAgendaSettingsOrTryAShorterAppointmentDuration": {"description": "Suggestion for when no available time slots are found."},
+  "errorLoadingAvailableTimeSlots": "Error loading available time slots",
+  "@errorLoadingAvailableTimeSlots": {"description": "Error message shown when available time slots cannot be loaded."},
+  "best": "Best",
+  "@best": {"description": "Label indicating the best option or time slot."},
+  "today": "Today",
+  "@today": {"description": "Label indicating the current day."},
+  "cannotOpenDetailsRightNowTryAgainLater": "Cannot open details right now. Try again later.",
+  "@cannotOpenDetailsRightNowTryAgainLater": {"description": "Error message shown when details cannot be opened."},
+  "errorLoadingOpenQuotations": "Error loading open quotations",
+  "@errorLoadingOpenQuotations": {"description": "Error message shown when open quotations cannot be loaded."},
+  "errorLoadingOpenQuotationsWithMessage": "Error loading open quotations: {message}",
+  "@errorLoadingOpenQuotationsWithMessage": {
+    "description": "Error message with details when open quotations cannot be loaded.",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "workingHours": "Working Hours",
+  "@workingHours": {"description": "Label for working hours section in agenda settings."},
+  "startHour": "Start Hour",
+  "@startHour": {"description": "Label for the start hour of working hours."},
+  "endHour": "End Hour",
+  "@endHour": {"description": "Label for the end hour of working hours."},
+  "workingDays": "Working Days",
+  "@workingDays": {"description": "Label for working days section in agenda settings."},
+  "monday": "Monday",
+  "@monday": {"description": "Label for Monday in working days selection."},
+  "tuesday": "Tuesday",
+  "@tuesday": {"description": "Label for Tuesday in working days selection."},
+  "wednesday": "Wednesday",
+  "@wednesday": {"description": "Label for Wednesday in working days selection."},
+  "thursday": "Thursday",
+  "@thursday": {"description": "Label for Thursday in working days selection."},
+  "friday": "Friday",
+  "@friday": {"description": "Label for Friday in working days selection."},
+  "saturday": "Saturday",
+  "@saturday": {"description": "Label for Saturday in working days selection."},
+  "sunday": "Sunday",
+  "@sunday": {"description": "Label for Sunday in working days selection."},
+  "explore": "Explore",
+  "@explore": {
+    "description": "Label for the explore tab in the customer app."
+  },
+  "myAppointments": "My Appointments",
+  "@myAppointments": {
+    "description": "Label for the appointments tab in the customer app."
+  },
+  "public": "Public",
+  "@public": {
+    "description": "Label for the public tab in quotations view."
+  },
+  "direct": "Direct",
+  "@direct": {
+    "description": "Label for the direct tab in quotations view."
+  },
+  "minute": "minute",
+  "@minute": {
+    "description": "Singular form of minute used in duration formatting."
+  },
+  "thisFeatureWillBeAvailableSoon": "This feature will be available soon",
+  "@thisFeatureWillBeAvailableSoon": {
+    "description": "Message shown when a feature is not yet implemented."
+  },
+  "sendMessageInApp": "Send message in app",
+  "@sendMessageInApp": {
+    "description": "Option to send a message within the application."
+  },
+  "requestChange": "Request Change",
+  "@requestChange": {
+    "description": "Button text for requesting a change to an appointment."
+  },
+  "unknown": "Unknown",
+  "@unknown": {
+    "description": "Default text for unknown status."
+  },
+  "confirmed": "Confirmed",
+  "@confirmed": {
+    "description": "Status label for confirmed appointments."
+  },
+  "couldNotLoadImage": "Could not load image",
+  "@couldNotLoadImage": {
+    "description": "Error message shown when an image fails to load."
+  },
+  "january": "January",
+  "@january": {
+    "description": "Name of the month January."
+  },
+  "february": "February",
+  "@february": {
+    "description": "Name of the month February."
+  },
+  "march": "March",
+  "@march": {
+    "description": "Name of the month March."
+  },
+  "april": "April",
+  "@april": {
+    "description": "Name of the month April."
+  },
+  "may": "May",
+  "@may": {
+    "description": "Name of the month May."
+  },
+  "june": "June",
+  "@june": {
+    "description": "Name of the month June."
+  },
+  "july": "July",
+  "@july": {
+    "description": "Name of the month July."
+  },
+  "august": "August",
+  "@august": {
+    "description": "Name of the month August."
+  },
+  "september": "September",
+  "@september": {
+    "description": "Name of the month September."
+  },
+  "october": "October",
+  "@october": {
+    "description": "Name of the month October."
+  },
+  "november": "November",
+  "@november": {
+    "description": "Name of the month November."
+  },
+  "december": "December",
+  "@december": {
+    "description": "Name of the month December."
+  },
+  "viewTattoos": "View Tattoos",
+  "@viewTattoos": {
+    "description": "Button text to view tattoo works in the gallery."
+  },
+  "viewStencils": "View Stencils",
+  "@viewStencils": {
+    "description": "Button text to view stencil designs in the gallery."
+  },
+  "backToSearch": "Back to Search",
+  "@backToSearch": {
+    "description": "Button text to return to the search screen."
+  },
+  "quoteThisDesign": "Quote This Design",
+  "@quoteThisDesign": {
+    "description": "Button text to request a quotation for a stencil design."
+  },
+  "swipe": "Swipe",
+  "@swipe": {
+    "description": "Instruction text for users to swipe through content in the immersive viewer."
+  },
+  "backToStencils": "Back to Stencils",
+  "@backToStencils": {
+    "description": "Button text to return to the stencils screen."
+  },
+  "backToTattoos": "Back to Tattoos",
+  "@backToTattoos": {
+    "description": "Button text to return to the tattoos screen."
+  },
+  "noDescription": "No description",
+  "@noDescription": {
+    "description": "Text shown when there is no description available."
+  },
+  "errorLoadingEventDetails": "Error loading event details: {message}",
+  "@errorLoadingEventDetails": {
+    "description": "Error message shown when event details cannot be loaded.",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "editEventWarning": "Editing this event may affect customer information. Please confirm to continue.",
+  "@editEventWarning": {
+    "description": "Warning message shown when editing an event that may affect customer data."
+  },
+  "budget": "Budget",
+  "@budget": {
+    "description": "Label for budget information in quotation details."
+  },
+  "proposedDesign": "Proposed Design",
+  "@proposedDesign": {
+    "description": "Label for proposed tattoo design in quotation details."
+  },
+  "systemCancellationReason": "System Cancellation Reason",
+  "@systemCancellationReason": {
+    "description": "Label for system cancellation reason in quotation details."
+  },
+  "offers": "Offers",
+  "@offers": {
+    "description": "Label for offers section in quotation details."
+  },
+  "tooExpensive": "Too Expensive",
+  "@tooExpensive": {
+    "description": "Customer rejection reason: the quotation was too expensive."
+  },
+  "notWhatIWanted": "Not What I Wanted",
+  "@notWhatIWanted": {
+    "description": "Customer rejection reason: the design wasn't what they wanted."
+  },
+  "changedMyMind": "Changed My Mind",
+  "@changedMyMind": {
+    "description": "Customer rejection reason: they changed their mind about getting the tattoo."
+  },
+  "foundAnotherArtist": "Found Another Artist",
+  "@foundAnotherArtist": {
+    "description": "Customer rejection reason: they found another artist for their tattoo."
+  },
+  "schedulingConflict": "Scheduling Conflict",
+  "@schedulingConflict": {
+    "description": "Artist rejection reason: there is a conflict in the artist's schedule."
+  },
+  "artisticDisagreement": "Artistic Disagreement",
+  "@artisticDisagreement": {
+    "description": "Artist rejection reason: there is a disagreement about the artistic direction."
+  },
+  "insufficientDetails": "Insufficient Details",
+  "@insufficientDetails": {
+    "description": "Artist rejection reason: the request lacks necessary details."
+  },
+  "beyondExpertise": "Beyond Expertise",
+  "@beyondExpertise": {
+    "description": "Artist rejection reason: the request is beyond the artist's expertise."
+  },
+  "notAttended": "Not Attended",
+  "@notAttended": {
+    "description": "System cancellation reason: the appointment was not attended."
+  },
+  "systemTimeout": "System Timeout",
+  "@systemTimeout": {
+    "description": "System cancellation reason: the quotation timed out in the system."
+  },
+  "backToGallery": "Back to Gallery",
+  "@backToGallery": {
+    "description": "Button text to return to the gallery screen."
+  },
+  "processingRequest": "Processing request...",
+  "@processingRequest": {
+    "description": "Text shown when a request is being processed."
+  },
+  "quotationCreatedSuccessfullyTitle": "Quotation Created Successfully",
+  "@quotationCreatedSuccessfullyTitle": {
+    "description": "Title shown when a quotation is created successfully."
+  },
+  "quotationCreatedSuccessfullyDescription": "Your quotation has been created successfully. We will notify you when it is reviewed.",
+  "@quotationCreatedSuccessfullyDescription": {
+    "description": "Description shown when a quotation is created successfully."
+  },
+  "quotation": "Quotation",
+  "@quotation": {
+    "description": "Label for quotations."
+  },
+  "artistFound": "{count, plural, =0{No artists found} =1{1 artist found} other{{count} artists found}}",
+  "@artistFound": {
+    "description": "Text showing the number of artists found in the search results.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "searchArtistPlaceholder": "Search artists, styles or locations...",
+  "@searchArtistPlaceholder": {
+    "description": "Placeholder text for the search bar in the artists search screen."
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Button text to clear the search filter."
+  },
+  "minimumRating": "Minimum Rating: {rating}",
+  "@minimumRating": {
+    "description": "Text showing the minimum rating for the search results.",
+    "placeholders": {
+      "rating": {
+        "type": "num",
+        "format": "decimalPattern",
+        "example": "4.5"
+      }
+    }
+  },
+  "meters": "meters",
+  "@meters": {
+    "description": "Unit of distance measurement."
+  },
+  "featuredArtist": "Featured Artist",
+  "@featuredArtist": {
+    "description": "Label for featured artists."
+  },
+  "shareArtistProfile": "Share Artist Profile",
+  "@shareArtistProfile": {
+    "description": "Text for sharing artist profile button."
+  },
+  "requestQuote": "Request Quote",
+  "@requestQuote": {
+    "description": "Text for requesting a quote button."
+  },
+  "seeMore": "See More",
+  "@seeMore": {
+    "description": "Text for expanding content."
+  },
+  "seeLess": "See Less",
+  "@seeLess": {
+    "description": "Text for collapsing content."
+  },
+  "follower": "{count, plural, =0{No followers} =1{1 follower} other{{count} followers}}",
+  "@follower": {
+    "description": "Text showing the number of followers.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "seeReviews": "See Reviews",
+  "@seeReviews": {
+    "description": "Text for viewing reviews button."
+  },
+  "featuredWorks": "Featured Works",
+  "@featuredWorks": {
+    "description": "Title for featured works section."
+  },
+  "portfolio": "Portfolio",
+  "@portfolio": {
+    "description": "Title for portfolio section."
+  },
+  "noWorksShared": "No works shared yet",
+  "@noWorksShared": {
+    "description": "Message shown when no works are shared."
+  },
+  "contactInfo": "Contact Information",
+  "@contactInfo": {
+    "description": "Title for contact information section."
+  },
+  "noContactInfo": "No contact information available",
+  "@noContactInfo": {
+    "description": "Message shown when no contact information is available."
+  },
+  "copiedToClipboard": "Copied to clipboard",
+  "@copiedToClipboard": {
+    "description": "Message shown when content is copied to clipboard."
+  },
+  "errorLoadingPortfolio": "Error loading portfolio",
+  "@errorLoadingPortfolio": {
+    "description": "Error message shown when portfolio fails to load."
+  },
+  "noWorks": "No works available",
+  "@noWorks": {
+    "description": "Message shown when no works are available."
+  },
+  "noStencils": "No stencils available",
+  "@noStencils": {
+    "description": "Message shown when no stencils are available."
+  },
+  "noStencilsShared": "No stencils shared yet",
+  "@noStencilsShared": {
+    "description": "Message shown when no stencils are shared."
+  },
+  "noPortfolio": "No portfolio available",
+  "@noPortfolio": {
+    "description": "Message shown when no portfolio is available."
+  },
+  "noPortfolioShared": "No portfolio shared yet",
+  "@noPortfolioShared": {
+    "description": "Message shown when no portfolio is shared."
+  },
+  "errorLoadingImage": "Error loading image",
+  "@errorLoadingImage": {
+    "description": "Error message shown when image fails to load."
+  },
+  "noReviews": "No reviews yet",
+  "@noReviews": {
+    "description": "Message shown when there are no reviews."
+  },
+  "reviewsTotal": "reviews",
+  "@reviewsTotal": {
+    "description": "Text for total number of reviews."
+  },
+  "of5": "of 5",
+  "@of5": {
+    "description": "Text showing rating out of 5."
+  },
+  "follow": "Follow",
+  "@follow": {
+    "description": "Text for following button."
+  },
+  "appointmentsAvailable": "Appointments available",
+  "@appointmentsAvailable": {
+    "description": "Text indicating that appointments are available."
+  },
+  "directions": "Directions",
+  "@directions": {
+    "description": "Text for directions button."
+  },
+  "bookAppointment": "Book Appointment",
+  "@bookAppointment": {
+    "description": "Text for booking appointment button."
+  },
+  "totalReviews": "{count, plural, =0{No reviews yet} =1{1 review} other{{count} reviews}}",
+  "@totalReviews": {
+    "description": "Text for total number of reviews.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "compact",
+        "example": "5"
+      }
+    }
+  },
+  "n": "New",
+  "@n": {
+    "description": "A new item or message."
+  },
+  "noMapsApplicationAvailable": "No maps application available",
+  "@noMapsApplicationAvailable": {
+    "description": "Message shown when no maps application is available on the device."
+  },
+  "sendEmail": "Send Email",
+  "@sendEmail": {
+    "description": "Text for sending email action."
+  },
+  "callArtist": "Call Artist",
+  "@callArtist": {
+    "description": "Text for calling artist action."
+  },
+  "chatDirectlyWithArtist": "Chat directly with the artist",
+  "@chatDirectlyWithArtist": {
+    "description": "Text describing in-app chat functionality."
+  },
+  "reviewFunctionalityComingSoon": "Review functionality coming soon",
+  "@reviewFunctionalityComingSoon": {
+    "description": "Message shown when review functionality is not yet available."
+  },
+  "leaveReview": "Leave Review",
+  "@leaveReview": {
+    "description": "Text for leaving a review action."
+  },
+  "appointmentRescheduled": "Appointment rescheduled successfully",
+  "@appointmentRescheduled": {
+    "description": "Message shown when appointment is rescheduled successfully."
+  },
+  "appointmentCanceled": "Appointment canceled successfully",
+  "@appointmentCanceled": {
+    "description": "Message shown when appointment is canceled successfully."
+  },
+  "additionalInformation": "Additional Information",
+  "@additionalInformation": {
+    "description": "Text for additional information section."
+  },
+  "loadingAppointmentDetails": "Loading appointment details...",
+  "@loadingAppointmentDetails": {
+    "description": "Message shown while loading appointment details."
+  },
+  "appointmentNotFound": "Appointment not found",
+  "@appointmentNotFound": {
+    "description": "Message shown when appointment cannot be found."
+  },
+  "confirmEvent": "Confirm Event",
+  "@confirmEvent": {
+    "description": "Text for confirming an event action."
+  },
+  "confirmEventMessage": "Are you sure you want to confirm this event?",
+  "@confirmEventMessage": {
+    "description": "Confirmation message shown when confirming an event."
+  },
+  "rejectEvent": "Reject Event",
+  "@rejectEvent": {
+    "description": "Text for rejecting an event action."
+  },
+  "continue_": "Continue",
+  "@continue_": {
+    "description": "Text for continue action button."
+  },
+  "reschedule": "Reschedule",
+  "@reschedule": {
+    "description": "Text for reschedule action button."
+  },
+  "comment": "Comment",
+  "@comment": {
+    "description": "Text for comment action button."
+  },
+  "anonymous": "Anonymous",
+  "@anonymous": {
+    "description": "Text for anonymous option in reviews."
+  },
+  "addPhoto": "Add Photo",
+  "@addPhoto": {
+    "description": "Text for adding a photo action."
+  },
+  "gallery": "Gallery",
+  "@gallery": {
+    "description": "Text for gallery action button."
+  },
+  "consentTemplates": "Consent Templates",
+  "@consentTemplates": {
+    "description": "Title for consent templates management page."
+  },
+  "createTemplate": "Create Template",
+  "@createTemplate": {
+    "description": "Text for creating a new consent template."
+  },
+  "noConsentTemplates": "No consent templates created yet",
+  "@noConsentTemplates": {
+    "description": "Message shown when no consent templates exist."
+  },
+  "createFirstTemplate": "Create First Template",
+  "@createFirstTemplate": {
+    "description": "Text for creating the first consent template."
+  },
+  "generalTerms": "General Terms",
+  "@generalTerms": {
+    "description": "Label for general terms consent type."
+  },
+  "tattooConsent": "Tattoo Consent",
+  "@tattooConsent": {
+    "description": "Label for tattoo consent type."
+  },
+  "imageRelease": "Image Release",
+  "@imageRelease": {
+    "description": "Label for image release consent type."
+  },
+  "other": "Other",
+  "@other": {
+    "description": "Label for other consent type."
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Label for version information."
+  },
+  "fields": "fields",
+  "@fields": {
+    "description": "Label for form fields count."
+  },
+  "duplicate": "Duplicate",
+  "@duplicate": {
+    "description": "Text for duplicating an item."
+  },
+  "deleteTemplate": "Delete Template",
+  "@deleteTemplate": {
+    "description": "Text for deleting a template."
+  },
+  "deleteTemplateConfirmation": "Are you sure you want to delete this template? This action cannot be undone.",
+  "@deleteTemplateConfirmation": {
+    "description": "Confirmation message for deleting a template."
+  },
+  "consentForms": "Consent Forms",
+  "@consentForms": {
+    "description": "Title for consent forms page."
+  },
+  "noConsentRequired": "No consent forms required for this appointment",
+  "@noConsentRequired": {
+    "description": "Message shown when no consent is required."
+  },
+  "allConsentsCompleted": "All consent forms completed",
+  "@allConsentsCompleted": {
+    "description": "Message shown when all consents are signed."
+  },
+  "consentProgress": "Consent Progress",
+  "@consentProgress": {
+    "description": "Title for consent completion progress."
+  },
+  "completed": "completed",
+  "@completed": {
+    "description": "Text indicating completion status."
+  },
+  "consentFormDescription": "Please review and complete this consent form",
+  "@consentFormDescription": {
+    "description": "Default description for consent forms."
+  },
+  "signed": "Signed",
+  "@signed": {
+    "description": "Status indicating a form is signed."
+  },
+  "pendingSignature": "Pending Signature",
+  "@pendingSignature": {
+    "description": "Status indicating a form needs to be signed."
+  },
+  "signConsent": "Sign Consent",
+  "@signConsent": {
+    "description": "Text for signing a consent form."
+  },
+  "fieldRequired": "This field is required",
+  "@fieldRequired": {
+    "description": "Validation message for required fields."
+  },
+  "tapToSign": "Tap to sign",
+  "@tapToSign": {
+    "description": "Instruction for signature field."
+  },
+  "consents": "Consents",
+  "@consents": {
+    "description": "Label for consents section."
+  },
+  "viewConsents": "View Consents",
+  "@viewConsents": {
+    "description": "Text for viewing consent forms."
+  },
+  "signRequiredConsents": "Sign Required Consents",
+  "@signRequiredConsents": {
+    "description": "Text for signing required consent forms."
+  },
+  "consentRequired": "Consent Required",
+  "@consentRequired": {
+    "description": "Message indicating consent is required."
+  },
+  "pleaseSignConsents": "Please sign the required consent forms before proceeding",
+  "@pleaseSignConsents": {
+    "description": "Message asking user to sign consent forms."
+  },
+  "confirmationPending": "Confirmation Pending",
+  "@confirmationPending": {
+    "description": "Text indicating confirmation is pending."
+  },
+  "aftercarePeriod": "Aftercare Period",
+  "@aftercarePeriod": {
+    "description": "Text indicating aftercare period."
+  },
+  "featuredArtists": "Featured Artists",
+  "@featuredArtists": {
+    "description": "Title for featured artists section."
+  },
+  "allArtists": "All Artists",
+  "@allArtists": {
+    "description": "Title for all artists section."
+  },
+  "exploreArtists": "Explore Artists",
+  "@exploreArtists": {
+    "description": "Title for exploring artists."
+  },
+  "noArtistsFound": "No artists found",
+  "@noArtistsFound": {
+    "description": "Message when no artists are found."
+  },
+  "seeProfile": "See Profile",
+  "@seeProfile": {
+    "description": "Button text to view artist profile."
+  },
+  "mapViewComingSoon": "Map View Coming Soon",
+  "@mapViewComingSoon": {
+    "description": "Title for the map view coming soon."
+  },
+  "mapViewDescription": "Map view will be available soon to help you find artists near your location.",
+  "@mapViewDescription": {
+    "description": "Description for the map view coming soon."
+  },
+  "mapViewInfo": "Meanwhile, you can explore all available artists in the list view.",
+  "@mapViewInfo": {
+    "description": "Additional information about the map view."
+  },
+  "switchToListView": "View Artist List",
+  "@switchToListView": {
+    "description": "Text for the button to switch to list view."
+  },
+  "artistProfile": "Artist Profile",
+  "@artistProfile": {
+    "description": "Title for artist profile page."
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Share button text."
+  },
+  "about": "About",
+  "@about": {
+    "description": "Title for about the artist section."
+  },
+  "specialties": "Specialties",
+  "@specialties": {
+    "description": "Title for artist specialties."
+  },
+  "styles": "Styles",
+  "@styles": {
+    "description": "Title for artist styles."
+  },
+  "mostRecent": "Most Recent",
+  "@mostRecent": {
+    "description": "Sort by most recent option."
+  },
+  "mostPopular": "Most Popular",
+  "@mostPopular": {
+    "description": "Sort by most popular option."
+  },
+  "noStencilsFound": "No stencils found",
+  "@noStencilsFound": {
+    "description": "Message when no stencils are found."
   }
 }

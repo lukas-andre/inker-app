@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoBottomDivider extends StatelessWidget {
   const DraggableArtistInfoBottomDivider({
@@ -11,7 +10,7 @@ class DraggableArtistInfoBottomDivider extends StatelessWidget {
     return Divider(
       endIndent: 16,
       indent: 16,
-      color: greyColor,
+      color: Theme.of(context).colorScheme.tertiary,
       thickness: 1,
     );
   }

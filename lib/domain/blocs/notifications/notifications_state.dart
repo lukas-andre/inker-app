@@ -14,6 +14,16 @@ class NotificationsState with _$NotificationsState {
     NavigationInfo? pendingNavigation,
     RemoteMessage? lastMessage,
     AppState? lastMessageAppState,
+    
+    // New properties for notification page
+    List<InkerNotification>? notifications,
+    @Default(false) bool isLoading,
+    @Default(false) bool isRefreshing,
+    @Default(false) bool hasError,
+    String? errorMessage,
+    @Default(1) int currentPage,
+    @Default(1) int totalPages,
+    @Default(0) int unreadCount,
   }) = _Loaded;
   
   const factory NotificationsState.error(String message) = _Error;
@@ -24,6 +34,6 @@ class NotificationsState with _$NotificationsState {
 class NavigationInfo with _$NavigationInfo {
   const factory NavigationInfo({
     required String route,
-    Map<String, dynamic>? arguments,
+    dynamic arguments,
   }) = _NavigationInfo;
 }

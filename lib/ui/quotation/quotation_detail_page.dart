@@ -1,25 +1,142 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
+import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
+import 'package:inker_studio/ui/quotation/artist_open_quotation_offer_page.dart';
+import 'package:inker_studio/ui/quotation/quotation_offer_message_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_images.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:intl/intl.dart';
+import 'package:inker_studio/ui/customer/app/customer_app_page.dart';
+import 'package:inker_studio/ui/shared/success_animation_page.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_detail/quotation_detail_bloc.dart';
+import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/utils/responsive/responsive_builder.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/ui/shared/widgets/image_with_skeleton.dart';
+import 'package:photo_view/photo_view.dart';
 
 class QuotationDetailsPage extends StatelessWidget {
-  final Quotation quotation;
+  final Quotation? quotation;
+  final String? quotationId;
 
   const QuotationDetailsPage({
     super.key,
-    required this.quotation,
-  });
+    this.quotation,
+    this.quotationId,
+  }) : assert(quotation != null || quotationId != null,
+            'Either quotation or quotationId must be provided');
 
+  @override
+  Widget build(BuildContext context) {
+    final id = quotation?.id.toString() ?? quotationId!;
+    return BlocProvider<QuotationDetailBloc>(
+      create: (context) => QuotationDetailBloc(
+        quotationService: context.read<QuotationService>(),
+        sessionService: context.read<LocalSessionService>(),
+      )..add(
+          QuotationDetailEvent.fetchQuotationById(id),
+        ),
+      child: _QuotationDetailsScaffold(quotationId: id),
+    );
+  }
+}
+
+class _QuotationDetailsScaffold extends StatelessWidget {
+  final String quotationId;
+  const _QuotationDetailsScaffold({required this.quotationId});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: BlocConsumer<QuotationDetailBloc, QuotationDetailState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            offerAccepted: (quotation) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(l10n.offerAcceptedSuccessfully),
+                    backgroundColor: Colors.green),
+              );
+            },
+            error: (message) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(message), backgroundColor: Colors.red),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
+            offerAccepting: () => const Center(child: InkerProgressIndicator()),
+            error: (message) => Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.error_outline,
+                      color: Colors.white, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Error: $message',
+                    style:
+                        TextStyleTheme.bodyText1.copyWith(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => context.read<QuotationDetailBloc>().add(
+                          QuotationDetailEvent.fetchQuotationById(quotationId),
+                        ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      // foregroundColor: Theme.of(context).colorScheme.error,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                    ),
+                    child: const Text('Reintentar'),
+                  ),
+                ],
+              ),
+            ),
+            loaded: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: false,
+            ),
+            refreshing: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: true,
+            ),
+            offerAccepted: (quotation) => _QuotationDetailContent(
+              quotation: quotation,
+              isLoading: false,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _QuotationDetailContent extends StatelessWidget {
+  final Quotation quotation;
+  final bool isLoading;
+  const _QuotationDetailContent(
+      {required this.quotation, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,71 +146,113 @@ class QuotationDetailsPage extends StatelessWidget {
     final counterpartInfo = isArtist
         ? CounterpartInfo.fromCustomer(quotation.customer)
         : CounterpartInfo.fromArtist(quotation.artist);
-    final bloc = context.read<QuotationListBloc>();
+    final bool isOpenQuotation = quotation.type == QuotationType.OPEN;
 
-    if ((quotation.readByArtist == false && isArtist) ||
-        (quotation.readByCustomer == false && !isArtist)) {
-      bloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
-    }
+    // Marcar como leída al entrar si corresponde
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if ((quotation.readByArtist == false && isArtist) ||
+          (quotation.readByCustomer == false && !isArtist)) {
+        context
+            .read<QuotationDetailBloc>()
+            .add(QuotationDetailEvent.markAsRead(quotation.id.toString()));
+      }
+    });
 
-    return Scaffold(
-      backgroundColor: primaryColor,
-      appBar: AppBar(
-        title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
-        backgroundColor: primaryColor,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _CounterpartHeader(
-                    info: counterpartInfo,
-                    isArtist: isArtist,
-                    quotation: quotation,
-                  ),
-                  _MainQuotationInfo(quotation: quotation),
-                  if (quotation.history != null &&
-                      quotation.history!.isNotEmpty)
-                    _QuotationTimeline(history: quotation.history!),
-                  QuotationImages(quotation: quotation),
-                ],
-              ),
+    return WillPopScope(
+      onWillPop: () async {
+        context
+            .read<NotificationsBloc>()
+            .add(const NotificationsEvent.refreshNotifications());
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          title: Text(l10n.quotationDetails, style: TextStyleTheme.headline2),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          iconTheme: const IconThemeData(color: Colors.white),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                context
+                    .read<QuotationDetailBloc>()
+                    .add(QuotationDetailEvent.refresh(quotation.id.toString()));
+              },
+              tooltip: l10n.refresh,
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: explorerSecondaryColor,
-              border: Border(
-                top: BorderSide(
-                  color: tertiaryColor.withOpacity(0.2),
-                  width: 1,
+          ],
+        ),
+        body: Column(
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: isLoading ? 3 : 0,
+              child: isLoading
+                  ? LinearProgressIndicator(
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).colorScheme.surface),
+                    )
+                  : null,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  context.read<QuotationDetailBloc>().add(
+                      QuotationDetailEvent.refresh(quotation.id.toString()));
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (!(isOpenQuotation && !isArtist))
+                        _CounterpartHeader(
+                          info: counterpartInfo,
+                          isArtist: isArtist,
+                          quotation: quotation,
+                        ),
+                      _MainQuotationInfo(quotation: quotation),
+                      if (quotation.history != null &&
+                          quotation.history!.isNotEmpty)
+                        _QuotationTimeline(history: quotation.history!),
+                      QuotationImages(quotation: quotation),
+                    ],
+                  ),
                 ),
               ),
             ),
-            child: QuotationActionButtons(
-              actionManager: QuotationActionManager(
-                context: context,
-                quotation: quotation,
-                session: context.read<AuthBloc>().state.session,
-                l10n: l10n,
-                onActionExecuted: (actionType, quotationId) async {
-                  if (actionType == QuotationActionType.cancel) {
-                    bloc.add(QuotationListEvent.cancelQuotation(quotationId));
-                    await Future.delayed(const Duration(seconds: 1));
-                    if (!context.mounted) return;
-                    Navigator.of(context).pop(true);
-                    bloc.add(const QuotationListEvent.refreshCurrentTab());
-                  }
-                },
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                border: Border(
+                  top: BorderSide(
+                    color:
+                        Theme.of(context).colorScheme.secondary.withValues(alpha: 0.2),
+                    width: 1,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
+              child: QuotationActionButtons(
+                actionManager: QuotationActionManager(
+                  context: context,
+                  quotation: quotation,
+                  session: context.read<AuthBloc>().state.session,
+                  l10n: l10n,
+                  onActionExecuted: (actionType, quotationId) async {
+                    if (actionType == QuotationActionType.cancel) {
+                      context.read<QuotationDetailBloc>().add(
+                            QuotationDetailEvent.cancelQuotation(quotationId),
+                          );
+                    }
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -116,7 +275,7 @@ class _CounterpartHeader extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -161,7 +320,7 @@ class _CounterpartHeader extends StatelessWidget {
                       Text(
                         isArtist ? l10n.customer : l10n.artist,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: tertiaryColor,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -174,7 +333,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           '@${info.username}',
                           style: TextStyleTheme.bodyText2.copyWith(
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
                       ],
@@ -185,14 +344,15 @@ class _CounterpartHeader extends StatelessWidget {
                             Icon(
                               Icons.email_outlined,
                               size: 16,
-                              color: tertiaryColor,
+                              color: Theme.of(context).colorScheme.onPrimary,
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 info.contactInfo!,
                                 style: TextStyleTheme.bodyText2.copyWith(
-                                  color: tertiaryColor,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -212,7 +372,7 @@ class _CounterpartHeader extends StatelessWidget {
                   Icon(
                     Icons.location_on_outlined,
                     size: 20,
-                    color: tertiaryColor,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -222,7 +382,7 @@ class _CounterpartHeader extends StatelessWidget {
                         Text(
                           l10n.location,
                           style: TextStyleTheme.subtitle2.copyWith(
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -251,15 +411,39 @@ class _MainQuotationInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = S.of(context);
+    final isArtist =
+        context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+    final bool isOpenQuotation = quotation.type == QuotationType.OPEN;
+    final String heroTag = 'tattooDesignImage_${quotation.id}';
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Mostrar imagen generada si existe
+            if (quotation.tattooDesignImageUrl != null) ...[
+              ResponsiveBuilder(
+                mobile: _buildMobileImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
+                ),
+                tablet: _buildTabletImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
+                ),
+                desktop: _buildDesktopImage(
+                  context: context,
+                  quotation: quotation,
+                  heroTag: heroTag,
+                ),
+              ),
+            ],
             // Fecha de creación y estado actual
             Row(
               children: [
@@ -270,7 +454,7 @@ class _MainQuotationInfo extends StatelessWidget {
                       Text(
                         l10n.createdAt,
                         style: TextStyleTheme.subtitle2.copyWith(
-                          color: tertiaryColor,
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -279,7 +463,7 @@ class _MainQuotationInfo extends StatelessWidget {
                           Icon(
                             Icons.calendar_today,
                             size: 16,
-                            color: tertiaryColor,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                           const SizedBox(width: 8),
                           Text(
@@ -298,7 +482,7 @@ class _MainQuotationInfo extends StatelessWidget {
                     Text(
                       l10n.currentStatus,
                       style: TextStyleTheme.subtitle2.copyWith(
-                        color: tertiaryColor,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -309,11 +493,17 @@ class _MainQuotationInfo extends StatelessWidget {
             ),
             const Divider(height: 32),
 
+            // Special section for Open quotations based on user type
+            if (isOpenQuotation)
+              isArtist
+                  ? _buildOpenQuotationActionSection(context, quotation)
+                  : _CustomerOpenQuotationOffersSection(quotation: quotation),
+
             // Descripción
             Text(
               l10n.description,
               style: TextStyleTheme.subtitle2.copyWith(
-                color: tertiaryColor,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             const SizedBox(height: 8),
@@ -321,6 +511,35 @@ class _MainQuotationInfo extends StatelessWidget {
               quotation.description,
               style: TextStyleTheme.bodyText1,
             ),
+            // Mostrar referenceBudget si existe
+            if (quotation.referenceBudget != null) ...[
+              const SizedBox(height: 12),
+              // Primera fila: ícono y label
+              Row(
+                children: [
+                  const Icon(Icons.account_balance_wallet,
+                      color: Color(0xFF686D90), size: 20),
+                  const SizedBox(width: 8),
+                  Text(
+                    '${l10n.referenceBudget('', // El monto y la moneda van abajo, así que aquí solo el label
+                        '').split(':').first}:',
+                    style: TextStyleTheme.subtitle2.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              // Segunda fila: monto y moneda
+              Text(
+                '${quotation.referenceBudget!.toString()} ${quotation.referenceBudget!.currency}',
+                style: TextStyleTheme.headline3.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
 
             // Información adicional según el estado
@@ -331,17 +550,247 @@ class _MainQuotationInfo extends StatelessWidget {
     );
   }
 
+  Widget _buildOpenQuotationActionSection(
+      BuildContext context, Quotation quotation) {
+    final l10n = S.of(context);
+    final bool hasOffered = quotation.hasOffered;
+
+    if (hasOffered) {
+      // If artist has already offered, show a different UI
+      final List<QuotationOfferListItemDto>? offers = quotation.offers;
+      String costText = l10n.offerSubmitted;
+      QuotationOfferListItemDto? artistOffer;
+
+      if (offers != null && offers.isNotEmpty) {
+        // Find the current artist's offer
+        final currentArtistId =
+            context.read<AuthBloc>().state.session.user?.userTypeId;
+        artistOffer = offers.firstWhere(
+          (offer) => offer.artistId == currentArtistId,
+          orElse: () => offers.first, // Fallback to first offer
+        );
+
+        if (artistOffer.estimatedCost != null) {
+          final cost = artistOffer.estimatedCost!;
+          costText = '${l10n.offerCost}: ${cost.toString()} ${l10n.currency}';
+        }
+      }
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.green.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.alreadySubmittedOffer,
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        costText,
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 24),
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                ElevatedButton.icon(
+                  icon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.message),
+                      if (() {
+                        final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                        return quotation.createdAt.isBefore(threeMonthsAgo);
+                      }()) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            'Solo lectura',
+                            style: TextStyleTheme.caption.copyWith(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  label: Text(l10n.messageCustomer),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                  ),
+                  onPressed: () {
+                // Navigate to message page if we have an offer
+                if (artistOffer != null) {
+                  final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                  final isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+                  
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => QuotationOfferMessagePage(
+                        quotationId: quotation.id.toString(),
+                        offerId: artistOffer!.id,
+                        offer: artistOffer,
+                        customerName:
+                            quotation.customer?.firstName ?? l10n.customer,
+                        quotationCreatedAt: quotation.createdAt,
+                        isReadOnly: isExpired,
+                      ),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.notAvailable)),
+                  );
+                }
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 24),
+        ],
+      );
+    } else {
+      // Original UI for non-offered quotations
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.lightbulb_outline,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.customerLookingForOffers,
+                        style: TextStyleTheme.subtitle2.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.reviewAndSubmitOffer,
+                        style: TextStyleTheme.bodyText2.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(bottom: 24),
+            child: ElevatedButton.icon(
+              icon: const Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
+              label: Text(l10n.sendOffer, style: TextStyleTheme.bodyText1.copyWith(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+              ),
+              onPressed: () {
+                // Navigate to the new Offer Page
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ArtistOpenQuotationOfferPage(
+                      quotationId: quotation.id.toString(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const Divider(height: 24),
+        ],
+      );
+    }
+  }
+
   List<Widget> _buildStateSpecificInfo(BuildContext context) {
     final l10n = S.of(context);
     final List<Widget> widgets = [];
+
+    // Stencil (si existe)
+    if (quotation.stencil != null) {
+      widgets.addAll([
+        const Divider(height: 24),
+        Text(
+          l10n.selectedDesign,
+          style: TextStyleTheme.subtitle2.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        _StencilPreviewWidget(stencil: quotation.stencil!),
+        const SizedBox(height: 16),
+      ]);
+    }
 
     // Costo estimado (si existe)
     if (quotation.estimatedCost != null) {
       widgets.addAll([
         _InfoSection(
-          icon: Icons.attach_money,
+          icon: null,
           title: l10n.estimatedCost,
-          content: '\$${quotation.estimatedCost!.amount.toStringAsFixed(2)}',
+          content: quotation.estimatedCost!.toString(),
           highlight: true,
         ),
         const SizedBox(height: 16),
@@ -398,17 +847,289 @@ class _MainQuotationInfo extends StatelessWidget {
 
     return widgets;
   }
+
+  Widget _buildMobileImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => _ImageViewerDialog(
+            imageUrl: quotation.tattooDesignImageUrl!,
+            heroTag: heroTag,
+          ),
+        );
+      },
+      child: Hero(
+        tag: heroTag,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 18),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.18),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width / (16 / 9),
+            color: Colors.black12,
+            child: ImageWithSkeleton(
+              imageUrl: quotation.tattooDesignImageUrl!,
+              fit: BoxFit.contain,
+              borderRadius: BorderRadius.circular(14),
+              alignment: Alignment.center,
+              shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+              shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+              errorWidget: Container(
+                color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                child: Icon(
+                  Icons.broken_image,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 64,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTabletImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: (_) => _ImageViewerDialog(
+            imageUrl: quotation.tattooDesignImageUrl!,
+            heroTag: heroTag,
+          ),
+        );
+      },
+      child: Hero(
+        tag: heroTag,
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(bottom: 18),
+          constraints: const BoxConstraints(maxHeight: 400),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.18),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Container(
+            width: double.infinity,
+            height: 400,
+            color: Colors.black12,
+            child: ImageWithSkeleton(
+              imageUrl: quotation.tattooDesignImageUrl!,
+              fit: BoxFit.contain,
+              borderRadius: BorderRadius.circular(14),
+              alignment: Alignment.center,
+              shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+              shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+              errorWidget: Container(
+                color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                child: Icon(
+                  Icons.broken_image,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 64,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDesktopImage({
+    required BuildContext context,
+    required Quotation quotation,
+    required String heroTag,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image on left
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (_) => _ImageViewerDialog(
+                    imageUrl: quotation.tattooDesignImageUrl!,
+                    heroTag: heroTag,
+                  ),
+                );
+              },
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Hero(
+                  tag: heroTag,
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 600, maxHeight: 400),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.18),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                      border: Border.all(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 2),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Container(
+                      width: double.infinity,
+                      height: 400,
+                      color: Colors.black12,
+                      child: Stack(
+                        children: [
+                          ImageWithSkeleton(
+                            imageUrl: quotation.tattooDesignImageUrl!,
+                            fit: BoxFit.contain,
+                            borderRadius: BorderRadius.circular(14),
+                            alignment: Alignment.center,
+                            shimmerBaseColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.1),
+                            shimmerHighlightColor: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.15),
+                            errorWidget: Container(
+                              color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.2),
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                size: 64,
+                              ),
+                            ),
+                          ),
+                          // Hover overlay for web
+                          if (kIsWeb)
+                            Positioned.fill(
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  onTap: () => showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (_) => _ImageViewerDialog(
+                                      imageUrl: quotation.tattooDesignImageUrl!,
+                                      heroTag: heroTag,
+                                    ),
+                                  ),
+                                  hoverColor: Colors.black.withValues(alpha: 0.1),
+                                  child: const SizedBox(),
+                                ),
+                              ),
+                            ),
+                          // Zoom indicator
+                          Positioned(
+                            bottom: 16,
+                            right: 16,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.6),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.zoom_in, color: Colors.white, size: 18),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'Click to view',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 24),
+          // Details on right
+          Expanded(
+            flex: 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Tattoo Design',
+                  style: TextStyleTheme.subtitle1.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Click on the image to view in full screen',
+                  style: TextStyleTheme.bodyText2.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class _InfoSection extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final String title;
   final String content;
   final bool highlight;
   final bool isWarning;
 
   const _InfoSection({
-    required this.icon,
+    this.icon,
     required this.title,
     required this.content,
     this.highlight = false,
@@ -420,7 +1141,7 @@ class _InfoSection extends StatelessWidget {
     final contentColor = isWarning
         ? Colors.red
         : highlight
-            ? secondaryColor
+            ? Theme.of(context).colorScheme.secondary
             : Colors.white;
 
     return Column(
@@ -429,13 +1150,13 @@ class _InfoSection extends StatelessWidget {
         Text(
           title,
           style: TextStyleTheme.subtitle2.copyWith(
-            color: tertiaryColor,
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
         const SizedBox(height: 8),
         Row(
           children: [
-            Icon(icon, color: contentColor, size: 20),
+            if (icon != null) Icon(icon, color: contentColor, size: 20),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -464,7 +1185,7 @@ class _QuotationTimeline extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      color: explorerSecondaryColor,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -518,18 +1239,21 @@ class _TimelineItem extends StatelessWidget {
                 height: isLast ? 16 : 12,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: _getStatusColor(history.newStatus),
-                  border: isLast ? Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ) : null,
+                  color: _getStatusColor(context, history.newStatus),
+                  border: isLast
+                      ? Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        )
+                      : null,
                 ),
               ),
               if (!isLast)
                 Container(
                   width: 2,
                   height: 40,
-                  color: tertiaryColor.withOpacity(0.5),
+                  color:
+                      Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
                 ),
             ],
           ),
@@ -549,11 +1273,13 @@ class _TimelineItem extends StatelessWidget {
                 Text(
                   DateFormat('yyyy-MM-dd HH:mm').format(history.changedAt),
                   style: TextStyleTheme.caption.copyWith(
-                    color: isLast ? Colors.white70 : tertiaryColor,
+                    color: isLast
+                        ? Colors.white70
+                        : Theme.of(context).colorScheme.secondary,
                     fontWeight: isLast ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
-                ..._buildAdditionalDetails(history, l10n),
+                ..._buildAdditionalDetails(context, history, l10n),
                 if (!isLast) const SizedBox(height: 16),
               ],
             ),
@@ -563,7 +1289,8 @@ class _TimelineItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildAdditionalDetails(QuotationHistory history, S l10n) {
+  List<Widget> _buildAdditionalDetails(
+      BuildContext context, QuotationHistory history, S l10n) {
     final List<Widget> details = [];
 
     // Cambios en el costo estimado
@@ -573,7 +1300,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           '${l10n.estimatedCostChangedFrom} \$${history.previousEstimatedCost} ${l10n.to} \$${history.newEstimatedCost}',
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -585,7 +1313,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           '${l10n.appointmentDateChangedFrom} ${DateFormat('yyyy-MM-dd HH:mm').format(history.previousAppointmentDate!)} ${l10n.to} ${DateFormat('yyyy-MM-dd HH:mm').format(history.newAppointmentDate!)}',
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -597,7 +1326,8 @@ class _TimelineItem extends StatelessWidget {
       details.add(
         Text(
           stateDetails,
-          style: TextStyleTheme.bodyText2.copyWith(color: tertiaryColor),
+          style: TextStyleTheme.bodyText2
+              .copyWith(color: Theme.of(context).colorScheme.secondary),
         ),
       );
     }
@@ -651,7 +1381,7 @@ class _TimelineItem extends StatelessWidget {
     }
   }
 
-  Color _getStatusColor(QuotationStatus status) {
+  Color _getStatusColor(BuildContext context, QuotationStatus status) {
     switch (status) {
       case QuotationStatus.pending:
         return Colors.orange;
@@ -665,6 +1395,8 @@ class _TimelineItem extends StatelessWidget {
         return Colors.purple;
       case QuotationStatus.canceled:
         return Colors.grey;
+      case QuotationStatus.open:
+        return Theme.of(context).colorScheme.error;
     }
   }
 
@@ -703,6 +1435,9 @@ class _TimelineItem extends StatelessWidget {
     if (to == QuotationStatus.canceled) {
       return l10n.canceledTheQuotation;
     }
+    if (to == QuotationStatus.open) {
+      return l10n.open;
+    }
 
     return '${l10n.changedStatusFrom} ${_getStatusText(from, l10n)} ${l10n.to} ${_getStatusText(to, l10n)}';
   }
@@ -721,6 +1456,8 @@ class _TimelineItem extends StatelessWidget {
         return l10n.statusAppealed;
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
+      case QuotationStatus.open:
+        return l10n.statusOpen;
     }
   }
 }
@@ -732,26 +1469,27 @@ class _StatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = S.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: _getStatusColor(status).withOpacity(0.2),
+        color: _getStatusColor(context, status).withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: _getStatusColor(status),
+          color: _getStatusColor(context, status),
           width: 1,
         ),
       ),
       child: Text(
-        _getStatusText(status, S.of(context)),
+        _getStatusText(status, l10n),
         style: TextStyleTheme.button.copyWith(
-          color: _getStatusColor(status),
+          color: _getStatusColor(context, status),
         ),
       ),
     );
   }
 
-  Color _getStatusColor(QuotationStatus status) {
+  Color _getStatusColor(BuildContext context, QuotationStatus status) {
     switch (status) {
       case QuotationStatus.pending:
         return Colors.orange;
@@ -765,6 +1503,8 @@ class _StatusChip extends StatelessWidget {
         return Colors.purple;
       case QuotationStatus.canceled:
         return Colors.grey;
+      case QuotationStatus.open:
+        return Theme.of(context).colorScheme.error;
     }
   }
 
@@ -782,6 +1522,831 @@ class _StatusChip extends StatelessWidget {
         return l10n.statusAppealed;
       case QuotationStatus.canceled:
         return l10n.statusCanceled;
+      case QuotationStatus.open:
+        return l10n.statusOpen;
     }
+  }
+}
+
+class _StencilPreviewWidget extends StatelessWidget {
+  final Stencil stencil;
+
+  const _StencilPreviewWidget({required this.stencil});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+            .withLightness(0.25)
+            .toColor(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(12),
+            ),
+            child: AspectRatio(
+              aspectRatio: 1.5,
+              child: CachedNetworkImage(
+                imageUrl: stencil.imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  color:
+                      HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                          .withLightness(0.2)
+                          .toColor(),
+                  child: const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color:
+                      HSLColor.fromColor(Theme.of(context).colorScheme.surface)
+                          .withLightness(0.2)
+                          .toColor(),
+                  child: Icon(Icons.error,
+                      color: Theme.of(context).colorScheme.error, size: 32),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  stencil.title,
+                  style: TextStyleTheme.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                if (stencil.description != null &&
+                    stencil.description!.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    stencil.description!,
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CustomerOpenQuotationOffersSection extends StatelessWidget {
+  final Quotation quotation;
+
+  const _CustomerOpenQuotationOffersSection({
+    required this.quotation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    final List<QuotationOfferListItemDto>? offers = quotation.offers;
+    final int offersCount = offers?.length ?? 0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header section with offer count
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          margin: const EdgeInsets.only(bottom: 16),
+          decoration: BoxDecoration(
+            color: offersCount > 0
+                ? const Color(0xFF4CAF50).withValues(alpha: 0.1)
+                : const Color(0xFF9E9E9E).withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: offersCount > 0
+                  ? const Color(0xFF4CAF50).withValues(alpha: 0.3)
+                  : const Color(0xFF9E9E9E).withValues(alpha: 0.3),
+            ),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                offersCount > 0
+                    ? Icons.verified_outlined
+                    : Icons.hourglass_empty,
+                color: offersCount > 0 ? const Color(0xFF4CAF50) : Colors.grey,
+                size: 24,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      offersCount > 0
+                          ? l10n.offersReceived(offersCount, 'ofertas')
+                          : l10n.noOffersYet,
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: offersCount > 0
+                            ? const Color(0xFF4CAF50)
+                            : Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      offersCount > 0 ? l10n.reviewEachOffer : l10n.noOffersYet,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // List of offers
+        if (offersCount > 0) ...[
+          // Title
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Text(
+              l10n.offersReceivedTitle,
+              style: TextStyleTheme.subtitle1.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          BlocListener<QuotationListBloc, QuotationListState>(
+            listener: (context, state) {
+              if (state.maybeWhen(loading: () => true, orElse: () => false)) {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                );
+              } else {
+                Navigator.of(context, rootNavigator: true)
+                    .popUntil((route) => route.isFirst || !route.isCurrent);
+              }
+              if (state is QuotationListError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red),
+                );
+              }
+              if (state is QuotationListLoaded) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(S.of(context).quotationAcceptedSuccess)),
+                );
+              }
+            },
+            child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: offersCount,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final offer = offers![index];
+                return _OfferListItem(
+                  offer: offer,
+                  quotationId: quotation.id.toString(),
+                  customerName: quotation.customer?.firstName ?? l10n.customer,
+                );
+              },
+            ),
+          ),
+        ],
+
+        const Divider(height: 32),
+      ],
+    );
+  }
+}
+
+class _OfferListItem extends StatelessWidget {
+  final QuotationOfferListItemDto offer;
+  final String quotationId;
+  final String customerName;
+
+  const _OfferListItem({
+    required this.offer,
+    required this.quotationId,
+    required this.customerName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    // Function to navigate to chat
+    void navigateToChat() {
+      // Get quotation from parent context to check date
+      final quotationDetailBloc = context.read<QuotationDetailBloc>();
+      quotationDetailBloc.state.maybeWhen(
+        loaded: (quotation) {
+          final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+          final isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+          
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => QuotationOfferMessagePage(
+                quotationId: quotationId,
+                offerId: offer.id,
+                offer: offer,
+                customerName: customerName,
+                quotationCreatedAt: quotation.createdAt,
+                isReadOnly: isExpired,
+              ),
+            ),
+          );
+        },
+        orElse: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => QuotationOfferMessagePage(
+                quotationId: quotationId,
+                offerId: offer.id,
+                offer: offer,
+                customerName: customerName,
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    // Function to show accept offer confirmation dialog
+    Future<void> _showAcceptOfferConfirmation() async {
+      final bool? confirmed = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            title: Text(
+              'Confirmar aceptación',
+              style: TextStyleTheme.headline3.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '¿Estás seguro que deseas aceptar esta oferta? Una vez aceptada, no podrás cambiar tu decisión.',
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white.withValues(alpha: 0.9),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.person_outline,
+                        color: Theme.of(context).colorScheme.secondary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${l10n.artist}: ${offer.artistName ?? ""}',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.attach_money,
+                        color: Color(0xFF4CAF50),
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          '${l10n.estimatedCost}: ${offer.estimatedCost != null && offer.estimatedCost!.amount > 0 ? offer.estimatedCost!.toString() : l10n.notSpecified} ${offer.estimatedCost?.currency ?? ""}',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: Text(
+                  l10n.cancel,
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white.withValues(alpha: 0.7),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4CAF50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Confirmar',
+                  style: TextStyleTheme.bodyText1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+
+      if (confirmed == true) {
+        context
+            .read<QuotationListBloc>()
+            .add(QuotationListEvent.acceptOffer(
+              quotationId: quotationId,
+              offerId: offer.id,
+            ));
+        
+        // Listen for success and navigate to appointments
+        final navigator = Navigator.of(context);
+        context.read<QuotationListBloc>().stream.firstWhere(
+          (state) => state is QuotationListLoaded,
+        ).then((_) {
+          // Show success animation and navigate to appointments
+          navigator.push(
+            MaterialPageRoute(
+              builder: (context) => SuccessAnimationPage(
+                title: l10n.offerSubmittedTitle,
+                subtitle: l10n.offerSubmittedMessage,
+                state: AnimationState.completed,
+                onAnimationComplete: () {
+                  // Navigate to CustomerAppPage on appointments tab
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const CustomerAppPage(initialTab: 3), // Tab 3 = Citas
+                    ),
+                    (route) => false,
+                  );
+                },
+              ),
+            ),
+          );
+        });
+      }
+    }
+
+    // Format cost if available
+    String costText =
+        offer.estimatedCost != null && offer.estimatedCost!.amount > 0
+            ? offer.estimatedCost!.toString()
+            : l10n.notSpecified;
+
+    // Get message count if available
+    final int messageCount = offer.messages.length;
+
+    // Obtener el estado de la cotización para saber si ya fue aceptada
+    final quotationBloc = context.read<QuotationListBloc>();
+    final quotationState = quotationBloc.state;
+    bool isAccepted = false;
+    if (quotationState is QuotationListLoaded) {
+      final q = quotationState.quotations.firstWhere(
+        (q) => q.id.toString() == quotationId,
+        orElse: () => Quotation(
+          id: quotationId,
+          status: QuotationStatus.pending, // Nunca será 'accepted' por defecto
+          type: QuotationType.OPEN,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          customerId: '',
+          description: '',
+        ),
+      );
+      if (q.status == QuotationStatus.accepted) {
+        isAccepted = true;
+      }
+    }
+
+    return Card(
+      elevation: 0,
+      color: Colors.black12,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+      ),
+      child: InkWell(
+        onTap: navigateToChat,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Artist ID and cost
+              Row(
+                children: [
+                  const Icon(Icons.person_outline,
+                      color: Colors.white70, size: 16),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${l10n.artist}: ${offer.artistName ?? ''}',
+                    style: TextStyleTheme.bodyText2.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4CAF50).withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      '$costText ${offer.estimatedCost?.currency}',
+                      style: TextStyleTheme.subtitle2.copyWith(
+                        color: const Color(0xFF4CAF50),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              // Message preview or action button
+              if (messageCount > 0) ...[
+                Row(
+                  children: [
+                    const Icon(Icons.message_outlined,
+                        color: Colors.white70, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      '$messageCount ${l10n.messages}',
+                      style: TextStyleTheme.caption
+                          .copyWith(color: Colors.white70),
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.chevron_right,
+                        color: Colors.white70, size: 16),
+                  ],
+                ),
+                if (offer.message != null && offer.message!.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    '${l10n.message}: ${offer.message!.length > 50 ? '${offer.message!.substring(0, 50)}...' : offer.message!}',
+                    style:
+                        TextStyleTheme.bodyText2.copyWith(color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ] else ...[
+                Builder(
+                  builder: (context) {
+                    // Check if quotation from parent context to get date
+                    final quotationDetailBloc = context.read<QuotationDetailBloc>();
+                    bool isExpired = false;
+                    bool isNearExpiration = false;
+                    
+                    quotationDetailBloc.state.maybeWhen(
+                      loaded: (quotation) {
+                        final threeMonthsAgo = DateTime.now().subtract(const Duration(days: 90));
+                        final twoMonthsAgo = DateTime.now().subtract(const Duration(days: 60));
+                        isExpired = quotation.createdAt.isBefore(threeMonthsAgo);
+                        isNearExpiration = !isExpired && quotation.createdAt.isBefore(twoMonthsAgo);
+                      },
+                      orElse: () {},
+                    );
+                    
+                    return Column(
+                      children: [
+                        if (isExpired || isNearExpiration) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            margin: const EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: (isExpired ? Colors.orange : Colors.yellow).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: (isExpired ? Colors.orange : Colors.yellow).withValues(alpha: 0.3),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.info_outline,
+                                  size: 16,
+                                  color: isExpired ? Colors.orange : Colors.yellow[700],
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    isExpired 
+                                      ? 'El chat estará en modo lectura (más de 3 meses)'
+                                      : 'El chat se deshabilitará pronto',
+                                    style: TextStyleTheme.caption.copyWith(
+                                      color: isExpired ? Colors.orange : Colors.yellow[700],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: navigateToChat,
+                            icon: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.chat_bubble_outline, size: 20),
+                                if (isExpired) ...[
+                                  const SizedBox(width: 8),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: const Text(
+                                      'LECTURA',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                            label: Text(
+                              l10n.startChat,
+                              style: TextStyleTheme.bodyText1.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).colorScheme.secondary,
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
+
+              // Botón para aceptar oferta (solo si la cotización no está aceptada)
+              if (!isAccepted) ...[
+                const SizedBox(height: 12),
+                ElevatedButton.icon(
+                  onPressed: _showAcceptOfferConfirmation,
+                  icon: const Icon(Icons.check_circle_outline),
+                  label: Text(l10n.acceptOffer),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    textStyle: TextStyleTheme.bodyText2
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// --- Enhanced Image Viewer with PhotoView ---
+class _ImageViewerDialog extends StatefulWidget {
+  final String imageUrl;
+  final String heroTag;
+  const _ImageViewerDialog({required this.imageUrl, required this.heroTag});
+
+  @override
+  State<_ImageViewerDialog> createState() => _ImageViewerDialogState();
+}
+
+class _ImageViewerDialogState extends State<_ImageViewerDialog> {
+  late PhotoViewController _photoViewController;
+  bool _showControls = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _photoViewController = PhotoViewController();
+  }
+
+  @override
+  void dispose() {
+    _photoViewController.dispose();
+    super.dispose();
+  }
+
+  void _toggleControls() {
+    setState(() {
+      _showControls = !_showControls;
+    });
+  }
+
+  void _resetZoom() {
+    _photoViewController.reset();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = S.of(context);
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // PhotoView with zoom and pan capabilities
+          GestureDetector(
+            onTap: _toggleControls,
+            child: PhotoView(
+              imageProvider: CachedNetworkImageProvider(widget.imageUrl),
+              controller: _photoViewController,
+              backgroundDecoration: const BoxDecoration(
+                color: Colors.black,
+              ),
+              minScale: PhotoViewComputedScale.contained,
+              maxScale: PhotoViewComputedScale.covered * 4.0,
+              initialScale: PhotoViewComputedScale.contained,
+              heroAttributes: PhotoViewHeroAttributes(tag: widget.heroTag),
+              loadingBuilder: (context, event) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 16),
+                    if (event != null && event.expectedTotalBytes != null)
+                      Text(
+                        '${(event.cumulativeBytesLoaded / event.expectedTotalBytes! * 100).toInt()}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              errorBuilder: (context, error, stackTrace) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.broken_image_outlined,
+                      color: Colors.white.withValues(alpha: 0.7),
+                      size: 64,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Failed to load image',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // Top controls (close button)
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            top: _showControls ? MediaQuery.of(context).padding.top + 8 : -100,
+            right: 16,
+            child: SafeArea(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white, size: 28),
+                  onPressed: () => Navigator.of(context).pop(),
+                  tooltip: l10n.close,
+                ),
+              ),
+            ),
+          ),
+          
+          // Bottom controls (reset zoom)
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            bottom: _showControls ? MediaQuery.of(context).padding.bottom + 16 : -100,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.7),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.refresh, color: Colors.white, size: 24),
+                        onPressed: _resetZoom,
+                        tooltip: 'Reset zoom',
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Tap to hide controls • Pinch to zoom • Drag to pan',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.8),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

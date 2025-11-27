@@ -1,0 +1,2 @@
+/Users/lhenry/Development/inker/inker-app/android/app/.cxx/RelWithDebInfo/5d2e2f91/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/lhenry/Development/inker/inker-app/android/app/.cxx/RelWithDebInfo/5d2e2f91/arm64-v8a/CMakeFiles/rebuild_cache.dir

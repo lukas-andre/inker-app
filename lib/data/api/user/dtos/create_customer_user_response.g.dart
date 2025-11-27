@@ -8,10 +8,10 @@ part of 'create_customer_user_response.dart';
 
 CreateCustomerUserResponse _$CreateCustomerUserResponseFromJson(Map json) =>
     CreateCustomerUserResponse(
-      userId: (json['userId'] as num).toInt(),
+      userId: json['userId'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       contactEmail: json['contactEmail'] as String,
       contactPhoneNumber: json['contactPhoneNumber'] as String,
       createdAt: json['createdAt'] as String,

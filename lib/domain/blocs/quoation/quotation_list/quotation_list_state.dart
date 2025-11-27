@@ -1,18 +1,18 @@
 part of 'quotation_list_bloc.dart';
 
 @freezed
-class QuotationListState with _$QuotationListState {
-  const factory QuotationListState.initial() = QuotationListInitial;
-  const factory QuotationListState.loading() = QuotationListLoading;
+abstract class QuotationListState with _$QuotationListState {
+  const factory QuotationListState.initial() = _Initial;
+  const factory QuotationListState.loading() = _Loading;
   const factory QuotationListState.loaded({
     required List<Quotation> quotations,
     required Session session,
     List<String>? statuses,
-    @Default(false) bool isLoadingMore,
+    required bool isLoadingMore,
     String? cancellingQuotationId,
-    @Default(1) int currentPage, // Current page number
-    required int totalItems, // Total number of items from API
+    required int currentPage,
+    required int totalItems,
   }) = QuotationListLoaded;
-  const factory QuotationListState.error(String message) = QuotationListError;
   const factory QuotationListState.cancelSuccess() = QuotationListCancelSuccess;
+  const factory QuotationListState.error(String message) = QuotationListError;
 }

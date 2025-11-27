@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 
 abstract class LocalSessionService {
   Future<Session> newSession(Session session);

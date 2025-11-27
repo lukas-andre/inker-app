@@ -5,13 +5,16 @@ import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
 
 part 'artist_quotation_response_event.dart';
 part 'artist_quotation_response_state.dart';
 part 'artist_quotation_response_bloc.freezed.dart';
 
 class ArtistQuotationResponseBloc
-    extends Bloc<ArtistQuotationResponseEvent, ArtistQuotationResponseState> {
+    extends Bloc<ArtistQuotationResponseEvent, ArtistQuotationResponseState>
+    with EventBusMixin<ArtistQuotationResponseEvent, ArtistQuotationResponseState> {
   final QuotationService _quotationService;
   final LocalSessionService _sessionService;
 
@@ -21,89 +24,130 @@ class ArtistQuotationResponseBloc
   })  : _quotationService = quotationService,
         _sessionService = sessionService,
         super(const ArtistQuotationResponseState.initial()) {
-    on<ArtistQuotationResponseEvent>((event, emit) async {
-      await event.when(
-        loadQuotation: (String quotationId) async {
-          await _loadQuotation(emit, quotationId);
-        },
-        submit: (quotationId,
-            action,
-            estimatedCost,
-            appointmentDate,
-            appointmentDuration,
-            additionalDetails,
-            rejectionReason,
-            proposedDesigns) async {
-          await _submitResponse(
-              emit,
-              quotationId,
-              action,
-              estimatedCost,
-              appointmentDate,
-              appointmentDuration,
-              additionalDetails,
-              rejectionReason,
-              proposedDesigns);
-        },
-      );
-    });
+    on<_LoadQuotation>(_onLoadQuotation);
+    on<_Submit>(_onSubmit);
+    on<_SubmitOffer>(_onSubmitOffer);
   }
 
-  Future<void> _loadQuotation(
-      Emitter<ArtistQuotationResponseState> emit, String quotationId) async {
+  Future<void> _onLoadQuotation(
+    _LoadQuotation event,
+    Emitter<ArtistQuotationResponseState> emit,
+  ) async {
     emit(const ArtistQuotationResponseState.loadingQuotation());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        emit(const ArtistQuotationResponseState.failure(
-            'No se ha iniciado sesión.'));
+        emit(const ArtistQuotationResponseState.failure('Authentication Error'));
         return;
       }
-
-      final quotation = await _quotationService.getQuotationDetails(
+      final quotation = await _quotationService.getQuotationById(
         token: token,
-        quotationId: quotationId,
+        quotationId: event.quotationId,
       );
       emit(ArtistQuotationResponseState.quotationLoaded(quotation));
     } catch (e) {
-      emit(ArtistQuotationResponseState.failure(e.toString()));
+      emit(ArtistQuotationResponseState.failure(
+          'Failed to load quotation details: ${e.toString()}'));
     }
   }
 
-  Future<void> _submitResponse(
+  Future<void> _onSubmit(
+    _Submit event,
     Emitter<ArtistQuotationResponseState> emit,
-    String quotationId,
-    ArtistQuotationAction action,
-    double? estimatedCost,
-    DateTime? appointmentDate,
-    int? appointmentDuration,
-    String? additionalDetails,
-    QuotationArtistRejectReason? rejectionReason,
-    List<XFile>? proposedDesigns,
   ) async {
     emit(const ArtistQuotationResponseState.submittingResponse());
     try {
       final token = await _sessionService.getActiveSessionToken();
       if (token == null) {
-        emit(const ArtistQuotationResponseState.failure(
-            'No se ha iniciado sesión.'));
+        emit(const ArtistQuotationResponseState.failure('Authentication Error'));
         return;
+      }
+
+      Money? cost;
+      if (event.estimatedCost != null) {
+        final amountInCents = (event.estimatedCost!).amount; // TODO: Get currency
+        cost = Money(
+            amount: amountInCents,
+            currency: 'CLP', // TODO: Get currency
+            scale: 0);
       }
 
       await _quotationService.processArtistAction(
         token: token,
-        quotationId: quotationId,
-        action: action,
-        estimatedCost: Money(amount: estimatedCost?.toInt() ?? 0, currency: 'CLP', scale: 0),
-        appointmentDate: appointmentDate,
-        appointmentDuration: appointmentDuration,
-        additionalDetails: additionalDetails,
-        rejectionReason: rejectionReason,
-        proposedDesigns: proposedDesigns,
+        quotationId: event.quotationId,
+        action: event.action,
+        estimatedCost: cost,
+        appointmentDate: event.appointmentDate,
+        appointmentDuration: event.appointmentDuration,
+        additionalDetails: event.additionalDetails,
+        rejectionReason: event.rejectionReason,
+        proposedDesigns: event.proposedDesigns,
       );
+      
+      // Fire event to notify other parts of the app
+      final session = await _sessionService.getActiveSession();
+      if (session != null && session.user != null) {
+        fireEvent(QuotationUpdatedEvent(
+          quotationId: event.quotationId,
+          status: event.action == ArtistQuotationAction.quote ? 'quoted' : 
+                 event.action == ArtistQuotationAction.reject ? 'rejected' : 'updated',
+          artistId: session.user!.id,
+        ));
+      }
+      
+      emit(const ArtistQuotationResponseState.success());
+      add(ArtistQuotationResponseEvent.loadQuotation(event.quotationId));
+    } catch (e) {
+      emit(ArtistQuotationResponseState.failure(
+          'Failed to submit response: ${e.toString()}'));
+    }
+  }
+
+  Future<void> _onSubmitOffer(
+    _SubmitOffer event,
+    Emitter<ArtistQuotationResponseState> emit,
+  ) async {
+    emit(const ArtistQuotationResponseState.submittingResponse());
+    try {
+      final token = await _sessionService.getActiveSessionToken();
+      if (token == null) {
+        emit(const ArtistQuotationResponseState.failure('Authentication Error'));
+        return;
+      }
+
+      Money? cost;
+      if (event.estimatedCost != null) {
+        final amountInCents = (event.estimatedCost!).round(); // TODO: Get currency
+        cost = Money(
+            amount: amountInCents,
+            currency: 'CLP', // TODO: Get currency
+            scale: 0);
+      }
+
+      await _quotationService.submitOffer(
+        token: token,
+        quotationId: event.quotationId,
+        estimatedCost: cost,
+        appointmentDate: event.appointmentDate,
+        appointmentDuration: event.appointmentDuration,
+        additionalDetails: event.additionalDetails,
+        proposedDesigns: event.proposedDesigns,
+      );
+      
+      // Fire event to notify other parts of the app
+      final session = await _sessionService.getActiveSession();
+      if (session != null && session.user != null) {
+        fireEvent(QuotationResponseSubmittedEvent(
+          quotationId: event.quotationId,
+          artistId: session.user!.id,
+          customerId: '', // We don't have customer ID here, but it's not critical for the event
+        ));
+      }
+      
       emit(const ArtistQuotationResponseState.success());
     } catch (e) {
-      emit(ArtistQuotationResponseState.failure(e.toString()));
+      emit(ArtistQuotationResponseState.failure(
+          'Failed to submit offer: ${e.toString()}'));
     }
   }
 }

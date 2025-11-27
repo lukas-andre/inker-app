@@ -35,7 +35,7 @@ void main() {
       ($) async {
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
           password: AuthTestData.validArtistCredentials['password']!,
@@ -50,7 +50,7 @@ void main() {
       ($) async {
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
           password: AuthTestData.validArtistCredentials['password']!,
@@ -71,7 +71,7 @@ void main() {
       ($) async {
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
           password: AuthTestData.validArtistCredentials['password']!,

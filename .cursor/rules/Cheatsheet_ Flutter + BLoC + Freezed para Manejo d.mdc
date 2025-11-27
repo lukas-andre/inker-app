@@ -1,0 +1,418 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" class="logo" width="120"/>
+
+# Cheatsheet: Flutter + BLoC + Freezed para Manejo de Estados
+
+Esta guía rápida te ayudará a implementar un sistema robusto de manejo de estados en Flutter utilizando BLoC y Freezed. Esta combinación es perfecta para crear aplicaciones escalables y mantenibles.
+
+## Configuración del Proyecto
+
+### Dependencias necesarias
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  build_runner: ^2.4.6
+  freezed: ^2.4.3
+  json_serializable: ^6.7.0
+```
+
+
+### Instalación
+
+```bash
+# Para un proyecto Flutter
+flutter pub add flutter_bloc freezed_annotation json_annotation
+flutter pub add --dev build_runner freezed json_serializable
+
+# Alternativa para Dart puro
+dart pub add flutter_bloc freezed_annotation json_annotation
+dart pub add --dev build_runner freezed json_serializable
+```
+
+
+## Creación de Modelos con Freezed
+
+### Estructura básica de un modelo
+
+```dart
+// user.dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+part 'user.g.dart'; // Solo si necesitas serialización JSON
+
+@freezed
+class User with _$User {
+  const factory User({
+    required String id,
+    required String name,
+    @Default(0) int age,
+  }) = _User;
+
+  // Para serialización JSON
+  factory User.fromJson(Map&lt;String, dynamic&gt; json) =&gt; _$UserFromJson(json);
+}
+```
+
+
+### Generar archivos necesarios
+
+```bash
+# Genera los archivos .freezed.dart y .g.dart
+flutter pub run build_runner build
+
+# Si hay conflictos con archivos existentes
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# Para desarrollo continuo (regenera automáticamente cuando cambias los archivos)
+flutter pub run build_runner watch
+```
+
+
+## Implementación de BLoC/Cubit con Freezed
+
+### Definición de estados con Freezed
+
+```dart
+// user_state.dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'models/user.dart';
+
+part 'user_state.freezed.dart';
+
+@freezed
+class UserState with _$UserState {
+  const factory UserState.initial() = _Initial;
+  const factory UserState.loading() = _Loading;
+  const factory UserState.loaded(User user) = _Loaded;
+  const factory UserState.error(String message) = _Error;
+}
+```
+
+
+### Definición de eventos (si usas BLoC)
+
+```dart
+// user_event.dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user_event.freezed.dart';
+
+@freezed
+class UserEvent with _$UserEvent {
+  const factory UserEvent.fetchUser(String userId) = _FetchUser;
+  const factory UserEvent.updateUser(String name, int age) = _UpdateUser;
+  const factory UserEvent.deleteUser() = _DeleteUser;
+}
+```
+
+
+### Implementación de Cubit
+
+```dart
+// user_cubit.dart
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'user_state.dart';
+
+class UserCubit extends Cubit&lt;UserState&gt; {
+  UserCubit() : super(const UserState.initial());
+
+  Future&lt;void&gt; fetchUser(String userId) async {
+    emit(const UserState.loading());
+    try {
+      // Lógica para obtener usuario
+      final user = await userRepository.getUser(userId);
+      emit(UserState.loaded(user));
+    } catch (e) {
+      emit(UserState.error(e.toString()));
+    }
+  }
+}
+```
+
+
+### Implementación de BLoC
+
+```dart
+// user_bloc.dart
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'user_event.dart';
+import 'user_state.dart';
+
+class UserBloc extends Bloc&lt;UserEvent, UserState&gt; {
+  UserBloc() : super(const UserState.initial()) {
+    on&lt;_FetchUser&gt;(_onFetchUser);
+    on&lt;_UpdateUser&gt;(_onUpdateUser);
+    on&lt;_DeleteUser&gt;(_onDeleteUser);
+  }
+
+  Future&lt;void&gt; _onFetchUser(_FetchUser event, Emitter&lt;UserState&gt; emit) async {
+    emit(const UserState.loading());
+    try {
+      final user = await userRepository.getUser(event.userId);
+      emit(UserState.loaded(user));
+    } catch (e) {
+      emit(UserState.error(e.toString()));
+    }
+  }
+
+  // Implementación de otros manejadores de eventos...
+}
+```
+
+
+## Uso en la UI
+
+### Proveer el BLoC/Cubit a la aplicación
+
+```dart
+// main.dart
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) =&gt; UserCubit(), // o UserBloc()
+      child: MaterialApp(
+        home: UserPage(),
+      ),
+    );
+  }
+}
+```
+
+
+### Consumir el estado en widgets
+
+```dart
+// user_page.dart
+class UserPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Usuario')),
+      body: BlocBuilder&lt;UserCubit, UserState&gt;(
+        builder: (context, state) {
+          return state.when(
+            initial: () =&gt; const Center(child: Text('Inicie una búsqueda')),
+            loading: () =&gt; const Center(child: CircularProgressIndicator()),
+            loaded: (user) =&gt; UserDetails(user: user),
+            error: (message) =&gt; Center(child: Text('Error: $message')),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =&gt; context.read&lt;UserCubit&gt;().fetchUser('1'),
+        child: const Icon(Icons.refresh),
+      ),
+    );
+  }
+}
+```
+
+
+## Pattern Matching con Freezed
+
+### Uso de `when` para manejar todos los estados posibles
+
+```dart
+state.when(
+  initial: () =&gt; Text('Estado Inicial'),
+  loading: () =&gt; CircularProgressIndicator(),
+  loaded: (user) =&gt; Text(user.name),
+  error: (message) =&gt; Text('Error: $message'),
+);
+```
+
+
+### Uso de `maybeWhen` para manejar estados específicos
+
+```dart
+state.maybeWhen(
+  loaded: (user) =&gt; Text(user.name),
+  error: (message) =&gt; Text('Error: $message'),
+  orElse: () =&gt; CircularProgressIndicator(),
+);
+```
+
+
+### Uso de `map` para acceder a las propiedades específicas de cada estado
+
+```dart
+state.map(
+  initial: (_) =&gt; const Text('Inicial'),
+  loading: (_) =&gt; const CircularProgressIndicator(),
+  loaded: (loadedState) =&gt; Text('Usuario: ${loadedState.user.name}'),
+  error: (errorState) =&gt; Text('Error: ${errorState.message}'),
+);
+```
+
+
+## Consejos y Buenas Prácticas
+
+1. **Organización de archivos**: Mantén una estructura clara y separada para eventos, estados y blocs.
+```
+lib/
+  ├── features/
+  │   └── user/
+  │       ├── data/
+  │       │   └── repositories/
+  │       ├── models/
+  │       │   └── user.dart
+  │       ├── logic/
+  │       │   ├── bloc/
+  │       │   │   ├── user_bloc.dart
+  │       │   │   ├── user_event.dart
+  │       │   │   └── user_state.dart
+  │       │   └── cubit/
+  │       │       ├── user_cubit.dart
+  │       │       └── user_state.dart
+  │       └── presentation/
+  │           └── pages/
+```
+
+2. **Uso de copyWith**: Aprovecha el método `copyWith` generado por Freezed para actualizar objetos inmutables.
+```dart
+final updatedUser = user.copyWith(name: 'Nuevo Nombre');
+```
+
+3. **Testing**: Utiliza el paquete `bloc_test` para probar la lógica de tu BLoC.
+4. **Manejo de errores**: Siempre incluye un estado de error en tus uniones para manejar fallos adecuadamente.
+5. **Uso del BlocObserver**: Implementa un `BlocObserver` personalizado para depuración.
+```dart
+class SimpleBlocObserver extends BlocObserver {
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('${bloc.runtimeType} $change');
+  }
+}
+
+void main() {
+  Bloc.observer = SimpleBlocObserver();
+  runApp(MyApp());
+}
+```
+
+Esta cheatsheet te proporciona lo esencial para implementar un sistema robusto de manejo de estados en Flutter utilizando BLoC y Freezed. La combinación de estas herramientas facilita la creación de aplicaciones escalables, mantenibles y con código limpio[^1][^5][^7][^9].
+
+<div style="text-align: center">⁂</div>
+
+[^1]: https://dev.to/vishnucprasad/state-management-in-flutter-with-bloc-and-freezed-1k80
+
+[^2]: https://blog.stackademic.com/flutter-form-validation-using-flutter-bloc-with-freezed-in-domain-driven-design-architecture-b306a005ff67
+
+[^3]: https://stackoverflow.com/questions/75838481/freezedbloc-how-to-check-the-current-state-and-the-variables-of-an-specific-sta
+
+[^4]: https://dev.to/ranaayman/bloc-4bfc
+
+[^5]: https://www.codementor.io/@sunilmishra/flutter-bloc-with-freezed-16cjssmd9i
+
+[^6]: https://github.com/vaetas/flutter-extended-templates
+
+[^7]: https://pub.dev/packages/flutter_bloc
+
+[^8]: https://stackoverflow.com/questions/59668548/why-doesnt-build-runner-generate-files-when-serializing-json-in-dart-flutter
+
+[^9]: https://www.dhiwise.com/post/simplify-state-management-with-freezed-flutte-best-practices
+
+[^10]: https://pub.dev/packages/freezed
+
+[^11]: https://pub.dev/packages/flutter_bloc/example
+
+[^12]: https://www.youtube.com/watch?v=OhrytaVTVP4
+
+[^13]: https://bloclibrary.dev/getting-started/
+
+[^14]: https://www.tomasrepcik.dev/blog/2024/2024-03-27-freezed-pattern-matching/
+
+[^15]: https://dev.to/ptrbrynt/why-bloc-freezed-is-a-match-made-in-heaven-29ai
+
+[^16]: https://stackoverflow.com/questions/75532245/bloc-state-freezed-library-with-multiple-fields
+
+[^17]: https://www.techaheadcorp.com/blog/master-state-management-in-flutter-best-practices-and-patterns/
+
+[^18]: https://www.bacancytechnology.com/blog/flutter-freezed-example
+
+[^19]: https://www.reddit.com/r/flutterhelp/comments/1g5thzq/enum_approach_to_bloc_state_with_freezed/
+
+[^20]: https://www.youtube.com/watch?v=wHi7nZc0WtI
+
+[^21]: https://stackoverflow.com/questions/74932433/what-is-the-difference-between-cubit-basic-cubit-equatable-and-cubit-freezed
+
+[^22]: https://www.blup.in/blog/flutter-state-management-explained-how-to-choose
+
+[^23]: https://github.com/yh-luo/freezed_weather
+
+[^24]: https://github.com/mimamch/news_app_clean_architecture
+
+[^25]: https://blog.stackademic.com/state-management-in-flutter-with-bloc-and-freezed-848eaa5477ef
+
+[^26]: https://docs.flutter.dev/data-and-backend/state-mgmt/options
+
+[^27]: https://www.youtube.com/watch?v=T-F_MdpxlkM
+
+[^28]: https://stackoverflow.com/questions/72397657/freezed-and-bloc-cannot-use-copywith-or-access-state
+
+[^29]: https://stackoverflow.com/questions/65530114/how-to-use-freezed-package-with-bloc-in-flutter
+
+[^30]: https://github.com/felangel/bloc/issues/3196
+
+[^31]: https://leancode.co/blog/how-to-replace-freezed-in-dart
+
+[^32]: https://flutter-doc1.cades.dev/state_management/bloc_with_freezed
+
+[^33]: https://flutterawesome.com/flutter-chat-application-using-bloc-freezed-and-material-3/
+
+[^34]: https://bloclibrary.dev/architecture/
+
+[^35]: https://stackoverflow.com/questions/73863497/how-to-get-data-from-api-with-freezed-and-bloc-in-flutter
+
+[^36]: https://dev.to/vishnucprasad/understanding-the-significance-of-the-freezed-package-in-flutter-1dnb
+
+[^37]: https://www.youtube.com/watch?v=OhrytaVTVP4
+
+[^38]: https://www.reddit.com/r/FlutterDev/comments/k0406n/automatically_generate_the_code_needed_for_json/
+
+[^39]: https://appmastersinstitute.com/flutter-bloc-state-managment/
+
+[^40]: https://dev.to/ptrbrynt/why-bloc-freezed-is-a-match-made-in-heaven-29ai
+
+[^41]: https://www.commands.dev/workflows/flutter_build_runner_build
+
+[^42]: https://bloclibrary.dev
+
+[^43]: https://www.dhiwise.com/post/simplify-state-management-with-freezed-flutte-best-practices
+
+[^44]: https://github.com/dart-lang/build/issues/3550
+
+[^45]: https://pub.dev/packages/build_runner
+
+[^46]: https://stackoverflow.com/questions/75838481/freezedbloc-how-to-check-the-current-state-and-the-variables-of-an-specific-sta
+
+[^47]: https://github.com/simolus3/moor/issues/1477
+
+[^48]: https://stackoverflow.com/questions/72590412/target-of-uri-doesnt-exist-packageflutter-bloc-flutter-bloc-dart-android-s
+
+[^49]: https://github.com/dart-lang/pub/issues/4043
+
+[^50]: https://www.codementor.io/@sunilmishra/flutter-bloc-with-freezed-16cjssmd9i
+
+[^51]: https://fluttergems.dev/packages/flutter_bloc/
+

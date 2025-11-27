@@ -3,12 +3,16 @@ import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_blo
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 
 class CalendarDayPicker extends StatefulWidget {
-  const CalendarDayPicker({super.key});
+  final Function(DateTime)? onDateSelected;
+
+  const CalendarDayPicker({
+    super.key,
+    this.onDateSelected,
+  });
 
   @override
   _CalendarDayPickerState createState() => _CalendarDayPickerState();
@@ -50,9 +54,20 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
           setState(() {
             _focusedDay = focusedDay;
           });
+          
+          // Format the date as YYYY-MM-DD for the API
+          final String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
+          
+          // Update the bloc state with the correctly formatted date
           context.read<ArtistAgendaCreateEventBloc>().add(
-              ArtistAgendaCreateEventEvent.dateChanged(
-                  selectedDay.toIso8601String()));
+              ArtistAgendaCreateEventEvent.dateChanged(formattedDate));
+          
+          // Notify parent widget about the date change
+          if (widget.onDateSelected != null) {
+            widget.onDateSelected!(selectedDay);
+          }
+          
+          print('CalendarDayPicker: Day selected: $formattedDate');
         },
         onFormatChanged: (format) {
           setState(() {
@@ -61,11 +76,11 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
         },
         calendarStyle: CalendarStyle(
           selectedDecoration:
-              BoxDecoration(color: secondaryColor, shape: BoxShape.circle),
+              BoxDecoration(color: Theme.of(context).colorScheme.secondary, shape: BoxShape.circle),
           todayDecoration:
-              BoxDecoration(color: tertiaryColor, shape: BoxShape.circle),
+              BoxDecoration(color: Theme.of(context).colorScheme.tertiary, shape: BoxShape.circle),
           weekendTextStyle: TextStyleTheme.copyWith(
-              color: secondaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               fontWeight: FontWeight.normal,
               fontSize: 14),
           defaultTextStyle: TextStyleTheme.copyWith(
@@ -78,7 +93,7 @@ class _CalendarDayPickerState extends State<CalendarDayPicker> {
           titleCentered: true,
           formatButtonShowsNext: true,
           formatButtonDecoration: BoxDecoration(
-              color: secondaryColor, borderRadius: BorderRadius.circular(20)),
+              color: Theme.of(context).colorScheme.secondary, borderRadius: BorderRadius.circular(20)),
           titleTextFormatter: (date, locale) =>
               DateFormat.yMMMM(locale).format(date).replaceAll(' de ', ' del '),
           formatButtonTextStyle: TextStyleTheme.copyWith(

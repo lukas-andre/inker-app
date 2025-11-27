@@ -13,26 +13,40 @@ _$AgendaEventDetailResponseImpl _$$AgendaEventDetailResponseImplFromJson(
           Map<String, dynamic>.from(json['event'] as Map)),
       location: AgendaEventDetailLocation.fromJson(
           Map<String, dynamic>.from(json['location'] as Map)),
+      quotation: json['quotation'] == null
+          ? null
+          : Quotation.fromJson(
+              Map<String, dynamic>.from(json['quotation'] as Map)),
     );
 
 Map<String, dynamic> _$$AgendaEventDetailResponseImplToJson(
-        _$AgendaEventDetailResponseImpl instance) =>
-    <String, dynamic>{
-      'event': instance.event.toJson(),
-      'location': instance.location.toJson(),
-    };
+    _$AgendaEventDetailResponseImpl instance) {
+  final val = <String, dynamic>{
+    'event': instance.event.toJson(),
+    'location': instance.location.toJson(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('quotation', instance.quotation?.toJson());
+  return val;
+}
 
 _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
     _$AgendaEventDetailEventImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num).toInt(),
+      customerId: json['customerId'] as String,
       title: json['title'] as String,
       start: DateTime.parse(json['startDate'] as String),
       end: DateTime.parse(json['endDate'] as String),
       color: json['color'] as String,
-      info: json['info'] as String,
+      info: json['info'] as String?,
       notification: json['notification'] as bool,
       done: json['done'] as bool,
       workEvidence: json['workEvidence'] == null
@@ -43,7 +57,10 @@ _$AgendaEventDetailEventImpl _$$AgendaEventDetailEventImplFromJson(Map json) =>
       deletedAt: json['deletedAt'] == null
           ? null
           : DateTime.parse(json['deletedAt'] as String),
-      quotationId: (json['quotationId'] as num).toInt(),
+      quotationId: json['quotationId'] as String?,
+      notes: json['notes'] as String?,
+      preparationTimeMinutes: (json['preparationTimeMinutes'] as num?)?.toInt(),
+      cleanupTimeMinutes: (json['cleanupTimeMinutes'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
@@ -57,9 +74,6 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
     'startDate': instance.start.toIso8601String(),
     'endDate': instance.end.toIso8601String(),
     'color': instance.color,
-    'info': instance.info,
-    'notification': instance.notification,
-    'done': instance.done,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -68,10 +82,16 @@ Map<String, dynamic> _$$AgendaEventDetailEventImplToJson(
     }
   }
 
+  writeNotNull('info', instance.info);
+  val['notification'] = instance.notification;
+  val['done'] = instance.done;
   writeNotNull('workEvidence', instance.workEvidence?.toJson());
   writeNotNull('cancelationReason', instance.cancelationReason);
   writeNotNull('deletedAt', instance.deletedAt?.toIso8601String());
-  val['quotationId'] = instance.quotationId;
+  writeNotNull('quotationId', instance.quotationId);
+  writeNotNull('notes', instance.notes);
+  writeNotNull('preparationTimeMinutes', instance.preparationTimeMinutes);
+  writeNotNull('cleanupTimeMinutes', instance.cleanupTimeMinutes);
   return val;
 }
 
@@ -119,13 +139,12 @@ Map<String, dynamic> _$$AgendaEventDetailMetadataImplToJson(
 _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
         Map json) =>
     _$AgendaEventDetailLocationImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       address1: json['address1'] as String,
       shortAddress1: json['shortAddress1'] as String,
       address2: json['address2'] as String,
-      address3: json['address3'] as String,
       addressType: json['addressType'] as String,
       state: json['state'] as String,
       city: json['city'] as String,
@@ -137,7 +156,8 @@ _$AgendaEventDetailLocationImpl _$$AgendaEventDetailLocationImplFromJson(
           Map<String, dynamic>.from(json['viewport'] as Map)),
       location: AgendaEventDetailLocationCoordinates.fromJson(
           Map<String, dynamic>.from(json['location'] as Map)),
-      artistId: (json['artistId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
+      address3: json['address3'] as String?,
       name: json['name'] as String?,
       profileThumbnail: json['profileThumbnail'] as String?,
       googlePlaceId: json['googlePlaceId'] as String?,
@@ -152,7 +172,6 @@ Map<String, dynamic> _$$AgendaEventDetailLocationImplToJson(
     'address1': instance.address1,
     'shortAddress1': instance.shortAddress1,
     'address2': instance.address2,
-    'address3': instance.address3,
     'addressType': instance.addressType,
     'state': instance.state,
     'city': instance.city,
@@ -171,6 +190,7 @@ Map<String, dynamic> _$$AgendaEventDetailLocationImplToJson(
   }
 
   writeNotNull('artistId', instance.artistId);
+  writeNotNull('address3', instance.address3);
   writeNotNull('name', instance.name);
   writeNotNull('profileThumbnail', instance.profileThumbnail);
   writeNotNull('googlePlaceId', instance.googlePlaceId);

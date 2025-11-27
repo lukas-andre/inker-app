@@ -20,10 +20,10 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Artist {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get userId => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
@@ -43,6 +43,11 @@ mixin _$Artist {
   String? get distanceUnit => throw _privateConstructorUsedError;
   double? get distance => throw _privateConstructorUsedError;
   Review? get review => throw _privateConstructorUsedError;
+  int? get worksCount => throw _privateConstructorUsedError;
+  int? get stencilsCount => throw _privateConstructorUsedError;
+  int? get visibleWorksCount => throw _privateConstructorUsedError;
+  int? get visibleStencilsCount => throw _privateConstructorUsedError;
+  bool get requiresBasicConsent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,10 +60,10 @@ abstract class $ArtistCopyWith<$Res> {
       _$ArtistCopyWithImpl<$Res, Artist>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? userId,
+      String? userId,
       String? username,
       String? firstName,
       String? lastName,
@@ -77,7 +82,12 @@ abstract class $ArtistCopyWith<$Res> {
       bool? isFollowedByUser,
       String? distanceUnit,
       double? distance,
-      Review? review});
+      Review? review,
+      int? worksCount,
+      int? stencilsCount,
+      int? visibleWorksCount,
+      int? visibleStencilsCount,
+      bool requiresBasicConsent});
 
   $ContactCopyWith<$Res>? get contact;
   $ReviewCopyWith<$Res>? get review;
@@ -119,12 +129,17 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
     Object? distanceUnit = freezed,
     Object? distance = freezed,
     Object? review = freezed,
+    Object? worksCount = freezed,
+    Object? stencilsCount = freezed,
+    Object? visibleWorksCount = freezed,
+    Object? visibleStencilsCount = freezed,
+    Object? requiresBasicConsent = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -136,7 +151,7 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -213,6 +228,26 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
+      worksCount: freezed == worksCount
+          ? _value.worksCount
+          : worksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencilsCount: freezed == stencilsCount
+          ? _value.stencilsCount
+          : stencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleWorksCount: freezed == visibleWorksCount
+          ? _value.visibleWorksCount
+          : visibleWorksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleStencilsCount: freezed == visibleStencilsCount
+          ? _value.visibleStencilsCount
+          : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      requiresBasicConsent: null == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -249,10 +284,10 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? userId,
+      String? userId,
       String? username,
       String? firstName,
       String? lastName,
@@ -271,7 +306,12 @@ abstract class _$$ArtistImplCopyWith<$Res> implements $ArtistCopyWith<$Res> {
       bool? isFollowedByUser,
       String? distanceUnit,
       double? distance,
-      Review? review});
+      Review? review,
+      int? worksCount,
+      int? stencilsCount,
+      int? visibleWorksCount,
+      int? visibleStencilsCount,
+      bool requiresBasicConsent});
 
   @override
   $ContactCopyWith<$Res>? get contact;
@@ -313,12 +353,17 @@ class __$$ArtistImplCopyWithImpl<$Res>
     Object? distanceUnit = freezed,
     Object? distance = freezed,
     Object? review = freezed,
+    Object? worksCount = freezed,
+    Object? stencilsCount = freezed,
+    Object? visibleWorksCount = freezed,
+    Object? visibleStencilsCount = freezed,
+    Object? requiresBasicConsent = null,
   }) {
     return _then(_$ArtistImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -330,7 +375,7 @@ class __$$ArtistImplCopyWithImpl<$Res>
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -407,6 +452,26 @@ class __$$ArtistImplCopyWithImpl<$Res>
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
+      worksCount: freezed == worksCount
+          ? _value.worksCount
+          : worksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      stencilsCount: freezed == stencilsCount
+          ? _value.stencilsCount
+          : stencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleWorksCount: freezed == visibleWorksCount
+          ? _value.visibleWorksCount
+          : visibleWorksCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      visibleStencilsCount: freezed == visibleStencilsCount
+          ? _value.visibleStencilsCount
+          : visibleStencilsCount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      requiresBasicConsent: null == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -437,7 +502,12 @@ class _$ArtistImpl implements _Artist {
       this.isFollowedByUser,
       this.distanceUnit,
       this.distance,
-      this.review})
+      this.review,
+      this.worksCount,
+      this.stencilsCount,
+      this.visibleWorksCount,
+      this.visibleStencilsCount,
+      this.requiresBasicConsent = false})
       : _tags = tags,
         _genres = genres;
 
@@ -445,13 +515,13 @@ class _$ArtistImpl implements _Artist {
       _$$ArtistImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? userId;
+  final String? userId;
   @override
   final String? username;
   @override
@@ -508,10 +578,21 @@ class _$ArtistImpl implements _Artist {
   final double? distance;
   @override
   final Review? review;
+  @override
+  final int? worksCount;
+  @override
+  final int? stencilsCount;
+  @override
+  final int? visibleWorksCount;
+  @override
+  final int? visibleStencilsCount;
+  @override
+  @JsonKey()
+  final bool requiresBasicConsent;
 
   @override
   String toString() {
-    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review)';
+    return 'Artist(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, username: $username, firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, profileThumbnail: $profileThumbnail, profileThumbnailVersion: $profileThumbnailVersion, tags: $tags, genres: $genres, rating: $rating, studioPhoto: $studioPhoto, studioPhotoVersion: $studioPhotoVersion, deletedAt: $deletedAt, contact: $contact, followers: $followers, follows: $follows, isFollowedByUser: $isFollowedByUser, distanceUnit: $distanceUnit, distance: $distance, review: $review, worksCount: $worksCount, stencilsCount: $stencilsCount, visibleWorksCount: $visibleWorksCount, visibleStencilsCount: $visibleStencilsCount, requiresBasicConsent: $requiresBasicConsent)';
   }
 
   @override
@@ -557,7 +638,17 @@ class _$ArtistImpl implements _Artist {
                 other.distanceUnit == distanceUnit) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
-            (identical(other.review, review) || other.review == review));
+            (identical(other.review, review) || other.review == review) &&
+            (identical(other.worksCount, worksCount) ||
+                other.worksCount == worksCount) &&
+            (identical(other.stencilsCount, stencilsCount) ||
+                other.stencilsCount == stencilsCount) &&
+            (identical(other.visibleWorksCount, visibleWorksCount) ||
+                other.visibleWorksCount == visibleWorksCount) &&
+            (identical(other.visibleStencilsCount, visibleStencilsCount) ||
+                other.visibleStencilsCount == visibleStencilsCount) &&
+            (identical(other.requiresBasicConsent, requiresBasicConsent) ||
+                other.requiresBasicConsent == requiresBasicConsent));
   }
 
   @JsonKey(ignore: true)
@@ -586,7 +677,12 @@ class _$ArtistImpl implements _Artist {
         isFollowedByUser,
         distanceUnit,
         distance,
-        review
+        review,
+        worksCount,
+        stencilsCount,
+        visibleWorksCount,
+        visibleStencilsCount,
+        requiresBasicConsent
       ]);
 
   @JsonKey(ignore: true)
@@ -605,10 +701,10 @@ class _$ArtistImpl implements _Artist {
 
 abstract class _Artist implements Artist {
   const factory _Artist(
-      {required final int id,
+      {required final String id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? userId,
+      final String? userId,
       final String? username,
       final String? firstName,
       final String? lastName,
@@ -627,18 +723,23 @@ abstract class _Artist implements Artist {
       final bool? isFollowedByUser,
       final String? distanceUnit,
       final double? distance,
-      final Review? review}) = _$ArtistImpl;
+      final Review? review,
+      final int? worksCount,
+      final int? stencilsCount,
+      final int? visibleWorksCount,
+      final int? visibleStencilsCount,
+      final bool requiresBasicConsent}) = _$ArtistImpl;
 
   factory _Artist.fromJson(Map<String, dynamic> json) = _$ArtistImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get userId;
+  String? get userId;
   @override
   String? get username;
   @override
@@ -678,6 +779,16 @@ abstract class _Artist implements Artist {
   @override
   Review? get review;
   @override
+  int? get worksCount;
+  @override
+  int? get stencilsCount;
+  @override
+  int? get visibleWorksCount;
+  @override
+  int? get visibleStencilsCount;
+  @override
+  bool get requiresBasicConsent;
+  @override
   @JsonKey(ignore: true)
   _$$ArtistImplCopyWith<_$ArtistImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -689,7 +800,7 @@ Contact _$ContactFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Contact {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -708,7 +819,7 @@ abstract class $ContactCopyWith<$Res> {
       _$ContactCopyWithImpl<$Res, Contact>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
       String email,
@@ -742,7 +853,7 @@ class _$ContactCopyWithImpl<$Res, $Val extends Contact>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -779,7 +890,7 @@ abstract class _$$ContactImplCopyWith<$Res> implements $ContactCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
       String email,
@@ -811,7 +922,7 @@ class __$$ContactImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -856,7 +967,7 @@ class _$ContactImpl implements _Contact {
       _$$ContactImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
@@ -914,7 +1025,7 @@ class _$ContactImpl implements _Contact {
 
 abstract class _Contact implements Contact {
   const factory _Contact(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
       required final String email,
@@ -925,7 +1036,7 @@ abstract class _Contact implements Contact {
   factory _Contact.fromJson(Map<String, dynamic> json) = _$ContactImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
@@ -950,7 +1061,7 @@ Service _$ServiceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Service {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -967,7 +1078,7 @@ abstract class $ServiceCopyWith<$Res> {
       _$ServiceCopyWithImpl<$Res, Service>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -997,7 +1108,7 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1026,7 +1137,7 @@ abstract class _$$ServiceImplCopyWith<$Res> implements $ServiceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -1054,7 +1165,7 @@ class __$$ServiceImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1089,7 +1200,7 @@ class _$ServiceImpl implements _Service {
       _$$ServiceImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -1140,7 +1251,7 @@ class _$ServiceImpl implements _Service {
 
 abstract class _Service implements Service {
   const factory _Service(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String name,
@@ -1149,7 +1260,7 @@ abstract class _Service implements Service {
   factory _Service.fromJson(Map<String, dynamic> json) = _$ServiceImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -1170,10 +1281,11 @@ Review _$ReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Review {
-  int? get artistId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
   double? get value => throw _privateConstructorUsedError;
   Map<String, int>? get detail => throw _privateConstructorUsedError;
   int? get count => throw _privateConstructorUsedError;
+  double? get avgRating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1186,7 +1298,11 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {int? artistId, double? value, Map<String, int>? detail, int? count});
+      {String? artistId,
+      double? value,
+      Map<String, int>? detail,
+      int? count,
+      double? avgRating});
 }
 
 /// @nodoc
@@ -1206,12 +1322,13 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? value = freezed,
     Object? detail = freezed,
     Object? count = freezed,
+    Object? avgRating = freezed,
   }) {
     return _then(_value.copyWith(
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -1224,6 +1341,10 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
+      avgRating: freezed == avgRating
+          ? _value.avgRating
+          : avgRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -1236,7 +1357,11 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? artistId, double? value, Map<String, int>? detail, int? count});
+      {String? artistId,
+      double? value,
+      Map<String, int>? detail,
+      int? count,
+      double? avgRating});
 }
 
 /// @nodoc
@@ -1254,12 +1379,13 @@ class __$$ReviewImplCopyWithImpl<$Res>
     Object? value = freezed,
     Object? detail = freezed,
     Object? count = freezed,
+    Object? avgRating = freezed,
   }) {
     return _then(_$ReviewImpl(
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -1272,6 +1398,10 @@ class __$$ReviewImplCopyWithImpl<$Res>
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
               as int?,
+      avgRating: freezed == avgRating
+          ? _value.avgRating
+          : avgRating // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -1280,14 +1410,18 @@ class __$$ReviewImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ReviewImpl implements _Review {
   const _$ReviewImpl(
-      {this.artistId, this.value, final Map<String, int>? detail, this.count})
+      {this.artistId,
+      this.value,
+      final Map<String, int>? detail,
+      this.count,
+      this.avgRating})
       : _detail = detail;
 
   factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReviewImplFromJson(json);
 
   @override
-  final int? artistId;
+  final String? artistId;
   @override
   final double? value;
   final Map<String, int>? _detail;
@@ -1302,10 +1436,12 @@ class _$ReviewImpl implements _Review {
 
   @override
   final int? count;
+  @override
+  final double? avgRating;
 
   @override
   String toString() {
-    return 'Review(artistId: $artistId, value: $value, detail: $detail, count: $count)';
+    return 'Review(artistId: $artistId, value: $value, detail: $detail, count: $count, avgRating: $avgRating)';
   }
 
   @override
@@ -1317,13 +1453,15 @@ class _$ReviewImpl implements _Review {
                 other.artistId == artistId) &&
             (identical(other.value, value) || other.value == value) &&
             const DeepCollectionEquality().equals(other._detail, _detail) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.avgRating, avgRating) ||
+                other.avgRating == avgRating));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, artistId, value,
-      const DeepCollectionEquality().hash(_detail), count);
+      const DeepCollectionEquality().hash(_detail), count, avgRating);
 
   @JsonKey(ignore: true)
   @override
@@ -1341,21 +1479,24 @@ class _$ReviewImpl implements _Review {
 
 abstract class _Review implements Review {
   const factory _Review(
-      {final int? artistId,
+      {final String? artistId,
       final double? value,
       final Map<String, int>? detail,
-      final int? count}) = _$ReviewImpl;
+      final int? count,
+      final double? avgRating}) = _$ReviewImpl;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
-  int? get artistId;
+  String? get artistId;
   @override
   double? get value;
   @override
   Map<String, int>? get detail;
   @override
   int? get count;
+  @override
+  double? get avgRating;
   @override
   @JsonKey(ignore: true)
   _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>

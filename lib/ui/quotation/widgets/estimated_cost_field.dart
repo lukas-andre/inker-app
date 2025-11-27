@@ -4,7 +4,6 @@ import 'package:inker_studio/keys.dart';
 import 'package:intl/intl.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ChileanPesoInputFormatter extends TextInputFormatter {
   @override
@@ -97,19 +96,22 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
         focusNode: widget.focusNode,
         controller: widget.controller,
         decoration: InputDecoration(
-          labelText: widget.l10n.estimatedCost,
-          labelStyle: TextStyleTheme.bodyText1,
-          fillColor: inputBackgroundColor,
+          hintText: widget.l10n.estimatedCost,
+          hintStyle: TextStyleTheme.bodyText2.copyWith(color: Colors.white60),
+          fillColor: Colors.black38,
           filled: true,
-          border: inputBorder,
-          focusedBorder: focusedBorder,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           errorText: _errorText,
-          prefixIcon: Icon(Icons.attach_money, color: tertiaryColor),
+          prefixIcon: const Icon(Icons.attach_money, color: Colors.white),
           suffixIcon: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.info_outline, color: tertiaryColor),
+                icon: const Icon(Icons.info_outline, color: Colors.white),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -118,7 +120,7 @@ class _EstimatedCostFieldState extends State<EstimatedCostField> {
                 },
               ),
               IconButton(
-                icon: Icon(Icons.close, color: tertiaryColor),
+                icon: const Icon(Icons.close, color: Colors.white),
                 onPressed: () {
                   widget.controller.clear();
                   widget.onChanged('');

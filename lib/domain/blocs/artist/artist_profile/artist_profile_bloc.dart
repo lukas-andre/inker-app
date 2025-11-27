@@ -51,7 +51,7 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
 
   void _setArtist(Emitter<ArtistProfileState> emit, Artist artist) {
     emit(ArtistProfileState.configured(artist: artist));
-    add(const ArtistProfileEvent.loadingWorks());
+    // add(const ArtistProfileEvent.loadingWorks());
   }
 
   void _loadedWorks(
@@ -69,7 +69,7 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
       // I think is bc now the artist have a lot of events and the API is
       // returning the events instead of the works.
       final works = await _agendaService.getArtistWorks(
-        artistId: state.artist!.id!,
+        artistId: state.artist!.id,
         page: _paginator.page,
         limit: _paginator.limit,
         token: token ?? '',
@@ -88,7 +88,7 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
 
   void _follow(Emitter<ArtistProfileState> emit) {
     final followers =
-        state.artist!.followers == null ? 0 : state.artist!.followers!;
+        state.artist!.followers ?? 0;
     final updatedArtist = state.artist
         ?.copyWith(isFollowedByUser: true, followers: followers + 1);
 
@@ -99,7 +99,7 @@ class ArtistProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
 
   void _unFollow(Emitter<ArtistProfileState> emit) {
     final updatedArtist = state.artist?.copyWith(
-        isFollowedByUser: false, followers: state.artist!.followers! - 1);
+        isFollowedByUser: false, followers: state.artist!.followers - 1);
 
     _artistsListBloc.updateArtist(updatedArtist!);
 

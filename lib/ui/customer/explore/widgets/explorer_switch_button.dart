@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/domain/blocs/explorer/explorer_page/explorer_page_bloc.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ExplorerSwitchButton extends StatelessWidget {
   final String? text;
@@ -20,10 +19,10 @@ class ExplorerSwitchButton extends StatelessWidget {
     const selectedTextColor = Colors.white;
     final unselectedTextColor =
         selectedView == ExplorerView.map ? Colors.black : Colors.white;
-    final selectedBackgroundColor = secondaryColor;
+    final selectedBackgroundColor = Theme.of(context).colorScheme.secondary;
     final unselectedBackgroundColor = selectedView == ExplorerView.map
         ? Colors.white
-        : explorerSecondaryColor;
+        : Theme.of(context).colorScheme.secondary;
     return GestureDetector(
       onTap: onTap,
       child: Container(

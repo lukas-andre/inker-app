@@ -6,7 +6,7 @@ import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 
 class ArtistWorksSection extends StatelessWidget {
-  final int artistId;
+  final String artistId;
   
   const ArtistWorksSection({
     super.key,
@@ -22,6 +22,7 @@ class ArtistWorksSection extends StatelessWidget {
         sessionService: context.read(),
       )..add(WorksEvent.loadWorks(artistId)),
       child: BlocBuilder<WorksBloc, WorksState>(
+        buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           return state.when(
             initial: () => const SizedBox.shrink(),

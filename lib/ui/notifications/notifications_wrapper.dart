@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class NotificationsWrapper extends StatelessWidget {
   final Widget child;
@@ -23,19 +21,19 @@ class NotificationsWrapper extends StatelessWidget {
     required String message,
     required Map<String, dynamic> data,
   }) {
-
+    final platformService = context.read<PlatformService>();
     final state = navigatorKey?.currentState;
     if (state == null) {
       return;
     }
-    if (Platform.isIOS) {
+    if (platformService.isIOS) {
       return;
     }
 
     Flushbar(
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(12),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       flushbarPosition: FlushbarPosition.TOP,
       duration: const Duration(seconds: 4),
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
@@ -86,8 +84,15 @@ class NotificationsWrapper extends StatelessWidget {
       ),
       onTap: (_) {
         _.dismiss();
-        if (data['quotationId'] != null) {
-          state.pushNamed('/quotationList');
+        // Only navigate if not on web (MVP requirement)
+        final platformService = context.read<PlatformService>();
+        if (!platformService.isWeb && data['quotationId'] != null) {
+          // Navigate to the specific quotation
+          // The NotificationsBloc will fire events to refresh relevant data automatically
+          state.pushNamed(
+            '/quotationDetail',
+            arguments: {'quotationId': data['quotationId']},
+          );
           context.read<NotificationsBloc>().add(
                 const NotificationsEvent.notificationHandled(),
               );
@@ -107,7 +112,45 @@ class NotificationsWrapper extends StatelessWidget {
             color: Colors.white,
           ),
         );
-      // Puedes agregar más casos según los tipos de notificaciones
+      case 'QUOTATION_REPLIED':
+      case 'QUOTATION_ACCEPTED':
+        return const CircleAvatar(
+          backgroundColor: Colors.green,
+          radius: 20,
+          child: Icon(
+            Icons.check_circle,
+            color: Colors.white,
+          ),
+        );
+      case 'QUOTATION_REJECTED':
+      case 'QUOTATION_CANCELED':
+        return const CircleAvatar(
+          backgroundColor: Colors.red,
+          radius: 20,
+          child: Icon(
+            Icons.cancel,
+            color: Colors.white,
+          ),
+        );
+      case 'EVENT_CREATED':
+      case 'EVENT_UPDATED':
+        return const CircleAvatar(
+          backgroundColor: Colors.purple,
+          radius: 20,
+          child: Icon(
+            Icons.event,
+            color: Colors.white,
+          ),
+        );
+      case 'EVENT_CANCELED':
+        return const CircleAvatar(
+          backgroundColor: Colors.orange,
+          radius: 20,
+          child: Icon(
+            Icons.event_busy,
+            color: Colors.white,
+          ),
+        );
       default:
         return const CircleAvatar(
           backgroundColor: Colors.grey,
@@ -129,7 +172,7 @@ class NotificationsWrapper extends StatelessWidget {
           loading: () {},
           error: (_) {},
           loaded: (fcmToken, permissionsGranted, pendingNavigation, lastMessage,
-              lastMessageAppState) {
+              lastMessageAppState, _, __, ___, ____, _____, ______, _______, ________) {
             if (lastMessageAppState == AppState.foreground &&
                 lastMessage != null) {
               _showCustomNotification(
@@ -141,11 +184,18 @@ class NotificationsWrapper extends StatelessWidget {
             }
 
             if (pendingNavigation != null) {
-              Navigator.of(context).pushNamed(
-                pendingNavigation.route,
-                arguments: pendingNavigation.arguments,
-              );
+              // Only navigate if not on web (MVP requirement)
+              final platformService = context.read<PlatformService>();
+              if (!platformService.isWeb) {
+                // Navigate to the target screen
+                // The NotificationsBloc has already fired events to refresh relevant data
+                Navigator.of(context).pushNamed(
+                  pendingNavigation.route,
+                  arguments: pendingNavigation.arguments,
+                );
+              }
 
+              // Always clear the pending navigation
               context.read<NotificationsBloc>().add(
                     const NotificationsEvent.notificationHandled(),
                   );

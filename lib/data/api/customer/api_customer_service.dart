@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/http_client_service.dart';
@@ -58,12 +59,14 @@ class ApiCustomerService implements CustomerService {
   @override
   Future<SearchCustomerResponse> searchByTerm(String token, String term) async {
     try {
-      return await _httpClient.get(
+      final customers = await _httpClient.getList(
         path: 'customers/search',
         token: token,
         queryParams: {'term': term},
-        fromJson: (json) => SearchCustomerResponse.fromJson(json),
+        fromJson: (json) => CustomerDTO.fromJson(json),
       );
+
+      return SearchCustomerResponse(customers: customers);
     } on CustomHttpException catch (e) {
       dev.logError(e, StackTrace.current);
       
@@ -110,12 +113,14 @@ class ApiCustomerService implements CustomerService {
 
   @override
   Future<Customer> updateProfilePicture(
-      int customerId, XFile image, String token) async {
+      String customerId, XFile image, String token) async {
     try {
+      final bytes = await image.readAsBytes();
       final files = [
-        await MultipartFile.fromPath(
+        MultipartFile.fromBytes(
           'file',
-          image.path,
+          bytes,
+          filename: image.name,
         ),
       ];
 

@@ -23,6 +23,7 @@ AgendaEventDetailResponse _$AgendaEventDetailResponseFromJson(
 mixin _$AgendaEventDetailResponse {
   AgendaEventDetailEvent get event => throw _privateConstructorUsedError;
   AgendaEventDetailLocation get location => throw _privateConstructorUsedError;
+  Quotation? get quotation => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,10 +37,14 @@ abstract class $AgendaEventDetailResponseCopyWith<$Res> {
           $Res Function(AgendaEventDetailResponse) then) =
       _$AgendaEventDetailResponseCopyWithImpl<$Res, AgendaEventDetailResponse>;
   @useResult
-  $Res call({AgendaEventDetailEvent event, AgendaEventDetailLocation location});
+  $Res call(
+      {AgendaEventDetailEvent event,
+      AgendaEventDetailLocation location,
+      Quotation? quotation});
 
   $AgendaEventDetailEventCopyWith<$Res> get event;
   $AgendaEventDetailLocationCopyWith<$Res> get location;
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
   $Res call({
     Object? event = null,
     Object? location = null,
+    Object? quotation = freezed,
   }) {
     return _then(_value.copyWith(
       event: null == event
@@ -68,6 +74,10 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AgendaEventDetailLocation,
+      quotation: freezed == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation?,
     ) as $Val);
   }
 
@@ -86,6 +96,18 @@ class _$AgendaEventDetailResponseCopyWithImpl<$Res,
       return _then(_value.copyWith(location: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QuotationCopyWith<$Res>? get quotation {
+    if (_value.quotation == null) {
+      return null;
+    }
+
+    return $QuotationCopyWith<$Res>(_value.quotation!, (value) {
+      return _then(_value.copyWith(quotation: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -97,12 +119,17 @@ abstract class _$$AgendaEventDetailResponseImplCopyWith<$Res>
       __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AgendaEventDetailEvent event, AgendaEventDetailLocation location});
+  $Res call(
+      {AgendaEventDetailEvent event,
+      AgendaEventDetailLocation location,
+      Quotation? quotation});
 
   @override
   $AgendaEventDetailEventCopyWith<$Res> get event;
   @override
   $AgendaEventDetailLocationCopyWith<$Res> get location;
+  @override
+  $QuotationCopyWith<$Res>? get quotation;
 }
 
 /// @nodoc
@@ -120,6 +147,7 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? event = null,
     Object? location = null,
+    Object? quotation = freezed,
   }) {
     return _then(_$AgendaEventDetailResponseImpl(
       event: null == event
@@ -130,6 +158,10 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as AgendaEventDetailLocation,
+      quotation: freezed == quotation
+          ? _value.quotation
+          : quotation // ignore: cast_nullable_to_non_nullable
+              as Quotation?,
     ));
   }
 }
@@ -138,7 +170,7 @@ class __$$AgendaEventDetailResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
   const _$AgendaEventDetailResponseImpl(
-      {required this.event, required this.location});
+      {required this.event, required this.location, this.quotation});
 
   factory _$AgendaEventDetailResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgendaEventDetailResponseImplFromJson(json);
@@ -147,10 +179,12 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
   final AgendaEventDetailEvent event;
   @override
   final AgendaEventDetailLocation location;
+  @override
+  final Quotation? quotation;
 
   @override
   String toString() {
-    return 'AgendaEventDetailResponse(event: $event, location: $location)';
+    return 'AgendaEventDetailResponse(event: $event, location: $location, quotation: $quotation)';
   }
 
   @override
@@ -160,12 +194,14 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
             other is _$AgendaEventDetailResponseImpl &&
             (identical(other.event, event) || other.event == event) &&
             (identical(other.location, location) ||
-                other.location == location));
+                other.location == location) &&
+            (identical(other.quotation, quotation) ||
+                other.quotation == quotation));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, event, location);
+  int get hashCode => Object.hash(runtimeType, event, location, quotation);
 
   @JsonKey(ignore: true)
   @override
@@ -184,9 +220,9 @@ class _$AgendaEventDetailResponseImpl implements _AgendaEventDetailResponse {
 
 abstract class _AgendaEventDetailResponse implements AgendaEventDetailResponse {
   const factory _AgendaEventDetailResponse(
-          {required final AgendaEventDetailEvent event,
-          required final AgendaEventDetailLocation location}) =
-      _$AgendaEventDetailResponseImpl;
+      {required final AgendaEventDetailEvent event,
+      required final AgendaEventDetailLocation location,
+      final Quotation? quotation}) = _$AgendaEventDetailResponseImpl;
 
   factory _AgendaEventDetailResponse.fromJson(Map<String, dynamic> json) =
       _$AgendaEventDetailResponseImpl.fromJson;
@@ -195,6 +231,8 @@ abstract class _AgendaEventDetailResponse implements AgendaEventDetailResponse {
   AgendaEventDetailEvent get event;
   @override
   AgendaEventDetailLocation get location;
+  @override
+  Quotation? get quotation;
   @override
   @JsonKey(ignore: true)
   _$$AgendaEventDetailResponseImplCopyWith<_$AgendaEventDetailResponseImpl>
@@ -208,24 +246,27 @@ AgendaEventDetailEvent _$AgendaEventDetailEventFromJson(
 
 /// @nodoc
 mixin _$AgendaEventDetailEvent {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  int get customerId => throw _privateConstructorUsedError;
+  String get customerId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'startDate')
   DateTime get start => throw _privateConstructorUsedError;
   @JsonKey(name: 'endDate')
   DateTime get end => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
-  String get info => throw _privateConstructorUsedError;
+  String? get info => throw _privateConstructorUsedError;
   bool get notification => throw _privateConstructorUsedError;
   bool get done => throw _privateConstructorUsedError;
   AgendaEventDetailWorkEvidence? get workEvidence =>
       throw _privateConstructorUsedError;
   String? get cancelationReason => throw _privateConstructorUsedError;
   DateTime? get deletedAt => throw _privateConstructorUsedError;
-  int get quotationId => throw _privateConstructorUsedError;
+  String? get quotationId => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  int? get preparationTimeMinutes => throw _privateConstructorUsedError;
+  int? get cleanupTimeMinutes => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -240,21 +281,24 @@ abstract class $AgendaEventDetailEventCopyWith<$Res> {
       _$AgendaEventDetailEventCopyWithImpl<$Res, AgendaEventDetailEvent>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
       String color,
-      String info,
+      String? info,
       bool notification,
       bool done,
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId});
+      String? quotationId,
+      String? notes,
+      int? preparationTimeMinutes,
+      int? cleanupTimeMinutes});
 
   $AgendaEventDetailWorkEvidenceCopyWith<$Res>? get workEvidence;
 }
@@ -281,19 +325,22 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
     Object? start = null,
     Object? end = null,
     Object? color = null,
-    Object? info = null,
+    Object? info = freezed,
     Object? notification = null,
     Object? done = null,
     Object? workEvidence = freezed,
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
-    Object? quotationId = null,
+    Object? quotationId = freezed,
+    Object? notes = freezed,
+    Object? preparationTimeMinutes = freezed,
+    Object? cleanupTimeMinutes = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -305,7 +352,7 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -322,10 +369,10 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      info: null == info
+      info: freezed == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       notification: null == notification
           ? _value.notification
           : notification // ignore: cast_nullable_to_non_nullable
@@ -346,10 +393,22 @@ class _$AgendaEventDetailEventCopyWithImpl<$Res,
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      quotationId: null == quotationId
+      quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      preparationTimeMinutes: freezed == preparationTimeMinutes
+          ? _value.preparationTimeMinutes
+          : preparationTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cleanupTimeMinutes: freezed == cleanupTimeMinutes
+          ? _value.cleanupTimeMinutes
+          : cleanupTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -377,21 +436,24 @@ abstract class _$$AgendaEventDetailEventImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
-      int customerId,
+      String customerId,
       String title,
       @JsonKey(name: 'startDate') DateTime start,
       @JsonKey(name: 'endDate') DateTime end,
       String color,
-      String info,
+      String? info,
       bool notification,
       bool done,
       AgendaEventDetailWorkEvidence? workEvidence,
       String? cancelationReason,
       DateTime? deletedAt,
-      int quotationId});
+      String? quotationId,
+      String? notes,
+      int? preparationTimeMinutes,
+      int? cleanupTimeMinutes});
 
   @override
   $AgendaEventDetailWorkEvidenceCopyWith<$Res>? get workEvidence;
@@ -418,19 +480,22 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
     Object? start = null,
     Object? end = null,
     Object? color = null,
-    Object? info = null,
+    Object? info = freezed,
     Object? notification = null,
     Object? done = null,
     Object? workEvidence = freezed,
     Object? cancelationReason = freezed,
     Object? deletedAt = freezed,
-    Object? quotationId = null,
+    Object? quotationId = freezed,
+    Object? notes = freezed,
+    Object? preparationTimeMinutes = freezed,
+    Object? cleanupTimeMinutes = freezed,
   }) {
     return _then(_$AgendaEventDetailEventImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -442,7 +507,7 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -459,10 +524,10 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
-      info: null == info
+      info: freezed == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       notification: null == notification
           ? _value.notification
           : notification // ignore: cast_nullable_to_non_nullable
@@ -483,10 +548,22 @@ class __$$AgendaEventDetailEventImplCopyWithImpl<$Res>
           ? _value.deletedAt
           : deletedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      quotationId: null == quotationId
+      quotationId: freezed == quotationId
           ? _value.quotationId
           : quotationId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      preparationTimeMinutes: freezed == preparationTimeMinutes
+          ? _value.preparationTimeMinutes
+          : preparationTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      cleanupTimeMinutes: freezed == cleanupTimeMinutes
+          ? _value.cleanupTimeMinutes
+          : cleanupTimeMinutes // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -503,25 +580,28 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       @JsonKey(name: 'startDate') required this.start,
       @JsonKey(name: 'endDate') required this.end,
       required this.color,
-      required this.info,
+      this.info,
       required this.notification,
       required this.done,
       this.workEvidence,
       this.cancelationReason,
       this.deletedAt,
-      required this.quotationId});
+      this.quotationId,
+      this.notes,
+      this.preparationTimeMinutes,
+      this.cleanupTimeMinutes});
 
   factory _$AgendaEventDetailEventImpl.fromJson(Map<String, dynamic> json) =>
       _$$AgendaEventDetailEventImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final int customerId;
+  final String customerId;
   @override
   final String title;
   @override
@@ -533,7 +613,7 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   @override
   final String color;
   @override
-  final String info;
+  final String? info;
   @override
   final bool notification;
   @override
@@ -545,11 +625,17 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
   @override
   final DateTime? deletedAt;
   @override
-  final int quotationId;
+  final String? quotationId;
+  @override
+  final String? notes;
+  @override
+  final int? preparationTimeMinutes;
+  @override
+  final int? cleanupTimeMinutes;
 
   @override
   String toString() {
-    return 'AgendaEventDetailEvent(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, start: $start, end: $end, color: $color, info: $info, notification: $notification, done: $done, workEvidence: $workEvidence, cancelationReason: $cancelationReason, deletedAt: $deletedAt, quotationId: $quotationId)';
+    return 'AgendaEventDetailEvent(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, customerId: $customerId, title: $title, start: $start, end: $end, color: $color, info: $info, notification: $notification, done: $done, workEvidence: $workEvidence, cancelationReason: $cancelationReason, deletedAt: $deletedAt, quotationId: $quotationId, notes: $notes, preparationTimeMinutes: $preparationTimeMinutes, cleanupTimeMinutes: $cleanupTimeMinutes)';
   }
 
   @override
@@ -579,7 +665,12 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
             (identical(other.deletedAt, deletedAt) ||
                 other.deletedAt == deletedAt) &&
             (identical(other.quotationId, quotationId) ||
-                other.quotationId == quotationId));
+                other.quotationId == quotationId) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.preparationTimeMinutes, preparationTimeMinutes) ||
+                other.preparationTimeMinutes == preparationTimeMinutes) &&
+            (identical(other.cleanupTimeMinutes, cleanupTimeMinutes) ||
+                other.cleanupTimeMinutes == cleanupTimeMinutes));
   }
 
   @JsonKey(ignore: true)
@@ -600,7 +691,10 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
       workEvidence,
       cancelationReason,
       deletedAt,
-      quotationId);
+      quotationId,
+      notes,
+      preparationTimeMinutes,
+      cleanupTimeMinutes);
 
   @JsonKey(ignore: true)
   @override
@@ -619,33 +713,36 @@ class _$AgendaEventDetailEventImpl implements _AgendaEventDetailEvent {
 
 abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   const factory _AgendaEventDetailEvent(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final int customerId,
+      required final String customerId,
       required final String title,
       @JsonKey(name: 'startDate') required final DateTime start,
       @JsonKey(name: 'endDate') required final DateTime end,
       required final String color,
-      required final String info,
+      final String? info,
       required final bool notification,
       required final bool done,
       final AgendaEventDetailWorkEvidence? workEvidence,
       final String? cancelationReason,
       final DateTime? deletedAt,
-      required final int quotationId}) = _$AgendaEventDetailEventImpl;
+      final String? quotationId,
+      final String? notes,
+      final int? preparationTimeMinutes,
+      final int? cleanupTimeMinutes}) = _$AgendaEventDetailEventImpl;
 
   factory _AgendaEventDetailEvent.fromJson(Map<String, dynamic> json) =
       _$AgendaEventDetailEventImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  int get customerId;
+  String get customerId;
   @override
   String get title;
   @override
@@ -657,7 +754,7 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   @override
   String get color;
   @override
-  String get info;
+  String? get info;
   @override
   bool get notification;
   @override
@@ -669,7 +766,13 @@ abstract class _AgendaEventDetailEvent implements AgendaEventDetailEvent {
   @override
   DateTime? get deletedAt;
   @override
-  int get quotationId;
+  String? get quotationId;
+  @override
+  String? get notes;
+  @override
+  int? get preparationTimeMinutes;
+  @override
+  int? get cleanupTimeMinutes;
   @override
   @JsonKey(ignore: true)
   _$$AgendaEventDetailEventImplCopyWith<_$AgendaEventDetailEventImpl>
@@ -1132,13 +1235,12 @@ AgendaEventDetailLocation _$AgendaEventDetailLocationFromJson(
 
 /// @nodoc
 mixin _$AgendaEventDetailLocation {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get address1 => throw _privateConstructorUsedError;
   String get shortAddress1 => throw _privateConstructorUsedError;
   String get address2 => throw _privateConstructorUsedError;
-  String get address3 => throw _privateConstructorUsedError;
   String get addressType => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
@@ -1149,7 +1251,8 @@ mixin _$AgendaEventDetailLocation {
   AgendaEventDetailViewport get viewport => throw _privateConstructorUsedError;
   AgendaEventDetailLocationCoordinates get location =>
       throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
+  String? get address3 => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   String? get googlePlaceId => throw _privateConstructorUsedError;
@@ -1167,13 +1270,12 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       _$AgendaEventDetailLocationCopyWithImpl<$Res, AgendaEventDetailLocation>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
       String shortAddress1,
       String address2,
-      String address3,
       String addressType,
       String state,
       String city,
@@ -1183,7 +1285,8 @@ abstract class $AgendaEventDetailLocationCopyWith<$Res> {
       double lng,
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
-      int? artistId,
+      String? artistId,
+      String? address3,
       String? name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -1212,7 +1315,6 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = null,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1223,6 +1325,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
     Object? viewport = null,
     Object? location = null,
     Object? artistId = freezed,
+    Object? address3 = freezed,
     Object? name = freezed,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
@@ -1231,7 +1334,7 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1251,10 +1354,6 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
       address2: null == address2
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
-              as String,
-      address3: null == address3
-          ? _value.address3
-          : address3 // ignore: cast_nullable_to_non_nullable
               as String,
       addressType: null == addressType
           ? _value.addressType
@@ -1295,7 +1394,11 @@ class _$AgendaEventDetailLocationCopyWithImpl<$Res,
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
+      address3: freezed == address3
+          ? _value.address3
+          : address3 // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1339,13 +1442,12 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
       String shortAddress1,
       String address2,
-      String address3,
       String addressType,
       String state,
       String city,
@@ -1355,7 +1457,8 @@ abstract class _$$AgendaEventDetailLocationImplCopyWith<$Res>
       double lng,
       AgendaEventDetailViewport viewport,
       AgendaEventDetailLocationCoordinates location,
-      int? artistId,
+      String? artistId,
+      String? address3,
       String? name,
       String? profileThumbnail,
       String? googlePlaceId});
@@ -1385,7 +1488,6 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
     Object? address1 = null,
     Object? shortAddress1 = null,
     Object? address2 = null,
-    Object? address3 = null,
     Object? addressType = null,
     Object? state = null,
     Object? city = null,
@@ -1396,6 +1498,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
     Object? viewport = null,
     Object? location = null,
     Object? artistId = freezed,
+    Object? address3 = freezed,
     Object? name = freezed,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
@@ -1404,7 +1507,7 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -1424,10 +1527,6 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
       address2: null == address2
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
-              as String,
-      address3: null == address3
-          ? _value.address3
-          : address3 // ignore: cast_nullable_to_non_nullable
               as String,
       addressType: null == addressType
           ? _value.addressType
@@ -1468,7 +1567,11 @@ class __$$AgendaEventDetailLocationImplCopyWithImpl<$Res>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
+      address3: freezed == address3
+          ? _value.address3
+          : address3 // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1495,7 +1598,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       required this.address1,
       required this.shortAddress1,
       required this.address2,
-      required this.address3,
       required this.addressType,
       required this.state,
       required this.city,
@@ -1506,6 +1608,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       required this.viewport,
       required this.location,
       this.artistId,
+      this.address3,
       this.name,
       this.profileThumbnail,
       this.googlePlaceId});
@@ -1514,7 +1617,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
       _$$AgendaEventDetailLocationImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -1525,8 +1628,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   final String shortAddress1;
   @override
   final String address2;
-  @override
-  final String address3;
   @override
   final String addressType;
   @override
@@ -1546,7 +1647,9 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
   @override
   final AgendaEventDetailLocationCoordinates location;
   @override
-  final int? artistId;
+  final String? artistId;
+  @override
+  final String? address3;
   @override
   final String? name;
   @override
@@ -1556,7 +1659,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
 
   @override
   String toString() {
-    return 'AgendaEventDetailLocation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
+    return 'AgendaEventDetailLocation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, address3: $address3, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
   }
 
   @override
@@ -1575,8 +1678,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
                 other.shortAddress1 == shortAddress1) &&
             (identical(other.address2, address2) ||
                 other.address2 == address2) &&
-            (identical(other.address3, address3) ||
-                other.address3 == address3) &&
             (identical(other.addressType, addressType) ||
                 other.addressType == addressType) &&
             (identical(other.state, state) || other.state == state) &&
@@ -1592,6 +1693,8 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
                 other.location == location) &&
             (identical(other.artistId, artistId) ||
                 other.artistId == artistId) &&
+            (identical(other.address3, address3) ||
+                other.address3 == address3) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.profileThumbnail, profileThumbnail) ||
                 other.profileThumbnail == profileThumbnail) &&
@@ -1609,7 +1712,6 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
         address1,
         shortAddress1,
         address2,
-        address3,
         addressType,
         state,
         city,
@@ -1620,6 +1722,7 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
         viewport,
         location,
         artistId,
+        address3,
         name,
         profileThumbnail,
         googlePlaceId
@@ -1642,13 +1745,12 @@ class _$AgendaEventDetailLocationImpl implements _AgendaEventDetailLocation {
 
 abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   const factory _AgendaEventDetailLocation(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String address1,
       required final String shortAddress1,
       required final String address2,
-      required final String address3,
       required final String addressType,
       required final String state,
       required final String city,
@@ -1658,7 +1760,8 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       required final double lng,
       required final AgendaEventDetailViewport viewport,
       required final AgendaEventDetailLocationCoordinates location,
-      final int? artistId,
+      final String? artistId,
+      final String? address3,
       final String? name,
       final String? profileThumbnail,
       final String? googlePlaceId}) = _$AgendaEventDetailLocationImpl;
@@ -1667,7 +1770,7 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
       _$AgendaEventDetailLocationImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -1678,8 +1781,6 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   String get shortAddress1;
   @override
   String get address2;
-  @override
-  String get address3;
   @override
   String get addressType;
   @override
@@ -1699,7 +1800,9 @@ abstract class _AgendaEventDetailLocation implements AgendaEventDetailLocation {
   @override
   AgendaEventDetailLocationCoordinates get location;
   @override
-  int? get artistId;
+  String? get artistId;
+  @override
+  String? get address3;
   @override
   String? get name;
   @override

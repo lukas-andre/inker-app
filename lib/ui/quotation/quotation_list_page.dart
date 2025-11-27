@@ -2,44 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_status.l10n.dart';
+import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/models/counter_part_info.dart';
 import 'package:inker_studio/ui/quotation/quotation_action_manager.dart';
-import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/quotation_action_buttons.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:intl/intl.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
-import 'package:inker_studio/domain/models/quotation/quotation.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
+// This page now only shows DIRECT quotations for the logged-in user (Artist or Customer)
 class QuotationListPage extends StatelessWidget {
-  const QuotationListPage({super.key});
+  final bool hideHeader; 
+  
+  const QuotationListPage({super.key, this.hideHeader = false});
 
   @override
   Widget build(BuildContext context) {
-    return const QuotationListView();
+    // Provide the BLoC if not already provided higher up
+    // Ensure QuotationListBloc is provided before this widget
+    return QuotationListView(hideHeader: hideHeader);
   }
 }
 
 class QuotationListView extends StatefulWidget {
-  const QuotationListView({super.key});
+  final bool hideHeader;
+  
+  const QuotationListView({super.key, this.hideHeader = false});
 
   @override
   State<QuotationListView> createState() => _QuotationListViewState();
 }
 
-class _QuotationListViewState extends State<QuotationListView> {
+class _QuotationListViewState extends State<QuotationListView> with AutomaticKeepAliveClientMixin {
   late QuotationListBloc _quotationListBloc;
   late bool _isArtist;
   final ScrollController _scrollController = ScrollController();
 
-  String searchTerm = '';
   List<String> _selectedStatuses = [];
   List<Map<String, dynamic>> _filterOptions = [];
   bool _didInitDependencies = false;
@@ -48,23 +53,31 @@ class _QuotationListViewState extends State<QuotationListView> {
   @override
   void initState() {
     super.initState();
-    context.read<QuotationListBloc>().add(const QuotationListEvent.started());
+    // Trigger initial load when the BLoC starts
+    // The BLoC itself should load the initial state upon creation or via a 'started' event
     _scrollController.addListener(_onScroll);
   }
 
   void _onScroll() {
     if (_isBottom) {
       final currentState = _quotationListBloc.state;
-      if (currentState is QuotationListLoaded && !currentState.isLoadingMore) {
-        if (currentState.quotations.length < currentState.totalItems) {
-          _quotationListBloc.add(
-            QuotationListEvent.loadQuotations(
-              _selectedStatuses,
-              true, // isNextPage es true
-            ),
-          );
-        }
-      }
+      currentState.maybeWhen(
+        loaded: (quotations, session, statuses, isLoadingMore, cancellingQuotationId, currentPage, totalItems) {
+          if (!isLoadingMore && quotations.length < totalItems) {
+            // Load next page of DIRECT quotations
+            _quotationListBloc.add(
+              QuotationListEvent.loadQuotations(
+                statuses, // Use currently selected statuses
+                true,     // isNextPage = true
+                QuotationType.DIRECT, // Explicitly load DIRECT type
+              ),
+            );
+          }
+        },
+        orElse: () { 
+          // Do nothing if not in loaded state or other irrelevant states
+        },
+      );
     }
   }
 
@@ -74,6 +87,9 @@ class _QuotationListViewState extends State<QuotationListView> {
     final currentScroll = _scrollController.position.pixels;
     return currentScroll >= (maxScroll * 0.9);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void dispose() {
@@ -88,25 +104,26 @@ class _QuotationListViewState extends State<QuotationListView> {
     if (!_didInitDependencies) {
       _didInitDependencies = true;
       _quotationListBloc = BlocProvider.of<QuotationListBloc>(context);
-      _isArtist =
-          context.read<AuthBloc>().state.session.user?.userType == 'ARTIST';
+      final session = context.read<AuthBloc>().state.session;
+      _isArtist = session.user?.userType == 'ARTIST';
 
       final l10n = S.of(context);
       _filterOptions = getFilterOptions(l10n);
 
-      // Inicializar la opción seleccionada con la primera opción
-      _selectedOption = _filterOptions[0];
-      _selectedStatuses = _selectedOption?['statuses'] as List<String>;
+      _selectedOption = _filterOptions.isNotEmpty ? _filterOptions[0] : null;
+      _selectedStatuses = _selectedOption?['statuses'] as List<String>? ?? [];
 
-      // Cargar las cotizaciones para el estado seleccionado
+      // Load initial DIRECT quotations
       _quotationListBloc.add(
-        QuotationListEvent.loadQuotations(_selectedStatuses, false),
+        QuotationListEvent.loadQuotations(_selectedStatuses, false, QuotationType.DIRECT),
       );
     }
   }
 
+  // Simplified filter options - only for DIRECT quotations
   List<Map<String, dynamic>> getFilterOptions(S l10n) {
     if (_isArtist) {
+      // Artist DIRECT options
       return [
         {
           'label': l10n.newRequests,
@@ -120,16 +137,13 @@ class _QuotationListViewState extends State<QuotationListView> {
           'label': l10n.scheduled,
           'statuses': ['accepted']
         },
-        // {
-        //   'label': l10n.completed,
-        //   'statuses': ['completed']
-        // },
         {
           'label': l10n.cancelled,
           'statuses': ['rejected', 'canceled']
         },
       ];
     } else {
+      // Customer DIRECT options
       return [
         {
           'label': l10n.awaitingArtist,
@@ -143,10 +157,6 @@ class _QuotationListViewState extends State<QuotationListView> {
           'label': l10n.scheduled,
           'statuses': ['accepted']
         },
-        // {
-        //   'label': l10n.completed,
-        //   'statuses': ['completed']
-        // },
         {
           'label': l10n.cancelled,
           'statuses': ['rejected', 'canceled']
@@ -157,7 +167,10 @@ class _QuotationListViewState extends State<QuotationListView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final l10n = S.of(context);
+    // Use the title provided by ArtistHomePage or CustomerHomePage
+    // AppBar is handled by parent navigator typically
     return Scaffold(
       backgroundColor: const Color(0xFF141D3C),
       body: SafeArea(
@@ -166,34 +179,40 @@ class _QuotationListViewState extends State<QuotationListView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Título
-              Text(
-                _isArtist ? l10n.requests : l10n.quotes,
-                style: TextStyleTheme.headline1
-                    .copyWith(color: const Color(0xFFF2F2F2)),
-              ),
-              const SizedBox(height: 16),
-              // Filtros con FilterChips
-              _buildFilterChips(l10n),
-              const SizedBox(height: 16),
-              // Lista de cotizaciones
+              // Always show filter chips (if options exist)
+              if (_filterOptions.isNotEmpty) ...[
+                _buildFilterChips(l10n),
+                const SizedBox(height: 16),
+              ],
               Expanded(
                 child: BlocConsumer<QuotationListBloc, QuotationListState>(
                   listener: (context, state) {
+                    // Keep success message for cancellation
                     if (state is QuotationListCancelSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         customSnackBar(
                           key: K.quotationCancelSuccessMessage,
                           context: context,
                           content: l10n.quotationCancelledSuccessfully,
-                          backgroundColor: secondaryColor,
+                          backgroundColor: Theme.of(context).colorScheme.secondary,
                         ),
                       );
+                      // Reload current filters after cancellation
                       _quotationListBloc.add(QuotationListEvent.loadQuotations(
                         _selectedStatuses,
                         false,
+                        QuotationType.DIRECT,
                       ));
                     }
+                    // Handle errors shown in state
+                    state.maybeWhen(
+                      error: (message) {
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(content: Text('Error: $message')),
+                         );
+                      },
+                      orElse: () {},
+                    );
                   },
                   builder: (context, state) {
                     return state.maybeWhen(
@@ -212,9 +231,6 @@ class _QuotationListViewState extends State<QuotationListView> {
                           l10n,
                           isLoadingMore,
                           cancellingQuotationId,
-                          currentPage,
-                          totalItems,
-                          statuses,
                         );
                       },
                       error: (message) => Center(
@@ -252,17 +268,18 @@ class _QuotationListViewState extends State<QuotationListView> {
                   _selectedOption = option;
                   _selectedStatuses = option['statuses'] as List<String>;
                 });
-
+                // Load DIRECT quotations with new filters
                 _quotationListBloc.add(QuotationListEvent.loadQuotations(
                   _selectedStatuses,
                   false,
+                  QuotationType.DIRECT, 
                 ));
               },
               child: Container(
-                key: Key(option['label']),
+                key: Key(option['label']), // Use label as key
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: isSelected ? secondaryColor : tertiaryColor,
+                  color: isSelected ? Theme.of(context).colorScheme.secondary : greyColor,
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
@@ -289,29 +306,20 @@ class _QuotationListViewState extends State<QuotationListView> {
     S l10n,
     bool isLoadingMore,
     String? cancellingQuotationId,
-    int currentPage,
-    int totalItems,
-    List<String>? statuses,
   ) {
     if (quotations.isEmpty) {
-      return _buildEmptyState(l10n);
+      return _buildEmptyState(l10n); // Use the default empty state
     }
-    final filteredQuotations = quotations
-        .where((quote) =>
-            quote.description
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()) ||
-            quote.status
-                .toString()
-                .toLowerCase()
-                .contains(searchTerm.toLowerCase()))
-        .toList();
+    
+    final filteredQuotations = quotations; // Assume no search for now
 
     return RefreshIndicator(
       onRefresh: () async {
+        // Refresh DIRECT quotations with current filters
         _quotationListBloc.add(QuotationListEvent.loadQuotations(
           _selectedStatuses,
           false,
+          QuotationType.DIRECT,
         ));
       },
       child: ListView.builder(
@@ -327,7 +335,6 @@ class _QuotationListViewState extends State<QuotationListView> {
               cancellingQuotationId,
             );
           } else {
-            // Mostrar indicador de carga al final
             return const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Center(
@@ -340,19 +347,21 @@ class _QuotationListViewState extends State<QuotationListView> {
     );
   }
 
+  // Simplified Empty State for DIRECT quotations
   Widget _buildEmptyState(S l10n) {
+    // Default empty state
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.inbox,
+            Icons.inbox_outlined, // Different icon maybe?
             size: 80,
             color: Colors.grey[600],
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noQuotationsFound,
+            _isArtist ? l10n.noRequestsFound : l10n.noQuotationsFound, // Adjust text based on user type
             style: TextStyleTheme.headline3.copyWith(
               color: Colors.grey[600],
             ),
@@ -363,6 +372,7 @@ class _QuotationListViewState extends State<QuotationListView> {
     );
   }
 
+  // Simplified Quotation Card - assumes DIRECT type
   Widget _buildQuotationCard(
     Quotation quotation,
     Session session,
@@ -370,26 +380,28 @@ class _QuotationListViewState extends State<QuotationListView> {
     String? cancellingQuotationId,
   ) {
     final isArtist = session.user?.userType == 'ARTIST';
-    final isUnread =
-        isArtist ? !quotation.readByArtist : !quotation.readByCustomer;
+    final isUnread = isArtist ? !quotation.readByArtist : !quotation.readByCustomer;
     final statusText =
         QuotationStatusL10n.getStatus(quotation.status, l10n, isArtist);
     final statusColor = getStatusColor(quotation.status);
     final statusIcon = getStatusIcon(quotation.status);
     final counterpartInfo = isArtist
-        ? CounterpartInfo.fromCustomer(quotation.customer)
-        : CounterpartInfo.fromArtist(quotation.artist);
-
+            ? CounterpartInfo.fromCustomer(quotation.customer)
+            : CounterpartInfo.fromArtist(quotation.artist);
+    
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => QuotationDetailsPage(
-              quotation: quotation,
-            ),
-          ),
+        // Mark as read when tapped
+        if (isUnread) {
+          _quotationListBloc.add(QuotationListEvent.markAsRead(quotation.id.toString()));
+        }
+        Navigator.of(context).pushNamed(
+          '/quotationDetail',
+          arguments: {
+            'quotation': quotation,
+          },
         );
-      },
+            },
       child: Card(
         key: K.getQuotationCardKey(quotation.id.toString()),
         color: isUnread ? const Color(0xFF252A47) : const Color(0xFF1F223C),
@@ -397,12 +409,13 @@ class _QuotationListViewState extends State<QuotationListView> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: BorderSide(
-            color: isUnread ? secondaryColor : const Color(0xFF777E91),
+            color: isUnread ? Theme.of(context).colorScheme.secondary : const Color(0xFF777E91),
             width: isUnread ? 2.0 : 1.0,
           ),
         ),
         child: Stack(
           children: [
+            // Unread indicator
             if (isUnread)
               Positioned(
                 top: 0,
@@ -411,14 +424,14 @@ class _QuotationListViewState extends State<QuotationListView> {
                   width: 32,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: secondaryColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(4),
                       bottomRight: Radius.circular(4),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: secondaryColor.withOpacity(0.3),
+                        color: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
                         blurRadius: 4,
                         spreadRadius: 1,
                       ),
@@ -434,21 +447,21 @@ class _QuotationListViewState extends State<QuotationListView> {
                   Row(
                     children: [
                       Expanded(
-                          child: _buildCounterpartHeader(
-                              counterpartInfo, isArtist)),
-                      if (isUnread)
+                          child: _buildCounterpartHeader(counterpartInfo, isArtist)), // Pass isArtist
+                      if (isUnread) // Show unread tag
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: secondaryColor.withOpacity(0.1),
+                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: secondaryColor),
+                            border: Border.all(color: Theme.of(context).colorScheme.secondary),
                           ),
                           child: Text(
-                            l10n.newRequest,
+                            // Placeholder for l10n.newRequest / l10n.newQuotation
+                            _isArtist ? l10n.newRequest : l10n.newQuotation, 
                             style: TextStyleTheme.caption.copyWith(
-                              color: secondaryColor,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -463,13 +476,39 @@ class _QuotationListViewState extends State<QuotationListView> {
                     quotation.createdAt,
                     l10n,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  
                   _buildDescription(quotation.description),
+                  // Mostrar referenceBudget si existe
+                  if (quotation.referenceBudget != null) ...[
+                    const SizedBox(height: 8),
+                    Column(
+                      children: [
+                        const Icon(Icons.account_balance_wallet, color: Color(0xFF686D90), size: 16),
+                        const SizedBox(width: 8),
+                        Text(
+                          '${l10n.referenceBudget}: ',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: const Color(0xFFF2F2F2),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${quotation.referenceBudget!.toString()} CLP',
+                          style: TextStyleTheme.bodyText2.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                   const SizedBox(height: 16),
                   if (quotation.location != null) ...[
                     _buildLocation(quotation.location!),
                     const SizedBox(height: 16),
                   ],
+                  // Show details relevant to DIRECT quotations (cost, date, duration)
                   if (quotation.estimatedCost != null ||
                       quotation.appointmentDate != null ||
                       quotation.appointmentDuration != null)
@@ -477,6 +516,8 @@ class _QuotationListViewState extends State<QuotationListView> {
                   const SizedBox(height: 16),
                   _buildImagesSection(quotation, l10n),
                   const SizedBox(height: 16),
+                  
+                  // Always show standard actions for DIRECT quotations
                   _buildActions(
                       quotation, session, l10n, cancellingQuotationId),
                 ],
@@ -488,6 +529,7 @@ class _QuotationListViewState extends State<QuotationListView> {
     );
   }
 
+  // Update CounterpartHeader to handle artist/customer display simply
   Widget _buildCounterpartHeader(CounterpartInfo info, bool isArtist) {
     return Row(
       children: [
@@ -518,7 +560,8 @@ class _QuotationListViewState extends State<QuotationListView> {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              if (!isArtist && info.username != null)
+              // Show username only for customers viewing artist profiles
+              if (!isArtist && info.username != null) 
                 Text(
                   '@${info.username}',
                   style: TextStyleTheme.bodyText2.copyWith(
@@ -603,7 +646,7 @@ class _QuotationListViewState extends State<QuotationListView> {
         const SizedBox(width: 8),
         Expanded(
           child: Text(
-            location.shortAddress1,
+            location.shortAddress1 ?? '',
             style: TextStyleTheme.bodyText2.copyWith(
               color: const Color(0xFF686D90),
             ),
@@ -780,6 +823,9 @@ class _QuotationListViewState extends State<QuotationListView> {
       );
     }
 
+    // Use the QuotationListBloc for actions
+    final quotationListBloc = context.read<QuotationListBloc>();
+
     return QuotationActionButtons(
       actionManager: QuotationActionManager(
         context: context,
@@ -787,109 +833,20 @@ class _QuotationListViewState extends State<QuotationListView> {
         session: session,
         l10n: l10n,
         onActionExecuted: (actionType, quotationId) {
-          // Manejar las acciones ejecutadas
           switch (actionType) {
             case QuotationActionType.cancel:
-              _quotationListBloc.add(
+              quotationListBloc.add(
                 QuotationListEvent.cancelQuotation(quotationId),
               );
               break;
             default:
-              // Recargar la lista después de cualquier otra acción
-              _quotationListBloc.add(
-                QuotationListEvent.loadQuotations(_selectedStatuses, false),
+              // Refresh DIRECT quotations using the state's selected filters
+              quotationListBloc.add(
+                QuotationListEvent.loadQuotations(_selectedStatuses, false, QuotationType.DIRECT),
               );
           }
         },
       ),
     );
   }
-
-  Widget _buildLimitedActions(List<_ActionItem> actions, S l10n) {
-    if (actions.length <= 2) {
-      return Row(
-        key: K.quotationActionsList,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: actions
-            .map((action) => _buildActionButton(
-                  key: action.key,
-                  onPressed: action.onPressed,
-                  icon: action.icon,
-                  label: action.label,
-                  isPrimary: action.isPrimary,
-                ))
-            .toList(),
-      );
-    } else {
-      return Row(
-        key: K.quotationActionsList,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          _buildActionButton(
-            key: actions[0].key,
-            onPressed: actions[0].onPressed,
-            icon: actions[0].icon,
-            label: actions[0].label,
-            isPrimary: actions[0].isPrimary,
-          ),
-          const SizedBox(width: 8),
-          PopupMenuButton<VoidCallback>(
-            icon: const Icon(Icons.more_vert, color: Color(0xFFF2F2F2)),
-            onSelected: (callback) => callback(),
-            itemBuilder: (BuildContext context) =>
-                actions.skip(1).map((action) {
-              return PopupMenuItem<VoidCallback>(
-                key: action.key,
-                value: action.onPressed,
-                child: ListTile(
-                  leading: Icon(action.icon),
-                  title: Text(action.label),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildActionButton({
-    Key? key,
-    required VoidCallback onPressed,
-    required IconData icon,
-    required String label,
-    required bool isPrimary,
-  }) {
-    return ElevatedButton.icon(
-      key: key,
-      onPressed: onPressed,
-      icon: Icon(icon, size: 16),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: const Color(0xFFF2F2F2),
-        backgroundColor:
-            isPrimary ? const Color(0xFF7450ff) : const Color(0xFF141D3C),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-          side: const BorderSide(color: Color(0xFF777E91)),
-        ),
-      ),
-    );
-  }
-}
-
-class _ActionItem {
-  final Key key;
-  final VoidCallback onPressed;
-  final IconData icon;
-  final String label;
-  final bool isPrimary;
-
-  _ActionItem({
-    required this.key,
-    required this.onPressed,
-    required this.icon,
-    required this.label,
-    required this.isPrimary,
-  });
 }

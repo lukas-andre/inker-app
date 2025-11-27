@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 
 class CalendarDayPickerV3 extends StatelessWidget {
@@ -51,8 +50,8 @@ class CalendarDayPickerV3 extends StatelessWidget {
           onPageChanged: onPageChanged,
           enabledDayPredicate: enabledDayPredicate,
           eventLoader: eventLoader,
-          calendarStyle: calendarStyle ?? _defaultCalendarStyle(),
-          headerStyle: headerStyle ?? _defaultHeaderStyle(),
+          calendarStyle: calendarStyle ?? _defaultCalendarStyle(context),
+          headerStyle: headerStyle ?? _defaultHeaderStyle(context),
         ),
         if (showError && errorText != null)
           Padding(
@@ -66,18 +65,18 @@ class CalendarDayPickerV3 extends StatelessWidget {
     );
   }
 
-  CalendarStyle _defaultCalendarStyle() {
+  CalendarStyle _defaultCalendarStyle(BuildContext context) {
     return CalendarStyle(
       selectedDecoration: BoxDecoration(
-        color: secondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         shape: BoxShape.circle,
       ),
       todayDecoration: BoxDecoration(
-        color: tertiaryColor,
+        color: Theme.of(context).colorScheme.tertiary,
         shape: BoxShape.circle,
       ),
       weekendTextStyle: TextStyleTheme.copyWith(
-        color: secondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         fontWeight: FontWeight.normal,
         fontSize: 14,
       ),
@@ -93,13 +92,13 @@ class CalendarDayPickerV3 extends StatelessWidget {
     );
   }
 
-  HeaderStyle _defaultHeaderStyle() {
+  HeaderStyle _defaultHeaderStyle(BuildContext context) {
     return HeaderStyle(
       formatButtonVisible: false,
       titleCentered: true,
       formatButtonShowsNext: true,
       formatButtonDecoration: BoxDecoration(
-        color: secondaryColor,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(20),
       ),
       titleTextFormatter: (date, locale) =>

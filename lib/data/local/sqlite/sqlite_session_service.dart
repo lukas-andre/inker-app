@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:inker_studio/data/local/sqlite/core/sqlite_service.dart';
 import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/domain/models/session/session_type.dart';
-import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart' show User, userFromJson, userToJson;
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 
 class SqliteSessionService extends LocalSessionService {
@@ -109,9 +109,7 @@ class SqliteSessionService extends LocalSessionService {
 
   @override
   Future<void> logout(Session session) async {
-    final sessionMap = await _getSessionMap(session.sessionType);
-    sessionMap!['isActive'] = 0;
-    await updateSession(sessionMap);
+    await removeOldSession(session);
   }
 
   @override
@@ -133,7 +131,7 @@ class SqliteSessionService extends LocalSessionService {
   @override
   Future<Session?> newGoogleSession(firebase_auth.User? googleUser) async {
     User user = User(
-      id: googleUser.hashCode,
+      id: googleUser.hashCode.toString(),
       uid: googleUser!.uid,
       fullname: googleUser.displayName,
       email: googleUser.email,

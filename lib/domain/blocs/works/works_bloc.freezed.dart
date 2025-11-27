@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$WorksEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadWorks,
+    required TResult Function(String artistId) loadWorks,
     required TResult Function() refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadWorks,
+    TResult? Function(String artistId)? loadWorks,
     TResult? Function()? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadWorks,
+    TResult Function(String artistId)? loadWorks,
     TResult Function()? refresh,
     required TResult orElse(),
   }) =>
@@ -80,7 +80,7 @@ abstract class _$$LoadWorksImplCopyWith<$Res> {
           _$LoadWorksImpl value, $Res Function(_$LoadWorksImpl) then) =
       __$$LoadWorksImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -100,7 +100,7 @@ class __$$LoadWorksImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -111,7 +111,7 @@ class _$LoadWorksImpl implements _LoadWorks {
   const _$LoadWorksImpl(this.artistId);
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -139,7 +139,7 @@ class _$LoadWorksImpl implements _LoadWorks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadWorks,
+    required TResult Function(String artistId) loadWorks,
     required TResult Function() refresh,
   }) {
     return loadWorks(artistId);
@@ -148,7 +148,7 @@ class _$LoadWorksImpl implements _LoadWorks {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadWorks,
+    TResult? Function(String artistId)? loadWorks,
     TResult? Function()? refresh,
   }) {
     return loadWorks?.call(artistId);
@@ -157,7 +157,7 @@ class _$LoadWorksImpl implements _LoadWorks {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadWorks,
+    TResult Function(String artistId)? loadWorks,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -200,9 +200,9 @@ class _$LoadWorksImpl implements _LoadWorks {
 }
 
 abstract class _LoadWorks implements WorksEvent {
-  const factory _LoadWorks(final int artistId) = _$LoadWorksImpl;
+  const factory _LoadWorks(final String artistId) = _$LoadWorksImpl;
 
-  int get artistId;
+  String get artistId;
   @JsonKey(ignore: true)
   _$$LoadWorksImplCopyWith<_$LoadWorksImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -246,7 +246,7 @@ class _$RefreshImpl implements _Refresh {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int artistId) loadWorks,
+    required TResult Function(String artistId) loadWorks,
     required TResult Function() refresh,
   }) {
     return refresh();
@@ -255,7 +255,7 @@ class _$RefreshImpl implements _Refresh {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int artistId)? loadWorks,
+    TResult? Function(String artistId)? loadWorks,
     TResult? Function()? refresh,
   }) {
     return refresh?.call();
@@ -264,7 +264,7 @@ class _$RefreshImpl implements _Refresh {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int artistId)? loadWorks,
+    TResult Function(String artistId)? loadWorks,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {

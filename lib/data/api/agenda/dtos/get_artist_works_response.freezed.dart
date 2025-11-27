@@ -207,10 +207,10 @@ WorkItem _$WorkItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WorkItem {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get customerId => throw _privateConstructorUsedError;
+  String? get customerId => throw _privateConstructorUsedError;
   String? get title => throw _privateConstructorUsedError;
   DateTime? get start => throw _privateConstructorUsedError;
   DateTime? get end => throw _privateConstructorUsedError;
@@ -234,10 +234,10 @@ abstract class $WorkItemCopyWith<$Res> {
       _$WorkItemCopyWithImpl<$Res, WorkItem>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? customerId,
+      String? customerId,
       String? title,
       DateTime? start,
       DateTime? end,
@@ -285,7 +285,7 @@ class _$WorkItemCopyWithImpl<$Res, $Val extends WorkItem>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -297,7 +297,7 @@ class _$WorkItemCopyWithImpl<$Res, $Val extends WorkItem>
       customerId: freezed == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -375,10 +375,10 @@ abstract class _$$WorkItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? customerId,
+      String? customerId,
       String? title,
       DateTime? start,
       DateTime? end,
@@ -426,7 +426,7 @@ class __$$WorkItemImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -438,7 +438,7 @@ class __$$WorkItemImplCopyWithImpl<$Res>
       customerId: freezed == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -506,13 +506,13 @@ class _$WorkItemImpl implements _WorkItem {
       _$$WorkItemImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? customerId;
+  final String? customerId;
   @override
   final String? title;
   @override
@@ -600,10 +600,10 @@ class _$WorkItemImpl implements _WorkItem {
 
 abstract class _WorkItem implements WorkItem {
   const factory _WorkItem(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? customerId,
+      final String? customerId,
       final String? title,
       final DateTime? start,
       final DateTime? end,
@@ -619,13 +619,13 @@ abstract class _WorkItem implements WorkItem {
       _$WorkItemImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get customerId;
+  String? get customerId;
   @override
   String? get title;
   @override
@@ -658,16 +658,16 @@ Review _$ReviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Review {
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
-  int? get artistId => throw _privateConstructorUsedError;
-  int? get eventId => throw _privateConstructorUsedError;
+  String? get artistId => throw _privateConstructorUsedError;
+  String? get eventId => throw _privateConstructorUsedError;
   int? get value => throw _privateConstructorUsedError;
   String? get header => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   ReviewReactions? get reviewReactions => throw _privateConstructorUsedError;
-  int? get createdBy => throw _privateConstructorUsedError;
+  String? get createdBy => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   bool? get isRated => throw _privateConstructorUsedError;
   CustomerReviewDetail? get customerReviewDetail =>
@@ -684,16 +684,16 @@ abstract class $ReviewCopyWith<$Res> {
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? artistId,
-      int? eventId,
+      String? artistId,
+      String? eventId,
       int? value,
       String? header,
       String? content,
       ReviewReactions? reviewReactions,
-      int? createdBy,
+      String? createdBy,
       String? displayName,
       bool? isRated,
       CustomerReviewDetail? customerReviewDetail});
@@ -733,7 +733,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -745,11 +745,11 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -769,7 +769,7 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -819,16 +819,16 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? id,
+      {String? id,
       DateTime? createdAt,
       DateTime? updatedAt,
-      int? artistId,
-      int? eventId,
+      String? artistId,
+      String? eventId,
       int? value,
       String? header,
       String? content,
       ReviewReactions? reviewReactions,
-      int? createdBy,
+      String? createdBy,
       String? displayName,
       bool? isRated,
       CustomerReviewDetail? customerReviewDetail});
@@ -868,7 +868,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -880,11 +880,11 @@ class __$$ReviewImplCopyWithImpl<$Res>
       artistId: freezed == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       eventId: freezed == eventId
           ? _value.eventId
           : eventId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       value: freezed == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -904,7 +904,7 @@ class __$$ReviewImplCopyWithImpl<$Res>
       createdBy: freezed == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       displayName: freezed == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -943,15 +943,15 @@ class _$ReviewImpl implements _Review {
       _$$ReviewImplFromJson(json);
 
   @override
-  final int? id;
+  final String? id;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
-  final int? artistId;
+  final String? artistId;
   @override
-  final int? eventId;
+  final String? eventId;
   @override
   final int? value;
   @override
@@ -961,7 +961,7 @@ class _$ReviewImpl implements _Review {
   @override
   final ReviewReactions? reviewReactions;
   @override
-  final int? createdBy;
+  final String? createdBy;
   @override
   final String? displayName;
   @override
@@ -1035,16 +1035,16 @@ class _$ReviewImpl implements _Review {
 
 abstract class _Review implements Review {
   const factory _Review(
-      {final int? id,
+      {final String? id,
       final DateTime? createdAt,
       final DateTime? updatedAt,
-      final int? artistId,
-      final int? eventId,
+      final String? artistId,
+      final String? eventId,
       final int? value,
       final String? header,
       final String? content,
       final ReviewReactions? reviewReactions,
-      final int? createdBy,
+      final String? createdBy,
       final String? displayName,
       final bool? isRated,
       final CustomerReviewDetail? customerReviewDetail}) = _$ReviewImpl;
@@ -1052,15 +1052,15 @@ abstract class _Review implements Review {
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
   @override
-  int? get id;
+  String? get id;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
-  int? get artistId;
+  String? get artistId;
   @override
-  int? get eventId;
+  String? get eventId;
   @override
   int? get value;
   @override
@@ -1070,7 +1070,7 @@ abstract class _Review implements Review {
   @override
   ReviewReactions? get reviewReactions;
   @override
-  int? get createdBy;
+  String? get createdBy;
   @override
   String? get displayName;
   @override
@@ -1431,432 +1431,6 @@ abstract class _ReviewReactions implements ReviewReactions {
   @override
   @JsonKey(ignore: true)
   _$$ReviewReactionsImplCopyWith<_$ReviewReactionsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-WorkEvidence _$WorkEvidenceFromJson(Map<String, dynamic> json) {
-  return _WorkEvidence.fromJson(json);
-}
-
-/// @nodoc
-mixin _$WorkEvidence {
-  int? get count => throw _privateConstructorUsedError;
-  List<Metadatum>? get metadata => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $WorkEvidenceCopyWith<WorkEvidence> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $WorkEvidenceCopyWith<$Res> {
-  factory $WorkEvidenceCopyWith(
-          WorkEvidence value, $Res Function(WorkEvidence) then) =
-      _$WorkEvidenceCopyWithImpl<$Res, WorkEvidence>;
-  @useResult
-  $Res call({int? count, List<Metadatum>? metadata});
-}
-
-/// @nodoc
-class _$WorkEvidenceCopyWithImpl<$Res, $Val extends WorkEvidence>
-    implements $WorkEvidenceCopyWith<$Res> {
-  _$WorkEvidenceCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = freezed,
-    Object? metadata = freezed,
-  }) {
-    return _then(_value.copyWith(
-      count: freezed == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int?,
-      metadata: freezed == metadata
-          ? _value.metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as List<Metadatum>?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$WorkEvidenceImplCopyWith<$Res>
-    implements $WorkEvidenceCopyWith<$Res> {
-  factory _$$WorkEvidenceImplCopyWith(
-          _$WorkEvidenceImpl value, $Res Function(_$WorkEvidenceImpl) then) =
-      __$$WorkEvidenceImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int? count, List<Metadatum>? metadata});
-}
-
-/// @nodoc
-class __$$WorkEvidenceImplCopyWithImpl<$Res>
-    extends _$WorkEvidenceCopyWithImpl<$Res, _$WorkEvidenceImpl>
-    implements _$$WorkEvidenceImplCopyWith<$Res> {
-  __$$WorkEvidenceImplCopyWithImpl(
-      _$WorkEvidenceImpl _value, $Res Function(_$WorkEvidenceImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? count = freezed,
-    Object? metadata = freezed,
-  }) {
-    return _then(_$WorkEvidenceImpl(
-      count: freezed == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int?,
-      metadata: freezed == metadata
-          ? _value._metadata
-          : metadata // ignore: cast_nullable_to_non_nullable
-              as List<Metadatum>?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$WorkEvidenceImpl implements _WorkEvidence {
-  const _$WorkEvidenceImpl({this.count, final List<Metadatum>? metadata})
-      : _metadata = metadata;
-
-  factory _$WorkEvidenceImpl.fromJson(Map<String, dynamic> json) =>
-      _$$WorkEvidenceImplFromJson(json);
-
-  @override
-  final int? count;
-  final List<Metadatum>? _metadata;
-  @override
-  List<Metadatum>? get metadata {
-    final value = _metadata;
-    if (value == null) return null;
-    if (_metadata is EqualUnmodifiableListView) return _metadata;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  String toString() {
-    return 'WorkEvidence(count: $count, metadata: $metadata)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$WorkEvidenceImpl &&
-            (identical(other.count, count) || other.count == count) &&
-            const DeepCollectionEquality().equals(other._metadata, _metadata));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, count, const DeepCollectionEquality().hash(_metadata));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$WorkEvidenceImplCopyWith<_$WorkEvidenceImpl> get copyWith =>
-      __$$WorkEvidenceImplCopyWithImpl<_$WorkEvidenceImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$WorkEvidenceImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _WorkEvidence implements WorkEvidence {
-  const factory _WorkEvidence(
-      {final int? count, final List<Metadatum>? metadata}) = _$WorkEvidenceImpl;
-
-  factory _WorkEvidence.fromJson(Map<String, dynamic> json) =
-      _$WorkEvidenceImpl.fromJson;
-
-  @override
-  int? get count;
-  @override
-  List<Metadatum>? get metadata;
-  @override
-  @JsonKey(ignore: true)
-  _$$WorkEvidenceImplCopyWith<_$WorkEvidenceImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-Metadatum _$MetadatumFromJson(Map<String, dynamic> json) {
-  return _Metadatum.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Metadatum {
-  String? get url => throw _privateConstructorUsedError;
-  int? get size => throw _privateConstructorUsedError;
-  String? get type => throw _privateConstructorUsedError;
-  String? get encoding => throw _privateConstructorUsedError;
-  int? get position => throw _privateConstructorUsedError;
-  String? get fieldname => throw _privateConstructorUsedError;
-  String? get originalname => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $MetadatumCopyWith<Metadatum> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $MetadatumCopyWith<$Res> {
-  factory $MetadatumCopyWith(Metadatum value, $Res Function(Metadatum) then) =
-      _$MetadatumCopyWithImpl<$Res, Metadatum>;
-  @useResult
-  $Res call(
-      {String? url,
-      int? size,
-      String? type,
-      String? encoding,
-      int? position,
-      String? fieldname,
-      String? originalname});
-}
-
-/// @nodoc
-class _$MetadatumCopyWithImpl<$Res, $Val extends Metadatum>
-    implements $MetadatumCopyWith<$Res> {
-  _$MetadatumCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? url = freezed,
-    Object? size = freezed,
-    Object? type = freezed,
-    Object? encoding = freezed,
-    Object? position = freezed,
-    Object? fieldname = freezed,
-    Object? originalname = freezed,
-  }) {
-    return _then(_value.copyWith(
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      size: freezed == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as int?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      encoding: freezed == encoding
-          ? _value.encoding
-          : encoding // ignore: cast_nullable_to_non_nullable
-              as String?,
-      position: freezed == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
-              as int?,
-      fieldname: freezed == fieldname
-          ? _value.fieldname
-          : fieldname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalname: freezed == originalname
-          ? _value.originalname
-          : originalname // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$MetadatumImplCopyWith<$Res>
-    implements $MetadatumCopyWith<$Res> {
-  factory _$$MetadatumImplCopyWith(
-          _$MetadatumImpl value, $Res Function(_$MetadatumImpl) then) =
-      __$$MetadatumImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String? url,
-      int? size,
-      String? type,
-      String? encoding,
-      int? position,
-      String? fieldname,
-      String? originalname});
-}
-
-/// @nodoc
-class __$$MetadatumImplCopyWithImpl<$Res>
-    extends _$MetadatumCopyWithImpl<$Res, _$MetadatumImpl>
-    implements _$$MetadatumImplCopyWith<$Res> {
-  __$$MetadatumImplCopyWithImpl(
-      _$MetadatumImpl _value, $Res Function(_$MetadatumImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? url = freezed,
-    Object? size = freezed,
-    Object? type = freezed,
-    Object? encoding = freezed,
-    Object? position = freezed,
-    Object? fieldname = freezed,
-    Object? originalname = freezed,
-  }) {
-    return _then(_$MetadatumImpl(
-      url: freezed == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String?,
-      size: freezed == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
-              as int?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      encoding: freezed == encoding
-          ? _value.encoding
-          : encoding // ignore: cast_nullable_to_non_nullable
-              as String?,
-      position: freezed == position
-          ? _value.position
-          : position // ignore: cast_nullable_to_non_nullable
-              as int?,
-      fieldname: freezed == fieldname
-          ? _value.fieldname
-          : fieldname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      originalname: freezed == originalname
-          ? _value.originalname
-          : originalname // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$MetadatumImpl implements _Metadatum {
-  const _$MetadatumImpl(
-      {this.url,
-      this.size,
-      this.type,
-      this.encoding,
-      this.position,
-      this.fieldname,
-      this.originalname});
-
-  factory _$MetadatumImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MetadatumImplFromJson(json);
-
-  @override
-  final String? url;
-  @override
-  final int? size;
-  @override
-  final String? type;
-  @override
-  final String? encoding;
-  @override
-  final int? position;
-  @override
-  final String? fieldname;
-  @override
-  final String? originalname;
-
-  @override
-  String toString() {
-    return 'Metadatum(url: $url, size: $size, type: $type, encoding: $encoding, position: $position, fieldname: $fieldname, originalname: $originalname)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MetadatumImpl &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.size, size) || other.size == size) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.encoding, encoding) ||
-                other.encoding == encoding) &&
-            (identical(other.position, position) ||
-                other.position == position) &&
-            (identical(other.fieldname, fieldname) ||
-                other.fieldname == fieldname) &&
-            (identical(other.originalname, originalname) ||
-                other.originalname == originalname));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, url, size, type, encoding,
-      position, fieldname, originalname);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$MetadatumImplCopyWith<_$MetadatumImpl> get copyWith =>
-      __$$MetadatumImplCopyWithImpl<_$MetadatumImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MetadatumImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Metadatum implements Metadatum {
-  const factory _Metadatum(
-      {final String? url,
-      final int? size,
-      final String? type,
-      final String? encoding,
-      final int? position,
-      final String? fieldname,
-      final String? originalname}) = _$MetadatumImpl;
-
-  factory _Metadatum.fromJson(Map<String, dynamic> json) =
-      _$MetadatumImpl.fromJson;
-
-  @override
-  String? get url;
-  @override
-  int? get size;
-  @override
-  String? get type;
-  @override
-  String? get encoding;
-  @override
-  int? get position;
-  @override
-  String? get fieldname;
-  @override
-  String? get originalname;
-  @override
-  @JsonKey(ignore: true)
-  _$$MetadatumImplCopyWith<_$MetadatumImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
