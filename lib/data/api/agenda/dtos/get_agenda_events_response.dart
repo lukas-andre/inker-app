@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 import 'dart:convert';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 part 'get_agenda_events_response.freezed.dart';
 part 'get_agenda_events_response.g.dart';
@@ -16,50 +19,36 @@ EventItem getEventItemFromJson(String str) =>
 @freezed
 class EventItem with _$EventItem {
   const factory EventItem({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
+    required String customerId,
     required String title,
-    @JsonKey(name: 'startDate') required DateTime start,
-    @JsonKey(name: 'endDate') required DateTime end,
+    @JsonKey(
+        name: 'startDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+    required DateTime start,
+    @JsonKey(
+        name: 'endDate', fromJson: _dateTimeFromJson, toJson: _dateTimeToJson)
+    required DateTime end,
     required String color,
-    required String info,
+    String? info,
     required bool notification,
     required bool done,
     WorkEvidence? workEvidence,
     String? cancelationReason,
     DateTime? deletedAt,
-    required int quotationId,
+    String? quotationId,
   }) = _EventItem;
 
   factory EventItem.fromJson(Map<String, dynamic> json) =>
       _$EventItemFromJson(json);
 }
 
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    required int count,
-    required List<Metadata> metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) =>
-      _$WorkEvidenceFromJson(json);
+DateTime _dateTimeFromJson(String date) {
+  tz.initializeTimeZones();
+  final chileLocation = tz.getLocation('America/Santiago');
+  return tz.TZDateTime.from(DateTime.parse(date), chileLocation);
 }
 
-@freezed
-class Metadata with _$Metadata {
-  const factory Metadata({
-    required String url,
-    required int size,
-    required String type,
-    required String encoding,
-    required int position,
-    required String fieldname,
-    required String originalname,
-  }) = _Metadata;
 
-  factory Metadata.fromJson(Map<String, dynamic> json) =>
-      _$MetadataFromJson(json);
-}
+String _dateTimeToJson(DateTime date) => date.toUtc().toIso8601String();

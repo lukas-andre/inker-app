@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/settings/settings.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
 import 'package:inker_studio/domain/services/settings/settings_service.dart';
-import 'package:inker_studio/domain/usescases/auth/logout_usecase.dart';
+import 'package:inker_studio/features/auth_shared/usecases/logout_usecase.dart' show LogoutUseCase;
 
 part 'settings_event.dart';
 part 'settings_state.dart';

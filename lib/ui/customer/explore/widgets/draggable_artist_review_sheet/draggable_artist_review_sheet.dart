@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inker_studio/data/api/review/dtos/get_reviews_response.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_bottom_bar.dart';
@@ -12,7 +12,6 @@ import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_s
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistReviewsContent extends StatelessWidget {
   const DraggableArtistReviewsContent({super.key});
@@ -137,7 +136,7 @@ class DraggableReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = context.read<AuthBloc>();
-    final customerId = authBloc.state.session.user?.userTypeId ?? 0;
+    final customerId = authBloc.state.session.user?.userTypeId ?? '';
 
     return Container(
       height: 100,
@@ -161,7 +160,7 @@ class DraggableReviewItem extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 14,
-                      unratedColor: greyColor,
+                      unratedColor: Theme.of(context).colorScheme.secondary,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
@@ -173,7 +172,7 @@ class DraggableReviewItem extends StatelessWidget {
                       DateTimeFormatter.formatForReviewElement(
                           review.createdAt!),
                       style: TextStyleTheme.copyWith(
-                          color: greyColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 14,
                           fontWeight: FontWeight.w200),
                     ),

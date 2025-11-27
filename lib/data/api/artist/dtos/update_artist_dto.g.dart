@@ -15,6 +15,7 @@ _$UpdateArtistDtoImpl _$$UpdateArtistDtoImplFromJson(Map json) =>
           ? null
           : UpdateContactDto.fromJson(
               Map<String, dynamic>.from(json['contact'] as Map)),
+      requiresBasicConsent: json['requiresBasicConsent'] as bool?,
     );
 
 Map<String, dynamic> _$$UpdateArtistDtoImplToJson(
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$UpdateArtistDtoImplToJson(
   writeNotNull('lastName', instance.lastName);
   writeNotNull('shortDescription', instance.shortDescription);
   writeNotNull('contact', instance.contact?.toJson());
+  writeNotNull('requiresBasicConsent', instance.requiresBasicConsent);
   return val;
 }
 
@@ -38,6 +40,8 @@ _$UpdateContactDtoImpl _$$UpdateContactDtoImplFromJson(Map json) =>
     _$UpdateContactDtoImpl(
       email: json['email'] as String?,
       phone: json['phone'] as String?,
+      phoneDialCode: json['phoneDialCode'] as String?,
+      phoneCountryIsoCode: json['phoneCountryIsoCode'] as String?,
     );
 
 Map<String, dynamic> _$$UpdateContactDtoImplToJson(
@@ -52,5 +56,7 @@ Map<String, dynamic> _$$UpdateContactDtoImplToJson(
 
   writeNotNull('email', instance.email);
   writeNotNull('phone', instance.phone);
+  writeNotNull('phoneDialCode', instance.phoneDialCode);
+  writeNotNull('phoneCountryIsoCode', instance.phoneCountryIsoCode);
   return val;
 }

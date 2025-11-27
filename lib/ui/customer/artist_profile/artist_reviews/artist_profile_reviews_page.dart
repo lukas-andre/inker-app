@@ -1,24 +1,24 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:inker_studio/data/api/review/dtos/get_reviews_response.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart' show AuthBloc;
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/date_time_formatter.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfileReviewsPage extends StatefulWidget {
-  const ArtistProfileReviewsPage({super.key, required int artistId})
+  const ArtistProfileReviewsPage({super.key, required String artistId})
       : _artistId = artistId;
 
-  final int _artistId;
+  final String _artistId;
 
-  static Route route(int artistId) {
+  static Route route(String artistId) {
     return MaterialPageRoute<void>(
         settings: const RouteSettings(name: '/artist-profile-reviews'),
         builder: (_) => ArtistProfileReviewsPage(
@@ -44,10 +44,11 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: _buildAppBar(context),
       body: BlocBuilder<ArtistReviewsBloc, ArtistReviewsState>(
         builder: (context, state) {
+          final platformService = context.read<PlatformService>();
           return Column(
             children: [
               const SizedBox(height: 30),
@@ -59,7 +60,7 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
               state is ArtistReviewsLoading && state.reviews.isNotEmpty
                   ? const InkerProgressIndicator(radius: 20)
                   : const SizedBox(height: 40),
-              Platform.isIOS
+              platformService.isIOS
                   ? const SizedBox(height: 40)
                   : const SizedBox(
                       height: 20,
@@ -89,14 +90,14 @@ class _ArtistProfileReviewsPageState extends State<ArtistProfileReviewsPage> {
         },
       ),
       title: Text(
-        'Opiniones y reseñas',
+        S.of(context).reviews,
         style: TextStyleTheme.copyWith(
           fontSize: 18,
           fontWeight: FontWeight.w400,
           color: Colors.white,
         ),
       ),
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 
@@ -134,7 +135,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthBloc authBloc = context.read<AuthBloc>();
-    final customerId = authBloc.state.session.user?.userTypeId ?? 0;
+    final customerId = authBloc.state.session.user?.userTypeId ?? '';
 
     return Container(
       height: 100,
@@ -158,7 +159,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       allowHalfRating: true,
                       itemCount: 5,
                       itemSize: 14,
-                      unratedColor: greyColor,
+                      unratedColor: primaryColor,
                       itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
@@ -170,7 +171,7 @@ class ArtistProfileReviewItem extends StatelessWidget {
                       DateTimeFormatter.formatForReviewElement(
                           review.createdAt!),
                       style: TextStyleTheme.copyWith(
-                          color: greyColor,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 14,
                           fontWeight: FontWeight.w200),
                     ),
@@ -309,7 +310,7 @@ class ArtistProfileDivider extends StatelessWidget {
     return Divider(
       endIndent: 16,
       indent: 16,
-      color: greyColor,
+      color: Theme.of(context).colorScheme.secondary,
       thickness: 1,
     );
   }

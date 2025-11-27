@@ -1,0 +1,626 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'stencil_dto.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+
+CreateStencilDto _$CreateStencilDtoFromJson(Map<String, dynamic> json) {
+  return _CreateStencilDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CreateStencilDto {
+  String get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get thumbnailUrl => throw _privateConstructorUsedError;
+  bool get isFeatured => throw _privateConstructorUsedError;
+  int get orderPosition => throw _privateConstructorUsedError;
+  bool get isHidden => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CreateStencilDtoCopyWith<CreateStencilDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateStencilDtoCopyWith<$Res> {
+  factory $CreateStencilDtoCopyWith(
+          CreateStencilDto value, $Res Function(CreateStencilDto) then) =
+      _$CreateStencilDtoCopyWithImpl<$Res, CreateStencilDto>;
+  @useResult
+  $Res call(
+      {String title,
+      String? description,
+      String? imageUrl,
+      String? thumbnailUrl,
+      bool isFeatured,
+      int orderPosition,
+      bool isHidden,
+      List<String>? tagIds});
+}
+
+/// @nodoc
+class _$CreateStencilDtoCopyWithImpl<$Res, $Val extends CreateStencilDto>
+    implements $CreateStencilDtoCopyWith<$Res> {
+  _$CreateStencilDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? isFeatured = null,
+    Object? orderPosition = null,
+    Object? isHidden = null,
+    Object? tagIds = freezed,
+  }) {
+    return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
+          ? _value.thumbnailUrl
+          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFeatured: null == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool,
+      orderPosition: null == orderPosition
+          ? _value.orderPosition
+          : orderPosition // ignore: cast_nullable_to_non_nullable
+              as int,
+      isHidden: null == isHidden
+          ? _value.isHidden
+          : isHidden // ignore: cast_nullable_to_non_nullable
+              as bool,
+      tagIds: freezed == tagIds
+          ? _value.tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CreateStencilDtoImplCopyWith<$Res>
+    implements $CreateStencilDtoCopyWith<$Res> {
+  factory _$$CreateStencilDtoImplCopyWith(_$CreateStencilDtoImpl value,
+          $Res Function(_$CreateStencilDtoImpl) then) =
+      __$$CreateStencilDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String title,
+      String? description,
+      String? imageUrl,
+      String? thumbnailUrl,
+      bool isFeatured,
+      int orderPosition,
+      bool isHidden,
+      List<String>? tagIds});
+}
+
+/// @nodoc
+class __$$CreateStencilDtoImplCopyWithImpl<$Res>
+    extends _$CreateStencilDtoCopyWithImpl<$Res, _$CreateStencilDtoImpl>
+    implements _$$CreateStencilDtoImplCopyWith<$Res> {
+  __$$CreateStencilDtoImplCopyWithImpl(_$CreateStencilDtoImpl _value,
+      $Res Function(_$CreateStencilDtoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? isFeatured = null,
+    Object? orderPosition = null,
+    Object? isHidden = null,
+    Object? tagIds = freezed,
+  }) {
+    return _then(_$CreateStencilDtoImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
+          ? _value.thumbnailUrl
+          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFeatured: null == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool,
+      orderPosition: null == orderPosition
+          ? _value.orderPosition
+          : orderPosition // ignore: cast_nullable_to_non_nullable
+              as int,
+      isHidden: null == isHidden
+          ? _value.isHidden
+          : isHidden // ignore: cast_nullable_to_non_nullable
+              as bool,
+      tagIds: freezed == tagIds
+          ? _value._tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CreateStencilDtoImpl implements _CreateStencilDto {
+  const _$CreateStencilDtoImpl(
+      {required this.title,
+      this.description,
+      this.imageUrl,
+      this.thumbnailUrl,
+      this.isFeatured = false,
+      this.orderPosition = 0,
+      this.isHidden = false,
+      final List<String>? tagIds})
+      : _tagIds = tagIds;
+
+  factory _$CreateStencilDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CreateStencilDtoImplFromJson(json);
+
+  @override
+  final String title;
+  @override
+  final String? description;
+  @override
+  final String? imageUrl;
+  @override
+  final String? thumbnailUrl;
+  @override
+  @JsonKey()
+  final bool isFeatured;
+  @override
+  @JsonKey()
+  final int orderPosition;
+  @override
+  @JsonKey()
+  final bool isHidden;
+  final List<String>? _tagIds;
+  @override
+  List<String>? get tagIds {
+    final value = _tagIds;
+    if (value == null) return null;
+    if (_tagIds is EqualUnmodifiableListView) return _tagIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'CreateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, tagIds: $tagIds)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CreateStencilDtoImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.thumbnailUrl, thumbnailUrl) ||
+                other.thumbnailUrl == thumbnailUrl) &&
+            (identical(other.isFeatured, isFeatured) ||
+                other.isFeatured == isFeatured) &&
+            (identical(other.orderPosition, orderPosition) ||
+                other.orderPosition == orderPosition) &&
+            (identical(other.isHidden, isHidden) ||
+                other.isHidden == isHidden) &&
+            const DeepCollectionEquality().equals(other._tagIds, _tagIds));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      description,
+      imageUrl,
+      thumbnailUrl,
+      isFeatured,
+      orderPosition,
+      isHidden,
+      const DeepCollectionEquality().hash(_tagIds));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateStencilDtoImplCopyWith<_$CreateStencilDtoImpl> get copyWith =>
+      __$$CreateStencilDtoImplCopyWithImpl<_$CreateStencilDtoImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CreateStencilDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CreateStencilDto implements CreateStencilDto {
+  const factory _CreateStencilDto(
+      {required final String title,
+      final String? description,
+      final String? imageUrl,
+      final String? thumbnailUrl,
+      final bool isFeatured,
+      final int orderPosition,
+      final bool isHidden,
+      final List<String>? tagIds}) = _$CreateStencilDtoImpl;
+
+  factory _CreateStencilDto.fromJson(Map<String, dynamic> json) =
+      _$CreateStencilDtoImpl.fromJson;
+
+  @override
+  String get title;
+  @override
+  String? get description;
+  @override
+  String? get imageUrl;
+  @override
+  String? get thumbnailUrl;
+  @override
+  bool get isFeatured;
+  @override
+  int get orderPosition;
+  @override
+  bool get isHidden;
+  @override
+  List<String>? get tagIds;
+  @override
+  @JsonKey(ignore: true)
+  _$$CreateStencilDtoImplCopyWith<_$CreateStencilDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+UpdateStencilDto _$UpdateStencilDtoFromJson(Map<String, dynamic> json) {
+  return _UpdateStencilDto.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateStencilDto {
+  String? get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get thumbnailUrl => throw _privateConstructorUsedError;
+  bool? get isFeatured => throw _privateConstructorUsedError;
+  int? get orderPosition => throw _privateConstructorUsedError;
+  bool? get isHidden => throw _privateConstructorUsedError;
+  List<String>? get tagIds => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UpdateStencilDtoCopyWith<UpdateStencilDto> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateStencilDtoCopyWith<$Res> {
+  factory $UpdateStencilDtoCopyWith(
+          UpdateStencilDto value, $Res Function(UpdateStencilDto) then) =
+      _$UpdateStencilDtoCopyWithImpl<$Res, UpdateStencilDto>;
+  @useResult
+  $Res call(
+      {String? title,
+      String? description,
+      String? imageUrl,
+      String? thumbnailUrl,
+      bool? isFeatured,
+      int? orderPosition,
+      bool? isHidden,
+      List<String>? tagIds});
+}
+
+/// @nodoc
+class _$UpdateStencilDtoCopyWithImpl<$Res, $Val extends UpdateStencilDto>
+    implements $UpdateStencilDtoCopyWith<$Res> {
+  _$UpdateStencilDtoCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? isFeatured = freezed,
+    Object? orderPosition = freezed,
+    Object? isHidden = freezed,
+    Object? tagIds = freezed,
+  }) {
+    return _then(_value.copyWith(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
+          ? _value.thumbnailUrl
+          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFeatured: freezed == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      orderPosition: freezed == orderPosition
+          ? _value.orderPosition
+          : orderPosition // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isHidden: freezed == isHidden
+          ? _value.isHidden
+          : isHidden // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tagIds: freezed == tagIds
+          ? _value.tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UpdateStencilDtoImplCopyWith<$Res>
+    implements $UpdateStencilDtoCopyWith<$Res> {
+  factory _$$UpdateStencilDtoImplCopyWith(_$UpdateStencilDtoImpl value,
+          $Res Function(_$UpdateStencilDtoImpl) then) =
+      __$$UpdateStencilDtoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String? title,
+      String? description,
+      String? imageUrl,
+      String? thumbnailUrl,
+      bool? isFeatured,
+      int? orderPosition,
+      bool? isHidden,
+      List<String>? tagIds});
+}
+
+/// @nodoc
+class __$$UpdateStencilDtoImplCopyWithImpl<$Res>
+    extends _$UpdateStencilDtoCopyWithImpl<$Res, _$UpdateStencilDtoImpl>
+    implements _$$UpdateStencilDtoImplCopyWith<$Res> {
+  __$$UpdateStencilDtoImplCopyWithImpl(_$UpdateStencilDtoImpl _value,
+      $Res Function(_$UpdateStencilDtoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? imageUrl = freezed,
+    Object? thumbnailUrl = freezed,
+    Object? isFeatured = freezed,
+    Object? orderPosition = freezed,
+    Object? isHidden = freezed,
+    Object? tagIds = freezed,
+  }) {
+    return _then(_$UpdateStencilDtoImpl(
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      thumbnailUrl: freezed == thumbnailUrl
+          ? _value.thumbnailUrl
+          : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isFeatured: freezed == isFeatured
+          ? _value.isFeatured
+          : isFeatured // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      orderPosition: freezed == orderPosition
+          ? _value.orderPosition
+          : orderPosition // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isHidden: freezed == isHidden
+          ? _value.isHidden
+          : isHidden // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      tagIds: freezed == tagIds
+          ? _value._tagIds
+          : tagIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UpdateStencilDtoImpl implements _UpdateStencilDto {
+  const _$UpdateStencilDtoImpl(
+      {this.title,
+      this.description,
+      this.imageUrl,
+      this.thumbnailUrl,
+      this.isFeatured,
+      this.orderPosition,
+      this.isHidden,
+      final List<String>? tagIds})
+      : _tagIds = tagIds;
+
+  factory _$UpdateStencilDtoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UpdateStencilDtoImplFromJson(json);
+
+  @override
+  final String? title;
+  @override
+  final String? description;
+  @override
+  final String? imageUrl;
+  @override
+  final String? thumbnailUrl;
+  @override
+  final bool? isFeatured;
+  @override
+  final int? orderPosition;
+  @override
+  final bool? isHidden;
+  final List<String>? _tagIds;
+  @override
+  List<String>? get tagIds {
+    final value = _tagIds;
+    if (value == null) return null;
+    if (_tagIds is EqualUnmodifiableListView) return _tagIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'UpdateStencilDto(title: $title, description: $description, imageUrl: $imageUrl, thumbnailUrl: $thumbnailUrl, isFeatured: $isFeatured, orderPosition: $orderPosition, isHidden: $isHidden, tagIds: $tagIds)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateStencilDtoImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.thumbnailUrl, thumbnailUrl) ||
+                other.thumbnailUrl == thumbnailUrl) &&
+            (identical(other.isFeatured, isFeatured) ||
+                other.isFeatured == isFeatured) &&
+            (identical(other.orderPosition, orderPosition) ||
+                other.orderPosition == orderPosition) &&
+            (identical(other.isHidden, isHidden) ||
+                other.isHidden == isHidden) &&
+            const DeepCollectionEquality().equals(other._tagIds, _tagIds));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      description,
+      imageUrl,
+      thumbnailUrl,
+      isFeatured,
+      orderPosition,
+      isHidden,
+      const DeepCollectionEquality().hash(_tagIds));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateStencilDtoImplCopyWith<_$UpdateStencilDtoImpl> get copyWith =>
+      __$$UpdateStencilDtoImplCopyWithImpl<_$UpdateStencilDtoImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UpdateStencilDtoImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UpdateStencilDto implements UpdateStencilDto {
+  const factory _UpdateStencilDto(
+      {final String? title,
+      final String? description,
+      final String? imageUrl,
+      final String? thumbnailUrl,
+      final bool? isFeatured,
+      final int? orderPosition,
+      final bool? isHidden,
+      final List<String>? tagIds}) = _$UpdateStencilDtoImpl;
+
+  factory _UpdateStencilDto.fromJson(Map<String, dynamic> json) =
+      _$UpdateStencilDtoImpl.fromJson;
+
+  @override
+  String? get title;
+  @override
+  String? get description;
+  @override
+  String? get imageUrl;
+  @override
+  String? get thumbnailUrl;
+  @override
+  bool? get isFeatured;
+  @override
+  int? get orderPosition;
+  @override
+  bool? get isHidden;
+  @override
+  List<String>? get tagIds;
+  @override
+  @JsonKey(ignore: true)
+  _$$UpdateStencilDtoImplCopyWith<_$UpdateStencilDtoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

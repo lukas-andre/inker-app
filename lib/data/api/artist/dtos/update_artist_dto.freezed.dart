@@ -24,6 +24,7 @@ mixin _$UpdateArtistDto {
   String? get lastName => throw _privateConstructorUsedError;
   String? get shortDescription => throw _privateConstructorUsedError;
   UpdateContactDto? get contact => throw _privateConstructorUsedError;
+  bool? get requiresBasicConsent => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $UpdateArtistDtoCopyWith<$Res> {
       {String? firstName,
       String? lastName,
       String? shortDescription,
-      UpdateContactDto? contact});
+      UpdateContactDto? contact,
+      bool? requiresBasicConsent});
 
   $UpdateContactDtoCopyWith<$Res>? get contact;
 }
@@ -63,6 +65,7 @@ class _$UpdateArtistDtoCopyWithImpl<$Res, $Val extends UpdateArtistDto>
     Object? lastName = freezed,
     Object? shortDescription = freezed,
     Object? contact = freezed,
+    Object? requiresBasicConsent = freezed,
   }) {
     return _then(_value.copyWith(
       firstName: freezed == firstName
@@ -81,6 +84,10 @@ class _$UpdateArtistDtoCopyWithImpl<$Res, $Val extends UpdateArtistDto>
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as UpdateContactDto?,
+      requiresBasicConsent: freezed == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -109,7 +116,8 @@ abstract class _$$UpdateArtistDtoImplCopyWith<$Res>
       {String? firstName,
       String? lastName,
       String? shortDescription,
-      UpdateContactDto? contact});
+      UpdateContactDto? contact,
+      bool? requiresBasicConsent});
 
   @override
   $UpdateContactDtoCopyWith<$Res>? get contact;
@@ -130,6 +138,7 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? shortDescription = freezed,
     Object? contact = freezed,
+    Object? requiresBasicConsent = freezed,
   }) {
     return _then(_$UpdateArtistDtoImpl(
       firstName: freezed == firstName
@@ -148,6 +157,10 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
           ? _value.contact
           : contact // ignore: cast_nullable_to_non_nullable
               as UpdateContactDto?,
+      requiresBasicConsent: freezed == requiresBasicConsent
+          ? _value.requiresBasicConsent
+          : requiresBasicConsent // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -156,7 +169,11 @@ class __$$UpdateArtistDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
   const _$UpdateArtistDtoImpl(
-      {this.firstName, this.lastName, this.shortDescription, this.contact});
+      {this.firstName,
+      this.lastName,
+      this.shortDescription,
+      this.contact,
+      this.requiresBasicConsent});
 
   factory _$UpdateArtistDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateArtistDtoImplFromJson(json);
@@ -169,10 +186,12 @@ class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
   final String? shortDescription;
   @override
   final UpdateContactDto? contact;
+  @override
+  final bool? requiresBasicConsent;
 
   @override
   String toString() {
-    return 'UpdateArtistDto(firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, contact: $contact)';
+    return 'UpdateArtistDto(firstName: $firstName, lastName: $lastName, shortDescription: $shortDescription, contact: $contact, requiresBasicConsent: $requiresBasicConsent)';
   }
 
   @override
@@ -186,13 +205,15 @@ class _$UpdateArtistDtoImpl implements _UpdateArtistDto {
                 other.lastName == lastName) &&
             (identical(other.shortDescription, shortDescription) ||
                 other.shortDescription == shortDescription) &&
-            (identical(other.contact, contact) || other.contact == contact));
+            (identical(other.contact, contact) || other.contact == contact) &&
+            (identical(other.requiresBasicConsent, requiresBasicConsent) ||
+                other.requiresBasicConsent == requiresBasicConsent));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, firstName, lastName, shortDescription, contact);
+  int get hashCode => Object.hash(runtimeType, firstName, lastName,
+      shortDescription, contact, requiresBasicConsent);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +235,8 @@ abstract class _UpdateArtistDto implements UpdateArtistDto {
       {final String? firstName,
       final String? lastName,
       final String? shortDescription,
-      final UpdateContactDto? contact}) = _$UpdateArtistDtoImpl;
+      final UpdateContactDto? contact,
+      final bool? requiresBasicConsent}) = _$UpdateArtistDtoImpl;
 
   factory _UpdateArtistDto.fromJson(Map<String, dynamic> json) =
       _$UpdateArtistDtoImpl.fromJson;
@@ -227,6 +249,8 @@ abstract class _UpdateArtistDto implements UpdateArtistDto {
   String? get shortDescription;
   @override
   UpdateContactDto? get contact;
+  @override
+  bool? get requiresBasicConsent;
   @override
   @JsonKey(ignore: true)
   _$$UpdateArtistDtoImplCopyWith<_$UpdateArtistDtoImpl> get copyWith =>
@@ -241,6 +265,8 @@ UpdateContactDto _$UpdateContactDtoFromJson(Map<String, dynamic> json) {
 mixin _$UpdateContactDto {
   String? get email => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
+  String? get phoneDialCode => throw _privateConstructorUsedError;
+  String? get phoneCountryIsoCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -254,7 +280,11 @@ abstract class $UpdateContactDtoCopyWith<$Res> {
           UpdateContactDto value, $Res Function(UpdateContactDto) then) =
       _$UpdateContactDtoCopyWithImpl<$Res, UpdateContactDto>;
   @useResult
-  $Res call({String? email, String? phone});
+  $Res call(
+      {String? email,
+      String? phone,
+      String? phoneDialCode,
+      String? phoneCountryIsoCode});
 }
 
 /// @nodoc
@@ -272,6 +302,8 @@ class _$UpdateContactDtoCopyWithImpl<$Res, $Val extends UpdateContactDto>
   $Res call({
     Object? email = freezed,
     Object? phone = freezed,
+    Object? phoneDialCode = freezed,
+    Object? phoneCountryIsoCode = freezed,
   }) {
     return _then(_value.copyWith(
       email: freezed == email
@@ -281,6 +313,14 @@ class _$UpdateContactDtoCopyWithImpl<$Res, $Val extends UpdateContactDto>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneDialCode: freezed == phoneDialCode
+          ? _value.phoneDialCode
+          : phoneDialCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneCountryIsoCode: freezed == phoneCountryIsoCode
+          ? _value.phoneCountryIsoCode
+          : phoneCountryIsoCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -294,7 +334,11 @@ abstract class _$$UpdateContactDtoImplCopyWith<$Res>
       __$$UpdateContactDtoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? email, String? phone});
+  $Res call(
+      {String? email,
+      String? phone,
+      String? phoneDialCode,
+      String? phoneCountryIsoCode});
 }
 
 /// @nodoc
@@ -310,6 +354,8 @@ class __$$UpdateContactDtoImplCopyWithImpl<$Res>
   $Res call({
     Object? email = freezed,
     Object? phone = freezed,
+    Object? phoneDialCode = freezed,
+    Object? phoneCountryIsoCode = freezed,
   }) {
     return _then(_$UpdateContactDtoImpl(
       email: freezed == email
@@ -320,6 +366,14 @@ class __$$UpdateContactDtoImplCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
+      phoneDialCode: freezed == phoneDialCode
+          ? _value.phoneDialCode
+          : phoneDialCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phoneCountryIsoCode: freezed == phoneCountryIsoCode
+          ? _value.phoneCountryIsoCode
+          : phoneCountryIsoCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -327,7 +381,8 @@ class __$$UpdateContactDtoImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UpdateContactDtoImpl implements _UpdateContactDto {
-  const _$UpdateContactDtoImpl({this.email, this.phone});
+  const _$UpdateContactDtoImpl(
+      {this.email, this.phone, this.phoneDialCode, this.phoneCountryIsoCode});
 
   factory _$UpdateContactDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UpdateContactDtoImplFromJson(json);
@@ -336,10 +391,14 @@ class _$UpdateContactDtoImpl implements _UpdateContactDto {
   final String? email;
   @override
   final String? phone;
+  @override
+  final String? phoneDialCode;
+  @override
+  final String? phoneCountryIsoCode;
 
   @override
   String toString() {
-    return 'UpdateContactDto(email: $email, phone: $phone)';
+    return 'UpdateContactDto(email: $email, phone: $phone, phoneDialCode: $phoneDialCode, phoneCountryIsoCode: $phoneCountryIsoCode)';
   }
 
   @override
@@ -348,12 +407,17 @@ class _$UpdateContactDtoImpl implements _UpdateContactDto {
         (other.runtimeType == runtimeType &&
             other is _$UpdateContactDtoImpl &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.phone, phone) || other.phone == phone));
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.phoneDialCode, phoneDialCode) ||
+                other.phoneDialCode == phoneDialCode) &&
+            (identical(other.phoneCountryIsoCode, phoneCountryIsoCode) ||
+                other.phoneCountryIsoCode == phoneCountryIsoCode));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, email, phone);
+  int get hashCode => Object.hash(
+      runtimeType, email, phone, phoneDialCode, phoneCountryIsoCode);
 
   @JsonKey(ignore: true)
   @override
@@ -371,8 +435,11 @@ class _$UpdateContactDtoImpl implements _UpdateContactDto {
 }
 
 abstract class _UpdateContactDto implements UpdateContactDto {
-  const factory _UpdateContactDto({final String? email, final String? phone}) =
-      _$UpdateContactDtoImpl;
+  const factory _UpdateContactDto(
+      {final String? email,
+      final String? phone,
+      final String? phoneDialCode,
+      final String? phoneCountryIsoCode}) = _$UpdateContactDtoImpl;
 
   factory _UpdateContactDto.fromJson(Map<String, dynamic> json) =
       _$UpdateContactDtoImpl.fromJson;
@@ -381,6 +448,10 @@ abstract class _UpdateContactDto implements UpdateContactDto {
   String? get email;
   @override
   String? get phone;
+  @override
+  String? get phoneDialCode;
+  @override
+  String? get phoneCountryIsoCode;
   @override
   @JsonKey(ignore: true)
   _$$UpdateContactDtoImplCopyWith<_$UpdateContactDtoImpl> get copyWith =>

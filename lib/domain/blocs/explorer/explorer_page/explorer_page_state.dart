@@ -18,7 +18,7 @@ class ExplorerPageState extends Equatable {
     required this.isLoading,
     required this.firstLoad,
     artistFounded,
-    this.range = 5.0,  // valor por defecto
+    this.range = 20.0,  // valor por defecto aumentado a 20km
   }) : artistFounded = artistFounded ?? const [];
 
   ExplorerPageState copyWith({

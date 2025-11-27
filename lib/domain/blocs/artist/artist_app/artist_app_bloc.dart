@@ -7,8 +7,7 @@ part 'artist_app_event.dart';
 part 'artist_app_state.dart';
 
 class ArtistAppBloc extends Bloc<ArtistAppEvent, ArtistAppState> {
-  ArtistAppBloc()
-      : super(ArtistAppState(artistPageNavBarIcons: kArtistPageNavBarIcons)) {
+  ArtistAppBloc() : super(const ArtistAppState()) {
     on<ArtistAppPageIndexChanged>(_mapArtistAppPageIndexChanged);
   }
 

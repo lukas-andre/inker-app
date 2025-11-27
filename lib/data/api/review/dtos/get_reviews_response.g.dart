@@ -57,12 +57,12 @@ Map<String, dynamic> _$$MetaImplToJson(_$MetaImpl instance) {
 }
 
 _$ReviewItemImpl _$$ReviewItemImplFromJson(Map json) => _$ReviewItemImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
-      artistId: (json['artistId'] as num?)?.toInt(),
-      eventId: (json['eventId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
+      eventId: json['eventId'] as String?,
       value: (json['value'] as num?)?.toInt(),
       header: json['header'] as String?,
       content: json['content'] as String?,
@@ -70,7 +70,7 @@ _$ReviewItemImpl _$$ReviewItemImplFromJson(Map json) => _$ReviewItemImpl(
           ? null
           : ReviewReactions.fromJson(
               Map<String, dynamic>.from(json['reviewReactions'] as Map)),
-      createdBy: (json['createdBy'] as num?)?.toInt(),
+      createdBy: json['createdBy'] as String?,
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
       customerReactionDetail: json['customerReactionDetail'] == null
@@ -106,7 +106,7 @@ Map<String, dynamic> _$$ReviewItemImplToJson(_$ReviewItemImpl instance) {
 
 _$CustomerReactionDetailImpl _$$CustomerReactionDetailImplFromJson(Map json) =>
     _$CustomerReactionDetailImpl(
-      reviewReactionId: (json['reviewReactionId'] as num?)?.toInt(),
+      reviewReactionId: json['reviewReactionId'] as String?,
       liked: json['liked'] as bool?,
       disliked: json['disliked'] as bool?,
     );

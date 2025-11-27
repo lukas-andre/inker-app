@@ -4,6 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/models/customer/customer.dart';
 import 'package:inker_studio/domain/models/location/location.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/domain/models/tattoo_generator/tattoo_design_cache.dart';
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
@@ -18,16 +20,27 @@ String quotationToJson(Quotation data) => json.encode(data.toJson());
 @freezed
 class Quotation with _$Quotation {
   const factory Quotation({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
-    required int artistId,
+    required String customerId,
+    String? artistId,
     required String description,
     MultimediasMetadata? referenceImages,
     MultimediasMetadata? proposedDesigns,
     required QuotationStatus status,
+    @Default(QuotationType.DIRECT) QuotationType type,
+    double? customerLat,
+    double? customerLon,
+    int? customerTravelRadiusKm,
+    String? tattooDesignCacheId,
+    String? tattooDesignImageUrl,
+    TattooDesignCache? tattooDesignCache,
+    List<QuotationOfferListItemDto>? offers,
     Money? estimatedCost,
+    Money? minBudget,
+    Money? maxBudget,
+    Money? referenceBudget,
     DateTime? responseDate,
     DateTime? appointmentDate,
     int? appointmentDuration,
@@ -43,7 +56,7 @@ class Quotation with _$Quotation {
     QuotationSystemCancelReason? systemCancelReason,
     String? cancelReasonDetails,
     DateTime? canceledDate,
-    int? lastUpdatedBy,
+    String? lastUpdatedBy,
     QuotationUserType? lastUpdatedByUserType,
     List<QuotationHistory>? history,
     Customer? customer,
@@ -53,23 +66,41 @@ class Quotation with _$Quotation {
     @Default(false) bool readByCustomer,
     DateTime? artistReadAt,
     DateTime? customerReadAt,
+    String? stencilId,
+    Stencil? stencil,
+    double? distanceToArtistKm,
+    @Default(false) bool hasOffered,
+    String? generatedImageId,
+    String? desiredBodyLocation,
   }) = _Quotation;
 
   factory Quotation.fromJson(Map<String, dynamic> json) =>
       _$QuotationFromJson(json);
+
+  static Quotation empty() => Quotation(
+    id: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    customerId: '',
+    description: '',
+    status: QuotationStatus.pending,
+    minBudget: null,
+    maxBudget: null,
+    referenceBudget: null,
+  );
 }
 
 @freezed
 class QuotationHistory with _$QuotationHistory {
   const factory QuotationHistory({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     Quotation? quotation,
     required QuotationStatus previousStatus,
     required QuotationStatus newStatus,
     required DateTime changedAt,
-    required int changedBy,
+    required String changedBy,
     required QuotationRole changedByUserType,
     Money? previousEstimatedCost,
     Money? newEstimatedCost,
@@ -77,11 +108,15 @@ class QuotationHistory with _$QuotationHistory {
     DateTime? newAppointmentDate,
     int? previousAppointmentDuration,
     int? newAppointmentDuration,
+    String? previousTattooDesignCacheId,
+    String? newTattooDesignCacheId,
+    String? previousTattooDesignImageUrl,
+    String? newTattooDesignImageUrl,
     QuotationCustomerAppealReason? appealedReason,
     String? rejectionReason,
     String? cancellationReason,
     String? additionalDetails,
-    int? lastUpdatedBy,
+    String? lastUpdatedBy,
     QuotationUserType? lastUpdatedByUserType,
   }) = _QuotationHistory;
 
@@ -95,14 +130,14 @@ class Money with _$Money {
   
   const factory Money({
     required int amount,
-    @Default('USD') String currency,
-    @Default(2) int scale,
+    @Default('CLP') String currency,
+    @Default(0) int scale,
   }) = _Money;
 
   factory Money.fromJson(Map<String, dynamic> json) => _$MoneyFromJson(json);
 
   /// Creates a Money instance from a floating point value
-  static Money fromFloat(double amount, [String currency = 'USD', int scale = 2]) {
+  static Money fromFloat(double amount, [String currency = 'CLP', int scale = 0]) {
     return Money(
       amount: (amount * pow(10, scale)).round(),
       currency: currency,
@@ -222,6 +257,8 @@ enum QuotationStatus {
   appealed,
   @JsonValue('canceled')
   canceled,
+  @JsonValue('open')
+  open,
 }
 
 enum QuotationCustomerCancelReason {
@@ -315,4 +352,50 @@ enum QuotationRole {
   artist,
   @JsonValue('system')
   system,
+}
+
+enum QuotationType {
+  @JsonValue('DIRECT')
+  DIRECT,
+  @JsonValue('OPEN')
+  OPEN,
+}
+
+@freezed
+class QuotationOfferListItemDto with _$QuotationOfferListItemDto {
+  const factory QuotationOfferListItemDto({
+    required String id,
+    required String artistId,
+    String? artistName,
+    Money? estimatedCost,
+    String? message,
+    @Default([]) List<OfferMessageDto> messages,
+  }) = _QuotationOfferListItemDto;
+
+  factory QuotationOfferListItemDto.fromJson(Map<String, dynamic> json) =>
+      _$QuotationOfferListItemDtoFromJson(json);
+
+  static QuotationOfferListItemDto empty() => const QuotationOfferListItemDto(
+    id: '',
+    artistName: '',
+    artistId: '',
+    estimatedCost: Money(amount: 0, currency: 'CLP', scale: 0),
+    message: '',
+    messages: [],
+  );
+}
+
+@freezed
+class OfferMessageDto with _$OfferMessageDto {
+  const factory OfferMessageDto({
+    String? id, 
+    required String senderId, 
+    required QuotationRole senderType,
+    required String message,
+    String? imageUrl,
+    required DateTime timestamp,
+  }) = _OfferMessageDto;
+
+  factory OfferMessageDto.fromJson(Map<String, dynamic> json) =>
+      _$OfferMessageDtoFromJson(json);
 }

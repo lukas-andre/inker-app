@@ -61,7 +61,7 @@ class AccountVerificationBloc
           await _userService.verifyAccountVerificationCode(
               userId: createdUser.userId.toString(),
               code: event.pin,
-              notificationType: NotificationType.phone);
+              notificationType: NotificationType.email);
       emit(state.copyWith(
         isVerifying: false,
       ));
@@ -154,8 +154,43 @@ class AccountVerificationBloc
   }
 
   _mapVerificationSendEmailEventToState(VerificationSendEmailEvent event,
-      Emitter<AccountVerificationState> emit) {
-    throw UnimplementedError();
+      Emitter<AccountVerificationState> emit) async {
+    if (state.maxTriesReached) {
+      emit(state.copyWith(
+          verificationStatusMessage: 'Max tries reached',
+          accountVerificationStatus: AccountVerificationStatus.failed));
+      return;
+    }
+    final createdUser = await _localStorage.getCreatedUserInfo();
+
+    if (createdUser == null) {
+      emit(state.copyWith(
+          verificationStatusMessage: 'Error getting user info',
+          accountVerificationStatus: AccountVerificationStatus.failed));
+      return;
+    }
+
+    emit(state.copyWith(
+        accountVerificationStatus: AccountVerificationStatus.sentEmail));
+    try {
+      await _userService.sendAccountVerificationCodeByEmailOrPhone(
+          email: createdUser.email, notificationType: NotificationType.email);
+
+      emit(state.copyWith(
+          verificationStatusMessage: 'Email sent',
+          tries: state.tries + 1,
+          accountVerificationStatus: AccountVerificationStatus.sendedEmail));
+    } on UserAlreadyVerified {
+      emit(state.copyWith(
+          verificationStatusMessage: 'User already verified',
+          accountVerificationStatus:
+              AccountVerificationStatus.userAlreadyVerified));
+    } catch (e, stackTrace) {
+      dev.logError(e, stackTrace);
+      emit(state.copyWith(
+          verificationStatusMessage: 'Error sending email',
+          accountVerificationStatus: AccountVerificationStatus.failed));
+    }
   }
 
   _mapVerificationResetEventToState(

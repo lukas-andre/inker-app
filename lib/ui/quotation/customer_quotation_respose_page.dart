@@ -8,9 +8,9 @@ import 'package:inker_studio/keys.dart';
 import 'package:inker_studio/ui/quotation/quotation_detail_page.dart';
 import 'package:inker_studio/ui/quotation/widgets/animated_quotation_details.dart';
 import 'package:inker_studio/ui/shared/success_animation_page.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class CustomerQuotationResponsePage extends StatelessWidget {
   final String quotationId;
@@ -69,11 +69,11 @@ class _CustomerQuotationResponseViewState
   Widget build(BuildContext context) {
     final l10n = S.of(context);
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(_getActionTitle(widget.action, l10n),
             style: TextStyleTheme.headline2),
-        backgroundColor: primaryColor,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         iconTheme: const IconThemeData(color: Colors.white),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -224,10 +224,10 @@ class _CustomerQuotationResponseViewState
             if (widget.action == CustomerQuotationAction.appeal)
               _buildAppealReasonDropdown(l10n),
             if (widget.action == CustomerQuotationAction.reject)
-              _buildRejectionReasonDropdown(l10n),
+              _buildRejectionReasonDropdown(context, l10n),
             if (widget.action != CustomerQuotationAction.accept)
               const SizedBox(height: 16),
-            _buildAdditionalDetailsField(l10n),
+            _buildAdditionalDetailsField(context, l10n),
             const SizedBox(height: 24),
             Center(
               child: Container(
@@ -238,8 +238,8 @@ class _CustomerQuotationResponseViewState
                 child: ElevatedButton(
                   onPressed: () => _submitForm(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: secondaryColor,
-                    foregroundColor: quaternaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    foregroundColor: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Text(l10n.submit, style: TextStyleTheme.button),
                 ),
@@ -264,7 +264,7 @@ class _CustomerQuotationResponseViewState
         focusedBorder: focusedBorder,
       ),
       style: TextStyleTheme.bodyText1,
-      dropdownColor: explorerSecondaryColor,
+      dropdownColor: inputBackgroundColor,
       items: QuotationCustomerAppealReason.values.map((reason) {
         return DropdownMenuItem(
           key: Key(reason.index.toString()),
@@ -303,7 +303,7 @@ class _CustomerQuotationResponseViewState
     }
   }
 
-  Widget _buildRejectionReasonDropdown(S l10n) {
+  Widget _buildRejectionReasonDropdown(BuildContext context, S l10n) {
     return DropdownButtonFormField<QuotationCustomerRejectReason>(
       key: K.quotationRejectReasonField,
       value: _rejectionReason,
@@ -316,7 +316,7 @@ class _CustomerQuotationResponseViewState
         focusedBorder: focusedBorder,
       ),
       style: TextStyleTheme.bodyText1,
-      dropdownColor: explorerSecondaryColor,
+      dropdownColor: inputBackgroundColor,
       items: QuotationCustomerRejectReason.values.map((reason) {
         return DropdownMenuItem(
           value: reason,
@@ -356,7 +356,7 @@ class _CustomerQuotationResponseViewState
     }
   }
 
-  Widget _buildAdditionalDetailsField(S l10n) {
+  Widget _buildAdditionalDetailsField(BuildContext context, S l10n) {
     return TextFormField(
       key: K.quotationAdditionalDetailsField,
       controller: _additionalDetailsController,
@@ -367,7 +367,8 @@ class _CustomerQuotationResponseViewState
         filled: true,
         border: inputBorder,
         focusedBorder: focusedBorder,
-        prefixIcon: Icon(Icons.notes, color: tertiaryColor),
+        prefixIcon:
+            Icon(Icons.notes, color: Theme.of(context).colorScheme.primary),
       ),
       style: TextStyleTheme.bodyText1,
       maxLines: 3,

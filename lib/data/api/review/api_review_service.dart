@@ -21,8 +21,8 @@ class ApiReviewService extends ReviewService {
 
   @override
   Future<void> reactToReview({
-    required int reviewId,
-    required int customerId,
+    required String reviewId,
+    required String customerId,
     required bool like,
     required String token,
   }) async {
@@ -55,7 +55,7 @@ class ApiReviewService extends ReviewService {
 
   @override
   Future<GetReviewsResponse> getReviews({
-    required int artistId,
+    required String artistId,
     required int page,
     required int limit,
     required String token,

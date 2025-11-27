@@ -20,26 +20,28 @@ Location _$LocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Location {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get address1 => throw _privateConstructorUsedError;
-  String get shortAddress1 => throw _privateConstructorUsedError;
-  String get address2 => throw _privateConstructorUsedError;
+  String? get shortAddress1 => throw _privateConstructorUsedError;
+  String? get address2 => throw _privateConstructorUsedError;
   String? get address3 => throw _privateConstructorUsedError;
   String get addressType => throw _privateConstructorUsedError;
-  String get state => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   String get formattedAddress => throw _privateConstructorUsedError;
   double get lat => throw _privateConstructorUsedError;
   double get lng => throw _privateConstructorUsedError;
-  Viewport get viewport => throw _privateConstructorUsedError;
+  Viewport? get viewport => throw _privateConstructorUsedError;
   GeoPoint get location => throw _privateConstructorUsedError;
-  int get artistId => throw _privateConstructorUsedError;
+  String get artistId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get profileThumbnail => throw _privateConstructorUsedError;
   String? get googlePlaceId => throw _privateConstructorUsedError;
+  int get locationOrder => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,28 +55,30 @@ abstract class $LocationCopyWith<$Res> {
       _$LocationCopyWithImpl<$Res, Location>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
-      String shortAddress1,
-      String address2,
+      String? shortAddress1,
+      String? address2,
       String? address3,
       String addressType,
-      String state,
+      String? state,
       String city,
       String country,
       String formattedAddress,
       double lat,
       double lng,
-      Viewport viewport,
+      Viewport? viewport,
       GeoPoint location,
-      int artistId,
+      String artistId,
       String name,
       String? profileThumbnail,
-      String? googlePlaceId});
+      String? googlePlaceId,
+      int locationOrder,
+      bool isActive});
 
-  $ViewportCopyWith<$Res> get viewport;
+  $ViewportCopyWith<$Res>? get viewport;
   $GeoPointCopyWith<$Res> get location;
 }
 
@@ -95,28 +99,30 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? address1 = null,
-    Object? shortAddress1 = null,
-    Object? address2 = null,
+    Object? shortAddress1 = freezed,
+    Object? address2 = freezed,
     Object? address3 = freezed,
     Object? addressType = null,
-    Object? state = null,
+    Object? state = freezed,
     Object? city = null,
     Object? country = null,
     Object? formattedAddress = null,
     Object? lat = null,
     Object? lng = null,
-    Object? viewport = null,
+    Object? viewport = freezed,
     Object? location = null,
     Object? artistId = null,
     Object? name = null,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
+    Object? locationOrder = null,
+    Object? isActive = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -129,14 +135,14 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.address1
           : address1 // ignore: cast_nullable_to_non_nullable
               as String,
-      shortAddress1: null == shortAddress1
+      shortAddress1: freezed == shortAddress1
           ? _value.shortAddress1
           : shortAddress1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      address2: null == address2
+              as String?,
+      address2: freezed == address2
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
@@ -145,10 +151,10 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
               as String,
-      state: null == state
+      state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -169,10 +175,10 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double,
-      viewport: null == viewport
+      viewport: freezed == viewport
           ? _value.viewport
           : viewport // ignore: cast_nullable_to_non_nullable
-              as Viewport,
+              as Viewport?,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -180,7 +186,7 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -193,13 +199,25 @@ class _$LocationCopyWithImpl<$Res, $Val extends Location>
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
               as String?,
+      locationOrder: null == locationOrder
+          ? _value.locationOrder
+          : locationOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ViewportCopyWith<$Res> get viewport {
-    return $ViewportCopyWith<$Res>(_value.viewport, (value) {
+  $ViewportCopyWith<$Res>? get viewport {
+    if (_value.viewport == null) {
+      return null;
+    }
+
+    return $ViewportCopyWith<$Res>(_value.viewport!, (value) {
       return _then(_value.copyWith(viewport: value) as $Val);
     });
   }
@@ -222,29 +240,31 @@ abstract class _$$LocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       String address1,
-      String shortAddress1,
-      String address2,
+      String? shortAddress1,
+      String? address2,
       String? address3,
       String addressType,
-      String state,
+      String? state,
       String city,
       String country,
       String formattedAddress,
       double lat,
       double lng,
-      Viewport viewport,
+      Viewport? viewport,
       GeoPoint location,
-      int artistId,
+      String artistId,
       String name,
       String? profileThumbnail,
-      String? googlePlaceId});
+      String? googlePlaceId,
+      int locationOrder,
+      bool isActive});
 
   @override
-  $ViewportCopyWith<$Res> get viewport;
+  $ViewportCopyWith<$Res>? get viewport;
   @override
   $GeoPointCopyWith<$Res> get location;
 }
@@ -264,28 +284,30 @@ class __$$LocationImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? address1 = null,
-    Object? shortAddress1 = null,
-    Object? address2 = null,
+    Object? shortAddress1 = freezed,
+    Object? address2 = freezed,
     Object? address3 = freezed,
     Object? addressType = null,
-    Object? state = null,
+    Object? state = freezed,
     Object? city = null,
     Object? country = null,
     Object? formattedAddress = null,
     Object? lat = null,
     Object? lng = null,
-    Object? viewport = null,
+    Object? viewport = freezed,
     Object? location = null,
     Object? artistId = null,
     Object? name = null,
     Object? profileThumbnail = freezed,
     Object? googlePlaceId = freezed,
+    Object? locationOrder = null,
+    Object? isActive = null,
   }) {
     return _then(_$LocationImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -298,14 +320,14 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.address1
           : address1 // ignore: cast_nullable_to_non_nullable
               as String,
-      shortAddress1: null == shortAddress1
+      shortAddress1: freezed == shortAddress1
           ? _value.shortAddress1
           : shortAddress1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      address2: null == address2
+              as String?,
+      address2: freezed == address2
           ? _value.address2
           : address2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       address3: freezed == address3
           ? _value.address3
           : address3 // ignore: cast_nullable_to_non_nullable
@@ -314,10 +336,10 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.addressType
           : addressType // ignore: cast_nullable_to_non_nullable
               as String,
-      state: null == state
+      state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -338,10 +360,10 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double,
-      viewport: null == viewport
+      viewport: freezed == viewport
           ? _value.viewport
           : viewport // ignore: cast_nullable_to_non_nullable
-              as Viewport,
+              as Viewport?,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -349,7 +371,7 @@ class __$$LocationImplCopyWithImpl<$Res>
       artistId: null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -362,6 +384,14 @@ class __$$LocationImplCopyWithImpl<$Res>
           ? _value.googlePlaceId
           : googlePlaceId // ignore: cast_nullable_to_non_nullable
               as String?,
+      locationOrder: null == locationOrder
+          ? _value.locationOrder
+          : locationOrder // ignore: cast_nullable_to_non_nullable
+              as int,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -374,28 +404,30 @@ class _$LocationImpl implements _Location {
       required this.createdAt,
       required this.updatedAt,
       required this.address1,
-      required this.shortAddress1,
-      required this.address2,
+      this.shortAddress1,
+      this.address2,
       this.address3,
       required this.addressType,
-      required this.state,
+      this.state,
       required this.city,
       required this.country,
       required this.formattedAddress,
       required this.lat,
       required this.lng,
-      required this.viewport,
+      this.viewport,
       required this.location,
       required this.artistId,
       required this.name,
       this.profileThumbnail,
-      this.googlePlaceId});
+      this.googlePlaceId,
+      this.locationOrder = 0,
+      this.isActive = true});
 
   factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -403,15 +435,15 @@ class _$LocationImpl implements _Location {
   @override
   final String address1;
   @override
-  final String shortAddress1;
+  final String? shortAddress1;
   @override
-  final String address2;
+  final String? address2;
   @override
   final String? address3;
   @override
   final String addressType;
   @override
-  final String state;
+  final String? state;
   @override
   final String city;
   @override
@@ -423,21 +455,27 @@ class _$LocationImpl implements _Location {
   @override
   final double lng;
   @override
-  final Viewport viewport;
+  final Viewport? viewport;
   @override
   final GeoPoint location;
   @override
-  final int artistId;
+  final String artistId;
   @override
   final String name;
   @override
   final String? profileThumbnail;
   @override
   final String? googlePlaceId;
+  @override
+  @JsonKey()
+  final int locationOrder;
+  @override
+  @JsonKey()
+  final bool isActive;
 
   @override
   String toString() {
-    return 'Location(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId)';
+    return 'Location(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, address1: $address1, shortAddress1: $shortAddress1, address2: $address2, address3: $address3, addressType: $addressType, state: $state, city: $city, country: $country, formattedAddress: $formattedAddress, lat: $lat, lng: $lng, viewport: $viewport, location: $location, artistId: $artistId, name: $name, profileThumbnail: $profileThumbnail, googlePlaceId: $googlePlaceId, locationOrder: $locationOrder, isActive: $isActive)';
   }
 
   @override
@@ -477,7 +515,11 @@ class _$LocationImpl implements _Location {
             (identical(other.profileThumbnail, profileThumbnail) ||
                 other.profileThumbnail == profileThumbnail) &&
             (identical(other.googlePlaceId, googlePlaceId) ||
-                other.googlePlaceId == googlePlaceId));
+                other.googlePlaceId == googlePlaceId) &&
+            (identical(other.locationOrder, locationOrder) ||
+                other.locationOrder == locationOrder) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
   }
 
   @JsonKey(ignore: true)
@@ -503,7 +545,9 @@ class _$LocationImpl implements _Location {
         artistId,
         name,
         profileThumbnail,
-        googlePlaceId
+        googlePlaceId,
+        locationOrder,
+        isActive
       ]);
 
   @JsonKey(ignore: true)
@@ -522,32 +566,34 @@ class _$LocationImpl implements _Location {
 
 abstract class _Location implements Location {
   const factory _Location(
-      {required final int id,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String address1,
-      required final String shortAddress1,
-      required final String address2,
+      final String? shortAddress1,
+      final String? address2,
       final String? address3,
       required final String addressType,
-      required final String state,
+      final String? state,
       required final String city,
       required final String country,
       required final String formattedAddress,
       required final double lat,
       required final double lng,
-      required final Viewport viewport,
+      final Viewport? viewport,
       required final GeoPoint location,
-      required final int artistId,
+      required final String artistId,
       required final String name,
       final String? profileThumbnail,
-      final String? googlePlaceId}) = _$LocationImpl;
+      final String? googlePlaceId,
+      final int locationOrder,
+      final bool isActive}) = _$LocationImpl;
 
   factory _Location.fromJson(Map<String, dynamic> json) =
       _$LocationImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   DateTime get createdAt;
   @override
@@ -555,15 +601,15 @@ abstract class _Location implements Location {
   @override
   String get address1;
   @override
-  String get shortAddress1;
+  String? get shortAddress1;
   @override
-  String get address2;
+  String? get address2;
   @override
   String? get address3;
   @override
   String get addressType;
   @override
-  String get state;
+  String? get state;
   @override
   String get city;
   @override
@@ -575,17 +621,21 @@ abstract class _Location implements Location {
   @override
   double get lng;
   @override
-  Viewport get viewport;
+  Viewport? get viewport;
   @override
   GeoPoint get location;
   @override
-  int get artistId;
+  String get artistId;
   @override
   String get name;
   @override
   String? get profileThumbnail;
   @override
   String? get googlePlaceId;
+  @override
+  int get locationOrder;
+  @override
+  bool get isActive;
   @override
   @JsonKey(ignore: true)
   _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>

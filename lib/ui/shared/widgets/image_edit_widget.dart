@@ -1,9 +1,15 @@
 import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/test_utils/register_keys.dart';
+import 'package:inker_studio/test_utils/test_mode.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ImageEditWidget extends StatefulWidget {
   final String? initialValue;
@@ -23,19 +29,23 @@ class ImageEditWidget extends StatefulWidget {
 
 class _ImageEditWidgetState extends State<ImageEditWidget> {
   XFile? _imageFile;
+  Uint8List? _imageBytes;
   final ImagePicker _picker = ImagePicker();
   bool _isNewImageSelected = false;
   bool _hasChanges = false;
+  bool _isHovering = false;
+  bool _isDragging = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: registerKeys.imageEdit.container,
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(24.0),
             child: Center(
-              child: _buildImageContent(),
+              child: kIsWeb ? _buildWebConstrainedContent() : _buildImageContent(),
             ),
           ),
         ),
@@ -44,120 +54,344 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
     );
   }
 
+  Widget _buildWebConstrainedContent() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: 600,
+        maxHeight: 400,
+      ),
+      child: _buildImageContent(),
+    );
+  }
+
   Widget _buildImageContent() {
     if (_isNewImageSelected && _imageFile != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image.file(
-          File(_imageFile!.path),
-          fit: BoxFit.contain,
-        ),
+      return _buildImageContainer(
+        key: registerKeys.imageEdit.imageContent,
+        child: _imageBytes != null
+            ? Image.memory(
+                _imageBytes!,
+                fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
+              )
+            : kIsWeb
+                ? Image.network(
+                    _imageFile!.path,
+                    fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
+                  )
+                : Image.file(
+                    File(_imageFile!.path),
+                    fit: kIsWeb ? BoxFit.contain : BoxFit.cover,
+                  ),
       );
     } else if (widget.initialValue != null && widget.initialValue!.isNotEmpty) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+      return _buildImageContainer(
+        key: registerKeys.imageEdit.imageContent,
         child: Image.network(
           widget.initialValue!,
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).colorScheme.secondary),
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        (loadingProgress.expectedTotalBytes ?? 1)
+                    : null,
+              ),
+            );
+          },
         ),
       );
     } else {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return _buildEmptyImageContainer();
+    }
+  }
+
+  Widget _buildImageContainer({required Widget child, Key? key}) {
+    final container = Container(
+      key: key,
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.0),
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            Icon(
-              Icons.image_not_supported,
-              size: 48,
-              color: Colors.grey[400],
+            child,
+            if (kIsWeb && _isHovering)
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                          size: 48,
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Click to change',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+
+    if (kIsWeb) {
+      return DragTarget<List<XFile>>(
+        onAcceptWithDetails: (details) {
+          if (details.data.isNotEmpty) {
+            _handleDroppedFile(details.data.first);
+          }
+        },
+        builder: (context, candidateData, rejectedData) {
+          return MouseRegion(
+            onEnter: (_) => setState(() => _isHovering = true),
+            onExit: (_) => setState(() => _isHovering = false),
+            cursor: SystemMouseCursors.click,
+            child: container,
+          );
+        },
+      );
+    }
+
+    return container;
+  }
+
+  Widget _buildEmptyImageContainer() {
+    final Widget content = Container(
+      key: registerKeys.imageEdit.emptyImageContainer,
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: _isDragging && kIsWeb
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.8)
+            : Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(16.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        border: _isDragging && kIsWeb
+            ? Border.all(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 3,
+              )
+            : null,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            _isDragging && kIsWeb ? Icons.cloud_upload : Icons.image_outlined,
+            size: 56,
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            _isDragging && kIsWeb
+                ? 'Drop image here'
+                : S.of(context).noImageSelected,
+            style: TextStyleTheme.bodyText1.copyWith(
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.9),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 16),
+            textAlign: TextAlign.center,
+          ),
+          if (kIsWeb && !_isDragging) ...[
+            const SizedBox(height: 8),
             Text(
-              S.of(context).noImageSelected,
-              style: TextStyleTheme.bodyText1.copyWith(color: Colors.grey[400]),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.add_a_photo),
-              label: Text(S.of(context).chooseImage),
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: secondaryColor,
+              'or drag and drop',
+              style: TextStyleTheme.caption.copyWith(
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],
-        ),
+          const SizedBox(height: 24),
+          if (!_isDragging)
+            _buildSimpleButton(
+              key: registerKeys.imageEdit.pickImageButton,
+              onPressed: _pickImage,
+              icon: Icons.add_photo_alternate_rounded,
+              label: S.of(context).chooseImage,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+        ],
+      ),
+    );
+
+    if (kIsWeb) {
+      return DragTarget<List<XFile>>(
+        onAcceptWithDetails: (details) {
+          setState(() {
+            _isDragging = false;
+          });
+          if (details.data.isNotEmpty) {
+            _handleDroppedFile(details.data.first);
+          }
+        },
+        onMove: (_) {
+          if (!_isDragging) {
+            setState(() {
+              _isDragging = true;
+            });
+          }
+        },
+        onLeave: (_) {
+          setState(() {
+            _isDragging = false;
+          });
+        },
+        builder: (context, candidateData, rejectedData) {
+          return content;
+        },
       );
     }
+
+    return content;
+  }
+
+  Widget _buildSimpleButton({
+    Key? key,
+    required VoidCallback onPressed,
+    required IconData icon,
+    required String label,
+    required Color color,
+    Color? textColor,
+  }) {
+    return InkWell(
+      key: key,
+      onTap: onPressed,
+      borderRadius: BorderRadius.circular(12),
+      child: Ink(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                color: textColor ?? Colors.white,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  color: textColor ?? Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildBottomButtons() {
     return Container(
-      color: primaryColor,
-      padding: const EdgeInsets.all(16.0),
+      color: Theme.of(context).colorScheme.primary,
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (_isNewImageSelected)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _removeImage,
-                icon: const Icon(Icons.delete_forever, color: Colors.white),
-                label: Text(
-                  S.of(context).removeImage,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ),
-          if (_isNewImageSelected) const SizedBox(height: 8.0),
           if (_isNewImageSelected || widget.initialValue != null)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _pickImage,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: secondaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Text(
+                widget.label,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
-                child: Text(
-                  S.of(context).changeImage,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          if (_hasChanges)
+            ElevatedButton.icon(
+              key: registerKeys.imageEdit.saveChangesButton,
+              onPressed: _saveChanges,
+              icon: const Icon(Icons.check_circle_outline),
+              label: Text(S.of(context).saveChanges),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF50C878),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
-          if (_hasChanges) ...[
-            const SizedBox(height: 8.0),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _saveChanges,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+          const SizedBox(height: 12),
+          if (_isNewImageSelected || widget.initialValue != null)
+            OutlinedButton.icon(
+              key: registerKeys.imageEdit.changeImageButton,
+              onPressed: _pickImage,
+              icon: const Icon(Icons.photo_library),
+              label: Text(S.of(context).changeImage),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.secondary,
+                side:
+                    BorderSide(color: Theme.of(context).colorScheme.secondary),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  S.of(context).saveChanges,
-                  style: TextStyleTheme.button.copyWith(color: Colors.white),
+              ),
+            ),
+          if (_isNewImageSelected) ...[
+            const SizedBox(height: 12),
+            TextButton.icon(
+              key: registerKeys.imageEdit.removeImageButton,
+              onPressed: _removeImage,
+              icon: const Icon(Icons.delete_outline),
+              label: Text(S.of(context).removeImage),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.redAccent.shade200,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
@@ -168,14 +402,59 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   }
 
   Future<void> _pickImage() async {
+    // Si estamos en modo de prueba, usar una imagen predefinida
+    if (isInTestMode) {
+      try {
+        // Copiar el asset al archivo temporal
+        ByteData data = await rootBundle
+            .load('assets/studio_${Random().nextInt(5) + 1}.png');
+        final bytes = data.buffer.asUint8List();
+
+        if (kIsWeb) {
+          // En web, crear un XFile desde bytes
+          final blob = Uint8List.fromList(bytes);
+          setState(() {
+            _imageFile = XFile.fromData(blob, name: 'test_studio.png');
+            _imageBytes = blob;
+            _isNewImageSelected = true;
+            _hasChanges = true;
+          });
+        } else {
+          // En móvil, crear archivo temporal
+          final directory = await getTemporaryDirectory();
+          final imagePath = '${directory.path}/test_studio.png';
+          final File imageFile = File(imagePath);
+          await imageFile.writeAsBytes(bytes);
+
+          setState(() {
+            _imageFile = XFile(imagePath);
+            _imageBytes = bytes;
+            _isNewImageSelected = true;
+            _hasChanges = true;
+          });
+        }
+
+        // Studio image loaded in test mode
+        return;
+      } catch (e) {
+        // Error loading test studio image
+      }
+    }
+
+    // Flujo normal para modo no-test
     final pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 1024,
       maxHeight: 1024,
     );
+
     if (pickedFile != null) {
+      // Leer bytes para compatibilidad web
+      final bytes = await pickedFile.readAsBytes();
+      
       setState(() {
         _imageFile = pickedFile;
+        _imageBytes = bytes;
         _isNewImageSelected = true;
         _hasChanges = true;
       });
@@ -185,6 +464,7 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
   void _removeImage() {
     setState(() {
       _imageFile = null;
+      _imageBytes = null;
       _isNewImageSelected = false;
       _hasChanges = true;
     });
@@ -192,5 +472,19 @@ class _ImageEditWidgetState extends State<ImageEditWidget> {
 
   void _saveChanges() {
     widget.onSaved(_imageFile);
+  }
+
+  Future<void> _handleDroppedFile(XFile file) async {
+    try {
+      final bytes = await file.readAsBytes();
+      setState(() {
+        _imageFile = file;
+        _imageBytes = bytes;
+        _isNewImageSelected = true;
+        _hasChanges = true;
+      });
+    } catch (e) {
+      // Handle error silently
+    }
   }
 }

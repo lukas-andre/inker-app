@@ -8,7 +8,7 @@ part of 'create_artist_user_response.dart';
 
 CreateArtistUserResponse _$CreateArtistUserResponseFromJson(Map json) =>
     CreateArtistUserResponse(
-      userId: (json['userId'] as num).toInt(),
+      userId: json['userId'] as String,
       username: json['username'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
@@ -17,7 +17,7 @@ CreateArtistUserResponse _$CreateArtistUserResponseFromJson(Map json) =>
       tags: json['tags'],
       genres: json['genres'],
       rating: (json['rating'] as num).toInt(),
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       contact:
           Contact.fromJson(Map<String, dynamic>.from(json['contact'] as Map)),
     );
@@ -52,7 +52,7 @@ Contact _$ContactFromJson(Map json) => Contact(
       phone: json['phone'] as String?,
       phoneDialCode: json['phoneDialCode'] as String?,
       phoneCountryIsoCode: json['phoneCountryIsoCode'] as String?,
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
     );
 
 Map<String, dynamic> _$ContactToJson(Contact instance) {

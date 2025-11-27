@@ -1,4 +1,4 @@
-import 'package:inker_studio/domain/models/user/registered_user_info.dart';
+import 'package:inker_studio/features/register/models/registered_user_info.dart' show RegisteredUserInfo, createdUserFromJson, createdUserToJson;
 import 'package:inker_studio/domain/services/local_storage/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,5 +47,17 @@ class SharedPreferencesStorage extends LocalStorage {
   Future<bool> setUserIsCreated(bool isCreated) async {
     final sp = await SharedPreferences.getInstance();
     return sp.setBool(userIsCreated, isCreated);
+  }
+
+  @override
+  Future<bool> setString(String key, String value) async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.setString(key, value);
+  }
+
+  @override
+  Future<String?> getString(String key) async {
+    final sp = await SharedPreferences.getInstance();
+    return sp.getString(key);
   }
 }

@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/data/api/artist/dtos/update_artist_dto.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
 import 'package:inker_studio/domain/services/artist/artist_service.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_status.dart';
 
 part 'artist_my_profile_event.dart';
 part 'artist_my_profile_state.dart';
@@ -11,8 +13,9 @@ part 'artist_my_profile_bloc.freezed.dart';
 
 class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
   final ArtistService _artistService;
+  final AuthBloc _authBloc;
 
-  ArtistMyProfileBloc(this._artistService)
+  ArtistMyProfileBloc(this._artistService, this._authBloc)
       : super(const ArtistProfileState.initial()) {
     on<ArtistProfileEvent>((event, emit) async {
       await event.when(
@@ -31,6 +34,8 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
             await _updateStudioPhoto(image, emit),
         updateEmail: (email) => _updateEmail(email, emit),
         updatePhone: (phone) => _updatePhone(phone, emit),
+        updateRequiresBasicConsent: (requiresConsent) =>
+            _updateRequiresBasicConsent(requiresConsent, emit),
       );
     });
   }
@@ -39,9 +44,19 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
     emit(const ArtistProfileState.loading());
     try {
       final artist = await _artistService.getArtistProfile();
+      print('artist: $artist');
+      if (artist == null) {
+        throw Exception('Artist is null');
+      }
       emit(ArtistProfileState.loaded(artist));
+      
     } catch (e) {
       emit(ArtistProfileState.error(e.toString()));
+      
+      // Si falla la carga del perfil, hacer logout
+      if (_authBloc.state.status == AuthStatus.authenticated) {
+        _authBloc.add(AuthLogoutRequested(_authBloc.state.session));
+      }
     }
   }
 
@@ -53,8 +68,12 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
         firstName: artist.firstName,
         lastName: artist.lastName,
         shortDescription: artist.shortDescription,
+        requiresBasicConsent: artist.requiresBasicConsent,
         contact: UpdateContactDto(
           email: artist.contact?.email,
+          phone: artist.contact?.phone,
+          phoneDialCode: artist.contact?.phoneDialCode,
+          phoneCountryIsoCode: artist.contact?.phoneCountryIsoCode,
         ),
       ));
       emit(ArtistProfileState.loaded(artist));
@@ -204,6 +223,21 @@ class ArtistMyProfileBloc extends Bloc<ArtistProfileEvent, ArtistProfileState> {
       orElse: () {
         emit(const ArtistProfileState.error(
             'No se puede actualizar el teléfono porque el perfil no está cargado.'));
+      },
+    );
+  }
+
+  Future<void> _updateRequiresBasicConsent(
+      bool requiresConsent, Emitter<ArtistProfileState> emit) async {
+    state.maybeWhen(
+      loaded: (artist) {
+        final updatedArtist =
+            artist.copyWith(requiresBasicConsent: requiresConsent);
+        add(ArtistProfileEvent.updateProfile(updatedArtist));
+      },
+      orElse: () {
+        emit(const ArtistProfileState.error(
+            'Cannot update consent setting because profile is not loaded.'));
       },
     );
   }

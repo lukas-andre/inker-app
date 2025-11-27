@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class GpsAccessScreen extends StatelessWidget {
   const GpsAccessScreen({super.key});
@@ -55,12 +53,13 @@ class AccessButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final platformService = context.read<PlatformService>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text(title),
         const SizedBox(height: 30),
-        Platform.isIOS
+        platformService.isIOS
             ? CupertinoButton(
                 child: Text(
                   accessButtonText,
@@ -69,7 +68,7 @@ class AccessButton extends StatelessWidget {
                 ),
                 onPressed: () => _handleAccess(context))
             : MaterialButton(
-                color: primaryColor,
+                color: Theme.of(context).colorScheme.surface,
                 onPressed: () => _handleAccess(context),
                 shape: const StadiumBorder(),
                 splashColor: Colors.transparent,

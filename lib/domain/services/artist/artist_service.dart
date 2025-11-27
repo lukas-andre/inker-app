@@ -8,7 +8,7 @@ import '../../models/artist/artist.dart';
 abstract class ArtistService {
   Future<Artist> getArtistProfile();
   Future<void> updateArtistProfile(UpdateArtistDto updateArtistDto);
-  Future<Artist> updateProfilePicture(int artistId, XFile image);
-  Future<Artist> updateStudioPhoto(int artistId, XFile image);
+  Future<Artist> updateProfilePicture(String artistId, XFile image);
+  Future<Artist> updateStudioPhoto(String artistId, XFile image);
   Future<SearchArtistResponseDto> searchArtists(SearchArtistDto searchParams);
 }

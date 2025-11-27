@@ -1,0 +1,779 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/artist/dtos/tag_dto.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
+import 'package:inker_studio/domain/models/stencil/stencil.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/theme/text_style_theme.dart';
+import 'package:inker_studio/utils/image/cached_image_manager.dart';
+import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
+import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
+
+class StencilGalleryPage extends StatefulWidget {
+  const StencilGalleryPage({super.key});
+
+  @override
+  State<StencilGalleryPage> createState() => _StencilGalleryPageState();
+}
+
+class _StencilGalleryPageState extends State<StencilGalleryPage> {
+  bool _showHidden = true;
+  String? _activeTagFilter;
+  List<TagSuggestionResponseDto> _popularTags = [];
+  bool _isLoadingTags = false;
+  
+  // Instancia del gestor de caché
+  final _imageCache = CachedImageManager();
+  
+  @override
+  void initState() {
+    super.initState();
+    _loadStencils();
+    _loadPopularTags();
+  }
+
+  void _loadStencils() {
+    if (_activeTagFilter != null) {
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.filterStencilsByTag(_activeTagFilter!),
+      );
+    } else {
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.loadStencils(_showHidden),
+      );
+    }
+  }
+
+  // Método para precargar imágenes de la galería
+  void _preloadStencilImages(List<Stencil> stencils) {
+    if (stencils.isEmpty || !mounted) return;
+    
+    // Extraer URLs de imágenes de stencils
+    final imageUrls = stencils.map((stencil) => 
+      stencil.thumbnailUrl ?? stencil.imageUrl
+    ).where((url) => url.isNotEmpty).toList();
+    
+    // Precargar las primeras 20 imágenes para rendimiento óptimo
+    if (imageUrls.isNotEmpty) {
+      _imageCache.preloadImages(
+        imageUrls.take(20).toList(),
+        context,
+      );
+    }
+  }
+
+  void _loadPopularTags() {
+    setState(() {
+      _isLoadingTags = true;
+    });
+    
+    context.read<ArtistStencilBloc>().add(
+      const ArtistStencilEvent.getPopularTags(),
+    );
+  }
+
+  void _toggleShowHidden() {
+    setState(() {
+      _showHidden = !_showHidden;
+      _activeTagFilter = null;
+    });
+    _loadStencils();
+  }
+
+  void _filterByTag(String tagId) {
+    if (_activeTagFilter == tagId) {
+      // Clear filter if already active
+      setState(() {
+        _activeTagFilter = null;
+      });
+      _loadStencils();
+    } else {
+      setState(() {
+        _activeTagFilter = tagId;
+      });
+      context.read<ArtistStencilBloc>().add(
+        ArtistStencilEvent.filterStencilsByTag(tagId),
+      );
+    }
+  }
+
+  void _navigateToAddStencil() {
+    Navigator.pushNamed(context, '/stencils/add').then((_) => _loadStencils());
+  }
+
+  void _navigateToStencilDetail(Stencil stencil) {
+    Navigator.pushNamed(
+      context, 
+      '/stencils/detail',
+      arguments: stencil,
+    ).then((_) => _loadStencils());
+  }
+
+  void _toggleFeatured(Stencil stencil) {
+    context.read<ArtistStencilBloc>().add(ArtistStencilEvent.toggleFeatured(stencil));
+  }
+
+  void _toggleVisibility(Stencil stencil) {
+    context.read<ArtistStencilBloc>().add(ArtistStencilEvent.toggleVisibility(stencil));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: AppBar(
+        title: Text(S.of(context).stencilGallery, style: TextStyleTheme.headline1),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(_showHidden ? Icons.visibility : Icons.visibility_off),
+            onPressed: _toggleShowHidden,
+            tooltip: _showHidden 
+                ? S.of(context).showingAllStencils
+                : S.of(context).hidingHiddenStencils,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _navigateToAddStencil,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
+      body: BlocConsumer<ArtistStencilBloc, ArtistStencilState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            loaded: (stencils) {
+              // Precargar imágenes cuando se cargan los stencils
+              _preloadStencilImages(stencils);
+            },
+            filteredByTag: (stencils, _) {
+              // Precargar imágenes cuando se filtran por tag
+              _preloadStencilImages(stencils);
+            },
+            popularTagsLoaded: (tags) {
+              setState(() {
+                _popularTags = tags;
+                _isLoadingTags = false;
+              });
+            },
+            error: (message) {
+              setState(() {
+                _isLoadingTags = false;
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                customSnackBar(
+                  content: message,
+                  backgroundColor: Colors.red,
+                ),
+              );
+            },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            initial: () => const Center(child: InkerProgressIndicator()),
+            loading: () => const Center(child: InkerProgressIndicator()),
+            loaded: (stencils) => _buildGallery(stencils),
+            filteredByTag: (stencils, tagId) {
+              _activeTagFilter = tagId;
+              return _buildGallery(stencils);
+            },
+            submitting: () => const Center(child: InkerProgressIndicator()),
+            error: (_) => _buildErrorView(),
+            orElse: () => const Center(child: InkerProgressIndicator()),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildGallery(List<Stencil> stencils) {
+    if (stencils.isEmpty && _activeTagFilter == null) {
+      return _buildEmptyView();
+    }
+
+    final featured = stencils.where((s) => s.isFeatured).toList();
+    final regular = stencils.where((s) => !s.isFeatured).toList();
+
+    return CustomScrollView(
+      slivers: [
+        if (_popularTags.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: _buildTagsList(),
+          ),
+          const SliverToBoxAdapter(
+            child: Divider(color: Colors.grey, height: 32),
+          ),
+        ],
+        if (stencils.isEmpty && _activeTagFilter != null)
+          SliverToBoxAdapter(
+            child: _buildEmptyTagFilterView(),
+          ),
+        if (featured.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              child: Text(
+                S.of(context).featuredStencils,
+                style: TextStyleTheme.headline3.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 220,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: featured.length,
+                itemBuilder: (context, index) {
+                  return _buildFeaturedStencilItem(featured[index]);
+                },
+              ),
+            ),
+          ),
+        ],
+        if (regular.isNotEmpty) ...[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, featured.isEmpty ? 16 : 24, 16, 8),
+              child: Text(
+                featured.isEmpty ? S.of(context).allStencils : S.of(context).allOtherStencils,
+                style: TextStyleTheme.headline3.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return _buildStencilItem(regular[index]);
+                },
+                childCount: regular.length,
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildTagsList() {
+    return Container(
+      height: 50,
+      margin: const EdgeInsets.only(top: 16),
+      child: _isLoadingTags
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: _popularTags.length,
+              itemBuilder: (context, index) {
+                final tag = _popularTags[index];
+                final isActive = _activeTagFilter == tag.id;
+                
+                return Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  child: FilterChip(
+                    label: Text(
+                      tag.name,
+                      style: TextStyleTheme.bodyText2.copyWith(
+                        color: isActive ? Colors.white : Colors.grey.shade300,
+                      ),
+                    ),
+                    selected: isActive,
+                    showCheckmark: false,
+                    backgroundColor: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.15).toColor(),
+                    selectedColor: Theme.of(context).colorScheme.secondary,
+                    onSelected: (_) => _filterByTag(tag.id),
+                  ),
+                );
+              },
+            ),
+    );
+  }
+
+  Widget _buildEmptyTagFilterView() {
+    final selectedTag = _popularTags.firstWhere(
+      (tag) => tag.id == _activeTagFilter,
+      orElse: () => const TagSuggestionResponseDto(id: '', name: 'Unknown'),
+    );
+    
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.filter_list,
+              size: 72,
+              color: Colors.grey.shade600,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              S.of(context).noStencilsWithTag(selectedTag.name),
+              style: TextStyleTheme.headline3.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() {
+                  _activeTagFilter = null;
+                });
+                _loadStencils();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: const Icon(Icons.clear_all, color: Colors.white),
+              label: Text(S.of(context).clearFilter, style: TextStyleTheme.button),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeaturedStencilItem(Stencil stencil) {
+    return Container(
+      width: 180,
+      margin: const EdgeInsets.only(right: 12),
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            offset: const Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => _navigateToStencilDetail(stencil),
+                child: _imageCache.buildHeroCachedImage(
+                  context: context,
+                  imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                  heroTag: 'stencil_${stencil.id}',
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: Row(
+              children: [
+                if (stencil.isHidden)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.visibility_off,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          S.of(context).hidden,
+                          style: TextStyleTheme.caption.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.7),
+                  ],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    stencil.title,
+                    style: TextStyleTheme.subtitle1.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (stencil.description != null && stencil.description!.isNotEmpty)
+                    Text(
+                      stencil.description!,
+                      style: TextStyleTheme.caption.copyWith(
+                        color: Colors.grey.shade300,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 20,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: stencil.tags!.length > 2 ? 2 : stencil.tags!.length,
+                        itemBuilder: (context, index) {
+                          final tag = stencil.tags![index];
+                          return Container(
+                            margin: const EdgeInsets.only(right: 4),
+                            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Text(
+                              tag.name,
+                              style: TextStyleTheme.caption.copyWith(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          stencil.isFeatured ? Icons.star : Icons.star_border,
+                          color: stencil.isFeatured ? Theme.of(context).colorScheme.secondary : Colors.grey.shade400,
+                          size: 20,
+                        ),
+                        onPressed: () => _toggleFeatured(stencil),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        tooltip: stencil.isFeatured ? S.of(context).unfeature : S.of(context).feature,
+                      ),
+                      const SizedBox(width: 12),
+                      IconButton(
+                        icon: Icon(
+                          stencil.isHidden ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.grey.shade400,
+                          size: 20,
+                        ),
+                        onPressed: () => _toggleVisibility(stencil),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        tooltip: stencil.isHidden ? S.of(context).show : S.of(context).hide,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStencilItem(Stencil stencil) {
+    return Container(
+      decoration: BoxDecoration(
+        color: HSLColor.fromColor(Theme.of(context).colorScheme.surface).withLightness(0.2).toColor(),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            offset: const Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () => _navigateToStencilDetail(stencil),
+                child: _imageCache.buildHeroCachedImage(
+                  context: context,
+                  imageUrl: stencil.thumbnailUrl ?? stencil.imageUrl,
+                  heroTag: 'stencil_${stencil.id}',
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 8,
+            right: 8,
+            child: Row(
+              children: [
+                if (stencil.isHidden)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Icon(
+                      Icons.visibility_off,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.7),
+                  ],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    stencil.title,
+                    style: TextStyleTheme.subtitle1.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (stencil.tags != null && stencil.tags!.isNotEmpty) ...[
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      height: 20,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: stencil.tags!.length > 2 ? 2 : stencil.tags!.length,
+                        itemBuilder: (context, index) {
+                          final tag = stencil.tags![index];
+                          return GestureDetector(
+                            onTap: () => _filterByTag(tag.id),
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 4),
+                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: _activeTagFilter == tag.id
+                                    ? Theme.of(context).colorScheme.secondary
+                                    : Theme.of(context).colorScheme.secondary.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                tag.name,
+                                style: TextStyleTheme.caption.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          stencil.isFeatured ? Icons.star : Icons.star_border,
+                          color: stencil.isFeatured ? Theme.of(context).colorScheme.secondary : Colors.grey.shade400,
+                          size: 20,
+                        ),
+                        onPressed: () => _toggleFeatured(stencil),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        tooltip: stencil.isFeatured ? S.of(context).unfeature : S.of(context).feature,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          stencil.isHidden ? Icons.visibility : Icons.visibility_off,
+                          color: Colors.grey.shade400,
+                          size: 20,
+                        ),
+                        onPressed: () => _toggleVisibility(stencil),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        tooltip: stencil.isHidden ? S.of(context).show : S.of(context).hide,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyView() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.brush,
+            size: 72,
+            color: Colors.grey.shade600,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            S.of(context).noStencilsYet,
+            style: TextStyleTheme.headline3.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            S.of(context).addYourFirstStencil,
+            style: TextStyleTheme.bodyText1.copyWith(
+              color: Colors.grey.shade400,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton.icon(
+            onPressed: _navigateToAddStencil,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            icon: const Icon(Icons.add, color: Colors.white),
+            label: Text(S.of(context).addStencil, style: TextStyleTheme.button),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildErrorView() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: 72,
+            color: Colors.red.shade400,
+          ),
+          const SizedBox(height: 24),
+          Text(
+            S.of(context).errorLoadingStencils,
+            style: TextStyleTheme.headline3.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            S.of(context).tryAgainLater,
+            style: TextStyleTheme.bodyText1.copyWith(
+              color: Colors.grey.shade400,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton.icon(
+            onPressed: _loadStencils,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            icon: const Icon(Icons.refresh),
+            label: Text(S.of(context).refresh),
+          ),
+        ],
+      ),
+    );
+  }
+}

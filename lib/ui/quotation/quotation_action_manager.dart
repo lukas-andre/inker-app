@@ -1,14 +1,23 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 import 'package:inker_studio/domain/models/quotation/quotation_action_enum.dart';
-import 'package:inker_studio/domain/models/session/session.dart';
+import 'package:inker_studio/features/auth_shared/models/session/session.dart' show Session;
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/keys.dart';
+import 'package:inker_studio/ui/shared/widgets/simple_consent_dialog.dart';
 
-enum QuotationActionType { reply, reject, rejectAppeal, cancel, accept, appeal }
+enum QuotationActionType {
+  reply,
+  reject,
+  rejectAppeal,
+  cancel,
+  accept,
+  appeal,
+  edit
+}
 
 class QuotationAction {
   final QuotationActionType type;
@@ -80,6 +89,17 @@ class QuotationActionManager {
             },
           ),
         ];
+      case QuotationStatus.open:
+        // return [
+        //   QuotationAction(
+        //     type: QuotationActionType.reply,
+        //     label: 'Enviar Propuesta',
+        //     icon: Icons.send,
+        //     isPrimary: true,
+        //     routeName: '/artistQuotationResponse',
+        //     routeArguments: {'quotationId': quotation.id.toString()},
+        //   ),
+        // ];
       default:
         return [];
     }
@@ -87,6 +107,22 @@ class QuotationActionManager {
 
   List<QuotationAction> _getCustomerActions() {
     switch (quotation.status) {
+      case QuotationStatus.open:
+        return [
+          QuotationAction(
+            type: QuotationActionType.edit,
+            label: l10n.edit,
+            icon: Icons.edit,
+            isPrimary: true,
+            routeName: '/editOpenQuotation',
+            routeArguments: {'quotation': quotation},
+          ),
+          QuotationAction(
+            type: QuotationActionType.cancel,
+            label: l10n.cancel,
+            icon: Icons.cancel,
+          ),
+        ];
       case QuotationStatus.pending:
         return [
           QuotationAction(
@@ -132,17 +168,53 @@ class QuotationActionManager {
           ),
         ];
       default:
-        return [];
+        return [
+          if (quotation.type == QuotationType.OPEN &&
+              session.user?.id == quotation.customerId)
+            QuotationAction(
+              type: QuotationActionType.edit,
+              label: l10n.edit,
+              icon: Icons.edit,
+              isPrimary: true,
+              routeName: '/editOpenQuotation',
+              routeArguments: {'quotation': quotation},
+            ),
+        ];
     }
   }
 
   Future<void> executeAction(QuotationAction action) async {
     if (action.routeName != null) {
+      // ** V1 Consent Check **
+      // If the user is a customer accepting an offer, check if consent is needed.
+      if (!isArtist &&
+          action.type == QuotationActionType.accept &&
+          quotation.artist?.requiresBasicConsent == true) {
+        
+        final consentGiven = await showDialog<bool>(
+          context: context,
+          builder: (_) => SimpleConsentDialog(
+            onConsentGiven: () {
+              // The dialog will pop itself with `true`, but we could
+              // also perform an action right when the user clicks confirm.
+            },
+          ),
+        );
+
+        // If the user did not give consent (closed the dialog or hit cancel), stop here.
+        if (consentGiven != true) {
+          return;
+        }
+      }
+      
       final result = await Navigator.of(context).pushNamed(
         action.routeName!,
         arguments: action.routeArguments,
       );
+
+      // If action was completed successfully
       if (result == true) {
+        // Notify that an action was executed so we can update UI
         onActionExecuted(action.type, quotation.id.toString());
       }
     } else {
@@ -159,8 +231,9 @@ class QuotationActionManager {
 
   Future<void> _showCancelConfirmationDialog() async {
     bool? confirmed;
+    final platformService = context.read<PlatformService>();
 
-    if (Platform.isIOS) {
+    if (platformService.isIOS) {
       confirmed = await showCupertinoDialog<bool>(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(

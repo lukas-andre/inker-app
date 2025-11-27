@@ -20,20 +20,22 @@ mixin _$ArtistReviewsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,18 +43,20 @@ mixin _$ArtistReviewsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) =>
       throw _privateConstructorUsedError;
@@ -60,18 +64,19 @@ mixin _$ArtistReviewsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) =>
@@ -187,20 +192,22 @@ class _$InitialEventImpl implements _InitialEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return initial();
@@ -211,18 +218,20 @@ class _$InitialEventImpl implements _InitialEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return initial?.call();
@@ -233,18 +242,19 @@ class _$InitialEventImpl implements _InitialEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -362,20 +372,22 @@ class _$LoadingEventImpl implements _LoadingEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return loading();
@@ -386,18 +398,20 @@ class _$LoadingEventImpl implements _LoadingEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return loading?.call();
@@ -408,18 +422,19 @@ class _$LoadingEventImpl implements _LoadingEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -503,7 +518,7 @@ abstract class _$$LoadReviewsEventImplCopyWith<$Res> {
           $Res Function(_$LoadReviewsEventImpl) then) =
       __$$LoadReviewsEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int artistId});
+  $Res call({String artistId});
 }
 
 /// @nodoc
@@ -523,7 +538,7 @@ class __$$LoadReviewsEventImplCopyWithImpl<$Res>
       null == artistId
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -534,7 +549,7 @@ class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
   const _$LoadReviewsEventImpl(this.artistId);
 
   @override
-  final int artistId;
+  final String artistId;
 
   @override
   String toString() {
@@ -565,20 +580,22 @@ class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return loadReviews(artistId);
@@ -589,18 +606,20 @@ class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return loadReviews?.call(artistId);
@@ -611,18 +630,19 @@ class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -697,9 +717,10 @@ class _$LoadReviewsEventImpl implements _LoadReviewsEvent {
 }
 
 abstract class _LoadReviewsEvent implements ArtistReviewsEvent {
-  const factory _LoadReviewsEvent(final int artistId) = _$LoadReviewsEventImpl;
+  const factory _LoadReviewsEvent(final String artistId) =
+      _$LoadReviewsEventImpl;
 
-  int get artistId;
+  String get artistId;
   @JsonKey(ignore: true)
   _$$LoadReviewsEventImplCopyWith<_$LoadReviewsEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -713,8 +734,8 @@ abstract class _$$LoadReviewsSuccessEventImplCopyWith<$Res> {
       __$$LoadReviewsSuccessEventImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -739,11 +760,11 @@ class __$$LoadReviewsSuccessEventImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -756,24 +777,24 @@ class __$$LoadReviewsSuccessEventImplCopyWithImpl<$Res>
 
 class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
   const _$LoadReviewsSuccessEventImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -824,20 +845,22 @@ class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return loadReviewsSuccess(reviewReactions, customerReactions, reviews);
@@ -848,18 +871,20 @@ class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return loadReviewsSuccess?.call(
@@ -871,18 +896,19 @@ class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -958,12 +984,12 @@ class _$LoadReviewsSuccessEventImpl implements _LoadReviewsSuccessEvent {
 
 abstract class _LoadReviewsSuccessEvent implements ArtistReviewsEvent {
   const factory _LoadReviewsSuccessEvent(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$LoadReviewsSuccessEventImpl;
 
-  Map<int, Reactions> get reviewReactions;
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reactions> get reviewReactions;
+  Map<String, Reaction> get customerReactions;
   List<ReviewItem> get reviews;
   @JsonKey(ignore: true)
   _$$LoadReviewsSuccessEventImplCopyWith<_$LoadReviewsSuccessEventImpl>
@@ -1038,20 +1064,22 @@ class _$LoadReviewsErrorEventImpl implements _LoadReviewsErrorEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return loadReviewsError(message);
@@ -1062,18 +1090,20 @@ class _$LoadReviewsErrorEventImpl implements _LoadReviewsErrorEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return loadReviewsError?.call(message);
@@ -1084,18 +1114,19 @@ class _$LoadReviewsErrorEventImpl implements _LoadReviewsErrorEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -1220,20 +1251,22 @@ class _$LoadMoreReviewsEventImpl implements _LoadMoreReviewsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return loadMoreReviews();
@@ -1244,18 +1277,20 @@ class _$LoadMoreReviewsEventImpl implements _LoadMoreReviewsEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return loadMoreReviews?.call();
@@ -1266,18 +1301,19 @@ class _$LoadMoreReviewsEventImpl implements _LoadMoreReviewsEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -1395,20 +1431,22 @@ class _$NoMoreDataEventImpl implements _NoMoreDataEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return noMoreData();
@@ -1419,18 +1457,20 @@ class _$NoMoreDataEventImpl implements _NoMoreDataEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return noMoreData?.call();
@@ -1441,18 +1481,19 @@ class _$NoMoreDataEventImpl implements _NoMoreDataEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -1536,7 +1577,7 @@ abstract class _$$ReviewLikedImplCopyWith<$Res> {
           _$ReviewLikedImpl value, $Res Function(_$ReviewLikedImpl) then) =
       __$$ReviewLikedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int reviewId, int customerId});
+  $Res call({String reviewId, String customerId});
 }
 
 /// @nodoc
@@ -1557,11 +1598,11 @@ class __$$ReviewLikedImplCopyWithImpl<$Res>
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1572,9 +1613,9 @@ class _$ReviewLikedImpl implements _ReviewLiked {
   const _$ReviewLikedImpl({required this.reviewId, required this.customerId});
 
   @override
-  final int reviewId;
+  final String reviewId;
   @override
-  final int customerId;
+  final String customerId;
 
   @override
   String toString() {
@@ -1606,20 +1647,22 @@ class _$ReviewLikedImpl implements _ReviewLiked {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return reviewLiked(reviewId, customerId);
@@ -1630,18 +1673,20 @@ class _$ReviewLikedImpl implements _ReviewLiked {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return reviewLiked?.call(reviewId, customerId);
@@ -1652,18 +1697,19 @@ class _$ReviewLikedImpl implements _ReviewLiked {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -1739,11 +1785,11 @@ class _$ReviewLikedImpl implements _ReviewLiked {
 
 abstract class _ReviewLiked implements ArtistReviewsEvent {
   const factory _ReviewLiked(
-      {required final int reviewId,
-      required final int customerId}) = _$ReviewLikedImpl;
+      {required final String reviewId,
+      required final String customerId}) = _$ReviewLikedImpl;
 
-  int get reviewId;
-  int get customerId;
+  String get reviewId;
+  String get customerId;
   @JsonKey(ignore: true)
   _$$ReviewLikedImplCopyWith<_$ReviewLikedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1755,7 +1801,7 @@ abstract class _$$ReviewDislikedImplCopyWith<$Res> {
           $Res Function(_$ReviewDislikedImpl) then) =
       __$$ReviewDislikedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int reviewId, int customerId});
+  $Res call({String reviewId, String customerId});
 }
 
 /// @nodoc
@@ -1776,11 +1822,11 @@ class __$$ReviewDislikedImplCopyWithImpl<$Res>
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -1792,9 +1838,9 @@ class _$ReviewDislikedImpl implements _ReviewDisliked {
       {required this.reviewId, required this.customerId});
 
   @override
-  final int reviewId;
+  final String reviewId;
   @override
-  final int customerId;
+  final String customerId;
 
   @override
   String toString() {
@@ -1827,20 +1873,22 @@ class _$ReviewDislikedImpl implements _ReviewDisliked {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return reviewDisliked(reviewId, customerId);
@@ -1851,18 +1899,20 @@ class _$ReviewDislikedImpl implements _ReviewDisliked {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return reviewDisliked?.call(reviewId, customerId);
@@ -1873,18 +1923,19 @@ class _$ReviewDislikedImpl implements _ReviewDisliked {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -1960,11 +2011,11 @@ class _$ReviewDislikedImpl implements _ReviewDisliked {
 
 abstract class _ReviewDisliked implements ArtistReviewsEvent {
   const factory _ReviewDisliked(
-      {required final int reviewId,
-      required final int customerId}) = _$ReviewDislikedImpl;
+      {required final String reviewId,
+      required final String customerId}) = _$ReviewDislikedImpl;
 
-  int get reviewId;
-  int get customerId;
+  String get reviewId;
+  String get customerId;
   @JsonKey(ignore: true)
   _$$ReviewDislikedImplCopyWith<_$ReviewDislikedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1976,7 +2027,7 @@ abstract class _$$ReviewLikeRemovedImplCopyWith<$Res> {
           $Res Function(_$ReviewLikeRemovedImpl) then) =
       __$$ReviewLikeRemovedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int reviewId, int customerId});
+  $Res call({String reviewId, String customerId});
 }
 
 /// @nodoc
@@ -1997,11 +2048,11 @@ class __$$ReviewLikeRemovedImplCopyWithImpl<$Res>
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2013,9 +2064,9 @@ class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
       {required this.reviewId, required this.customerId});
 
   @override
-  final int reviewId;
+  final String reviewId;
   @override
-  final int customerId;
+  final String customerId;
 
   @override
   String toString() {
@@ -2048,20 +2099,22 @@ class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return reviewLikeRemoved(reviewId, customerId);
@@ -2072,18 +2125,20 @@ class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return reviewLikeRemoved?.call(reviewId, customerId);
@@ -2094,18 +2149,19 @@ class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -2181,11 +2237,11 @@ class _$ReviewLikeRemovedImpl implements _ReviewLikeRemoved {
 
 abstract class _ReviewLikeRemoved implements ArtistReviewsEvent {
   const factory _ReviewLikeRemoved(
-      {required final int reviewId,
-      required final int customerId}) = _$ReviewLikeRemovedImpl;
+      {required final String reviewId,
+      required final String customerId}) = _$ReviewLikeRemovedImpl;
 
-  int get reviewId;
-  int get customerId;
+  String get reviewId;
+  String get customerId;
   @JsonKey(ignore: true)
   _$$ReviewLikeRemovedImplCopyWith<_$ReviewLikeRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2198,7 +2254,7 @@ abstract class _$$ReviewDislikedRemovedImplCopyWith<$Res> {
           $Res Function(_$ReviewDislikedRemovedImpl) then) =
       __$$ReviewDislikedRemovedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int reviewId, int customerId});
+  $Res call({String reviewId, String customerId});
 }
 
 /// @nodoc
@@ -2219,11 +2275,11 @@ class __$$ReviewDislikedRemovedImplCopyWithImpl<$Res>
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -2235,9 +2291,9 @@ class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
       {required this.reviewId, required this.customerId});
 
   @override
-  final int reviewId;
+  final String reviewId;
   @override
-  final int customerId;
+  final String customerId;
 
   @override
   String toString() {
@@ -2270,20 +2326,22 @@ class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return reviewDislikedRemoved(reviewId, customerId);
@@ -2294,18 +2352,20 @@ class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return reviewDislikedRemoved?.call(reviewId, customerId);
@@ -2316,18 +2376,19 @@ class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -2403,11 +2464,11 @@ class _$ReviewDislikedRemovedImpl implements _ReviewDislikedRemoved {
 
 abstract class _ReviewDislikedRemoved implements ArtistReviewsEvent {
   const factory _ReviewDislikedRemoved(
-      {required final int reviewId,
-      required final int customerId}) = _$ReviewDislikedRemovedImpl;
+      {required final String reviewId,
+      required final String customerId}) = _$ReviewDislikedRemovedImpl;
 
-  int get reviewId;
-  int get customerId;
+  String get reviewId;
+  String get customerId;
   @JsonKey(ignore: true)
   _$$ReviewDislikedRemovedImplCopyWith<_$ReviewDislikedRemovedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2419,7 +2480,7 @@ abstract class _$$SwitchReviewReactionImplCopyWith<$Res> {
           $Res Function(_$SwitchReviewReactionImpl) then) =
       __$$SwitchReviewReactionImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int reviewId, int customerId, bool liked, bool disliked});
+  $Res call({String reviewId, String customerId, bool liked, bool disliked});
 }
 
 /// @nodoc
@@ -2442,11 +2503,11 @@ class __$$SwitchReviewReactionImplCopyWithImpl<$Res>
       reviewId: null == reviewId
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       liked: null == liked
           ? _value.liked
           : liked // ignore: cast_nullable_to_non_nullable
@@ -2469,9 +2530,9 @@ class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
       required this.disliked});
 
   @override
-  final int reviewId;
+  final String reviewId;
   @override
-  final int customerId;
+  final String customerId;
   @override
   final bool liked;
   @override
@@ -2513,20 +2574,22 @@ class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(int artistId) loadReviews,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(String artistId) loadReviews,
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadReviewsSuccess,
     required TResult Function(String message) loadReviewsError,
     required TResult Function() loadMoreReviews,
     required TResult Function() noMoreData,
-    required TResult Function(int reviewId, int customerId) reviewLiked,
-    required TResult Function(int reviewId, int customerId) reviewDisliked,
-    required TResult Function(int reviewId, int customerId) reviewLikeRemoved,
-    required TResult Function(int reviewId, int customerId)
+    required TResult Function(String reviewId, String customerId) reviewLiked,
+    required TResult Function(String reviewId, String customerId)
+        reviewDisliked,
+    required TResult Function(String reviewId, String customerId)
+        reviewLikeRemoved,
+    required TResult Function(String reviewId, String customerId)
         reviewDislikedRemoved,
     required TResult Function(
-            int reviewId, int customerId, bool liked, bool disliked)
+            String reviewId, String customerId, bool liked, bool disliked)
         switchReviewReaction,
   }) {
     return switchReviewReaction(reviewId, customerId, liked, disliked);
@@ -2537,18 +2600,20 @@ class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(int artistId)? loadReviews,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(String artistId)? loadReviews,
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult? Function(String message)? loadReviewsError,
     TResult? Function()? loadMoreReviews,
     TResult? Function()? noMoreData,
-    TResult? Function(int reviewId, int customerId)? reviewLiked,
-    TResult? Function(int reviewId, int customerId)? reviewDisliked,
-    TResult? Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult? Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult? Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult? Function(String reviewId, String customerId)? reviewLiked,
+    TResult? Function(String reviewId, String customerId)? reviewDisliked,
+    TResult? Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult? Function(String reviewId, String customerId)?
+        reviewDislikedRemoved,
+    TResult? Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
   }) {
     return switchReviewReaction?.call(reviewId, customerId, liked, disliked);
@@ -2559,18 +2624,19 @@ class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(int artistId)? loadReviews,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(String artistId)? loadReviews,
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadReviewsSuccess,
     TResult Function(String message)? loadReviewsError,
     TResult Function()? loadMoreReviews,
     TResult Function()? noMoreData,
-    TResult Function(int reviewId, int customerId)? reviewLiked,
-    TResult Function(int reviewId, int customerId)? reviewDisliked,
-    TResult Function(int reviewId, int customerId)? reviewLikeRemoved,
-    TResult Function(int reviewId, int customerId)? reviewDislikedRemoved,
-    TResult Function(int reviewId, int customerId, bool liked, bool disliked)?
+    TResult Function(String reviewId, String customerId)? reviewLiked,
+    TResult Function(String reviewId, String customerId)? reviewDisliked,
+    TResult Function(String reviewId, String customerId)? reviewLikeRemoved,
+    TResult Function(String reviewId, String customerId)? reviewDislikedRemoved,
+    TResult Function(
+            String reviewId, String customerId, bool liked, bool disliked)?
         switchReviewReaction,
     required TResult orElse(),
   }) {
@@ -2646,13 +2712,13 @@ class _$SwitchReviewReactionImpl implements _SwitchReviewReaction {
 
 abstract class _SwitchReviewReaction implements ArtistReviewsEvent {
   const factory _SwitchReviewReaction(
-      {required final int reviewId,
-      required final int customerId,
+      {required final String reviewId,
+      required final String customerId,
       required final bool liked,
       required final bool disliked}) = _$SwitchReviewReactionImpl;
 
-  int get reviewId;
-  int get customerId;
+  String get reviewId;
+  String get customerId;
   bool get liked;
   bool get disliked;
   @JsonKey(ignore: true)
@@ -2662,91 +2728,92 @@ abstract class _SwitchReviewReaction implements ArtistReviewsEvent {
 
 /// @nodoc
 mixin _$ArtistReviewsState {
-  Map<int, Reactions> get reviewReactions => throw _privateConstructorUsedError;
-  Map<int, Reaction> get customerReactions =>
+  Map<String, Reactions> get reviewReactions =>
+      throw _privateConstructorUsedError;
+  Map<String, Reaction> get customerReactions =>
       throw _privateConstructorUsedError;
   List<ReviewItem> get reviews => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) =>
@@ -2798,8 +2865,8 @@ abstract class $ArtistReviewsStateCopyWith<$Res> {
       _$ArtistReviewsStateCopyWithImpl<$Res, ArtistReviewsState>;
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -2824,11 +2891,11 @@ class _$ArtistReviewsStateCopyWithImpl<$Res, $Val extends ArtistReviewsState>
       reviewReactions: null == reviewReactions
           ? _value.reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value.customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -2846,8 +2913,8 @@ abstract class _$$ArtistReviewsInitialImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -2870,11 +2937,11 @@ class __$$ArtistReviewsInitialImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -2887,26 +2954,26 @@ class __$$ArtistReviewsInitialImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
   const _$ArtistReviewsInitialImpl(
-      {final Map<int, Reactions> reviewReactions = const {},
-      final Map<int, Reaction> customerReactions = const {},
+      {final Map<String, Reactions> reviewReactions = const {},
+      final Map<String, Reaction> customerReactions = const {},
       final List<ReviewItem> reviews = const []})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
   @JsonKey()
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
   @JsonKey()
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -2957,29 +3024,29 @@ class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return initial(reviewReactions, customerReactions, reviews);
@@ -2988,29 +3055,29 @@ class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return initial?.call(reviewReactions, customerReactions, reviews);
@@ -3019,29 +3086,29 @@ class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -3100,14 +3167,14 @@ class _$ArtistReviewsInitialImpl implements ArtistReviewsInitial {
 
 abstract class ArtistReviewsInitial implements ArtistReviewsState {
   const factory ArtistReviewsInitial(
-      {final Map<int, Reactions> reviewReactions,
-      final Map<int, Reaction> customerReactions,
+      {final Map<String, Reactions> reviewReactions,
+      final Map<String, Reaction> customerReactions,
       final List<ReviewItem> reviews}) = _$ArtistReviewsInitialImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
@@ -3125,8 +3192,8 @@ abstract class _$$ArtistReviewsLoadingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -3149,11 +3216,11 @@ class __$$ArtistReviewsLoadingImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -3166,24 +3233,24 @@ class __$$ArtistReviewsLoadingImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
   const _$ArtistReviewsLoadingImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -3233,29 +3300,29 @@ class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return loading(reviewReactions, customerReactions, reviews);
@@ -3264,29 +3331,29 @@ class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return loading?.call(reviewReactions, customerReactions, reviews);
@@ -3295,29 +3362,29 @@ class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -3376,14 +3443,14 @@ class _$ArtistReviewsLoadingImpl implements ArtistReviewsLoading {
 
 abstract class ArtistReviewsLoading implements ArtistReviewsState {
   const factory ArtistReviewsLoading(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadingImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
@@ -3401,8 +3468,8 @@ abstract class _$$ArtistReviewsLoadedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -3425,11 +3492,11 @@ class __$$ArtistReviewsLoadedImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -3442,24 +3509,24 @@ class __$$ArtistReviewsLoadedImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
   const _$ArtistReviewsLoadedImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -3508,29 +3575,29 @@ class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return loaded(reviewReactions, customerReactions, reviews);
@@ -3539,29 +3606,29 @@ class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return loaded?.call(reviewReactions, customerReactions, reviews);
@@ -3570,29 +3637,29 @@ class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -3651,14 +3718,14 @@ class _$ArtistReviewsLoadedImpl implements ArtistReviewsLoaded {
 
 abstract class ArtistReviewsLoaded implements ArtistReviewsState {
   const factory ArtistReviewsLoaded(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadedImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
@@ -3676,8 +3743,8 @@ abstract class _$$ArtistReviewsErrorImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews,
       String message});
 }
@@ -3702,11 +3769,11 @@ class __$$ArtistReviewsErrorImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -3723,25 +3790,25 @@ class __$$ArtistReviewsErrorImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
   const _$ArtistReviewsErrorImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
       required this.message})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -3795,29 +3862,29 @@ class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return error(reviewReactions, customerReactions, reviews, message);
@@ -3826,29 +3893,29 @@ class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return error?.call(reviewReactions, customerReactions, reviews, message);
@@ -3857,29 +3924,29 @@ class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -3938,15 +4005,15 @@ class _$ArtistReviewsErrorImpl implements ArtistReviewsError {
 
 abstract class ArtistReviewsError implements ArtistReviewsState {
   const factory ArtistReviewsError(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews,
       required final String message}) = _$ArtistReviewsErrorImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   String get message;
@@ -3965,8 +4032,8 @@ abstract class _$$ArtistReviewsNoDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -3989,11 +4056,11 @@ class __$$ArtistReviewsNoDataImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -4006,24 +4073,24 @@ class __$$ArtistReviewsNoDataImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
   const _$ArtistReviewsNoDataImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -4072,29 +4139,29 @@ class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return noData(reviewReactions, customerReactions, reviews);
@@ -4103,29 +4170,29 @@ class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return noData?.call(reviewReactions, customerReactions, reviews);
@@ -4134,29 +4201,29 @@ class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -4215,14 +4282,14 @@ class _$ArtistReviewsNoDataImpl implements ArtistReviewsNoData {
 
 abstract class ArtistReviewsNoData implements ArtistReviewsState {
   const factory ArtistReviewsNoData(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$ArtistReviewsNoDataImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
@@ -4241,8 +4308,8 @@ abstract class _$$ArtistReviewsLoadedMoreImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -4267,11 +4334,11 @@ class __$$ArtistReviewsLoadedMoreImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -4284,24 +4351,24 @@ class __$$ArtistReviewsLoadedMoreImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
   const _$ArtistReviewsLoadedMoreImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -4350,29 +4417,29 @@ class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return loadedMore(reviewReactions, customerReactions, reviews);
@@ -4381,29 +4448,29 @@ class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return loadedMore?.call(reviewReactions, customerReactions, reviews);
@@ -4412,29 +4479,29 @@ class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -4493,14 +4560,14 @@ class _$ArtistReviewsLoadedMoreImpl implements ArtistReviewsLoadedMore {
 
 abstract class ArtistReviewsLoadedMore implements ArtistReviewsState {
   const factory ArtistReviewsLoadedMore(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$ArtistReviewsLoadedMoreImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
@@ -4519,8 +4586,8 @@ abstract class _$$ArtistReviewsNoMoreDataImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Map<int, Reactions> reviewReactions,
-      Map<int, Reaction> customerReactions,
+      {Map<String, Reactions> reviewReactions,
+      Map<String, Reaction> customerReactions,
       List<ReviewItem> reviews});
 }
 
@@ -4545,11 +4612,11 @@ class __$$ArtistReviewsNoMoreDataImplCopyWithImpl<$Res>
       reviewReactions: null == reviewReactions
           ? _value._reviewReactions
           : reviewReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reactions>,
+              as Map<String, Reactions>,
       customerReactions: null == customerReactions
           ? _value._customerReactions
           : customerReactions // ignore: cast_nullable_to_non_nullable
-              as Map<int, Reaction>,
+              as Map<String, Reaction>,
       reviews: null == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -4562,24 +4629,24 @@ class __$$ArtistReviewsNoMoreDataImplCopyWithImpl<$Res>
 
 class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
   const _$ArtistReviewsNoMoreDataImpl(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews})
       : _reviewReactions = reviewReactions,
         _customerReactions = customerReactions,
         _reviews = reviews;
 
-  final Map<int, Reactions> _reviewReactions;
+  final Map<String, Reactions> _reviewReactions;
   @override
-  Map<int, Reactions> get reviewReactions {
+  Map<String, Reactions> get reviewReactions {
     if (_reviewReactions is EqualUnmodifiableMapView) return _reviewReactions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_reviewReactions);
   }
 
-  final Map<int, Reaction> _customerReactions;
+  final Map<String, Reaction> _customerReactions;
   @override
-  Map<int, Reaction> get customerReactions {
+  Map<String, Reaction> get customerReactions {
     if (_customerReactions is EqualUnmodifiableMapView)
       return _customerReactions;
     // ignore: implicit_dynamic_type
@@ -4628,29 +4695,29 @@ class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         initial,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loading,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loaded,
     required TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)
         error,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noData,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         loadedMore,
-    required TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)
+    required TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)
         noMoreData,
   }) {
     return noMoreData(reviewReactions, customerReactions, reviews);
@@ -4659,29 +4726,29 @@ class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult? Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult? Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult? Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
   }) {
     return noMoreData?.call(reviewReactions, customerReactions, reviews);
@@ -4690,29 +4757,29 @@ class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         initial,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loading,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loaded,
     TResult Function(
-            Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions,
+            Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions,
             List<ReviewItem> reviews,
             String message)?
         error,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noData,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         loadedMore,
-    TResult Function(Map<int, Reactions> reviewReactions,
-            Map<int, Reaction> customerReactions, List<ReviewItem> reviews)?
+    TResult Function(Map<String, Reactions> reviewReactions,
+            Map<String, Reaction> customerReactions, List<ReviewItem> reviews)?
         noMoreData,
     required TResult orElse(),
   }) {
@@ -4771,14 +4838,14 @@ class _$ArtistReviewsNoMoreDataImpl implements ArtistReviewsNoMoreData {
 
 abstract class ArtistReviewsNoMoreData implements ArtistReviewsState {
   const factory ArtistReviewsNoMoreData(
-      {required final Map<int, Reactions> reviewReactions,
-      required final Map<int, Reaction> customerReactions,
+      {required final Map<String, Reactions> reviewReactions,
+      required final Map<String, Reaction> customerReactions,
       required final List<ReviewItem> reviews}) = _$ArtistReviewsNoMoreDataImpl;
 
   @override
-  Map<int, Reactions> get reviewReactions;
+  Map<String, Reactions> get reviewReactions;
   @override
-  Map<int, Reaction> get customerReactions;
+  Map<String, Reaction> get customerReactions;
   @override
   List<ReviewItem> get reviews;
   @override
