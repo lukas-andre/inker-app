@@ -22,4 +22,6 @@ class ArtistProfileEvent with _$ArtistProfileEvent {
       _UpdateEmail;
   const factory ArtistProfileEvent.updatePhone(String studioName) =
       _UpdatePhone;
+  const factory ArtistProfileEvent.updateRequiresBasicConsent(
+      bool requiresConsent) = _UpdateRequiresBasicConsent;
 }

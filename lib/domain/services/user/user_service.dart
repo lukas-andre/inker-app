@@ -2,7 +2,7 @@ import 'package:inker_studio/data/api/user/dtos/create_user_request.dart';
 import 'package:inker_studio/data/api/user/dtos/get_user_by_social_media_response.dart';
 import 'package:inker_studio/data/api/user/dtos/send_verification_code_response.dart';
 import 'package:inker_studio/domain/models/notifications/notification_types.dart';
-import 'package:inker_studio/domain/models/user/user.dart';
+import 'package:inker_studio/features/auth_shared/models/user.dart' show User;
 
 abstract class UserService {
   Future<User> user();

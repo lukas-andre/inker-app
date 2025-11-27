@@ -48,6 +48,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
     );
   }
 
+  // TODO: REMOVE THIS
   Future<void> _addEvent(Emitter<ArtistAgendaState> emit,
       ArtistAgendaEventDetails eventDetails) async {
     emit(const ArtistAgendaStateLoading());
@@ -61,6 +62,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
     }
   }
 
+  // TODO: REMOVE THIS
   Future<void> _deleteEvent(
       Emitter<ArtistAgendaState> emit, String eventId) async {
     emit(const ArtistAgendaStateLoading());
@@ -74,6 +76,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
     }
   }
 
+  // TODO: REMOVE THIS
   Future<void> _updateEvent(Emitter<ArtistAgendaState> emit,
       ArtistAgendaEventDetails eventDetails) async {
     emit(const ArtistAgendaStateLoading());
@@ -115,7 +118,7 @@ class ArtistAgendaBloc extends Bloc<ArtistAgendaEvent, ArtistAgendaState> {
         return ArtistAgendaEventDetails(
           id: event.id.toString(),
           title: event.title,
-          description: event.info,
+          description: event.info ?? '',
           startDate: event.start,
           endDate: event.end,
           location: '',

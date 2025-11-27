@@ -38,19 +38,19 @@ class PredictionResult extends Equatable {
 class Prediction extends Equatable {
   const Prediction({
     required this.description,
-    required this.matchedSubstrings,
+    this.matchedSubstrings = const [],
     required this.placeId,
-    required this.reference,
-    required this.structuredFormatting,
-    required this.terms,
-    required this.types,
+    this.reference,
+    this.structuredFormatting,
+    this.terms = const [],
+    this.types = const [],
   });
 
   final String description;
   final List<MatchedSubstring> matchedSubstrings;
   final String placeId;
-  final String reference;
-  final StructuredFormatting structuredFormatting;
+  final String? reference;
+  final StructuredFormatting? structuredFormatting;
   final List<Term> terms;
   final List<String> types;
 
@@ -60,16 +60,27 @@ class Prediction extends Equatable {
   String toRawJson() => json.encode(toJson());
 
   factory Prediction.fromJson(Map<String, dynamic> json) => Prediction(
-        description: json['description'],
-        matchedSubstrings: List<MatchedSubstring>.from(
-            json['matched_substrings']
-                .map((x) => MatchedSubstring.fromJson(x))),
-        placeId: json['place_id'],
+        description: json['description'] ?? '',
+        matchedSubstrings: json['matched_substrings'] != null
+            ? List<MatchedSubstring>.from(
+                json['matched_substrings'].map((x) => MatchedSubstring.fromJson(x)))
+            : json['matchedSubstrings'] != null
+                ? List<MatchedSubstring>.from(
+                    json['matchedSubstrings'].map((x) => MatchedSubstring.fromJson(x)))
+                : [],
+        placeId: json['place_id'] ?? json['placeId'] ?? '',
         reference: json['reference'],
-        structuredFormatting:
-            StructuredFormatting.fromJson(json['structured_formatting']),
-        terms: List<Term>.from(json['terms'].map((x) => Term.fromJson(x))),
-        types: List<String>.from(json['types'].map((x) => x)),
+        structuredFormatting: json['structured_formatting'] != null
+            ? StructuredFormatting.fromJson(json['structured_formatting'])
+            : json['structuredFormatting'] != null
+                ? StructuredFormatting.fromJson(json['structuredFormatting'])
+                : null,
+        terms: json['terms'] != null
+            ? List<Term>.from(json['terms'].map((x) => Term.fromJson(x)))
+            : [],
+        types: json['types'] != null
+            ? List<String>.from(json['types'].map((x) => x))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -77,8 +88,9 @@ class Prediction extends Equatable {
         'matched_substrings':
             List<dynamic>.from(matchedSubstrings.map((x) => x.toJson())),
         'place_id': placeId,
-        'reference': reference,
-        'structured_formatting': structuredFormatting.toJson(),
+        if (reference != null) 'reference': reference,
+        if (structuredFormatting != null)
+          'structured_formatting': structuredFormatting!.toJson(),
         'terms': List<dynamic>.from(terms.map((x) => x.toJson())),
         'types': List<dynamic>.from(types.map((x) => x)),
       };
@@ -133,13 +145,13 @@ class MatchedSubstring extends Equatable {
 class StructuredFormatting extends Equatable {
   const StructuredFormatting({
     required this.mainText,
-    required this.mainTextMatchedSubstrings,
-    required this.secondaryText,
+    this.mainTextMatchedSubstrings = const [],
+    this.secondaryText,
   });
 
   final String mainText;
   final List<MatchedSubstring> mainTextMatchedSubstrings;
-  final String secondaryText;
+  final String? secondaryText;
 
   factory StructuredFormatting.fromRawJson(String str) =>
       StructuredFormatting.fromJson(json.decode(str));
@@ -148,18 +160,24 @@ class StructuredFormatting extends Equatable {
 
   factory StructuredFormatting.fromJson(Map<String, dynamic> json) =>
       StructuredFormatting(
-        mainText: json['main_text'],
-        mainTextMatchedSubstrings: List<MatchedSubstring>.from(
-            json['main_text_matched_substrings']
-                .map((x) => MatchedSubstring.fromJson(x))),
-        secondaryText: json['secondary_text'],
+        mainText: json['main_text'] ?? json['mainText'] ?? '',
+        mainTextMatchedSubstrings: json['main_text_matched_substrings'] != null
+            ? List<MatchedSubstring>.from(
+                json['main_text_matched_substrings']
+                    .map((x) => MatchedSubstring.fromJson(x)))
+            : json['mainTextMatchedSubstrings'] != null
+                ? List<MatchedSubstring>.from(
+                    json['mainTextMatchedSubstrings']
+                        .map((x) => MatchedSubstring.fromJson(x)))
+                : [],
+        secondaryText: json['secondary_text'] ?? json['secondaryText'],
       );
 
   Map<String, dynamic> toJson() => {
         'main_text': mainText,
         'main_text_matched_substrings': List<dynamic>.from(
             mainTextMatchedSubstrings.map((x) => x.toJson())),
-        'secondary_text': secondaryText,
+        if (secondaryText != null) 'secondary_text': secondaryText,
       };
 
   @override

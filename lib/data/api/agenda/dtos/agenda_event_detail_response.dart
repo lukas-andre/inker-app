@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import 'package:inker_studio/domain/models/quotation/quotation.dart';
+
 part 'agenda_event_detail_response.freezed.dart';
 part 'agenda_event_detail_response.g.dart';
 
@@ -15,6 +17,7 @@ class AgendaEventDetailResponse with _$AgendaEventDetailResponse {
   const factory AgendaEventDetailResponse({
     required AgendaEventDetailEvent event,
     required AgendaEventDetailLocation location,
+    Quotation? quotation,
   }) = _AgendaEventDetailResponse;
 
   factory AgendaEventDetailResponse.fromJson(Map<String, dynamic> json) =>
@@ -24,21 +27,24 @@ class AgendaEventDetailResponse with _$AgendaEventDetailResponse {
 @freezed
 class AgendaEventDetailEvent with _$AgendaEventDetailEvent {
   const factory AgendaEventDetailEvent({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required int customerId,
+    required String customerId,
     required String title,
     @JsonKey(name: 'startDate') required DateTime start,
     @JsonKey(name: 'endDate') required DateTime end,
     required String color,
-    required String info,
+    String? info,
     required bool notification,
     required bool done,
     AgendaEventDetailWorkEvidence? workEvidence,
     String? cancelationReason,
     DateTime? deletedAt,
-    required int quotationId,
+    String? quotationId,
+    String? notes,
+    int? preparationTimeMinutes,
+    int? cleanupTimeMinutes,
   }) = _AgendaEventDetailEvent;
 
   factory AgendaEventDetailEvent.fromJson(Map<String, dynamic> json) =>
@@ -75,13 +81,12 @@ class AgendaEventDetailMetadata with _$AgendaEventDetailMetadata {
 @freezed
 class AgendaEventDetailLocation with _$AgendaEventDetailLocation {
   const factory AgendaEventDetailLocation({
-    required int id,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String address1,
     required String shortAddress1,
     required String address2,
-    required String address3,
     required String addressType,
     required String state,
     required String city,
@@ -91,7 +96,8 @@ class AgendaEventDetailLocation with _$AgendaEventDetailLocation {
     required double lng,
     required AgendaEventDetailViewport viewport,
     required AgendaEventDetailLocationCoordinates location,
-    int? artistId,
+    String? artistId,
+    String? address3,
     String? name,
     String? profileThumbnail,
     String? googlePlaceId,

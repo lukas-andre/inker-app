@@ -6,12 +6,12 @@ class ArtistReviewsEvent with _$ArtistReviewsEvent {
 
   const factory ArtistReviewsEvent.loading() = _LoadingEvent;
 
-  const factory ArtistReviewsEvent.loadReviews(int artistId) =
+  const factory ArtistReviewsEvent.loadReviews(String artistId) =
       _LoadReviewsEvent;
 
   const factory ArtistReviewsEvent.loadReviewsSuccess(
-      {required Map<int, Reactions> reviewReactions,
-      required Map<int, Reaction> customerReactions,
+      {required Map<String, Reactions> reviewReactions,
+      required Map<String, Reaction> customerReactions,
       required List<ReviewItem> reviews}) = _LoadReviewsSuccessEvent;
 
   const factory ArtistReviewsEvent.loadReviewsError(String message) =
@@ -22,21 +22,21 @@ class ArtistReviewsEvent with _$ArtistReviewsEvent {
   const factory ArtistReviewsEvent.noMoreData() = _NoMoreDataEvent;
 
   const factory ArtistReviewsEvent.reviewLiked(
-      {required int reviewId, required int customerId}) = _ReviewLiked;
+      {required String reviewId, required String customerId}) = _ReviewLiked;
 
   const factory ArtistReviewsEvent.reviewDisliked(
-      {required int reviewId, required int customerId}) = _ReviewDisliked;
+      {required String reviewId, required String customerId}) = _ReviewDisliked;
 
   const factory ArtistReviewsEvent.reviewLikeRemoved(
-      {required int reviewId, required int customerId}) = _ReviewLikeRemoved;
+      {required String reviewId, required String customerId}) = _ReviewLikeRemoved;
 
   const factory ArtistReviewsEvent.reviewDislikedRemoved(
-      {required int reviewId,
-      required int customerId}) = _ReviewDislikedRemoved;
+      {required String reviewId,
+      required String customerId}) = _ReviewDislikedRemoved;
 
   const factory ArtistReviewsEvent.switchReviewReaction(
-      {required int reviewId,
-      required int customerId,
+      {required String reviewId,
+      required String customerId,
       required bool liked,
       required bool disliked}) = _SwitchReviewReaction;
 }

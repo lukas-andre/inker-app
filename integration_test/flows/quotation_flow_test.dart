@@ -30,7 +30,7 @@ void main() {
         // Setup & Create Quotation
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,
@@ -75,7 +75,7 @@ void main() {
         // 1. Customer Flow
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,
@@ -106,7 +106,7 @@ void main() {
         await AuthTestActions.customerLogout($);
 
         // 2. Artist Flow
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
           password: AuthTestData.validArtistCredentials['password']!,
@@ -132,7 +132,7 @@ void main() {
         // 1. Customer Flow - Create Quotation
         await app.main();
         await AuthTestActions.skipOnboarding($);
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,
@@ -162,7 +162,7 @@ void main() {
         await AuthTestActions.customerLogout($);
 
         // 2. Artist Flow - Accept Quotation
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validArtistCredentials['email']!,
           password: AuthTestData.validArtistCredentials['password']!,
@@ -190,7 +190,7 @@ void main() {
         await AuthTestActions.artistLogout($);
 
         // 3. Customer Flow - Accept Artist's Quote
-        await AuthTestActions.performLogin(
+        await AuthTestActions.login(
           $,
           email: AuthTestData.validCustomerCredentials['email']!,
           password: AuthTestData.validCustomerCredentials['password']!,

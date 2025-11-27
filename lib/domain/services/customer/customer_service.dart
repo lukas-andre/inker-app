@@ -8,7 +8,7 @@ import 'package:inker_studio/domain/models/customer/customer.dart';
 abstract class CustomerService {
   Future<Customer> getCustomerProfile(String token);
   Future<Customer> updateCustomerProfile(UpdateCustomerDto updateCustomerDto, String token);
-  Future<Customer> updateProfilePicture(int customerId, XFile image, String token);
+  Future<Customer> updateProfilePicture(String customerId, XFile image, String token);
   Future<CreateCustomerResponse> createCustomerUser(CreateCustomerRequest request);
   Future<SearchCustomerResponse> searchByTerm(String token, String term);
 }

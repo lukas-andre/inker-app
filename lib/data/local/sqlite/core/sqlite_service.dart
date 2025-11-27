@@ -4,6 +4,7 @@ import 'dart:io' show Directory;
 
 import 'package:inker_studio/data/local/sqlite/core/tables/customer_table.dart';
 import 'package:inker_studio/data/local/sqlite/core/tables/session_table.dart';
+import 'package:inker_studio/data/local/sqlite/core/tables/token_balance_table.dart';
 import 'package:inker_studio/domain/services/sqlite/database_service.dart';
 import 'package:inker_studio/utils/dev.dart';
 import 'package:inker_studio/utils/timestamp_column_helper.dart';
@@ -20,6 +21,7 @@ class SqliteService implements DatabaseService {
   static final databaseTables = [
     sessionTable,
     customerTable,
+    tokenBalanceTable,
   ];
 
   static Database? _database;
@@ -82,7 +84,7 @@ class SqliteService implements DatabaseService {
     // ! Remove for production
     Sqflite.devSetDebugModeOn(true);
     final db = await openDatabase(path,
-        version: 25,
+        version: 26,
         onOpen: (db) {},
         onCreate: _onCreate,
         onUpgrade: _onUpdate);

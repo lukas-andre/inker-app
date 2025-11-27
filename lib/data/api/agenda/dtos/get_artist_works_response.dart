@@ -3,7 +3,10 @@
 //     final getArtistWorksResponse = getArtistWorksResponseFromJson(jsonString);
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:inker_studio/domain/models/work/work.dart' show Work;
 import 'dart:convert';
+
+import 'package:inker_studio/domain/models/work_evidence/work_evidence.dart';
 
 part 'get_artist_works_response.freezed.dart';
 part 'get_artist_works_response.g.dart';
@@ -28,10 +31,10 @@ class GetArtistWorksResponse with _$GetArtistWorksResponse {
 @freezed
 class WorkItem with _$WorkItem {
   const factory WorkItem({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? customerId,
+    String? customerId,
     String? title,
     DateTime? start,
     DateTime? end,
@@ -51,16 +54,16 @@ class WorkItem with _$WorkItem {
 @freezed
 class Review with _$Review {
   const factory Review({
-    int? id,
+    String? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    int? artistId,
-    int? eventId,
+    String? artistId,
+    String? eventId,
     int? value,
     String? header,
     String? content,
     ReviewReactions? reviewReactions,
-    int? createdBy,
+    String? createdBy,
     String? displayName,
     bool? isRated,
     CustomerReviewDetail? customerReviewDetail,
@@ -91,33 +94,6 @@ class ReviewReactions with _$ReviewReactions {
 
   factory ReviewReactions.fromJson(Map<String, dynamic> json) =>
       _$ReviewReactionsFromJson(json);
-}
-
-@freezed
-class WorkEvidence with _$WorkEvidence {
-  const factory WorkEvidence({
-    int? count,
-    List<Metadatum>? metadata,
-  }) = _WorkEvidence;
-
-  factory WorkEvidence.fromJson(Map<String, dynamic> json) =>
-      _$WorkEvidenceFromJson(json);
-}
-
-@freezed
-class Metadatum with _$Metadatum {
-  const factory Metadatum({
-    String? url,
-    int? size,
-    String? type,
-    String? encoding,
-    int? position,
-    String? fieldname,
-    String? originalname,
-  }) = _Metadatum;
-
-  factory Metadatum.fromJson(Map<String, dynamic> json) =>
-      _$MetadatumFromJson(json);
 }
 
 @freezed

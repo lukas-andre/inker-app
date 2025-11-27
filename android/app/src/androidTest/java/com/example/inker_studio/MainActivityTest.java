@@ -7,6 +7,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import pl.leancode.patrol.PatrolJUnitRunner;
 
+// Import the MainActivity class from your app's package
+import com.example.inker_studio.MainActivity;
+
 @RunWith(Parameterized.class)
 public class MainActivityTest {
     @Parameters(name = "{0}")
@@ -15,7 +18,8 @@ public class MainActivityTest {
         // replace "MainActivity.class" with "io.flutter.embedding.android.FlutterActivity.class" 
         // if in AndroidManifest.xml in manifest/application/activity you have
         //     android:name="io.flutter.embedding.android.FlutterActivity"
-        instrumentation.setUp(MainActivity.class);
+        // Using MainActivity.class as found in AndroidManifest.xml
+        instrumentation.setUp(MainActivity.class); 
         instrumentation.waitForPatrolAppService();
         return instrumentation.listDartTests();
     }

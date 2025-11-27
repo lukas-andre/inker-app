@@ -58,11 +58,11 @@ class CreateCustomerUseCase {
         contactEmail: createCustomerUserResponse.contactEmail,
         firstName: createCustomerUserResponse.firstName,
         lastName: createCustomerUserResponse.lastName,
-        follows: createCustomerUserResponse.follows,
+        follows: int.parse(createCustomerUserResponse.follows ?? '0'),
         contactPhoneNumber: createCustomerUserResponse.contactPhoneNumber,
         profileThumbnail: createCustomerUserResponse.profileThumbnail,
         shortDescription: createCustomerUserResponse.shortDescription,
-        rating: createCustomerUserResponse.rating);
+        rating: createCustomerUserResponse.rating.toDouble());
   }
 
   CreateCustomerRequest _mapParamsToCreateCustomerRequest(

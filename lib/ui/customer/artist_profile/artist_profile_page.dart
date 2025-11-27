@@ -1,19 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_works_cubit/artist_works_cubit.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
-import 'package:inker_studio/keys.dart';
-import 'package:inker_studio/ui/customer/artist_profile/artist_profiel_bio_info.dart';
-import 'package:inker_studio/ui/customer/artist_profile/artist_profile_bio.dart';
-import 'package:inker_studio/ui/customer/artist_profile/artist_profile_gallery.dart';
+import 'package:inker_studio/domain/services/agenda/agenda_service.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
+import 'package:inker_studio/domain/services/work/work_service.dart';
+import 'package:inker_studio/generated/l10n.dart';
+import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page_web.dart';
+import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_gallery_section.dart';
+import 'package:inker_studio/ui/customer/artist_profile/widgets/artist_profile_header.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
-import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/constants.dart';
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ArtistProfilePage extends StatefulWidget {
   const ArtistProfilePage({super.key, required Artist artist})
@@ -24,9 +22,13 @@ class ArtistProfilePage extends StatefulWidget {
   static Route route(Artist artist) {
     return MaterialPageRoute<void>(
         settings: const RouteSettings(name: '/artist-profile'),
-        builder: (_) => ArtistProfilePage(
-              artist: artist,
-            ));
+        builder: (context) {
+          final platformService = context.read<PlatformService>();
+          if (platformService.isWeb) {
+            return ArtistProfilePageWeb(artist: artist);
+          }
+          return ArtistProfilePage(artist: artist);
+        });
   }
 
   @override
@@ -39,236 +41,140 @@ class _ArtistProfilePageState extends State<ArtistProfilePage> {
     context
         .read<ArtistProfileBloc>()
         .add(ArtistProfileEvent.setArtist(widget._artist));
-
     super.initState();
-  }
-
-  void _onToggleDescription(double descriptionHeight) {
-    double bioHeight =
-        descriptionHeight + 150; // Add additional height for other contents
-    double expandedHeight =
-        max(360, bioHeight); // Ensuring a minimum height of 400
-    context.read<ArtistBioCubitCubit>().updateExpandedHeight(expandedHeight);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: primaryColor,
-      appBar: _buildAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: CustomScrollView(
-          slivers: [
-            _buildSliverAppBar(context),
-            _buildSliverContent(context),
-          ],
-        ),
-      ),
-    );
-  }
+    return Container(
+      color: Theme.of(context).colorScheme.surface,
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          extendBodyBehindAppBar: true,
+          floatingActionButton: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Botón para compartir perfil
+              FloatingActionButton(
+                heroTag: 'share_button',
+                backgroundColor: Colors.white,
+                foregroundColor: Theme.of(context).colorScheme.surface,
+                elevation: 4,
+                child: const Icon(Icons.share_outlined, size: 22),
+                onPressed: () {
+                  final artistState = context.read<ArtistProfileBloc>().state;
+                  if (artistState.artist != null) {
+                    // Mostrar modal de compartir
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(S.of(context).shareArtistProfile),
+                        duration: const Duration(seconds: 2),
+                      ),
+                    );
 
-  SliverAppBar _buildSliverAppBar(BuildContext context) {
-    double expandedHeight = context.watch<ArtistBioCubitCubit>().state;
-
-    return SliverAppBar(
-      automaticallyImplyLeading: false,
-      pinned: true,
-      floating: false,
-      snap: false,
-      backgroundColor: primaryColor,
-      expandedHeight: expandedHeight,
-      flexibleSpace: FlexibleSpaceBar(
-        background: Column(
-          children: [
-            const SizedBox(height: 12),
-            _buildAvatar(),
-            const SizedBox(height: 12),
-            ArtistProfileBio(
-                artist: widget._artist,
-                onToggleDescription: _onToggleDescription),
-            const SizedBox(height: 12),
-            // _buildBioInfoRow(context),
-            const SizedBox(height: 12),
-          ],
-        ),
-      ),
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
-        child: Container(
-          color: primaryColor,
-          child: _buildActions(context),
-        ),
-      ),
-    );
-  }
-
-  SliverList _buildSliverContent(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildListDelegate(
-        [
-          BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Divider(color: tertiaryColor),
-                  const SizedBox(height: 12),
-                  state is ArtistProfileStateLoadingWorks
-                      ? const InkerProgressIndicator()
-                      : ArtistGallery(
-                          works: state.works?.items ?? [],
-                        ),
-                ],
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  AppBar _buildAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        key: K.artistProfileBackButton,
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        icon: SizedBox(
-          height: 24.0,
-          width: 24.0,
-          child: Image.asset('assets/icons/back.png'),
-        ),
-        onPressed: () {
-          Navigator.of(context).pop();
-          context
-              .read<ArtistProfileBloc>()
-              .add(const ArtistProfileEvent.started());
-        },
-      ),
-      backgroundColor: primaryColor,
-      title: Text(widget._artist.username!,
-          style: TextStyleTheme.copyWith(color: Colors.white)),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.favorite_border),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAvatar() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch, // Añadido
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft, // Añadido
-              child: Stack(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        widget._artist.profileThumbnail ??
-                            defaultProfileImageLink),
-                    radius: 50,
-                  ),
-                  _buildReviewAvatar(),
-                ],
+                    // Aquí implementarías la función de compartir usando
+                    // un package como share_plus
+                  }
+                },
               ),
-            ),
-            const ArtistProfileBioInfoRow(),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildReviewAvatar() {
-    return Positioned(
-      top: 0,
-      right: 0,
-      child: Visibility(
-        visible: widget._artist.review?.value != null,
-        child: Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.white,
-              width: 2,
-            ),
+              const SizedBox(width: 16),
+              // Botón de cotización original
+              FloatingActionButton.extended(
+                heroTag: 'quote_button',
+                backgroundColor: Theme.of(context).colorScheme.secondary,
+                foregroundColor: Colors.white,
+                elevation: 4,
+                icon: const Icon(Icons.message_outlined, size: 22),
+                label: Text(
+                  S.of(context).requestQuote,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                extendedPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                onPressed: () {
+                  final artistState = context.read<ArtistProfileBloc>().state;
+                  if (artistState.artist != null) {
+                    Navigator.of(context).push(
+                      CreateQuotationPage.route(
+                        artistId: artistState.artist!.id,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
-          child: CircleAvatar(
-            backgroundColor: secondaryColor,
-            radius: 12,
-            child: Text(
-              widget._artist.review?.value?.toString() ?? '',
-              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 12),
-            ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          body: BlocBuilder<ArtistProfileBloc, ArtistProfileState>(
+            builder: (context, state) {
+              if (state is ArtistProfileStateInitial) {
+                return const Center(child: InkerProgressIndicator());
+              }
+
+              final artist = state.artist!;
+              return BlocProvider(
+                create: (context) => ArtistWorksCubit(
+                  agendaService: context.read<AgendaService>(),
+                  workService: context.read<WorkService>(),
+                  sessionService: context.read(),
+                ),
+                child: CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    // Profile Header
+                    SliverToBoxAdapter(
+                      child: ArtistProfileHeader(
+                        artist: artist,
+                        isFollowing: artist.isFollowedByUser ?? false,
+                        onFollowPressed: () {
+                          if (artist.isFollowedByUser == true) {
+                            context.read<ArtistProfileBloc>().add(
+                                  const ArtistProfileEvent.unFollow(),
+                                );
+                          } else {
+                            context.read<ArtistProfileBloc>().add(
+                                  const ArtistProfileEvent.follow(),
+                                );
+                          }
+                        },
+                        onBackPressed: () {
+                          Navigator.of(context).pop();
+                          context
+                              .read<ArtistProfileBloc>()
+                              .add(const ArtistProfileEvent.started());
+                        },
+                      ),
+                    ),
+
+                    // Gallery Section
+                    SliverToBoxAdapter(
+                      child: ArtistProfileGallerySection(
+                        artistId: artist.id,
+                        onReviewsPressed: () {
+                          Navigator.pushNamed(
+                              context, '/artist-profile-reviews',
+                              arguments: artist);
+                        },
+                      ),
+                    ),
+
+                    // Extra space at the bottom for more scrolling
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 100),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildActions(BuildContext context) {
-    final artist = context.watch<ArtistProfileBloc>().state.artist;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          flex: 2,
-          child: artist == null
-              ? Container()
-              : ElevatedButton(
-                  onPressed: () {
-                    artist.isFollowedByUser!
-                        ? context
-                            .read<ArtistProfileBloc>()
-                            .add(const ArtistProfileEvent.unFollow())
-                        : context
-                            .read<ArtistProfileBloc>()
-                            .add(const ArtistProfileEvent.follow());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    backgroundColor: const Color(0x00131527),
-                  ),
-                  child: artist.isFollowedByUser == null
-                      ? const SizedBox()
-                      : Text(
-                          artist.isFollowedByUser! ? 'Siguiendo' : 'Seguir',
-                          style: TextStyleTheme.copyWith(
-                              color: Colors.white, fontSize: 16),
-                        ),
-                ),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          key: K.createQuotationButton,
-          flex: 3,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                CreateQuotationPage.route(artistId: widget._artist.id!),
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              shape: const StadiumBorder(),
-              backgroundColor: secondaryColor,
-            ),
-            child: Text(
-              'Agendar',
-              style: TextStyleTheme.copyWith(color: Colors.white, fontSize: 16),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

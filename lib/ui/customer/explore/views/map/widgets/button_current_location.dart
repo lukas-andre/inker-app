@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/utils/snackbar/custom_snackbar.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ButtonCurrentLocation extends StatelessWidget {
   const ButtonCurrentLocation({super.key});
@@ -20,7 +19,7 @@ class ButtonCurrentLocation extends StatelessWidget {
         child: IconButton(
           icon: Icon(
             Icons.my_location,
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () {
             final userLocation = locationBloc.state.lastKnownLocation;

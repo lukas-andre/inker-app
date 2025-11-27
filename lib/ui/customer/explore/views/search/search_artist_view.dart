@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/search_artist/search_artists_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_profile_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
+import 'package:inker_studio/utils/constants.dart' show defaultProfileImageLink;
 import 'package:inker_studio/utils/layout/inker_progress_indicator.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class SearchArtistView extends StatelessWidget {
   const SearchArtistView({super.key});
@@ -15,7 +16,7 @@ class SearchArtistView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: primaryColor,
+      color: Theme.of(context).colorScheme.primary,
       child: SafeArea(
         child: Column(
           children: [
@@ -24,20 +25,20 @@ class SearchArtistView extends StatelessWidget {
               child: BlocBuilder<SearchArtistsBloc, SearchArtistsState>(
                 builder: (context, state) {
                   return state.when(
-                    initial: () => const Center(
+                    initial: () => Center(
                       child: Text(
-                        'Busca artistas por nombre o estilo',
-                        style: TextStyle(color: Colors.white),
+                        S.of(context).searchArtistPlaceholder,
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                     loading: () => const Center(
                       child: InkerProgressIndicator(),
                     ),
                     success: (artists, metadata, query) => artists.isEmpty
-                        ? const Center(
+                        ?  Center(
                             child: Text(
-                              'No se encontraron resultados',
-                              style: TextStyle(color: Colors.white),
+                              S.of(context).noResultsFound,
+                              style: const TextStyle(color: Colors.white),
                             ),
                           )
                         : GridView.count(
@@ -122,7 +123,7 @@ class _SearchHeaderState extends State<_SearchHeader> {
                   autofocus: true,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    hintText: 'Buscar artistas...',
+                    hintText: '${S.of(context).search} ${S.of(context).artist.toLowerCase()}...',
                     hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -169,9 +170,9 @@ class _SearchHeaderState extends State<_SearchHeader> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Filtros',
-                      style: TextStyle(
+                    Text(
+                      S.of(context).filters,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -180,7 +181,7 @@ class _SearchHeaderState extends State<_SearchHeader> {
                     TextButton.icon(
                       onPressed: _minimumRating > 0 ? _clearFilters : null,
                       icon: const Icon(Icons.clear_all),
-                      label: const Text('Limpiar'),
+                      label: Text(S.of(context).clear),
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.blue,
                         disabledForegroundColor: Colors.grey,
@@ -194,7 +195,9 @@ class _SearchHeaderState extends State<_SearchHeader> {
                     const Icon(Icons.star, color: Colors.amber, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Rating mínimo: ${_minimumRating.toStringAsFixed(1)}',
+                      S.of(context).minimumRating(
+                        _minimumRating,
+                      ),
                       style: const TextStyle(color: Colors.white),
                     ),
                   ],
@@ -239,7 +242,7 @@ class _SearchHeaderState extends State<_SearchHeader> {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${metadata.total} ${metadata.total == 1 ? 'artista encontrado' : 'artistas encontrados'}',
+                  S.of(context).artistFound(metadata.total),
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.7),
                     fontSize: 14,
@@ -340,7 +343,7 @@ class _ArtistInfo extends StatelessWidget {
           radius: 20,
           backgroundImage: NetworkImage(
             artist.profileThumbnail ??
-                'https://d1riey1i0e5tx2.cloudfront.net/artist/default_profile.jpeg',
+                defaultProfileImageLink,
           ),
         ),
         const SizedBox(width: 8),

@@ -27,7 +27,7 @@ class ApiAccountVerificationService implements AccountVerificationService {
   }
 
   @override
-  Future<bool> sendSMS(int userId, String phoneNumber) async {
+  Future<bool> sendSMS(String userId, String phoneNumber) async {
     try {
       dev.log('Sending SMS verification code to $phoneNumber for user $userId', 'ApiAccountVerificationService');
       
@@ -63,7 +63,7 @@ class ApiAccountVerificationService implements AccountVerificationService {
   }
 
   @override
-  Future<bool> validateVerificationCode(int userId, String code) async {
+  Future<bool> validateVerificationCode(String userId, String code) async {
     try {
       dev.log('Validating verification code for user $userId', 'ApiAccountVerificationService');
       

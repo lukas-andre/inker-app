@@ -1,6 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-final inkerURL = dotenv.env['INKER_API_URL']!;
+const inkerURL = 'http://localhost:3000';
 
 class HttpClientConfig {
   static const String baseStgUrl = '';

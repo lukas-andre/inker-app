@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/models/artist/artist.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/artist_profile/artist_reviews/artist_profile_rating_resume.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 
 
@@ -167,8 +167,8 @@ class _RatingProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(2),
         child: LinearProgressIndicator(
           value: value,
-          backgroundColor: greyColor.withOpacity(0.3),
-          valueColor: AlwaysStoppedAnimation<Color>(yellowColor),
+          backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.3),
+          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.secondary),
         ),
       ),
     );
@@ -182,7 +182,7 @@ class _NoReviewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'No hay reseñas aun',
+        S.of(context).noReviewsYet,
         style: TextStyleTheme.instance.copyWith(
           color: Colors.white,
           fontSize: 16,
@@ -203,7 +203,7 @@ class _ReviewCountText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(
-        '$count reseñas en total',
+        S.of(context).totalReviews(count),
         style: TextStyleTheme.instance.copyWith(
           color: Colors.grey,
           fontSize: 14,

@@ -4,7 +4,8 @@ part of 'artist_agenda_event_detail_bloc.dart';
 class ArtistAgendaEventDetailState with _$ArtistAgendaEventDetailState {
   const factory ArtistAgendaEventDetailState.initial() = _Initial;
   const factory ArtistAgendaEventDetailState.loading() = _Loading;
+  const factory ArtistAgendaEventDetailState.actionInProgress() = _ActionInProgress;
   const factory ArtistAgendaEventDetailState.loaded(
-      AgendaEventDetailResponse eventDetail) = _Loaded;
+      EventDetailResponse eventDetail) = _Loaded;
   const factory ArtistAgendaEventDetailState.error(String message) = _Error;
 }

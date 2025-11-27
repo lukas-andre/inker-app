@@ -1,0 +1,1 @@
+/Users/lhenry/Development/inker/inker-app/build/app/intermediates/cxx/RelWithDebInfo/2w4q2c6t/obj/armeabi-v7a

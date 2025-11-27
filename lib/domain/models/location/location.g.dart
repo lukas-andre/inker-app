@@ -7,28 +7,32 @@ part of 'location.dart';
 // **************************************************************************
 
 _$LocationImpl _$$LocationImplFromJson(Map json) => _$LocationImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       address1: json['address1'] as String,
-      shortAddress1: json['shortAddress1'] as String,
-      address2: json['address2'] as String,
+      shortAddress1: json['shortAddress1'] as String?,
+      address2: json['address2'] as String?,
       address3: json['address3'] as String?,
       addressType: json['addressType'] as String,
-      state: json['state'] as String,
+      state: json['state'] as String?,
       city: json['city'] as String,
       country: json['country'] as String,
       formattedAddress: json['formattedAddress'] as String,
       lat: (json['lat'] as num).toDouble(),
       lng: (json['lng'] as num).toDouble(),
-      viewport:
-          Viewport.fromJson(Map<String, dynamic>.from(json['viewport'] as Map)),
+      viewport: json['viewport'] == null
+          ? null
+          : Viewport.fromJson(
+              Map<String, dynamic>.from(json['viewport'] as Map)),
       location:
           GeoPoint.fromJson(Map<String, dynamic>.from(json['location'] as Map)),
-      artistId: (json['artistId'] as num).toInt(),
+      artistId: json['artistId'] as String,
       name: json['name'] as String,
       profileThumbnail: json['profileThumbnail'] as String?,
       googlePlaceId: json['googlePlaceId'] as String?,
+      locationOrder: (json['locationOrder'] as num?)?.toInt() ?? 0,
+      isActive: json['isActive'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) {
@@ -37,8 +41,6 @@ Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) {
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
     'address1': instance.address1,
-    'shortAddress1': instance.shortAddress1,
-    'address2': instance.address2,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -47,20 +49,24 @@ Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) {
     }
   }
 
+  writeNotNull('shortAddress1', instance.shortAddress1);
+  writeNotNull('address2', instance.address2);
   writeNotNull('address3', instance.address3);
   val['addressType'] = instance.addressType;
-  val['state'] = instance.state;
+  writeNotNull('state', instance.state);
   val['city'] = instance.city;
   val['country'] = instance.country;
   val['formattedAddress'] = instance.formattedAddress;
   val['lat'] = instance.lat;
   val['lng'] = instance.lng;
-  val['viewport'] = instance.viewport.toJson();
+  writeNotNull('viewport', instance.viewport?.toJson());
   val['location'] = instance.location.toJson();
   val['artistId'] = instance.artistId;
   val['name'] = instance.name;
   writeNotNull('profileThumbnail', instance.profileThumbnail);
   writeNotNull('googlePlaceId', instance.googlePlaceId);
+  val['locationOrder'] = instance.locationOrder;
+  val['isActive'] = instance.isActive;
   return val;
 }
 

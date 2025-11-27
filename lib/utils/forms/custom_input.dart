@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
+import 'package:inker_studio/ui/theme/app_styles.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput(
@@ -53,17 +53,18 @@ class CustomInput extends StatelessWidget {
   Container _container(
       double horizontalPadding, double verticalPadding, BuildContext context) {
     return Container(
+      key: key,
       width: withFlex ? null : MediaQuery.of(context).size.width * 0.9,
       padding: EdgeInsets.only(
           right: horizontalPadding,
           left: horizontalPadding,
           top: MediaQuery.of(context).size.height * 0.01),
       child: TextField(
+        key: key,
         keyboardType: keyboardType,
         focusNode: focusNode,
         onTap: onTap,
         controller: controller,
-        key: key,
         autofillHints: const [
           AutofillHints.email,
         ],
@@ -98,13 +99,21 @@ class CustomInput extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(
-                color: Color(0xff777E91), style: BorderStyle.none),
+              color: Color(0xff777E91),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Color(0xff777E91),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(
-                color: valid == false ? Colors.red : const Color(0xff777E91),
-              )),
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Color(0xff7450FF),
+            ),
+          ),
         ),
       ),
     );

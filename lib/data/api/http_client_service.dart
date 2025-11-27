@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:inker_studio/data/firebase/remote_config_service.dart';
+import 'package:inker_studio/domain/services/environment/environment_service.dart';
 import 'package:inker_studio/utils/api/http_logger.dart';
 
 class CustomHttpException implements Exception {
@@ -18,6 +19,7 @@ class CustomHttpException implements Exception {
 class HttpClientService {
   static HttpClientService? _instance;
   final RemoteConfigService _remoteConfig;
+  EnvironmentService? _environmentService;
 
   final Map<String, String> _defaultHeaders = {
     HttpHeaders.contentTypeHeader: 'application/json',
@@ -33,25 +35,52 @@ class HttpClientService {
     }
     return _instance!;
   }
+  
+  void setEnvironmentService(EnvironmentService environmentService) {
+    _environmentService = environmentService;
+  }
 
   Future<Uri> _buildUrl(String path,
       {Map<String, dynamic>? queryParams}) async {
-    await _remoteConfig.fetchAndActivate();
-    final baseUrl = _remoteConfig.inkerApiUrl;
-    return Uri.https(baseUrl, path, queryParams);
+    // Use environment service if available, otherwise fall back to remote config
+    final baseUrl = _environmentService?.getApiUrl() ?? _remoteConfig.inkerApiUrl;
+
+    // Clean the baseUrl to extract just the domain
+    final cleanBaseUrl = baseUrl
+        .replaceAll('https://', '')
+        .replaceAll('http://', '')
+        .split('/')
+        .first; // Remove any paths
+
+    // If your remote config includes /api in the path, merge it with the incoming path
+    final fullPath =
+        baseUrl.contains('/api') ? '/api/$path'.replaceAll('//', '/') : path;
+
+    return Uri.https(cleanBaseUrl, fullPath, queryParams);
   }
 
-  Map<String, String> _buildHeaders(String? token) {
+  Map<String, String> _buildHeaders(String? token, {bool skipCache = false}) {
     final headers = Map<String, String>.from(_defaultHeaders);
     if (token != null) {
       headers[HttpHeaders.authorizationHeader] = 'Bearer $token';
     }
+    if (skipCache) {
+      headers['Cache-Control'] = 'no-cache';
+    }
     return headers;
   }
 
-  getBaseUrl() async {
+  Future<String> getBaseUrl() async {
+    // Use environment service if available, otherwise fall back to remote config
+    if (_environmentService != null) {
+      return _environmentService!.getApiUrl();
+    }
     await _remoteConfig.fetchAndActivate();
     return _remoteConfig.inkerApiUrl;
+  }
+
+  Future<Uri> buildUri(String path, {Map<String, dynamic>? queryParams}) async {
+    return _buildUrl(path, queryParams: queryParams);
   }
 
   Future<T> get<T>({
@@ -59,9 +88,11 @@ class HttpClientService {
     required T Function(Map<String, dynamic>) fromJson,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool expectListResponse = false,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
 
     HttpLogger.logRequest('GET', uri, headers: headers);
 
@@ -73,7 +104,36 @@ class HttpClientService {
       HttpLogger.logResponse(response, duration: stopwatch.elapsed);
 
       if (response.statusCode == HttpStatus.ok) {
-        return fromJson(json.decode(response.body));
+        final decoded = json.decode(response.body);
+        
+        // If we expect a Map but got a List, handle it gracefully
+        if (decoded is List && !expectListResponse) {
+          // For list responses, we might want to handle them specifically in the calling code
+          // Here we'll check what we should do based on the fromJson function
+          if ((T == List<dynamic>) || (T == List<Object>)) {
+            return decoded as T;
+          }
+          
+          // If the API returns an empty list, return an empty map
+          if (decoded.isEmpty) {
+            return fromJson({});
+          }
+          
+          // If the API returns a list with one item and we expect a map, try to use the first item
+          if (decoded.length == 1 && decoded[0] is Map<String, dynamic>) {
+            return fromJson(decoded[0] as Map<String, dynamic>);
+          }
+          
+          // Otherwise, wrap the list in a map
+          return fromJson({'items': decoded});
+        }
+        
+        if (decoded is Map<String, dynamic>) {
+          return fromJson(decoded);
+        }
+        
+        // If we got null or an unexpected type, return an empty result
+        return fromJson({});
       } else {
         _handleError(response);
       }
@@ -88,9 +148,10 @@ class HttpClientService {
     required Map<String, dynamic> body,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
     final encodedBody = json.encode(body);
 
     HttpLogger.logRequest('POST', uri, headers: headers, body: encodedBody);
@@ -108,6 +169,9 @@ class HttpClientService {
 
       if (response.statusCode == HttpStatus.ok ||
           response.statusCode == HttpStatus.created) {
+        if (response.body.isEmpty) {
+          return fromJson({});
+        }
         return fromJson(json.decode(response.body));
       } else if (response.statusCode == HttpStatus.noContent) {
         return fromJson({});
@@ -128,16 +192,90 @@ class HttpClientService {
     required Map<String, dynamic> body,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     try {
       final uri = await _buildUrl(path, queryParams: queryParams);
+      final headers = _buildHeaders(token, skipCache: skipCache);
+      final encodedBody = json.encode(body);
+      
+      HttpLogger.logRequest('PUT', uri, headers: headers, body: encodedBody);
+      
+      final stopwatch = Stopwatch()..start();
       final response = await http.put(
         uri,
-        headers: _buildHeaders(token),
-        body: json.encode(body),
+        headers: headers,
+        body: encodedBody,
       );
+      stopwatch.stop();
+      
+      HttpLogger.logResponse(response, duration: stopwatch.elapsed);
+      
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (response.statusCode == HttpStatus.noContent || response.body.isEmpty) {
+          return fromJson({});
+        }
+        try {
+          return fromJson(json.decode(response.body));
+        } catch (e) {
+          // Handle empty or invalid responses more gracefully
+          if (T == Null) {
+            return null as T;
+          }
+          return fromJson({});
+        }
+      } else {
+        _handleError(response, requestBody: encodedBody);
+      }
+    } catch (e) {
+      if (e is CustomHttpException) {
+        rethrow;
+      }
+      _handleError(e);
+    }
+  }
 
-      return _handleResponse(response, fromJson);
+  Future<T> patch<T>({
+    required String path,
+    T Function(Map<String, dynamic>)? fromJson,
+    required Map<String, dynamic> body,
+    String? token,
+    Map<String, dynamic>? queryParams,
+    bool skipCache = false,
+  }) async {
+    try {
+      final uri = await _buildUrl(path, queryParams: queryParams);
+      final headers = _buildHeaders(token, skipCache: skipCache);
+      final encodedBody = json.encode(body);
+      
+      HttpLogger.logRequest('PATCH', uri, headers: headers, body: encodedBody);
+      
+      final stopwatch = Stopwatch()..start();
+      final response = await http.patch(
+        uri,
+        headers: headers,
+        body: encodedBody,
+      );
+      stopwatch.stop();
+      
+      HttpLogger.logResponse(response, duration: stopwatch.elapsed);
+      
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (response.statusCode == HttpStatus.noContent || response.body.isEmpty || fromJson == null) {
+          return {} as T;
+        }
+        try {
+          return fromJson(json.decode(response.body));
+        } catch (e) {
+          // Handle empty or invalid responses more gracefully
+          if (T == Null) {
+            return null as T;
+          }
+          return fromJson({});
+        }
+      } else {
+        _handleError(response, requestBody: encodedBody);
+      }
     } catch (e) {
       if (e is CustomHttpException) {
         rethrow;
@@ -245,15 +383,15 @@ class HttpClientService {
     }
   }
 
-  // También podemos agregar el equivalente para GET si lo necesitas
   Future<List<T>> getList<T>({
     required String path,
     required T Function(Map<String, dynamic>) fromJson,
     String? token,
     Map<String, dynamic>? queryParams,
+    bool skipCache = false,
   }) async {
     final uri = await _buildUrl(path, queryParams: queryParams);
-    final headers = _buildHeaders(token);
+    final headers = _buildHeaders(token, skipCache: skipCache);
 
     HttpLogger.logRequest('GET', uri, headers: headers);
 
@@ -294,8 +432,16 @@ class HttpClientService {
           responseBody: body,
         );
 
+        // Handle message as array or string
+        String errorMessage;
+        if (decodedBody['message'] is List) {
+          errorMessage = (decodedBody['message'] as List).join(', ');
+        } else {
+          errorMessage = decodedBody['message'] ?? 'Request failed with status: $statusCode';
+        }
+        
         throw CustomHttpException(
-          decodedBody['message'] ?? 'Request failed with status: $statusCode',
+          errorMessage,
           statusCode,
           uri: error.request?.url,
         );

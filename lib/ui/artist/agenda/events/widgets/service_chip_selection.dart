@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class ServiceChips extends StatefulWidget {
   const ServiceChips({super.key});
@@ -46,7 +45,7 @@ class _ServiceChipsState extends State<ServiceChips> {
                     });
                   },
                   shape: const StadiumBorder(),
-                  selectedColor: secondaryColor,
+                  selectedColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor: Colors.grey[800],
                   labelStyle: TextStyleTheme.copyWith(
                     fontSize: 12,

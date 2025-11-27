@@ -32,14 +32,14 @@ Map<String, dynamic> _$$GetArtistWorksResponseImplToJson(
 }
 
 _$WorkItemImpl _$$WorkItemImplFromJson(Map json) => _$WorkItemImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      customerId: (json['customerId'] as num?)?.toInt(),
+      customerId: json['customerId'] as String?,
       title: json['title'] as String?,
       start: json['start'] == null
           ? null
@@ -86,15 +86,15 @@ Map<String, dynamic> _$$WorkItemImplToJson(_$WorkItemImpl instance) {
 }
 
 _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      artistId: (json['artistId'] as num?)?.toInt(),
-      eventId: (json['eventId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
+      eventId: json['eventId'] as String?,
       value: (json['value'] as num?)?.toInt(),
       header: json['header'] as String?,
       content: json['content'] as String?,
@@ -102,7 +102,7 @@ _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
           ? null
           : ReviewReactions.fromJson(
               Map<String, dynamic>.from(json['reviewReactions'] as Map)),
-      createdBy: (json['createdBy'] as num?)?.toInt(),
+      createdBy: json['createdBy'] as String?,
       displayName: json['displayName'] as String?,
       isRated: json['isRated'] as bool?,
       customerReviewDetail: json['customerReviewDetail'] == null
@@ -179,56 +179,6 @@ Map<String, dynamic> _$$ReviewReactionsImplToJson(
   writeNotNull('likes', instance.likes);
   writeNotNull('dislikes', instance.dislikes);
   writeNotNull('offs', instance.offs);
-  return val;
-}
-
-_$WorkEvidenceImpl _$$WorkEvidenceImplFromJson(Map json) => _$WorkEvidenceImpl(
-      count: (json['count'] as num?)?.toInt(),
-      metadata: (json['metadata'] as List<dynamic>?)
-          ?.map((e) => Metadatum.fromJson(Map<String, dynamic>.from(e as Map)))
-          .toList(),
-    );
-
-Map<String, dynamic> _$$WorkEvidenceImplToJson(_$WorkEvidenceImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('count', instance.count);
-  writeNotNull('metadata', instance.metadata?.map((e) => e.toJson()).toList());
-  return val;
-}
-
-_$MetadatumImpl _$$MetadatumImplFromJson(Map json) => _$MetadatumImpl(
-      url: json['url'] as String?,
-      size: (json['size'] as num?)?.toInt(),
-      type: json['type'] as String?,
-      encoding: json['encoding'] as String?,
-      position: (json['position'] as num?)?.toInt(),
-      fieldname: json['fieldname'] as String?,
-      originalname: json['originalname'] as String?,
-    );
-
-Map<String, dynamic> _$$MetadatumImplToJson(_$MetadatumImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('url', instance.url);
-  writeNotNull('size', instance.size);
-  writeNotNull('type', instance.type);
-  writeNotNull('encoding', instance.encoding);
-  writeNotNull('position', instance.position);
-  writeNotNull('fieldname', instance.fieldname);
-  writeNotNull('originalname', instance.originalname);
   return val;
 }
 

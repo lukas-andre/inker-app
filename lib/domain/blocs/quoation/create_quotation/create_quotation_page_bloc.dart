@@ -4,13 +4,17 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inker_studio/domain/models/quotation/quotation.dart';
 import 'package:inker_studio/domain/services/quotation/quotation_service.dart';
 import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/event_bus/app_event_bus.dart';
+import 'package:inker_studio/domain/blocs/mixins/event_bus_mixin.dart';
+import 'package:inker_studio/utils/dev.dart';
 
 part 'create_quotation_page_event.dart';
 part 'create_quotation_page_state.dart';
 part 'create_quotation_page_bloc.freezed.dart';
 
 class CreateQuotationPageBloc
-    extends Bloc<CreateQuotationPageEvent, CreateQuotationPageState> {
+    extends Bloc<CreateQuotationPageEvent, CreateQuotationPageState>
+    with EventBusMixin<CreateQuotationPageEvent, CreateQuotationPageState> {
   final QuotationService _quotationService;
   final LocalSessionService _sessionService;
   static const int maxReferenceImages = 5;
@@ -54,6 +58,15 @@ class CreateQuotationPageBloc
 
       final result = await _quotationService.createQuotation(
           quotation, referenceImages, token);
+      
+      // Fire event to notify other parts of the app
+      fireEvent(QuotationCreatedEvent(
+        quotationId: result['id'].toString(),
+        artistId: quotation.artistId,
+        customerId: quotation.customerId,
+        isOpenQuotation: false, // Direct quotation
+      ));
+      
       emit(CreateQuotationPageState.quotationCreated(
         id: result['id'],
         message: result['message'],
@@ -61,6 +74,7 @@ class CreateQuotationPageBloc
         referenceImages: referenceImages,
       ));
     } catch (e) {
+      dev.log(e.toString(), 'error');
       emit(CreateQuotationPageState.error(e.toString(),
           referenceImages: state.referenceImages));
     }

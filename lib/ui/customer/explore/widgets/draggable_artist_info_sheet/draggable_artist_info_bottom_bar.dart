@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/explorer_contact_button.dart';
 import 'package:inker_studio/ui/customer/quotation/create/create_quotation_page.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/dev.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 const bottomBarHeight = 80.0;
@@ -36,7 +36,7 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
           right: 0,
           child: Container(
             height: bottomBarHeight,
-            color: primaryColor,
+            color: Theme.of(context).colorScheme.surface,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -49,8 +49,8 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     },
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
-                    text: 'Indicaciones',
-                    backgroundColor: tertiaryColor,
+                    text: S.of(context).directions,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontSize: 15,
@@ -60,14 +60,14 @@ class DraggableArtistInfoBottomBar extends StatelessWidget {
                     onTap: () {
                       if (artist?.id != null) {
                         Navigator.of(context).push(
-                          CreateQuotationPage.route(artistId: artist!.id!),
+                          CreateQuotationPage.route(artistId: artist!.id),
                         );
                       }
                     },
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: 40,
-                    text: 'Reservar cita',
-                    backgroundColor: secondaryColor,
+                    text: S.of(context).bookAppointment,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     textStyle: TextStyleTheme.copyWith(
                         color: Colors.white,
                         fontSize: 15,

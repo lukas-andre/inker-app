@@ -1,0 +1,18 @@
+{
+    "environments": {
+        "STAGING": {
+            "id": "STAGING",
+            "name": "Staging",
+            "description": "Ambiente de pruebas",
+            "apiUrl": "https://staging-api.inkerapp.com",
+            "additionalConfig": {}
+        },
+        "PRODUCTION": {
+            "id": "PRODUCTION",
+            "name": "Production",
+            "description": "Ambiente productivo",
+            "apiUrl": "https://api.inkerapp.com",
+            "additionalConfig": {}
+        }
+    }
+}

@@ -4,6 +4,7 @@ import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_b
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
+import 'package:inker_studio/generated/l10n.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_info_divider.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/draggable_artist_rating_content.dart';
 import 'package:inker_studio/ui/customer/explore/widgets/draggable_artist_info_sheet/dragging_sheet_handler.dart';
@@ -12,7 +13,6 @@ import 'package:inker_studio/ui/shared/artist_work_section.dart';
 import 'package:inker_studio/ui/theme/text_style_theme.dart';
 import 'package:inker_studio/utils/bloc_navigator.dart';
 import 'package:inker_studio/utils/constants.dart';
-import 'package:inker_studio/utils/styles/app_styles.dart';
 
 class DraggableArtistInfoContent extends StatelessWidget {
   const DraggableArtistInfoContent({super.key});
@@ -54,14 +54,14 @@ class DraggableArtistInfoContent extends StatelessWidget {
                               DraggableArtistInfoSheetView.reviews));
                       draggableArtistReviewSheetBloc.add(
                           DraggableArtistReviewSheetEvent.loadReviews(
-                              artistId: selectedArtist!.id!));
+                              artistId: selectedArtist!.id));
                     },
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(width: 16),
                           Text(
-                            'Ver Reseñas',
+                            S.of(context).seeReviews,
                             style: TextStyleTheme.copyWith(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -93,9 +93,9 @@ class DraggableStatusRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Citas disponibles',
-            style: TextStyle(
+          Text(
+            S.of(context).appointmentsAvailable,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
               color: Colors.white,
@@ -111,9 +111,9 @@ class DraggableStatusRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          const Text(
-            'Abierto',
-            style: TextStyle(
+          Text(
+            S.of(context).open,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
               color: Colors.green,
@@ -163,7 +163,7 @@ class DraggableInfoBody extends StatelessWidget {
                     child: Text(shortDescription,
                         maxLines: 2,
                         style: TextStyleTheme.copyWith(
-                            color: tertiaryColor, fontSize: 14)),
+                            color: Theme.of(context).colorScheme.tertiary, fontSize: 14)),
                   ),
                 ],
               ),

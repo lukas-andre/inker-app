@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/domain/services/platform/platform_service.dart';
 
 class InkerProgressIndicator extends StatelessWidget {
   final Color? color;
@@ -15,7 +15,8 @@ class InkerProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS
+    final platformService = context.read<PlatformService>();
+    return platformService.isIOS
         ? CupertinoActivityIndicator(
             color: color ?? CupertinoColors.white,
           )

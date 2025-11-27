@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:inker_studio/data/api/fcm/api_fcm_service.dart';
 import 'package:inker_studio/domain/blocs/account_verification/account_verification_bloc.dart';
+import 'package:inker_studio/domain/services/geolocation/platform_geolocation_service.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda/artist_agenda_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_create_event/artist_agenda_create_event_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_agenda_event_detail/artist_agenda_event_detail_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist/artist_agenda_settings/artist_agenda_settings_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_app/artist_app_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_bio_cubit/artist_bio_cubit.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_profile/artist_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artist_reviews/artist_reviews_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist/artists_list/artists_list_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_location/artist_location_bloc.dart';
 import 'package:inker_studio/domain/blocs/artist_my_profile/artist_my_profile_bloc.dart';
-import 'package:inker_studio/domain/blocs/auth/auth_bloc.dart';
+import 'package:inker_studio/domain/blocs/artist_stencil/artist_stencil_bloc.dart';
+import 'package:inker_studio/features/auth_shared/bloc/auth/auth_bloc.dart'
+    show AuthBloc;
+import 'package:inker_studio/domain/blocs/customer/appointment/appointment_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer/customer_app/customer_app_bloc.dart';
+import 'package:inker_studio/domain/blocs/customer/inspiration_search/inspiration_search_bloc.dart';
 import 'package:inker_studio/domain/blocs/customer_my_profile/customer_my_profile_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_info_sheet/draggable_artist_info_sheet_bloc.dart';
 import 'package:inker_studio/domain/blocs/explorer/draggable_artist_review_sheet_bloc/draggable_artist_review_sheet_bloc.dart';
@@ -20,25 +28,43 @@ import 'package:inker_studio/domain/blocs/explorer/map/map_bloc.dart';
 import 'package:inker_studio/domain/blocs/gps/gps_bloc.dart';
 import 'package:inker_studio/domain/blocs/location/location_bloc.dart';
 import 'package:inker_studio/domain/blocs/notifications/notifications_bloc.dart';
-import 'package:inker_studio/domain/blocs/on_boarding/on_boarding_bloc.dart';
 import 'package:inker_studio/domain/blocs/quoation/customer_quotation_response/customer_quotation_response_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/artist/register_artist_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/customer/register_customer_bloc.dart';
-import 'package:inker_studio/domain/blocs/register/register_bloc.dart';
+import 'package:inker_studio/domain/blocs/quoation/quotation_list/quotation_list_bloc.dart';
+import 'package:inker_studio/features/onboarding/bloc/onboarding/onboarding_bloc.dart'
+    show OnBoardingBloc;
+import 'package:inker_studio/features/register/bloc/register/artist/register_artist_bloc.dart'
+    show RegisterArtistBloc;
+import 'package:inker_studio/features/register/bloc/register/customer/register_customer_bloc.dart'
+    show RegisterCustomerBloc;
+import 'package:inker_studio/features/register/bloc/register/register_bloc.dart'
+    show RegisterBloc;
 import 'package:inker_studio/domain/blocs/schedule_assistant/schedule_assistant_bloc.dart';
 import 'package:inker_studio/domain/blocs/settings/settings_bloc.dart';
+import 'package:inker_studio/domain/blocs/tattoo_generator/tattoo_generator_bloc.dart';
+import 'package:inker_studio/domain/blocs/available_time_slots/available_time_slots_bloc.dart';
+import 'package:inker_studio/domain/services/location/location_service.dart';
 import 'package:inker_studio/domain/services/notifications/fmc_service.dart';
+import 'package:inker_studio/domain/services/notifications/notifications_service.dart';
+import 'package:inker_studio/domain/services/session/local_session_service.dart';
+import 'package:inker_studio/domain/services/stencil/stencil_service.dart';
+import 'package:inker_studio/domain/services/tattoo_generator/tatto_generator_service.dart';
+import 'package:inker_studio/domain/services/work/work_service.dart';
 import 'package:inker_studio/ui/theme/app_theme_cubit.dart';
 import 'package:inker_studio/ui/theme/localization_cubit.dart';
-
 
 // ... rest of imports
 
 List<BlocProvider> buildBlocProviders(BuildContext context) {
   return [
     // Providers independientes (sin dependencias)
-    BlocProvider(create: (context) => GpsBloc(), lazy: false),
-    BlocProvider(create: (context) => LocationBloc()),
+    BlocProvider(
+        create: (context) => GpsBloc(
+              geolocationService: context.read<PlatformGeolocationService>(),
+            ),
+        lazy: false),
+    BlocProvider(create: (context) => LocationBloc(
+      geolocationService: context.read()
+    )),
     BlocProvider(create: (context) => OnBoardingBloc()),
     BlocProvider(create: (context) => RegisterBloc()),
     BlocProvider(create: (context) => LocalizationCubit()),
@@ -121,6 +147,13 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
       create: (context) => ArtistAgendaCreateEventBloc(
         customerService: context.read(),
         sessionService: context.read(),
+        agendaService: context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistAgendaSettingsBloc(
+        agendaService: context.read(),
+        sessionService: context.read(),
       ),
     ),
     BlocProvider(
@@ -139,6 +172,19 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     BlocProvider(
       create: (context) => ArtistMyProfileBloc(
         context.read(),
+        context.read<AuthBloc>(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistStencilBloc(
+        context.read<StencilService>(),
+        context.read<LocalSessionService>(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => ArtistLocationBloc(
+        context.read<LocationService>(),
+        context.read<LocalSessionService>(),
       ),
     ),
 
@@ -151,6 +197,12 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
     ),
     BlocProvider(
       create: (context) => ScheduleAssistantBloc(
+        agendaService: context.read(),
+        sessionService: context.read(),
+      ),
+    ),
+    BlocProvider(
+      create: (context) => AvailableTimeSlotsBloc(
         agendaService: context.read(),
         sessionService: context.read(),
       ),
@@ -174,15 +226,47 @@ List<BlocProvider> buildBlocProviders(BuildContext context) {
         sessionService: context.read(),
       ),
     ),
+    BlocProvider(
+      create: (context) => AppointmentBloc(
+        consentService: context.read(),
+        appointmentService: context.read(),
+        sessionService: context.read(),
+        agendaService: context.read(),
+      ),
+    ),
+
+    // Inspiration search provider
+    BlocProvider(
+      create: (context) => InspirationSearchBloc(
+        stencilService: context.read<StencilService>(),
+        workService: context.read<WorkService>(),
+        sessionService: context.read<LocalSessionService>(),
+      ),
+    ),
+
+    // Tattoo generator provider
+    BlocProvider(
+      create: (context) => TattooGeneratorBloc(
+        tattooGeneratorService: context.read<TattooGeneratorService>(),
+        sessionService: context.read<LocalSessionService>(),
+        tokenCubit: context.read(),
+      ),
+    ),
 
     // Notifications provider (should be last due to its dependencies)
     BlocProvider(
       lazy: false,
       create: (context) {
         final fcmService = context.read<FcmService>();
-        final bloc = NotificationsBloc(fcmService)
-          ..add(const NotificationsEvent.initialize());
+        final notificationsService = context.read<NotificationsService>();
+        final sessionService = context.read<LocalSessionService>();
+        final apiFcmService = context.read<ApiFcmService>();
+        final bloc =
+            NotificationsBloc(fcmService, notificationsService, sessionService)
+              ..add(const NotificationsEvent.initialize());
         fcmService.setBloc(bloc);
+        fcmService.setQuotationListBloc(context.read<QuotationListBloc>());
+        fcmService.setApiFcmService(apiFcmService);
         return bloc;
       },
     ),

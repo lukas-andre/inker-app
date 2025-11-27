@@ -7,14 +7,14 @@ part of 'artist.dart';
 // **************************************************************************
 
 _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      userId: (json['userId'] as num?)?.toInt(),
+      userId: json['userId'] as String?,
       username: json['username'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
@@ -42,6 +42,11 @@ _$ArtistImpl _$$ArtistImplFromJson(Map json) => _$ArtistImpl(
       review: json['review'] == null
           ? null
           : Review.fromJson(Map<String, dynamic>.from(json['review'] as Map)),
+      worksCount: (json['worksCount'] as num?)?.toInt(),
+      stencilsCount: (json['stencilsCount'] as num?)?.toInt(),
+      visibleWorksCount: (json['visibleWorksCount'] as num?)?.toInt(),
+      visibleStencilsCount: (json['visibleStencilsCount'] as num?)?.toInt(),
+      requiresBasicConsent: json['requiresBasicConsent'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
@@ -77,11 +82,16 @@ Map<String, dynamic> _$$ArtistImplToJson(_$ArtistImpl instance) {
   writeNotNull('distanceUnit', instance.distanceUnit);
   writeNotNull('distance', instance.distance);
   writeNotNull('review', instance.review?.toJson());
+  writeNotNull('worksCount', instance.worksCount);
+  writeNotNull('stencilsCount', instance.stencilsCount);
+  writeNotNull('visibleWorksCount', instance.visibleWorksCount);
+  writeNotNull('visibleStencilsCount', instance.visibleStencilsCount);
+  val['requiresBasicConsent'] = instance.requiresBasicConsent;
   return val;
 }
 
 _$ContactImpl _$$ContactImplFromJson(Map json) => _$ContactImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -114,7 +124,7 @@ Map<String, dynamic> _$$ContactImplToJson(_$ContactImpl instance) {
 }
 
 _$ServiceImpl _$$ServiceImplFromJson(Map json) => _$ServiceImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       name: json['name'] as String,
@@ -131,12 +141,13 @@ Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>
     };
 
 _$ReviewImpl _$$ReviewImplFromJson(Map json) => _$ReviewImpl(
-      artistId: (json['artistId'] as num?)?.toInt(),
+      artistId: json['artistId'] as String?,
       value: (json['value'] as num?)?.toDouble(),
       detail: (json['detail'] as Map?)?.map(
         (k, e) => MapEntry(k as String, (e as num).toInt()),
       ),
       count: (json['count'] as num?)?.toInt(),
+      avgRating: (json['avgRating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
@@ -152,5 +163,6 @@ Map<String, dynamic> _$$ReviewImplToJson(_$ReviewImpl instance) {
   writeNotNull('value', instance.value);
   writeNotNull('detail', instance.detail);
   writeNotNull('count', instance.count);
+  writeNotNull('avgRating', instance.avgRating);
   return val;
 }

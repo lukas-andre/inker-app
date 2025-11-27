@@ -23,7 +23,7 @@ Map<String, dynamic> _$SendVerificationCodeResponseToJson(
 SendVerificationCodeResponseData _$SendVerificationCodeResponseDataFromJson(
         Map json) =>
     SendVerificationCodeResponseData(
-      userId: (json['userId'] as num).toInt(),
+      userId: json['userId'] as String,
     );
 
 Map<String, dynamic> _$SendVerificationCodeResponseDataToJson(
